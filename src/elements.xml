@@ -1,0 +1,36 @@
+<DesignSystem name="ExtractedProject">
+  <ColorPalette>
+    <Background primary="#ffffff" secondary="#ffffff" tertiary="#ebeff4" />
+    <Surface card="0 0% 100%" popover="0 0% 100%" accent="#142333" />
+    <Text primary="#142333" primary-rgb="20, 35, 51" foreground="0 0% 3.9%" muted="215.4 16.3% 46.9%" />
+    <Status destructive="0 84.2% 60.2%" ring="222.2 84% 4.9%" />
+    <Accent color="210 40% 96%" secondary="#f6f6f6" tertiary="#e8e8ea" />
+  </ColorPalette>
+
+  <Typography>
+    <MainFont family="GeistSans, 'GeistSans Fallback'" weight="400" size="18px" />
+    <Metrics lineHeight="27px" letterSpacing="normal" textAlign="start" />
+    <Rendering smoothing="antialiased" />
+  </Typography>
+
+  <Layout>
+    <Dimensions defaultWidth="722px" inlineSize="722px" />
+    <Spacing paddingLateral="14.4375px" columnGap="43.2px" rowGap="43.2px" />
+    <Rounding baseRadius="0.5rem" />
+    <Borders color="rgb(226, 232, 240)" style="solid" width="0px" />
+  </Layout>
+
+  <ComponentTokens>
+    <CardSize type="large" height="calc(29rem * 0.9)" width="calc(31.35rem * 0.9)" />
+    <CardSize type="medium" height="calc(calc(29rem * 0.9) * 0.54)" width="calc(calc(31.35rem * 0.9) * 0.46)" />
+    <CardSize type="small" height="calc(calc(29rem * 0.9) * 0.32)" width="calc(calc(31.35rem * 0.9) * 0.28)" />
+    <CardSize type="window" height="calc(31rem * 0.9)" width="calc(33.5rem * 0.9)" />
+  </ComponentTokens>
+
+  <SystemVars>
+    <Variable name="--primary">222.2 47.4% 11.2%</Variable>
+    <Variable name="--secondary">210 40% 96%</Variable>
+    <Variable name="--accent-foreground">222.2 47.4% 11.2%</Variable>
+    <Variable name="--border">214.3 31.8% 91.4%</Variable>
+  </SystemVars>
+</DesignSystem>

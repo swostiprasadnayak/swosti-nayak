@@ -1,0 +1,97 @@
+/* FilterButton.module.css */
+
+.container {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    transform-origin: top left;
+    z-index: 100;
+}
+
+.dropdownInner {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    transform: translateZ(0);
+    min-width: 140px;
+}
+
+.filterOption {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 200ms ease;
+}
+
+.filterOption:hover {
+    background: #ffffff;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: rgba(var(--text-primary-rgb), 0.1);
+    transition: background-color 200ms ease;
+}
+
+.checkbox.checked {
+    background-color: rgba(var(--text-primary-rgb), 0.75);
+}
+
+.filterLabel {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(var(--text-primary-rgb), 0.75);
+    white-space: nowrap;
+}
+
+.buttonText {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-right: 0.25rem;
+    white-space: nowrap;
+}
+
+.chevron {
+    flex-shrink: 0;
+}
+
+.filterTrigger {
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.filterTrigger:focus-visible {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    /* subtle white glow instead of blue outline */
+}
+
+.filterTrigger:hover {
+    background-color: rgba(255, 255, 255, 1);
+}

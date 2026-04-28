@@ -1,0 +1,51 @@
+.container {
+    position: static;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    width: 340px;
+    /* Increased from 330px for more breathing room */
+    padding: 16px;
+    /* Standardized to 16px */
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Standardized to 16px */
+}
+
+.topRow {
+    display: flex;
+    gap: 16px;
+    /* Standardized to 16px */
+    align-items: stretch;
+    height: 160px;
+    /* Lock row height so both sides stay even */
+}
+
+.toggleColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Standardized to 16px */
+    width: 146px;
+    /* Exactly half of available space (340 - 32 - 16) / 2 */
+    flex: 0 0 146px;
+    /* Prevent shrinking or growing */
+}
+
+.musicWrapper {
+    flex: 1;
+    /* Restore flexibility to fill the row */
+    min-width: 0;
+    display: flex;
+}

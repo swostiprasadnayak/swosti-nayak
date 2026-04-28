@@ -1,0 +1,28 @@
+/* ScreenshotThumbnail.module.css */
+
+.container {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 10000;
+    cursor: pointer;
+    will-change: transform, opacity;
+}
+
+.thumbnailCard {
+    width: 200px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.95);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrapper {
+    overflow: hidden;
+}
+
+.thumbnailImage {
+    width: 100%;
+    height: auto;
+    display: block;
+}

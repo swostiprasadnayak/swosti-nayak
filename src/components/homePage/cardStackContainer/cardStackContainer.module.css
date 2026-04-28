@@ -1,0 +1,40 @@
+/* CardStackContainer.module.css */
+
+.stackWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+}
+
+.windowContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: none;
+    transform-style: flat;
+}
+
+.windowCardOuter {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    margin-left: calc(-1 * var(--card-window-width, 31.61rem) / 2);
+    margin-top: calc(-1 * var(--card-window-height, 29.32rem) / 2);
+    cursor: grab;
+    /* DO NOT use filter:drop-shadow here — it breaks backdrop-filter on children */
+}
+
+.windowCardOuter:active {
+    cursor: grabbing;
+}
+
+.windowCardWrapper {
+    width: fit-content;
+    height: fit-content;
+    will-change: transform, opacity;
+}

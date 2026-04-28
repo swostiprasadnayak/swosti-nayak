@@ -1,0 +1,67 @@
+/* controlButton.module.css */
+
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn {
+    background: var(--control-btn-bg) !important;
+    border: 1px solid var(--control-btn-border) !important;
+    color: var(--control-btn-icon) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+    border-radius: 14px; /* Squircle shape */
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.btn:hover {
+    background: var(--control-btn-hover);
+    transform: scale(1.04);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn.active {
+    outline: 2px solid rgba(50, 100, 200, 0.7);
+    outline-offset: 1px;
+}
+
+.label {
+    position: absolute;
+    bottom: calc(-100% - 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 5px 12px;
+    border-radius: 100px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 2000;
+}
+
+.wrapper:hover .label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+}

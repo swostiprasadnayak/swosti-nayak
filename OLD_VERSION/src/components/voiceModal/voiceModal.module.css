@@ -1,0 +1,144 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.15);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+}
+
+.modalContainer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.modalWrapper {
+    pointer-events: auto;
+    width: 28rem;
+    max-width: 90vw;
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+}
+
+.windowHeader {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: var(--bg-secondary);
+}
+
+.trafficLights {
+    display: flex;
+    gap: 6px;
+}
+
+.trafficLight {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trafficLight svg {
+    opacity: 0;
+}
+
+.modalWrapper:hover .trafficLight svg {
+    opacity: 0.7;
+}
+
+.contentArea {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 360px;
+}
+
+/* 3D Avatar Container */
+.avatarContainer {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.avatarVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+    mask-image: radial-gradient(circle, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
+}
+
+.avatarShadow {
+    position: absolute;
+    bottom: -10px;
+    width: 120px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(5px);
+    z-index: -1;
+}
+
+/* Subtle breathing animation for the video itself */
+.avatarFloat {
+    animation: avatarFloat 4s ease-in-out infinite;
+}
+
+@keyframes avatarFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-align: center;
+    min-height: 3rem;
+    line-height: 1.5;
+}
+
+.actionButton {
+    margin-top: auto;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.actionButton:hover {
+    background: var(--border-subtle);
+}

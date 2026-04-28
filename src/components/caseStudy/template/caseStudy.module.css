@@ -1,0 +1,291 @@
+.pageWrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: #FBFBFB;
+    padding: 60px 40px;
+    color: var(--text-primary);
+}
+
+.contentMaxWidth {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+/* Header */
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.title {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: -0.03em;
+    margin: 0;
+}
+
+.titleHighlight {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.tagsRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.tagPill {
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    background: transparent;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+}
+
+.voiceModeBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.techStackBtn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: #111;
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Grid Layouts & Sections */
+.heroMedia {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.textSection {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.sectionHeading {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.bodyText {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Interactive Notes Split View */
+.notesSection {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.notesSidebar {
+    position: sticky;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sidebarDate {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    padding-left: 12px;
+}
+
+.sidebarItem {
+    padding: 12px;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+}
+
+.sidebarItemActive {
+    background: #fff9c4;
+    color: #1a1a1a;
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.sidebarItemHeader {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.sidebarItemTime {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.notesBody {
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.notesPaper {
+    background: var(--bg-card);
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    min-height: 400px;
+}
+
+.noteDate {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.noteTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 16px 0;
+}
+
+.noteText {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.highlightedText {
+    background: #fff59d;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #111;
+    display: inline-block;
+    line-height: 1.5;
+}
+
+/* Highlights Reel */
+.highlightsReel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding-bottom: 20px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.highlightsReel::-webkit-scrollbar {
+    display: none;
+}
+
+.highlightCard {
+    min-width: 80%;
+    height: 400px;
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    scroll-snap-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ideas Board */
+.ideasGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.ideaSticky {
+    aspect-ratio: 1;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ideaSticky:hover {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+.chatGrid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    background: var(--bg-secondary);
+    padding: 24px;
+    border-radius: 20px;
+}
+
+.chatBubbleIncoming {
+    background: var(--border-strong);
+    color: var(--text-primary);
+    padding: 12px 16px;
+    border-radius: 18px 18px 18px 4px;
+    max-width: 80%;
+    font-size: 0.9rem;
+}
+
+.chatBubbleOutgoing {
+    background: #007aff;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 18px 18px 4px 18px;
+    max-width: 80%;
+    align-self: flex-end;
+    font-size: 0.9rem;
+}
+
+.fullWidthAsset {
+    width: 100%;
+    border-radius: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}

@@ -1,0 +1,63 @@
+/* controlButton.module.css */
+
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px; /* Squircle shape */
+    border: none;
+    background: var(--btn-bg);
+    cursor: pointer;
+    color: var(--btn-text);
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+}
+
+.btn:hover {
+    background: var(--btn-bg-hover);
+    transform: scale(1.04);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn.active {
+    outline: 2px solid rgba(50, 100, 200, 0.7);
+    outline-offset: 1px;
+}
+
+.label {
+    position: absolute;
+    bottom: calc(-100% - 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(220, 230, 240, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(30, 50, 70, 0.85);
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 5px 12px;
+    border-radius: 100px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.wrapper:hover .label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+}

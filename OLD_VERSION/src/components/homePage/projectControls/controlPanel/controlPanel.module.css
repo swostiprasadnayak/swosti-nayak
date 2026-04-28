@@ -1,0 +1,44 @@
+.container {
+    position: static;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    width: 330px;
+    padding: 16px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.topRow {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    height: 160px;
+    /* Lock row height so both sides stay even */
+}
+
+.toggleColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 141px;
+    /* Exactly half of available space (330 - 36 - 12) / 2 */
+    flex-shrink: 0;
+}
+
+.musicWrapper {
+    flex: 1;
+    /* Fill remaining space */
+    min-width: 0;
+    display: flex;
+}

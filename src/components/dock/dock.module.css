@@ -1,0 +1,80 @@
+/* Dock.module.css */
+
+.dockWrapper {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Keeps the dock perfectly centered */
+    z-index: 50;
+    /* Ensures it sits above blur layers */
+    width: fit-content;
+}
+
+.dock {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    /* Anchors icons to the bottom so they grow upwards */
+    gap: 14px;
+    padding: 0 18px 14px 18px;
+    /* Reduced vertical padding */
+    height: 64px;
+    /* Fixed height for the glass bar */
+}
+
+.dockBgFill {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: var(--bg-glass);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    backdrop-filter: blur(40px) saturate(180%);
+    z-index: -1;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-subtle);
+}
+
+.iconButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transform-origin: bottom;
+    /* Crucial for growing upwards */
+}
+
+.activeDot {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(20, 35, 51, 0.6);
+}
+
+.dockTooltip {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    translate: -50% 0;
+    background: var(--bg-card);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+}

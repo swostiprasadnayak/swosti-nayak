@@ -1,0 +1,1 @@
+I am attaching an XML file that defines my Design System. Please analyze the <Colors>, <Typography>, and <Spacing> nodes. For all future code generation in this chat, strictly use the hex codes, font weights, and spacing units defined in this file. Do not use default CSS values."

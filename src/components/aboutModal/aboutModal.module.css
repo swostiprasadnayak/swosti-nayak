@@ -1,0 +1,116 @@
+/* AboutModal.module.css */
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(var(--text-primary-rgb), 0.15);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    z-index: 60;
+}
+
+.modalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 61;
+    pointer-events: none;
+}
+
+.modalWrapper {
+    pointer-events: auto;
+    overflow: hidden;
+    width: 34rem;
+    max-width: calc(100vw - 48px);
+}
+
+.modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-card);
+    overflow: hidden;
+}
+
+.windowHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.6rem 0;
+    background: var(--bg-secondary);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.trafficLights {
+    display: flex;
+    padding: 0 0.8rem;
+    gap: 0.4rem;
+    align-items: center;
+    z-index: 1;
+}
+
+.trafficLight {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.trafficLight svg {
+    opacity: 0;
+}
+
+.modalWrapper:hover .trafficLight svg {
+    opacity: 0.7;
+}
+
+.windowTitle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(var(--text-primary-rgb), 0.5);
+    letter-spacing: 0.01em;
+}
+
+.trafficLightsPlaceholder {
+    width: 4rem;
+}
+
+.contentArea {
+    display: flex;
+    flex-direction: column;
+    padding: 48px 36px 56px;
+}
+
+.paragraph {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(var(--text-primary-rgb), 0.7);
+    margin: 0 0 16px 0;
+    letter-spacing: -0.01em;
+}
+
+.paragraph:last-child {
+    margin-bottom: 0;
+}
+
+.bold {
+    font-weight: 500;
+    color: rgba(var(--text-primary-rgb), 1);
+}

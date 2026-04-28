@@ -1,0 +1,43 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 16rem;
+    /* Leaves the main sidebar visible! Our sidebar is 16rem */
+    z-index: 1000;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    will-change: clip-path;
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    background: #ffffff;
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+.mainContainer {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+    background: #ffffff;
+}

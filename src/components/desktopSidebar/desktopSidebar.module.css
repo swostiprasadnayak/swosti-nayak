@@ -1,0 +1,193 @@
+.sidebar {
+    position: relative;
+    width: var(--sidebar-width);
+    height: 100%;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-subtle);
+    background: var(--glass-sidebar); /* This ensures it flips to dark mode! */
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    backdrop-filter: blur(60px) saturate(180%);
+    transform: translateZ(0); /* CRITICAL: Forces WebKit to render the blur */
+    z-index: 100; /* CRITICAL: Forces a new stacking context for the blur */
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarOpaque {
+    background: var(--bg-blur);
+}
+
+:global(body[data-code-reveal-open="true"]) .sidebar {
+    background: var(--bg-blur);
+}
+
+.sidebarContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--space-xl) var(--space-lg) 0 var(--space-lg);
+    justify-content: space-between;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.sidebarContent::-webkit-scrollbar {
+    display: none;
+}
+
+.topSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    flex: 1;
+}
+
+.bottomSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: 0;
+    padding-bottom: var(--space-3xl);
+    /* Ensures enough space below the last item for the dock */
+}
+
+.socialsHeading {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-weight: 600;
+    color: rgba(var(--text-primary-rgb), 0.4);
+    padding: 0 var(--space-md) var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-xs);
+    margin-left: calc(var(--space-md) * -1);
+}
+
+.socialsNavigation {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    /* Standardized gap */
+}
+
+.name {
+    display: block;
+    font-size: 1.05rem;
+    line-height: 130%;
+    letter-spacing: 0.015rem;
+    font-weight: 700;
+    /* Bolder for stronger branding */
+    color: var(--text-primary);
+    padding: var(--space-sm) var(--space-md);
+    width: calc(100% - (var(--space-md) * 2));
+    margin-left: calc(var(--space-md) * -1);
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.name:hover {
+    background-color: rgba(var(--text-primary-rgb), 0.05);
+}
+
+:global(html.ios-cursor-active) .name:hover {
+    background-color: transparent;
+}
+
+.bio {
+    font-size: 0.875rem;
+    font-weight: 400;
+    /* Was 300 — raised for legibility */
+    line-height: 155%;
+    color: rgba(var(--text-primary-rgb), 0.75);
+    /* Was 0.5 — raised for accessibility */
+    padding: 0 0.35rem;
+}
+
+.bioSecondary {
+    font-size: 0.875rem;
+    font-weight: 400;
+    /* Was 300 */
+    line-height: 155%;
+    color: rgba(var(--text-primary-rgb), 0.55);
+    /* Was 0.38 — raised */
+    padding: 0 0.35rem;
+    margin-top: 0.35rem;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.navItem {
+    display: block;
+    font-size: 0.9rem;
+    font-family: inherit;
+    line-height: 130%;
+    letter-spacing: 0.01rem;
+    font-weight: 400;
+    /* Was 300 — slightly more readable */
+    color: rgba(var(--text-primary-rgb), 0.65);
+    /* Was 0.5 */
+    padding: var(--space-sm) var(--space-md);
+    width: calc(100% - (var(--space-md) * 2));
+    margin-left: calc(var(--space-md) * -1);
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navItem:hover {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+:global(html.ios-cursor-active) .navItem:hover {
+    background-color: transparent;
+    color: rgba(var(--text-primary-rgb), 0.65);
+}
+
+.navItemActive {
+    color: var(--text-primary);
+    font-weight: 500;
+    background-color: rgba(var(--text-primary-rgb), 0.08);
+}
+
+.navItemActive:hover {
+    background-color: var(--bg-card);
+}
+
+.navItemFeedback {
+    color: var(--text-primary) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-glass) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.navItemFeedback:hover {
+    background-color: var(--bg-card) !important;
+}
+
+:global(html.ios-cursor-active) .navItemFeedback:hover {
+    background-color: var(--bg-glass) !important;
+}

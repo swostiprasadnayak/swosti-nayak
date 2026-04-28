@@ -1,0 +1,193 @@
+.sidebar {
+    position: relative;
+    width: 14rem;
+    height: 100%;
+    flex-shrink: 0;
+    border-right: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.15); /* Must be very transparent for blur to punch through */
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    backdrop-filter: blur(40px) saturate(150%);
+    z-index: 100; /* CRITICAL: forces a new stacking context for the blur */
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.sidebarOpaque {
+    background: rgba(255, 255, 255, 1);
+}
+
+:global(body[data-code-reveal-open="true"]) .sidebar {
+    background: rgba(255, 255, 255, 1);
+}
+
+.sidebarContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 3.5rem 1.75rem 0rem 1.75rem;
+    justify-content: space-between;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.sidebarContent::-webkit-scrollbar {
+    display: none;
+}
+
+.topSection {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    flex: 1;
+}
+
+.bottomSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0;
+    padding-bottom: 9rem;
+    /* Ensures enough space below the last item for the dock */
+}
+
+.socialsHeading {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-weight: 600;
+    color: rgba(var(--text-primary-rgb), 0.4);
+    padding: 0 14px 4px 14px;
+    margin-bottom: 0.25rem;
+    margin-left: -14px;
+}
+
+.socialsNavigation {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    /* More gap between name and bio */
+}
+
+.name {
+    display: block;
+    font-size: 1.05rem;
+    line-height: 130%;
+    letter-spacing: 0.015rem;
+    font-weight: 700;
+    /* Bolder for stronger branding */
+    color: var(--text-primary);
+    padding: 10px 14px;
+    width: calc(100% - 28px);
+    margin-left: -14px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.name:hover {
+    background-color: rgba(var(--text-primary-rgb), 0.05);
+}
+
+:global(html.ios-cursor-active) .name:hover {
+    background-color: transparent;
+}
+
+.bio {
+    font-size: 0.875rem;
+    font-weight: 400;
+    /* Was 300 — raised for legibility */
+    line-height: 155%;
+    color: rgba(var(--text-primary-rgb), 0.75);
+    /* Was 0.5 — raised for accessibility */
+    padding: 0 0.35rem;
+}
+
+.bioSecondary {
+    font-size: 0.875rem;
+    font-weight: 400;
+    /* Was 300 */
+    line-height: 155%;
+    color: rgba(var(--text-primary-rgb), 0.55);
+    /* Was 0.38 — raised */
+    padding: 0 0.35rem;
+    margin-top: 0.35rem;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.navItem {
+    display: block;
+    font-size: 0.9rem;
+    font-family: inherit;
+    line-height: 130%;
+    letter-spacing: 0.01rem;
+    font-weight: 400;
+    /* Was 300 — slightly more readable */
+    color: rgba(var(--text-primary-rgb), 0.65);
+    /* Was 0.5 */
+    padding: 10px 14px;
+    width: calc(100% - 28px);
+    margin-left: -14px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navItem:hover {
+    background-color: #ffffff;
+    color: var(--text-primary);
+}
+
+:global(html.ios-cursor-active) .navItem:hover {
+    background-color: transparent;
+    color: rgba(var(--text-primary-rgb), 0.65);
+}
+
+.navItemActive {
+    color: var(--text-primary);
+    font-weight: 500;
+    background-color: rgba(var(--text-primary-rgb), 0.08);
+}
+
+.navItemActive:hover {
+    background-color: #ffffff;
+}
+
+.navItemFeedback {
+    color: var(--text-primary) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.navItemFeedback:hover {
+    background-color: rgba(255, 255, 255, 1) !important;
+}
+
+:global(html.ios-cursor-active) .navItemFeedback:hover {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}

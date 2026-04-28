@@ -1,0 +1,19 @@
+/* ControlsRow.module.css */
+
+.controlsRow {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px; /* Space between individual buttons */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.controlsRow:has([data-code-reveal-active="true"])>*:not(:last-child) {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+}

@@ -1,0 +1,21 @@
+/* controlsRow.module.css */
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Reduced gap since they are grouped */
+  background: var(--controls-row-bg, transparent);
+  border-radius: 18px;
+  padding: var(--controls-row-padding, 0);
+  border: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Preserve code-reveal fade behaviour */
+.controlsContainer:has([data-code-reveal-active="true"]) > *:not(:last-child) {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
