@@ -21,7 +21,7 @@ const EXIT_ANIMATION = {
     y: -800,
     rotate: -5,
     filter: "blur(8px)",
-    transition: { type: "spring" as const, bounce: 0, duration: 3 },
+    transition: { type: "spring" as const, bounce: 0, duration: 1 },
 };
 
 const Card: React.FC<CardProps> = ({
@@ -87,7 +87,8 @@ const Card: React.FC<CardProps> = ({
                     <motion.div
                         style={{ width, height, position: "relative" }}
                         whileHover={{
-                            scale: 1.01,
+                            scale: 1.04,
+                            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.25)",
                             transition: { type: "spring", bounce: 0, duration: 0.25 },
                         }}
                     >

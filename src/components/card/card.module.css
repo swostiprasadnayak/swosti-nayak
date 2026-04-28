@@ -45,9 +45,9 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: rgba(var(--text-primary-rgb), 0.5);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(var(--text-primary-rgb), 0.75);
     letter-spacing: 0.01em;
 }
 

@@ -4,7 +4,27 @@
       "Bash(git init:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(brew install:*)",
+      "Bash(gh auth:*)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(pkill -f \"gh auth login\")",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__form_input",
+      "mcp__Claude_in_Chrome__read_page",
+      "Bash(git -c credential.helper= push https://ghp_HYRJrFgIcuK6gALLspNWI9CtWjX1i904KhIR@github.com/swostiprasadnayak/swosti-nayak.git main)",
+      "Bash(GIT_ASKPASS=/bin/echo PASS=ghp_HYRJrFgIcuK6gALLspNWI9CtWjX1i904KhIR git push https://swostiprasadnayak:ghp_HYRJrFgIcuK6gALLspNWI9CtWjX1i904KhIR@github.com/swostiprasadnayak/swosti-nayak.git main)",
+      "Bash(GIT_ASKPASS=/bin/echo PASS=ghp_HYRJrFgIcuK6gALLspNWI9CtWjX1i904KhIR git push https://ghp_HYRJrFgIcuK6gALLspNWI9CtWjX1i904KhIR@github.com/swostiprasadnayak/swosti-nayak.git main)",
+      "Bash(git credential:*)",
+      "mcp__Claude_in_Chrome__tabs_create_mcp",
+      "Bash(npm run:*)",
+      "Bash(open http://localhost:3001)",
+      "Bash(killall -9 node)",
+      "Read(//tmp/**)",
+      "Bash(kill -9 41686)"
     ]
   }
 }

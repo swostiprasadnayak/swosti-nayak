@@ -6,7 +6,7 @@
   /* Global Foreground */
   --text-primary: #111827;
   --text-primary-rgb: 17, 24, 39;
-  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-secondary: rgba(0, 0, 0, 0.78);
 
   /* Global Backgrounds */
   --bg-primary: #e5e5e5;
@@ -21,8 +21,8 @@
   --glass-sidebar: rgba(255, 255, 255, 0.15) !important; 
 
   /* Borders */
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.12);
+  --border-subtle: rgba(0, 0, 0, 0.15);
+  --border-strong: rgba(0, 0, 0, 0.22);
 
   /* Spacing Grid (16px base) */
   --space-unit: 16px;
@@ -56,7 +56,7 @@
   /* Global Foreground */
   --text-primary: #ffffff;
   --text-primary-rgb: 255, 255, 255;
-  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-secondary: rgba(255, 255, 255, 0.85);
 
   /* Global Backgrounds */
   --bg-primary: #000000;
@@ -69,8 +69,8 @@
   --glass-sidebar: rgba(0, 0, 0, 0.35);
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.25);
 
   /* Buttons */
   --btn-bg: rgba(255, 255, 255, 0.12);
