@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/buildCodeDB.mjs && next dev",
-    "build": "next build",
+    "build": "node scripts/buildCodeDB.mjs && next build",
     "start": "next start",
     "lint": "eslint"
   },
