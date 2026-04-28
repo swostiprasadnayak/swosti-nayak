@@ -107,8 +107,8 @@
     font-weight: 400;
     /* Was 300 — raised for legibility */
     line-height: 155%;
-    color: rgba(var(--text-primary-rgb), 0.75);
-    /* Was 0.5 — raised for accessibility */
+    color: var(--text-secondary);
+    /* Using CSS variable for consistent contrast */
     padding: 0 0.35rem;
 }
 
@@ -117,8 +117,8 @@
     font-weight: 400;
     /* Was 300 */
     line-height: 155%;
-    color: rgba(var(--text-primary-rgb), 0.55);
-    /* Was 0.38 — raised */
+    color: var(--text-secondary);
+    /* Using CSS variable for consistent contrast */
     padding: 0 0.35rem;
     margin-top: 0.35rem;
 }
@@ -137,8 +137,8 @@
     letter-spacing: 0.01rem;
     font-weight: 400;
     /* Was 300 — slightly more readable */
-    color: rgba(var(--text-primary-rgb), 0.65);
-    /* Was 0.5 */
+    color: var(--text-secondary);
+    /* Using CSS variable for consistent contrast */
     padding: var(--space-sm) var(--space-md);
     width: calc(100% - (var(--space-md) * 2));
     margin-left: calc(var(--space-md) * -1);
