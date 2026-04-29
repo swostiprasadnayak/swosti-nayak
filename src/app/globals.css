@@ -77,10 +77,10 @@
   --btn-bg-hover: rgba(255, 255, 255, 0.22);
   --btn-text: var(--text-primary);
   /* Top Right Control Buttons - Dark Mode */
-  --control-btn-bg: rgba(0, 0, 0, 0.4); 
-  --control-btn-border: rgba(255, 255, 255, 0.1);
-  --control-btn-icon: #f3f4f6;
-  --control-btn-hover: rgba(0, 0, 0, 0.5);
+  --control-btn-bg: rgba(0, 0, 0, 0.4) !important;
+  --control-btn-border: rgba(255, 255, 255, 0.1) !important;
+  --control-btn-icon: #f3f4f6 !important;
+  --control-btn-hover: rgba(0, 0, 0, 0.5) !important;
 
   /* Slider Track & Fill - Dark Mode */
   --slider-track: rgba(0, 0, 0, 0.4);       /* Dark pill background */

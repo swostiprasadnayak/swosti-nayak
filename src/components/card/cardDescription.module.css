@@ -4,23 +4,23 @@
 }
 
 .descriptionContainer {
-    background: rgba(0, 0, 0, 0.35);
-    -webkit-backdrop-filter: blur(30px) saturate(150%);
-    backdrop-filter: blur(30px) saturate(150%);
-    padding: 14px 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    background: var(--bg-card);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .descText {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.90);
+    color: var(--text-primary);
     line-height: 1.4;
     white-space: normal;
     overflow: visible;
@@ -29,16 +29,16 @@
 
 .tagsContainer {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .tag {
     font-size: 0.7rem;
-    padding: 3px 10px;
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 8px;
+    background: var(--bg-blur);
+    border: 1px solid var(--border-subtle);
     border-radius: 100px;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--text-secondary);
     font-weight: 500;
 }
