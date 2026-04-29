@@ -12,7 +12,10 @@ import { useVideoPlayback } from "@/app/hooks/useVideoPlayback";
 
 const VIDEO_POSITIONS: Record<string, string> = {
     syne: "center bottom",
-    blinkit: "center top",
+};
+
+const VIDEO_FIT: Record<string, "cover" | "contain"> = {
+    blinkit: "contain",
 };
 
 const CARD_BG_COLORS: Record<string, string> = {
@@ -57,8 +60,8 @@ const Card: React.FC<CardProps> = ({
         () => ({
             width: "100%",
             height: "100%",
-            objectFit: "cover" as const,
-            objectPosition: VIDEO_POSITIONS[slug] ?? "left top",
+            objectFit: (VIDEO_FIT[slug] ?? "cover") as "cover" | "contain",
+            objectPosition: VIDEO_POSITIONS[slug] ?? "center",
         }),
         [slug]
     );
