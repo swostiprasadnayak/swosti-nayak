@@ -9,10 +9,10 @@ export type WindowModeAPI = {
 };
 
 export function useWindowMode(): WindowModeAPI {
-    // Start with one window open by default to improve startup performance
-    const [openWindows, setOpenWindows] = useState<string[]>(["syne"]);
-    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ syne: 1 });
-    const [topZ, setTopZ] = useState(1);
+    // Open Surrounding (syne) and Unicef on startup
+    const [openWindows, setOpenWindows] = useState<string[]>(["syne", "unicef"]);
+    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ syne: 1, unicef: 2 });
+    const [topZ, setTopZ] = useState(2);
 
     const bringToFront = useCallback((slug: string) => {
         setOpenWindows((prev) => {
@@ -35,9 +35,11 @@ export function useWindowMode(): WindowModeAPI {
     const getPosition = useCallback((slug: string) => {
         // Initial staggered positions so they stack nicely like a desktop
         const positions: Record<string, { x: number, y: number }> = {
-            syne: { x: -120, y: -60 },
-            lighthouse: { x: 0, y: 0 },
-            aristotle: { x: 120, y: 60 }
+            syne:      { x: -140, y: -50 },
+            unicef:    { x:   60, y:  30 },
+            blinkit:   { x:  120, y:  60 },
+            aristotle: { x:    0, y:   0 },
+            "pid-tool":{ x:   80, y:  20 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, []);

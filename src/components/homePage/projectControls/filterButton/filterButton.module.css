@@ -17,10 +17,10 @@
     flex-direction: column;
     padding: 0.5rem;
     background: var(--bg-card);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    transform: translateZ(0);
+    -webkit-backdrop-filter: blur(40px) saturate(160%);
+    backdrop-filter: blur(40px) saturate(160%);
     min-width: 140px;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .filterOption {

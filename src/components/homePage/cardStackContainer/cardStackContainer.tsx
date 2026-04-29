@@ -44,7 +44,13 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     windowModeState,
 }) => {
     const filteredProjects = useMemo(() => {
-        if (activeFilters.length === 0) return PROJECTS;
+        if (activeFilters.length === 0 || activeFilters.includes("All Works")) {
+            // All Works: Unicef, Blinkit, Surrounding only
+            return PROJECTS.filter((p) => ["unicef", "syne", "blinkit"].includes(p.slug));
+        }
+        if (activeFilters.includes("Featured")) {
+            return PROJECTS.filter((p) => p.slug === "unicef");
+        }
         return PROJECTS.filter((project) =>
             project.tags?.some((tag) => activeFilters.includes(tag))
         );
