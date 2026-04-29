@@ -13,11 +13,11 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                     gap: "14px",
                     padding: "14px 16px",
                     background: isActive
-                        ? "rgba(0, 0, 0, 0.75)"
-                        : "rgba(0, 0, 0, 0.06)",
-                    color: isActive ? "#fff" : "var(--text-primary)",
+                        ? "var(--text-primary)"
+                        : "var(--bg-glass)",
+                    color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
                     backdropFilter: "blur(20px)",
-                    border: "none",
+                    border: "1px solid var(--border-subtle)",
                     width: "100%",
                     boxSizing: "border-box",
                 }}
@@ -28,7 +28,7 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                     borderRadius: "50%",
                     background: isActive
                         ? "rgba(255,255,255,0.18)"
-                        : "rgba(0, 0, 0, 0.08)",
+                        : "rgba(var(--text-primary-rgb), 0.07)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -40,7 +40,7 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                     fontSize: "0.95rem",
                     fontWeight: 600,
                     letterSpacing: "-0.01em",
-                    color: isActive ? "#fff" : "var(--text-primary)",
+                    color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
                 }}>
                     {label}
                 </span>
