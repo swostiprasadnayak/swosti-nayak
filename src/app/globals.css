@@ -117,18 +117,9 @@ body {
   .desktop-controls {
     display: none !important;
   }
-
-  /* Show mobile menus on mobile */
-  .mobile-nav-only {
-    display: block !important;
-  }
-
-  .mobile-controls-only {
-    display: block !important;
-  }
 }
 
-/* Hide mobile menus on desktop */
+/* Hide mobile only on desktop */
 @media (min-width: 769px) {
   .mobile-nav-only {
     display: none !important;

@@ -1,32 +1,20 @@
-/* Mobile Navigation Menu */
+/* Mobile Navigation - Swosti Text with Dropdown */
 
-.navMenuWrapper {
+.navWrapper {
     display: none;
     position: relative;
     z-index: 200;
 }
 
-.navButton {
-    background: var(--control-btn-bg) !important;
-    border: 1px solid var(--control-btn-border) !important;
-    color: var(--control-btn-icon) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    backdrop-filter: blur(24px) saturate(150%);
-    border-radius: 14px;
-    padding: 8px 16px;
+.navText {
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 500;
-    outline: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.navButton:active {
-    transform: scale(0.96);
+    color: var(--text-primary);
+    user-select: none;
 }
 
 .overlay {
@@ -37,14 +25,14 @@
 
 .dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 12px);
     left: 0;
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    min-width: 140px;
+    min-width: 160px;
     z-index: 190;
 }
 
@@ -61,9 +49,10 @@
     color: var(--text-primary);
     cursor: pointer;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 400;
     transition: background 0.2s ease;
     text-align: left;
+    text-decoration: none;
 }
 
 .navItem:hover {
@@ -82,9 +71,24 @@
     background: rgba(255, 255, 255, 0.15);
 }
 
+.divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 4px 0;
+}
+
+.sectionLabel {
+    padding: 8px 16px 4px 16px;
+    font-size: 0.75rem;
+    color: rgba(var(--text-primary-rgb), 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
 /* Show on mobile */
 @media (max-width: 768px) {
-    .navMenuWrapper {
+    .navWrapper {
         display: block;
     }
 }
