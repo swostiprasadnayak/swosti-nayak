@@ -39,7 +39,7 @@ export default function ExpandedProject({ projectName, onClose, layoutId }: Expa
                             <div className={classes.trafficLightsPlaceholder} />
                         </div>
                         <div className={classes.content}>
-                            {projectName?.toLowerCase() === 'syne' && <CaseStudyTemplate />}
+                            {(projectName?.toLowerCase() === 'syne' || projectName?.toLowerCase() === 'surrounding') && <CaseStudyTemplate />}
                             {projectName?.toLowerCase() === 'unicef' && <UnicefCaseStudyTemplate />}
                             {/* Fallback for other projects temporarily */}
                             {projectName && projectName.toLowerCase() !== 'syne' && projectName.toLowerCase() !== 'unicef' && (

@@ -24,7 +24,11 @@
       "Bash(open http://localhost:3001)",
       "Bash(killall -9 node)",
       "Read(//tmp/**)",
-      "Bash(kill -9 41686)"
+      "Bash(kill -9 41686)",
+      "Bash(cp \"/Users/swosti.nayak/Downloads/qjpddFC6MfnuTv28D6LVGt5gDM.mp4\" \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/syne-iot.mp4\")",
+      "Bash(python3 -c ':*)",
+      "Bash(avconvert --preset PresetHighestQuality --source \"/tmp/blinkit-raw.mov\" --output \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\" --replace)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

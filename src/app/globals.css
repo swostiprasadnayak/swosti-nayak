@@ -113,9 +113,13 @@ body {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  /* Hide desktop controls on mobile */
   .desktop-controls {
     display: none !important;
+  }
+
+  /* Show mobile blocker */
+  .mobile-blocker {
+    display: flex !important;
   }
 }
 

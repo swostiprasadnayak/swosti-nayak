@@ -11,10 +11,12 @@ import { PROJECTS } from "@/app/types/projects.types";
 import { useVideoPlayback } from "@/app/hooks/useVideoPlayback";
 
 const VIDEO_POSITIONS: Record<string, string> = {
-    Aristotle: "center top",
-    Syne: "center bottom",
-    Lighthouse: "85% top",
-    "P&ID tool": "center bottom",
+    syne: "center bottom",
+    blinkit: "center top",
+};
+
+const CARD_BG_COLORS: Record<string, string> = {
+    blinkit: "#EAEAEA",
 };
 
 const EXIT_ANIMATION = {
@@ -41,10 +43,11 @@ const Card: React.FC<CardProps> = ({
 }) => {
     const [isHovered, setIsHovered] = useState(false);
 
-    const projectTags = useMemo(() => {
-        const project = PROJECTS.find((p) => p.name === projectName);
-        return project?.tags;
-    }, [projectName]);
+    const project = useMemo(() => PROJECTS.find((p) => p.name === projectName), [projectName]);
+    const projectTags = project?.tags;
+    const isDisabled = project?.disabled ?? false;
+    const slug = project?.slug ?? "";
+    const cardBg = CARD_BG_COLORS[slug];
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const shouldPlay = !isProjectExpanded;
@@ -55,14 +58,15 @@ const Card: React.FC<CardProps> = ({
             width: "100%",
             height: "100%",
             objectFit: "cover" as const,
-            objectPosition: VIDEO_POSITIONS[projectName] ?? "left top",
+            objectPosition: VIDEO_POSITIONS[slug] ?? "left top",
         }),
-        [projectName]
+        [slug]
     );
 
     const expandProject = useCallback(() => {
+        if (isDisabled) return;
         onExpandProject?.(projectName);
-    }, [onExpandProject, projectName]);
+    }, [onExpandProject, projectName, isDisabled]);
 
     const handleClick = useCallback(
         (e: React.MouseEvent) => {
@@ -77,7 +81,7 @@ const Card: React.FC<CardProps> = ({
             {!isExiting && (
                 <motion.div
                     className={classes.cardContainer}
-                    style={{ zIndex }}
+                    style={{ zIndex, cursor: isDisabled ? "default" : "pointer" }}
                     onClick={handleClick}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
@@ -87,7 +91,7 @@ const Card: React.FC<CardProps> = ({
                     <motion.div
                         style={{ width, height, position: "relative" }}
                         whileHover={{
-                            scale: 1.04,
+                            scale: isDisabled ? 1.01 : 1.04,
                             boxShadow: "0 20px 50px rgba(0, 0, 0, 0.25)",
                             transition: { type: "spring", bounce: 0, duration: 0.25 },
                         }}
@@ -103,15 +107,19 @@ const Card: React.FC<CardProps> = ({
                                 <div className={classes.windowHeader}>
                                     <TrafficLights
                                         onClose={onCloseWindow}
-                                        onExpand={expandProject}
-                                        visible={isHovered}
+                                        onExpand={isDisabled ? undefined : expandProject}
+                                        visible={isHovered && !isDisabled}
                                     />
                                     <span className={classes.windowTitle}>{projectName}</span>
                                     <div className={classes.trafficLightsPlaceholder} />
                                 </div>
 
                                 <div className={classes.contentArea}>
-                                    <Squircle className={classes.videoContainer} cornerRadius={8}>
+                                    <Squircle
+                                        className={classes.videoContainer}
+                                        cornerRadius={8}
+                                        style={cardBg ? { background: cardBg } : undefined}
+                                    >
                                         {video ? (
                                             <video
                                                 ref={videoRef}
