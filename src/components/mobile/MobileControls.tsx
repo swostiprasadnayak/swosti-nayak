@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import classes from "./mobileControls.module.css";
 import { Menu } from "lucide-react";
-import ControlsRow from "@/components/homePage/projectControls/controlsRow/controlsRow";
 import ThemeToggle from "@/components/homePage/projectControls/themeToggle/themeToggle";
 import ControlButton from "@/components/ui/controlButton/controlButton";
 import ControlPanel from "@/components/homePage/projectControls/controlPanel/controlPanel";
@@ -28,20 +27,6 @@ export default function MobileControls({
 
   return (
     <div className={classes.controlsWrapper}>
-      {/* Desktop-style ControlsRow - reuse existing components */}
-      <ControlsRow>
-        <ThemeToggle />
-        <ControlButton label="Voice mode" onClick={onVoiceMode}>
-          <AudioLines size={20} strokeWidth={2} />
-        </ControlButton>
-        <ControlPanel
-          imageIndex={imageIndex}
-          onImageToggle={onImageToggle}
-          onScreenshot={onScreenshot}
-        />
-        <CodeRevealToggle />
-      </ControlsRow>
-
       {/* Menu button */}
       <div className={classes.menuContainer}>
         <button
@@ -52,7 +37,7 @@ export default function MobileControls({
           <Menu size={20} />
         </button>
 
-        {/* Dropdown menu - future use */}
+        {/* Dropdown menu with 4 control buttons */}
         <AnimatePresence>
           {isMenuOpen && (
             <>
@@ -71,7 +56,19 @@ export default function MobileControls({
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Future menu items */}
+                {/* Controls inside menu - horizontal */}
+                <div className={classes.controlsInMenu}>
+                  <ThemeToggle />
+                  <ControlButton label="Voice" onClick={onVoiceMode}>
+                    <AudioLines size={20} strokeWidth={2} />
+                  </ControlButton>
+                  <ControlPanel
+                    imageIndex={imageIndex}
+                    onImageToggle={onImageToggle}
+                    onScreenshot={onScreenshot}
+                  />
+                  <CodeRevealToggle />
+                </div>
               </motion.div>
             </>
           )}
