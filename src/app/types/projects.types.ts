@@ -4,44 +4,50 @@ export type ProjectContent = {
     description: string;
     tags?: string[];
     video?: string;
+    hoverImage?: string;
     demo?: string;
     demoPoster?: string;
+    disabled?: boolean; // if true, clicking card does nothing
 };
 
 export const PROJECTS: ProjectContent[] = [
     {
-        name: "Syne",
-        slug: "syne",
-        description: "Supporting industrial design students to visualise and validate 3D models in realistic scales and environments with XR & AI.",
-        tags: ["UX", "AI", "XR", "Flutter", "Next.js"],
-        demoPoster: "/images/project-1.jpg"
-    },
-    {
-        name: "Lighthouse",
-        slug: "lighthouse",
-        description: "Scalable design system architecture.",
-        tags: ["Interaction", "Systems"],
-        demoPoster: "/images/project-2.jpg"
-    },
-    {
-        name: "Aristotle",
-        slug: "aristotle",
-        description: "Internal AI platform",
-        tags: ["AI", "Interaction"],
-        demoPoster: "/images/project-3.jpg"
-    },
-    {
         name: "Unicef",
         slug: "unicef",
-        description: "Resource hub structural improvements.",
+        description: "Building a global education data portal with AI to track learning outcomes for every child.",
         tags: ["Interaction", "Web"],
         demoPoster: "/images/project-4.jpg"
     },
     {
-        name: "P&ID tool",
+        name: "Surrounding",
+        slug: "syne",
+        description: "Designing a Multi-sensory IoT ecosystem for adaptive home environments based on emotional, activity-based feedback and a Smell Vocabulary of base Odorants.",
+        tags: ["UX", "AI", "XR", "Flutter", "Next.js"],
+        video: "/videos/syne-iot.mp4",
+        demoPoster: "/images/project-1.jpg"
+    },
+    {
+        name: "Blinkit",
+        slug: "blinkit",
+        description: "AI-powered grocery delivery experience redesign.",
+        tags: ["Interaction", "Systems"],
+        video: "/videos/blinkit.mp4",
+        demoPoster: "/images/project-2.jpg"
+    },
+    {
+        name: "Dynamic Map",
+        slug: "aristotle",
+        description: "Interactive dynamic mapping platform.",
+        tags: ["AI", "Interaction"],
+        demoPoster: "/images/project-3.jpg",
+        disabled: true
+    },
+    {
+        name: "Adversal AI Model",
         slug: "pid-tool",
-        description: "Process and instrumentation design app.",
+        description: "Adversarial AI model research and design.",
         tags: ["Enterprise", "App"],
-        demoPoster: "/images/project-5.jpg"
+        demoPoster: "/images/project-5.jpg",
+        disabled: true
     }
 ];
