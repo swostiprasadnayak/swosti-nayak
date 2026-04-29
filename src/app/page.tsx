@@ -19,8 +19,6 @@ import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealTo
 import ScreenshotThumbnail from "@/components/screenshot/screenshotThumbnail";
 import MobileNav from "@/components/mobile/MobileNav";
 import MobileControls from "@/components/mobile/MobileControls";
-import MobileBlocker from "@/components/mobile/MobileBlocker";
-import WidgetsGrid from "@/components/homePage/widgets/WidgetsGrid";
 import { useWindowMode } from "@/app/hooks/useWindowMode";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
@@ -132,25 +130,6 @@ export default function Home() {
           />
         </div>
 
-        {/* Widgets Grid - iOS-style home-screen widgets */}
-        <div
-          className="widgets-section"
-          style={{
-            position: 'absolute',
-            top: 90,
-            left: 0,
-            right: 0,
-            display: 'flex',
-            justifyContent: 'center',
-            pointerEvents: 'none',
-            zIndex: 5,
-          }}
-        >
-          <div style={{ pointerEvents: 'auto', width: '100%' }}>
-            <WidgetsGrid />
-          </div>
-        </div>
-
         <CardStackContainer
           isExiting={false}
           activeFilters={activeFilters}
@@ -178,9 +157,6 @@ export default function Home() {
           }}
         />
       </div>
-
-      {/* Mobile blocker overlay */}
-      <MobileBlocker />
 
       {/* 3. The Modals */}
       <AboutModal />

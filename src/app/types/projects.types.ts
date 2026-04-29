@@ -4,50 +4,44 @@ export type ProjectContent = {
     description: string;
     tags?: string[];
     video?: string;
-    hoverImage?: string;
     demo?: string;
     demoPoster?: string;
-    disabled?: boolean; // if true, clicking card does nothing
 };
 
 export const PROJECTS: ProjectContent[] = [
     {
-        name: "Unicef",
-        slug: "unicef",
-        description: "Building a global education data portal with AI to track learning outcomes for every child.",
-        tags: ["Interaction", "Web"],
-        demoPoster: "/images/unicef-portal-sm.jpg"
-    },
-    {
-        name: "Surrounding",
+        name: "Syne",
         slug: "syne",
-        description: "Designing a Multi-sensory IoT ecosystem for adaptive home environments based on emotional, activity-based feedback and a Smell Vocabulary of base Odorants.",
+        description: "Supporting industrial design students to visualise and validate 3D models in realistic scales and environments with XR & AI.",
         tags: ["UX", "AI", "XR", "Flutter", "Next.js"],
-        video: "/videos/syne-iot.mp4",
         demoPoster: "/images/project-1.jpg"
     },
     {
-        name: "Blinkit",
-        slug: "blinkit",
-        description: "AI-powered grocery delivery experience redesign.",
+        name: "Lighthouse",
+        slug: "lighthouse",
+        description: "Scalable design system architecture.",
         tags: ["Interaction", "Systems"],
-        video: "/videos/blinkit.mp4",
-        demoPoster: "/images/blinkit-poster.jpg"
+        demoPoster: "/images/project-2.jpg"
     },
     {
-        name: "Dynamic Map",
+        name: "Aristotle",
         slug: "aristotle",
-        description: "Interactive dynamic mapping platform.",
+        description: "Internal AI platform",
         tags: ["AI", "Interaction"],
-        demoPoster: "/images/project-3.jpg",
-        disabled: true
+        demoPoster: "/images/project-3.jpg"
     },
     {
-        name: "Adversal AI Model",
+        name: "Unicef",
+        slug: "unicef",
+        description: "Resource hub structural improvements.",
+        tags: ["Interaction", "Web"],
+        demoPoster: "/images/project-4.jpg"
+    },
+    {
+        name: "P&ID tool",
         slug: "pid-tool",
-        description: "Adversarial AI model research and design.",
+        description: "Process and instrumentation design app.",
         tags: ["Enterprise", "App"],
-        demoPoster: "/images/project-5.jpg",
-        disabled: true
+        demoPoster: "/images/project-5.jpg"
     }
 ];

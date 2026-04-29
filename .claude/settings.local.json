@@ -24,18 +24,7 @@
       "Bash(open http://localhost:3001)",
       "Bash(killall -9 node)",
       "Read(//tmp/**)",
-      "Bash(kill -9 41686)",
-      "Bash(rsync -a \"/Users/swosti.nayak/Downloads/Blinkit/Screen Recording 2026-03-06 at 10.47.56 AM.mov\" \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mov\")",
-      "Bash(python3 -c \"import shutil; shutil.copy\\('/Users/swosti.nayak/Downloads/Blinkit/Screen Recording 2026-03-06 at 10.47.56 AM.mov', '/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mov'\\)\")",
-      "Bash(xxd)",
-      "Bash(python3 -c ':*)",
-      "Bash(ffmpeg -i \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mov\" -vcodec h264 -acodec aac -movflags +faststart \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\" -y)",
-      "Bash(python3 -c \"import subprocess; result = subprocess.run\\(['python3', '-m', 'pip', 'show', 'moviepy'], capture_output=True, text=True\\); print\\(result.stdout\\)\")",
-      "Bash(avconvert --help)",
-      "Bash(avconvert -p PresetHEVC1920x1080 -s \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mov\" -o \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\")",
-      "Bash(avconvert --preset PresetHEVC1920x1080 --source \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mov\" --output \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\")",
-      "Bash(avconvert --preset PresetH264Wireless --source \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit-raw.mov\" --output \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\")",
-      "Bash(avconvert --preset PresetHighestQuality --source \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit-raw.mov\" --output \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\" --replace)"
+      "Bash(kill -9 41686)"
     ]
   }
 }
