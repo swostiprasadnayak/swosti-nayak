@@ -18,6 +18,11 @@ const VIDEO_FIT: Record<string, "cover" | "contain"> = {
     blinkit: "contain",
 };
 
+// Slugs where demoPoster should be contained with padding instead of cropped
+const POSTER_CONTAIN: Record<string, boolean> = {
+    unicef: true,
+};
+
 const CARD_BG_COLORS: Record<string, string> = {
     blinkit: "#EAEAEA",
 };
@@ -135,7 +140,17 @@ const Card: React.FC<CardProps> = ({
                                                 style={videoStyle}
                                             />
                                         ) : demoPoster ? (
-                                            <img src={demoPoster} alt={projectName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            <img
+                                                src={demoPoster}
+                                                alt={projectName}
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: POSTER_CONTAIN[slug] ? 'contain' : 'cover',
+                                                    padding: POSTER_CONTAIN[slug] ? '10px 8px' : 0,
+                                                    boxSizing: 'border-box',
+                                                }}
+                                            />
                                         ) : (
                                             <div style={{ width: '100%', height: '100%', background: '#eaeaea' }} />
                                         )}

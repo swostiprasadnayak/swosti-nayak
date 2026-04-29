@@ -15,7 +15,7 @@ export const PROJECTS: ProjectContent[] = [
         slug: "unicef",
         description: "Building a global education data portal with AI to track learning outcomes for every child.",
         tags: ["Interaction", "Web"],
-        demoPoster: "/images/project-4.jpg"
+        demoPoster: "/images/unicef-portal.jpg"
     },
     {
         name: "Surrounding",
