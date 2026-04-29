@@ -191,3 +191,10 @@
 :global(html.ios-cursor-active) .navItemFeedback:hover {
     background-color: var(--bg-glass) !important;
 }
+
+/* Hide sidebar on mobile - reuse dock for navigation */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none !important;
+    }
+}
