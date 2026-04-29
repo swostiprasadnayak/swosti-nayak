@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import classes from "./mobileNav.module.css";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Share2, Heart, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function MobileNav() {
@@ -15,17 +15,11 @@ export default function MobileNav() {
     { label: "Resume", href: "#resume" },
   ];
 
-  const socialItems = [
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "Contact", href: "mailto:hello@example.com" },
-  ];
-
   return (
     <div className={classes.navWrapper}>
-      {/* Text with chevron - not a button */}
+      {/* Swosti text with chevron */}
       <div
-        className={classes.navText}
+        className={classes.navHeader}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>Swosti</span>
@@ -74,20 +68,34 @@ export default function MobileNav() {
               {/* Divider */}
               <div className={classes.divider} />
 
-              {/* Socials & Contact */}
-              <div className={classes.sectionLabel}>Socials & Contact</div>
-              {socialItems.map((item) => (
+              {/* Socials & Contact - Icons only in separate box */}
+              <div className={classes.socialsBox}>
                 <a
-                  key={item.label}
-                  href={item.href}
+                  href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={classes.navItem}
-                  onClick={() => setIsOpen(false)}
+                  className={classes.socialIcon}
+                  title="LinkedIn"
                 >
-                  {item.label}
+                  <Share2 size={18} />
                 </a>
-              ))}
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIcon}
+                  title="Instagram"
+                >
+                  <Heart size={18} />
+                </a>
+                <a
+                  href="mailto:hello@example.com"
+                  className={classes.socialIcon}
+                  title="Contact"
+                >
+                  <Mail size={18} />
+                </a>
+              </div>
             </motion.div>
           </>
         )}

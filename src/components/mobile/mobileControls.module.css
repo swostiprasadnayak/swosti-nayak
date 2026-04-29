@@ -1,17 +1,23 @@
-/* Mobile Controls - Horizontal Invisible Buttons */
+/* Mobile Controls - Reusing Desktop Components */
 
 .controlsWrapper {
     display: none;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 0;
     z-index: 200;
 }
 
-.invisibleButton {
+.menuContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.menuButton {
     background: transparent;
     border: none;
-    color: var(--text-primary);
+    color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -22,24 +28,12 @@
     outline: none;
 }
 
-.invisibleButton:hover {
-    background: rgba(0, 0, 0, 0.04);
-}
-
-[data-theme="dark"] .invisibleButton:hover {
+.menuButton:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.invisibleButton:active {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-[data-theme="dark"] .invisibleButton:active {
+.menuButton:active {
     background: rgba(255, 255, 255, 0.15);
-}
-
-.menuContainer {
-    position: relative;
 }
 
 .overlay {
@@ -63,36 +57,6 @@
 
 [data-theme="dark"] .dropdown {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.dropdownItem {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 400;
-    transition: background 0.2s ease;
-    text-align: left;
-}
-
-.dropdownItem:hover {
-    background: rgba(0, 0, 0, 0.04);
-}
-
-[data-theme="dark"] .dropdownItem:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.dropdownItem:active {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-[data-theme="dark"] .dropdownItem:active {
-    background: rgba(255, 255, 255, 0.15);
 }
 
 /* Show on mobile */

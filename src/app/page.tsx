@@ -17,8 +17,8 @@ import ThemeToggle from "@/components/homePage/projectControls/themeToggle/theme
 import ViewToggle, { ViewMode } from "@/components/homePage/projectControls/viewToggle/viewToggle";
 import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealToggle/codeRevealToggle";
 import ScreenshotThumbnail from "@/components/screenshot/screenshotThumbnail";
-import MobileNav from "@/components/mobileNav/MobileNav";
-import MobileControls from "@/components/mobileControls/MobileControls";
+import MobileNav from "@/components/mobile/MobileNav";
+import MobileControls from "@/components/mobile/MobileControls";
 import { useWindowMode } from "@/app/hooks/useWindowMode";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
@@ -120,10 +120,13 @@ export default function Home() {
           <MobileNav />
         </div>
 
-        {/* Mobile Controls - Top Right (horizontal) */}
+        {/* Mobile Controls - Top Right (horizontal, reusing desktop components) */}
         <div style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-controls-only">
           <MobileControls
             onVoiceMode={openVoiceModal}
+            imageIndex={imageIndex + 1}
+            onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
+            onScreenshot={handleScreenshot}
           />
         </div>
 
