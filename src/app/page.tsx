@@ -17,7 +17,8 @@ import ThemeToggle from "@/components/homePage/projectControls/themeToggle/theme
 import ViewToggle, { ViewMode } from "@/components/homePage/projectControls/viewToggle/viewToggle";
 import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealToggle/codeRevealToggle";
 import ScreenshotThumbnail from "@/components/screenshot/screenshotThumbnail";
-import MobileMenu from "@/components/mobileMenu/MobileMenu";
+import MobileNavMenu from "@/components/mobileNav/MobileNavMenu";
+import MobileControlsMenu from "@/components/mobileMenu/MobileControlsMenu";
 import { useWindowMode } from "@/app/hooks/useWindowMode";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
@@ -114,13 +115,16 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile Menu - Top Right */}
-        <div style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-menu-only">
-          <MobileMenu
-            imageIndex={imageIndex + 1}
-            onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
-            onScreenshot={handleScreenshot}
+        {/* Mobile Navigation - Top Left */}
+        <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-nav-only">
+          <MobileNavMenu />
+        </div>
+
+        {/* Mobile Controls Menu - Top Right */}
+        <div style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-controls-only">
+          <MobileControlsMenu
             onVoiceMode={openVoiceModal}
+            onScreenshot={handleScreenshot}
           />
         </div>
 

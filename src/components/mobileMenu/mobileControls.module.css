@@ -1,0 +1,67 @@
+/* Mobile Controls Menu */
+
+.controlsMenuWrapper {
+    display: none;
+    position: relative;
+    z-index: 200;
+}
+
+.controlButton {
+    background: var(--control-btn-bg) !important;
+    border: 1px solid var(--control-btn-border) !important;
+    color: var(--control-btn-icon) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+    border-radius: 14px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.controlButton:active {
+    transform: scale(0.96);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 180;
+}
+
+.controlsDropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 190;
+}
+
+[data-theme="dark"] .controlsDropdown {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.controlItem {
+    display: flex;
+    justify-content: center;
+}
+
+/* Show on mobile */
+@media (max-width: 768px) {
+    .controlsMenuWrapper {
+        display: block;
+    }
+}

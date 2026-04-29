@@ -118,15 +118,23 @@ body {
     display: none !important;
   }
 
-  /* Show mobile menu only on mobile */
-  .mobile-menu-only {
+  /* Show mobile menus on mobile */
+  .mobile-nav-only {
+    display: block !important;
+  }
+
+  .mobile-controls-only {
     display: block !important;
   }
 }
 
-/* Hide mobile menu on desktop */
+/* Hide mobile menus on desktop */
 @media (min-width: 769px) {
-  .mobile-menu-only {
+  .mobile-nav-only {
+    display: none !important;
+  }
+
+  .mobile-controls-only {
     display: none !important;
   }
 }
