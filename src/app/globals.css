@@ -110,3 +110,23 @@ body {
 [data-theme='dark'] .string { color: #98c379 !important; }
 [data-theme='dark'] .function { color: #61afef !important; }
 [data-theme='dark'] .comment { color: #5c6370 !important; }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  /* Hide desktop controls on mobile */
+  .desktop-controls {
+    display: none !important;
+  }
+
+  /* Show mobile menu only on mobile */
+  .mobile-menu-only {
+    display: block !important;
+  }
+}
+
+/* Hide mobile menu on desktop */
+@media (min-width: 769px) {
+  .mobile-menu-only {
+    display: none !important;
+  }
+}

@@ -17,6 +17,7 @@ import ThemeToggle from "@/components/homePage/projectControls/themeToggle/theme
 import ViewToggle, { ViewMode } from "@/components/homePage/projectControls/viewToggle/viewToggle";
 import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealToggle/codeRevealToggle";
 import ScreenshotThumbnail from "@/components/screenshot/screenshotThumbnail";
+import MobileMenu from "@/components/mobileMenu/MobileMenu";
 import { useWindowMode } from "@/app/hooks/useWindowMode";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
@@ -84,7 +85,7 @@ export default function Home() {
         <GradientBlur direction="top" />
 
         {/* Top Controls Container: Left, Center, Right components */}
-        <div style={{ position: 'absolute', top: 24, left: 24, right: 24, zIndex: 50, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', pointerEvents: 'none' }} data-screenshot-exclude>
+        <div style={{ position: 'absolute', top: 24, left: 24, right: 24, zIndex: 50, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', pointerEvents: 'none' }} data-screenshot-exclude className="desktop-controls">
 
           {/* Top Left: Filter Dropdown */}
           <div style={{ pointerEvents: 'auto' }}>
@@ -111,6 +112,16 @@ export default function Home() {
               <CodeRevealToggle />
             </ControlsRow>
           </div>
+        </div>
+
+        {/* Mobile Menu - Top Right */}
+        <div style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-menu-only">
+          <MobileMenu
+            imageIndex={imageIndex + 1}
+            onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
+            onScreenshot={handleScreenshot}
+            onVoiceMode={openVoiceModal}
+          />
         </div>
 
         <CardStackContainer
