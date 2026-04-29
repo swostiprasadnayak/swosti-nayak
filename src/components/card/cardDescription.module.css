@@ -4,41 +4,42 @@
 }
 
 .descriptionContainer {
-    background: rgba(0, 0, 0, 0.30);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    backdrop-filter: blur(24px) saturate(150%);
-    padding: 14px 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  background: var(--bg-card); /* dynamic theme color instead of hardcoded var */
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+  padding: 16px 20px; /* Reduced padding */
+  border-top: 1px solid var(--border-subtle);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  display: flex;
+  flex-direction: column; /* Stacks text, then tags */
+  gap: 10px; /* Reduced gap */
 }
 
 .descText {
-    margin: 0;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.92);
-    line-height: 1.4;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
+  margin: 0; /* Remove old margin */
+  font-size: 0.9rem; /* Reduced font size */
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+  /* Remove old truncation logic so text flows naturally */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .tagsContainer {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .tag {
     font-size: 0.7rem;
-    padding: 3px 10px;
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 8px;
+    background: var(--bg-blur);
+    border: 1px solid var(--border-subtle);
     border-radius: 100px;
-    color: rgba(255, 255, 255, 0.70);
+    color: var(--text-secondary);
     font-weight: 500;
 }
