@@ -7,46 +7,35 @@
     top: calc(100% + 14px);
     right: 0;
     width: 340px;
-    /* Increased from 330px for more breathing room */
-    padding: 16px;
-    /* Standardized to 16px */
+    padding: 12px;
     background: var(--bg-glass);
-    backdrop-filter: blur(40px) saturate(160%);
-    -webkit-backdrop-filter: blur(40px) saturate(160%);
-    -webkit-font-smoothing: subpixel-antialiased;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
     border: 1px solid var(--border-subtle);
     border-radius: 28px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
     z-index: 1001;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    /* Standardized to 16px */
+    gap: 12px;
 }
 
 .topRow {
     display: flex;
-    gap: 16px;
-    /* Standardized to 16px */
+    gap: 10px;
     align-items: stretch;
-    height: 160px;
-    /* Lock row height so both sides stay even */
+    height: 168px;
 }
 
 .toggleColumn {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    /* Standardized to 16px */
-    width: 146px;
-    /* Exactly half of available space (340 - 32 - 16) / 2 */
-    flex: 0 0 146px;
-    /* Prevent shrinking or growing */
+    gap: 10px;
+    flex: 0 0 140px;
 }
 
 .musicWrapper {
     flex: 1;
-    /* Restore flexibility to fill the row */
     min-width: 0;
     display: flex;
 }

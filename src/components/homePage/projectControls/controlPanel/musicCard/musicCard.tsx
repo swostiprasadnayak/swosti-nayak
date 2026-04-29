@@ -19,10 +19,10 @@ export default function MusicCard({ player }: any) {
 
     return (
         <Squircle cornerRadius={20} style={{
-            flex: 1, padding: "18px 16px", background: "var(--bg-glass)",
-            backdropFilter: "blur(30px)", border: "1px solid var(--border-subtle)",
+            flex: 1, padding: "16px 14px", background: "var(--bg-glass)",
+            backdropFilter: "blur(40px) saturate(180%)", border: "1px solid var(--border-subtle)",
             display: "flex", flexDirection: "column", justifyContent: "space-between",
-            width: "100%", height: "100%", boxSizing: "border-box", minWidth: 0
+            width: "100%", height: "100%", boxSizing: "border-box", minWidth: 0, margin: 0
         }}>
             <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                 <Squircle cornerRadius={12} style={{ width: 52, height: 52, background: "#eee", flexShrink: 0, overflow: "hidden" }}>
