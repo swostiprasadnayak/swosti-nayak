@@ -40,8 +40,8 @@ export default function MusicCard({ player }: any) {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "14px" }}>
-                <div style={{ position: "relative", flex: 1, height: 6, background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0,0,0,0.05)", borderRadius: 10 }}>
-                    <div style={{ width: `${progress || 0}%`, height: "100%", background: isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0,0,0,0.15)", borderRadius: 10 }} />
+                <div style={{ position: "relative", flex: 1, height: 6, background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0,0,0,0.04)", borderRadius: 10 }}>
+                    <div style={{ width: `${progress || 0}%`, height: "100%", background: isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(0,0,0,0.1)", borderRadius: 10 }} />
                     <input
                         type="range"
                         min="0"
