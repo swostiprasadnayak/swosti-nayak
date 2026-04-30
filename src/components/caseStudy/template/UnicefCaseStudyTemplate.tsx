@@ -734,6 +734,254 @@ export default function UnicefCaseStudyTemplate() {
       </div>
 
       {/* ============================================================
+          SECTION: UNIFIED DISCOVERY — HOMEPAGE
+          ============================================================ */}
+      <div style={{ background: '#f8fafc', padding: '100px 0' }}>
+        <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>UNIFIED DISCOVERY — HOMEPAGE</span>
+          </div>
+
+          {/* Globe Hero */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center', marginBottom: '80px' }}>
+            <div>
+              <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
+                Globe hero —{' '}
+                <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>the global picture, instantly.</span>
+              </h2>
+              <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.7, marginBottom: '28px' }}>
+                The homepage opens with a 3D interactive globe showing live Learning Poverty choropleth data — draggable, zoomable, and clickable to any country profile. Two action buttons ("Explore the Data" and "Browse Countries") give users the two primary entry paths without requiring any knowledge of the indicator taxonomy. A prominent search field handles the direct-lookup use case.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '28px' }}>
+                {['3D globe (Three.js)', 'Two entry paths', 'Indicator toggle', 'Global search'].map(tag => (
+                  <span key={tag} style={{ fontSize: '0.75rem', padding: '6px 14px', borderRadius: '100px', border: '1px solid #cbd5e1', color: '#475569', fontWeight: 500 }}>{tag}</span>
+                ))}
+              </div>
+              <Squircle cornerRadius={12} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '20px 24px', marginBottom: '16px' }}>
+                <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  The globe is not decorative — it's the first interaction. Dragging it to a region and clicking a country opens the Country Profile without any menu navigation.
+                </p>
+              </Squircle>
+              <p style={{ fontSize: '0.875rem', color: '#94a3b8', fontStyle: 'italic', lineHeight: 1.6 }}>
+                "When I land on the portal, I want to see the global picture instantly so I can decide where to dig deeper."
+              </p>
+            </div>
+            <div>
+              <img src="/unicef/globe-hero.png" alt="Homepage Globe hero & entry point" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            </div>
+          </div>
+
+          {/* Persona Entry */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+            <div>
+              <img src="/unicef/persona-entry.png" alt="Homepage persona-segmented entry band" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.08em', background: '#f1f5f9', padding: '4px 10px', borderRadius: '100px' }}>HOMEPAGE · UNIFIED ENTRY POINT</span>
+              </div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#fdf4ff', border: '1px solid #e9d5ff', borderRadius: '100px', padding: '4px 12px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '0.75rem' }}>⚡</span>
+                <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#7c3aed' }}>3 AI iteration cycles</span>
+              </div>
+              <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
+                Persona-segmented entry —{' '}
+                <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>not one door for everyone.</span>
+              </h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+                {['Persona-segmented CTAs', '3D Globe hero', 'Stats band', '2D Choropleth below'].map(tag => (
+                  <span key={tag} style={{ fontSize: '0.75rem', padding: '6px 14px', borderRadius: '100px', border: '1px solid #cbd5e1', color: '#475569', fontWeight: 500 }}>{tag}</span>
+                ))}
+              </div>
+              <Squircle cornerRadius={12} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '20px 24px', marginBottom: '16px' }}>
+                <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  The persona cards were added in iteration cycle 2 after testing revealed that users landing on the homepage without a persona-specific entry point had significantly lower task completion rates. One prompt + one iteration cycle.
+                </p>
+              </Squircle>
+              <p style={{ fontSize: '0.875rem', color: '#94a3b8', fontStyle: 'italic', lineHeight: 1.6 }}>
+                "When I land on this portal, I need to immediately understand whether this tool is for someone like me — before I commit to exploring it."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================
+          SECTION: ACCESSIBILITY & COMPLIANCE — GLOBAL MAP
+          ============================================================ */}
+      <div style={{ padding: '100px 0' }}>
+        <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>ACCESSIBILITY & COMPLIANCE BY DESIGN — GLOBAL MAP</span>
+          </div>
+          <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
+            Two map views —{' '}
+            <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>same data, enforced compliance.</span>
+          </h2>
+          <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.7, maxWidth: '820px', marginBottom: '48px' }}>
+            The Global Map page offers 3D Globe (Three.js) and 2D Choropleth (Leaflet) — toggleable with state preserved. Both views show the same indicator with the same year filter. The "UN-Compliant Boundaries" badge is permanent and non-dismissable. The UN disclaimer renders at framework level — not editable by content authors.
+          </p>
+
+          {/* Two map images side by side */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '48px' }}>
+            <div>
+              <img src="/unicef/globe-3d.png" alt="3D Globe — drag, zoom, click for profile" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '12px', fontWeight: 500 }}>3D Globe — drag · zoom · click for profile</p>
+            </div>
+            <div>
+              <img src="/unicef/choropleth-2d.png" alt="2D Choropleth — UN-compliant + data table" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '12px', fontWeight: 500 }}>2D Choropleth — UN-compliant + data table</p>
+            </div>
+          </div>
+
+          {/* Two detail callouts */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+            <Squircle cornerRadius={16} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '32px' }}>
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>3D GLOBE — CONTROLS ALWAYS VISIBLE</span>
+              <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '16px' }}>
+                The on-screen controls panel ("Drag to rotate · Scroll to zoom · Click for details") is always shown on first load — reducing abandonment from users unfamiliar with 3D interaction. A "Rotate" button provides an auto-rotate mode for presentation contexts. The globe uses the same choropleth colour scale as the 2D map — Learning Poverty from 0% (best) to 100% (worst).
+              </p>
+              <p style={{ fontSize: '0.85rem', color: '#94a3b8', fontStyle: 'italic' }}>"I'm presenting to ministers — I want to show the global picture rotating on screen as I speak."</p>
+            </Squircle>
+            <Squircle cornerRadius={16} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '32px' }}>
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>2D MAP — UN COMPLIANCE IS THE DESIGN</span>
+              <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '16px' }}>
+                The "★ UN-Compliant Boundaries" badge appears on every 2D map view — permanent, non-removable by editors. The UN Map Disclaimer paragraph renders at framework level and cannot be edited by content authors. Below the map: a ranked country data table showing Learning Poverty %, rank, and On track / Needs attention / Critical status — providing an accessible alternative to the visual choropleth.
+              </p>
+              <p style={{ fontSize: '0.85rem', color: '#94a3b8', fontStyle: 'italic' }}>"I need to publish a map of learning poverty that I'm confident won't violate UN territorial policy."</p>
+            </Squircle>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================
+          SECTION: 3D GLOBE · MAP-TO-COMPARE FLOW
+          ============================================================ */}
+      <div style={{ background: '#f8fafc', padding: '100px 0' }}>
+        <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+            <div>
+              <img src="/unicef/map-to-compare.png" alt="Globe to Compare — map-to-comparison flow" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.08em', background: '#f1f5f9', padding: '4px 10px', borderRadius: '100px' }}>3D GLOBE · MAP-TO-COMPARE FLOW</span>
+              </div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#fdf4ff', border: '1px solid #e9d5ff', borderRadius: '100px', padding: '4px 12px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '0.75rem' }}>✦</span>
+                <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#7c3aed' }}>New interaction — iterated from user testing</span>
+              </div>
+              <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
+                Build a comparison{' '}
+                <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>from the map itself.</span>
+              </h2>
+              <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
+                The most significant new interaction discovered in testing: when a policymaker clicks multiple countries on the globe, they're building a mental comparison — but previously had no way to translate that into a side-by-side view without navigating away. The Compare Selection panel solves this: clicking "+ Compare" on any country tooltip adds it to a persistent selection sidebar. When 2+ countries are selected, a "Compare N Countries →" button appears — navigating directly to the Compare page pre-loaded with those selections.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+                {['Ethiopia 90% Critical', 'India 56%', 'China 18% On track', 'Compare 3 Countries →'].map(tag => (
+                  <span key={tag} style={{ fontSize: '0.75rem', padding: '6px 14px', borderRadius: '100px', border: '1px solid #cbd5e1', color: '#475569', fontWeight: 500 }}>{tag}</span>
+                ))}
+              </div>
+              <Squircle cornerRadius={12} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '20px 24px', marginBottom: '16px' }}>
+                <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  This entire interaction — country tooltip, Compare Selection panel, and multi-select state — was designed and built in one AI session after describing the user job. The key prompt: "A policymaker is spinning the globe and mentally building a comparison — design the interaction that makes that comparison shareable in one click without page navigation."
+                </p>
+              </Squircle>
+              <p style={{ fontSize: '0.875rem', color: '#94a3b8', fontStyle: 'italic', lineHeight: 1.6 }}>
+                "I've identified 3 countries I want to compare while looking at the globe — I want to compare them without having to navigate away and search for them again."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================
+          SECTION: COMPARE · COUNTRY SEARCH FILTER
+          ============================================================ */}
+      <div style={{ padding: '100px 0' }}>
+        <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+                <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>COMPARE · COUNTRY SEARCH FILTER</span>
+              </div>
+              <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
+                Filtered comparison —{' '}
+                <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>search within 31 countries.</span>
+              </h2>
+              <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
+                The updated Compare page added a country search field within the heatmap — allowing users to filter down from 31 countries to specific selections without leaving the comparison view. Users can search by country name while the heatmap updates in real time. The region pills above maintain the broader regional context. A "Countries: In" search field below them enables typing a specific country name.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+                {['Country search within heatmap', 'Region pills', 'Real-time update'].map(tag => (
+                  <span key={tag} style={{ fontSize: '0.75rem', padding: '6px 14px', borderRadius: '100px', border: '1px solid #cbd5e1', color: '#475569', fontWeight: 500 }}>{tag}</span>
+                ))}
+              </div>
+              <Squircle cornerRadius={12} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '20px 24px', marginBottom: '16px' }}>
+                <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  This filter pattern was added after testing revealed that users scrolling a 31-country heatmap looking for a specific country frequently lost their orientation. Prompt: "Add an inline country search field that filters the heatmap rows in real time — without removing any countries from the dataset, just hiding non-matching rows."
+                </p>
+              </Squircle>
+              <p style={{ fontSize: '0.875rem', color: '#94a3b8', fontStyle: 'italic', lineHeight: 1.6 }}>
+                "I'm looking at the heatmap with 31 countries — I want to quickly find India without scrolling through the full list."
+              </p>
+            </div>
+            <div>
+              <img src="/unicef/country-search-filter.png" alt="Compare — Country search filter within heatmap" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================
+          SECTION: COMPARE · FOCUSED 3-COUNTRY VIEW
+          ============================================================ */}
+      <div style={{ background: '#f8fafc', padding: '100px 0' }}>
+        <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>COMPARE · FOCUSED 3-COUNTRY VIEW — THRESHOLD + NORMALIZED</span>
+          </div>
+          <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
+            From 31 countries to 3 —{' '}
+            <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>the exact comparison a policymaker needs.</span>
+          </h2>
+          <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.7, maxWidth: '820px', marginBottom: '48px' }}>
+            When a user selects specific countries (Indonesia, China, Nigeria) via the globe Compare Selection panel or country search, the heatmap collapses to show only those countries — removing the cognitive overhead of 31 rows. Two views: Threshold (absolute traffic-light status) and Normalized Percentile (P0–P100 global rank). The pattern "3 selected — region filters disabled" confirms the mode change clearly.
+          </p>
+
+          {/* Three comparison images */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '48px' }}>
+            <img src="/unicef/compare-threshold.png" alt="Compare — Threshold heatmap focused view" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            <img src="/unicef/compare-scatter.png" alt="Compare — Scatter plot view" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            <img src="/unicef/compare-normalized.png" alt="Compare — Normalized percentile view" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+          </div>
+
+          {/* Two callout columns */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '32px' }}>
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>THRESHOLD VIEW — ABSOLUTE STATUS</span>
+              <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '16px' }}>
+                China shows green across all 6 indicators (On track). Indonesia shows mixed — Learning Poverty amber, other indicators green or yellow. Nigeria shows orange/red across most indicators — Off track on Learning Poverty, OOS Rate, and Digital. This view answers: "Which countries have a problem, and in which areas?" The 3-country focused view makes the pattern immediately readable without scrolling.
+              </p>
+              <p style={{ fontSize: '0.85rem', color: '#94a3b8', fontStyle: 'italic' }}>"I need to brief on China vs Indonesia vs Nigeria — which indicators are each off track on?"</p>
+            </Squircle>
+            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '32px' }}>
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>NORMALIZED VIEW — RELATIVE RANK</span>
+              <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '16px' }}>
+                The same 3 countries in percentile terms: China ranks P100 (top of all 190 countries) across every indicator. Indonesia P67 (above median). Nigeria P33 (lower third). All cells show green in this view — not because Nigeria is "On track" in absolute terms, but because P33 is above the P0–P20 bottom band. This view answers: "Relative to the world, where does each country sit?" A crucial distinction for academic and policy contexts.
+              </p>
+              <p style={{ fontSize: '0.85rem', color: '#94a3b8', fontStyle: 'italic' }}>"I need to use Nigeria's relative position globally — not just its absolute numbers — to contextualise our development argument."</p>
+            </Squircle>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================
           SECTION 9: KEY DESIGN DECISIONS
           ============================================================ */}
       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
