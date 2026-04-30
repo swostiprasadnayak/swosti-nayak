@@ -28,7 +28,12 @@
       "Bash(cp \"/Users/swosti.nayak/Downloads/qjpddFC6MfnuTv28D6LVGt5gDM.mp4\" \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/syne-iot.mp4\")",
       "Bash(python3 -c ':*)",
       "Bash(avconvert --preset PresetHighestQuality --source \"/tmp/blinkit-raw.mov\" --output \"/Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/videos/blinkit.mp4\" --replace)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(node -e \"const m = require\\('corner-smoothing'\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(osascript -e 'tell application \"Google Chrome\" to set URL of active tab of first window to \"http://localhost:3000\"')"
     ]
   }
 }

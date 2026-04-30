@@ -36,7 +36,7 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                     flexShrink: 0,
                     color: isDark ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.7)",
                 }}>
-                    {React.cloneElement(icon as React.ReactElement, { size: 20 })}
+                    {React.cloneElement(icon as React.ReactElement<any>, { size: 20 })}
                 </div>
                 <span style={{
                     fontSize: "1rem",
