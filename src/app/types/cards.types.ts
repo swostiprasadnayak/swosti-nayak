@@ -15,5 +15,5 @@ export type CardProps = {
 };
 
 export const CARD_STYLES = {
-    window: { width: "26rem", height: "23.5rem" }
+    window: { width: "31.61rem", height: "29.32rem" }
 };

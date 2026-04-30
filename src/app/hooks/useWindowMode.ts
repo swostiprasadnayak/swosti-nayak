@@ -35,11 +35,11 @@ export function useWindowMode(): WindowModeAPI {
     const getPosition = useCallback((slug: string) => {
         // Initial staggered positions so they stack nicely like a desktop
         const positions: Record<string, { x: number, y: number }> = {
-            unicef:     { x: -380, y: -160 },
-            syne:       { x:  100, y: -160 },
-            blinkit:    { x: -300, y:  130 },
-            aristotle:  { x:   80, y:  130 },
-            "pid-tool": { x:  100, y:    0 },
+            syne:      { x: -140, y: -50 },
+            unicef:    { x:   60, y:  30 },
+            blinkit:   { x:  120, y:  60 },
+            aristotle: { x:    0, y:   0 },
+            "pid-tool":{ x:   80, y:  20 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, []);
