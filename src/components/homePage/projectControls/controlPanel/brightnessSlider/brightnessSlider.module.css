@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .header {
@@ -16,48 +16,66 @@
   letter-spacing: -0.02em;
 }
 
-.sliderLayout {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.icon {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(0, 0, 0, 0.4);
-  z-index: 5;
-  pointer-events: none;
+[data-theme="dark"] .label {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .sliderWrapper {
   position: relative;
   flex: 1;
-  height: 48px;
+  height: 64px;
   background: rgba(255, 255, 255, 0.85);
-  border-radius: 24px;
+  border-radius: 32px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .sliderWrapper {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(0, 0, 0, 0.45);
+  z-index: 5;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .icon {
+  color: rgba(255, 255, 255, 0.45);
 }
 
 /* Tick marks layer */
 .ticks {
   position: absolute;
-  inset: 0 24px 0 64px;
+  inset: 0 24px 0 76px;
   background: repeating-linear-gradient(
     to right,
     transparent,
-    transparent calc(11.11% - 1.5px),
-    rgba(0,0,0,0.12) calc(11.11% - 1.5px),
-    rgba(0,0,0,0.12) 11.11%
+    transparent calc(12.5% - 1px),
+    rgba(0,0,0,0.1) calc(12.5% - 1px),
+    rgba(0,0,0,0.1) 12.5%
   );
   pointer-events: none;
-  height: 20px;
+  height: 24px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
+}
+
+[data-theme="dark"] .ticks {
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(12.5% - 1px),
+    rgba(255,255,255,0.1) calc(12.5% - 1px),
+    rgba(255,255,255,0.1) 12.5%
+  );
 }
 
 /* Filled portion */
@@ -66,11 +84,15 @@
   left: 0;
   top: 0;
   bottom: 0;
-  background: rgba(160, 150, 130, 0.12);
+  background: rgba(180, 170, 140, 0.1);
   border-radius: 0;
   pointer-events: none;
   z-index: 1;
   transition: width 0.1s ease-out;
+}
+
+[data-theme="dark"] .sliderFill {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .slider {
