@@ -14,7 +14,7 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                     padding: "12px 14px",
                     background: isActive
                         ? "rgba(var(--text-primary-rgb), 0.80)"
-                        : "rgba(var(--text-primary-rgb), 0.06)",
+                        : "rgba(var(--text-primary-rgb), 0.055)",
                     border: "none",
                     width: "100%",
                     boxSizing: "border-box",

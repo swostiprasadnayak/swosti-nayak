@@ -55,6 +55,7 @@
   z-index: 3;
 }
 
+/* Filled (darker) portion — sits LEFT of where thumb is */
 .sliderFill {
   position: absolute;
   left: 0;
@@ -63,7 +64,8 @@
   background: var(--slider-fill-color);
   border-radius: 100px;
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
+  transition: width 0.05s linear;
 }
 
 .slider {

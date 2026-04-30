@@ -4,8 +4,7 @@ import { Sun } from "lucide-react";
 import classes from "./brightnessSlider.module.css";
 
 export default function BrightnessSlider({ onBrightnessChange }: any) {
-  // Default to 60% so the fill is immediately visible
-  const [level, setLevel] = useState(60); 
+  const [level, setLevel] = useState(100);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
