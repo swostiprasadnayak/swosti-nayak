@@ -153,12 +153,12 @@
 
 .navItem:hover {
     background-color: var(--bg-card);
-    color: var(--text-primary);
+    color: #ffffff;
 }
 
 :global(html.ios-cursor-active) .navItem:hover {
     background-color: transparent;
-    color: rgba(var(--text-primary-rgb), 0.65);
+    color: #ffffff;
 }
 
 .navItemActive {
@@ -172,7 +172,7 @@
 }
 
 .navItemFeedback {
-    color: var(--text-primary) !important;
+    color: #ffffff !important;
     display: flex !important;
     align-items: center;
     justify-content: space-between;
