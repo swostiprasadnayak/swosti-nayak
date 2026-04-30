@@ -6,40 +6,39 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
     return (
         <div onClick={onClick} style={{ cursor: "pointer", flex: 1, display: "flex", width: "100%", minWidth: 0 }}>
             <Squircle
-                cornerRadius={18}
+                cornerRadius={24}
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "12px",
-                    padding: "12px 14px",
+                    gap: "14px",
+                    padding: "16px 18px",
                     background: isActive
-                        ? "rgba(var(--text-primary-rgb), 0.80)"
-                        : "rgba(var(--text-primary-rgb), 0.055)",
+                        ? "rgba(0, 0, 0, 0.08)"
+                        : "rgba(255, 255, 255, 0.85)",
                     border: "none",
                     width: "100%",
                     boxSizing: "border-box",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.02)"
                 }}
             >
                 <div style={{
-                    width: 36,
-                    height: 36,
+                    width: 42,
+                    height: 42,
                     borderRadius: "50%",
-                    background: isActive
-                        ? "rgba(var(--text-primary-rgb), 0.15)"
-                        : "rgba(var(--text-primary-rgb), 0.08)",
+                    background: "rgba(0, 0, 0, 0.05)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
-                    color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
+                    color: "rgba(0, 0, 0, 0.6)",
                 }}>
                     {icon}
                 </div>
                 <span style={{
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    letterSpacing: "-0.01em",
-                    color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
+                    fontSize: "1.05rem",
+                    fontWeight: 700,
+                    letterSpacing: "-0.02em",
+                    color: "rgba(0, 0, 0, 0.8)",
                 }}>
                     {label}
                 </span>

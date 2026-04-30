@@ -17,19 +17,17 @@ export default function BrightnessSlider({ onBrightnessChange }: any) {
       <div className={classes.header}>
         <span className={classes.label}>Display</span>
       </div>
-      <div className={classes.sliderLayout}>
+      <div className={classes.sliderWrapper}>
         <Sun size={20} className={classes.icon} />
-        <div className={classes.sliderWrapper}>
-          {/* Fill Layer */}
-          <div className={classes.sliderFill} style={{ width: `${level}%` }} />
-          {/* Ticks Layer (On top of fill) */}
-          <div className={classes.ticks} />
-          {/* Interactive Range Input */}
-          <input 
-            type="range" min="0" max="100" value={level} onChange={handleChange}
-            className={classes.slider}
-          />
-        </div>
+        {/* Fill Layer */}
+        <div className={classes.sliderFill} style={{ width: `${level}%` }} />
+        {/* Ticks Layer (On top of fill) */}
+        <div className={classes.ticks} />
+        {/* Interactive Range Input */}
+        <input 
+          type="range" min="0" max="100" value={level} onChange={handleChange}
+          className={classes.slider}
+        />
       </div>
     </div>
   );
