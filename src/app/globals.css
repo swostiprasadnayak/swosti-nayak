@@ -44,10 +44,10 @@
   --control-btn-border: rgba(255, 255, 255, 0.9) !important;
   --control-btn-icon: #111827 !important;
   
-  /* LIGHT MODE: Brightness Slider (Dark inset track, bright white fill, clear ticks) */
-  --slider-track: rgba(0, 0, 0, 0.08) !important; 
-  --slider-fill-color: #ffffff !important;
-  --slider-tick: rgba(0, 0, 0, 0.2) !important;
+  /* LIGHT MODE: Brightness Slider */
+  --slider-track: rgba(255, 255, 255, 0.90) !important;
+  --slider-fill-color: rgba(255, 255, 255, 1) !important;
+  --slider-tick: rgba(0, 0, 0, 0.18) !important;
 }
 
 
@@ -83,9 +83,9 @@
   --control-btn-hover: rgba(0, 0, 0, 0.5) !important;
 
   /* Slider Track & Fill - Dark Mode */
-  --slider-track: rgba(0, 0, 0, 0.4);       /* Dark pill background */
-  --slider-fill-color: rgba(255,255,255,0.8); /* Off-white fill */
-  --slider-tick: rgba(0, 0, 0, 0.3);        /* Dark ticks to contrast against the light fill */
+  --slider-track: rgba(255, 255, 255, 0.12) !important;
+  --slider-fill-color: rgba(255, 255, 255, 0.85) !important;
+  --slider-tick: rgba(255, 255, 255, 0.25) !important;
 
   /* Accents */
   --accent-color: #409cff;

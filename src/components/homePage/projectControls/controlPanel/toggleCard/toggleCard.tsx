@@ -6,38 +6,37 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
     return (
         <div onClick={onClick} style={{ cursor: "pointer", flex: 1, display: "flex", width: "100%", minWidth: 0 }}>
             <Squircle
-                cornerRadius={22}
+                cornerRadius={18}
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "14px",
-                    padding: "14px 16px",
+                    gap: "12px",
+                    padding: "12px 14px",
                     background: isActive
-                        ? "var(--text-primary)"
-                        : "var(--bg-glass)",
-                    color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
-                    backdropFilter: "blur(20px)",
-                    border: "1px solid var(--border-subtle)",
+                        ? "rgba(var(--text-primary-rgb), 0.80)"
+                        : "rgba(var(--text-primary-rgb), 0.06)",
+                    border: "none",
                     width: "100%",
                     boxSizing: "border-box",
                 }}
             >
                 <div style={{
-                    width: 38,
-                    height: 38,
+                    width: 36,
+                    height: 36,
                     borderRadius: "50%",
                     background: isActive
-                        ? "rgba(255,255,255,0.18)"
-                        : "rgba(var(--text-primary-rgb), 0.07)",
+                        ? "rgba(var(--text-primary-rgb), 0.15)"
+                        : "rgba(var(--text-primary-rgb), 0.08)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
+                    color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
                 }}>
-                    <div style={{ opacity: 0.8, display: "flex" }}>{icon}</div>
+                    {icon}
                 </div>
                 <span style={{
-                    fontSize: "0.95rem",
+                    fontSize: "0.9rem",
                     fontWeight: 600,
                     letterSpacing: "-0.01em",
                     color: isActive ? "var(--bg-primary)" : "var(--text-primary)",
