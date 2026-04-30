@@ -68,11 +68,6 @@
   --bg-blur: rgba(25, 25, 28, 0.55);
   --glass-sidebar: rgba(0, 0, 0, 0.55);
 
-  /* Dark Mode Text - Black for sidebar */
-  --text-primary: #000000;
-  --text-primary-rgb: 0, 0, 0;
-  --text-secondary: rgba(0, 0, 0, 0.7);
-
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.18);
   --border-strong: rgba(255, 255, 255, 0.25);

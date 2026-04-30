@@ -192,6 +192,13 @@
     background-color: var(--bg-glass) !important;
 }
 
+/* Dark mode sidebar text color - black text for better contrast */
+[data-theme="dark"] .sidebar {
+    --text-primary: #000000;
+    --text-primary-rgb: 0, 0, 0;
+    --text-secondary: rgba(0, 0, 0, 0.7);
+}
+
 /* Hide sidebar on mobile - reuse dock for navigation */
 @media (max-width: 768px) {
     .sidebar {
