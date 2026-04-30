@@ -37,9 +37,9 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                 </div>
                 <span style={{
                     fontSize: "1.1rem",
-                    fontWeight: 750,
+                    fontWeight: 900,
                     letterSpacing: "-0.02em",
-                    color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.85)",
+                    color: isDark ? "rgba(255, 255, 255, 0.98)" : "rgba(0, 0, 0, 0.95)",
                 }}>
                     {label}
                 </span>

@@ -18,7 +18,7 @@ export default function BrightnessSlider({ onBrightnessChange }: any) {
         <span className={classes.label}>Display</span>
       </div>
       <div className={classes.sliderWrapper}>
-        <Sun size={20} className={classes.icon} />
+        <Sun size={18} className={classes.icon} />
         {/* Fill Layer */}
         <div className={classes.sliderFill} style={{ width: `${level}%` }} />
         {/* Ticks Layer (On top of fill) */}

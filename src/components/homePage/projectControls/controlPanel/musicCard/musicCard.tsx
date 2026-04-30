@@ -1,4 +1,6 @@
 import { useTheme } from "@/app/contexts/ThemeContext";
+import { Play, Pause, FastForward, Rewind } from "lucide-react";
+import classes from "./musicCard.module.css";
 
 export default function MusicCard({ player }: any) {
     const { track, progress, isPlaying, togglePlay, nextTrack, prevTrack, seek, currentTime, duration } = player;
@@ -34,14 +36,14 @@ export default function MusicCard({ player }: any) {
                     )}
                 </Squircle>
                 <div style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: "2px" }}>
-                    <h4 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 800, color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0,0,0,0.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "-0.02em" }}>{track?.title || "No Track"}</h4>
-                    <p style={{ margin: 0, fontSize: "0.95rem", color: isDark ? "rgba(255, 255, 255, 0.45)" : "rgba(0,0,0,0.45)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 600 }}>{track?.artist || "Unknown Artist"}</p>
+                    <h4 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 900, color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0,0,0,0.9)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "-0.02em" }}>{track?.title || "No Track"}</h4>
+                    <p style={{ margin: 0, fontSize: "0.95rem", color: isDark ? "rgba(255, 255, 255, 0.45)" : "rgba(0,0,0,0.45)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 700 }}>{track?.artist || "Unknown Artist"}</p>
                 </div>
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "14px" }}>
                 <div style={{ position: "relative", flex: 1, height: 6, background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0,0,0,0.04)", borderRadius: 10 }}>
-                    <div style={{ width: `${progress || 0}%`, height: "100%", background: isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(0,0,0,0.1)", borderRadius: 10 }} />
+                    <div style={{ width: `${progress || 0}%`, height: "100%", background: isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(0,0,0,0.12)", borderRadius: 10 }} />
                     <input
                         type="range"
                         min="0"
@@ -49,22 +51,23 @@ export default function MusicCard({ player }: any) {
                         step="0.1"
                         value={progress || 0}
                         onChange={(e) => seek(parseFloat(e.target.value))}
+                        className={classes.rangeInput}
                         style={{
-                            position: "absolute", inset: "-10px 0", width: "100%", cursor: "pointer", appearance: "none", background: "transparent", zIndex: 2
+                            position: "absolute", inset: "-10px 0", zIndex: 2
                         }}
                     />
                 </div>
-                <span style={{ fontSize: "0.9rem", color: isDark ? "rgba(255, 255, 255, 0.45)" : "rgba(0,0,0,0.45)", fontWeight: 600, minWidth: "38px", textAlign: "right" }}>
+                <span style={{ fontSize: "0.95rem", color: isDark ? "rgba(255, 255, 255, 0.45)" : "rgba(0,0,0,0.45)", fontWeight: 700, minWidth: "38px", textAlign: "right" }}>
                     {remainingTime}
                 </span>
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "40px", marginTop: "14px", color: isDark ? "rgba(255, 255, 255, 0.7)" : "rgba(0,0,0,0.65)" }}>
-                <Rewind size={22} fill="currentColor" style={{ cursor: "pointer", opacity: 0.8 }} onClick={prevTrack} />
+            <div style={{ display: "flex", justifyContent: "center", gap: "40px", marginTop: "14px", color: isDark ? "rgba(255, 255, 255, 0.75)" : "rgba(0,0,0,0.75)" }}>
+                <Rewind size={22} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer", opacity: 0.8 }} onClick={prevTrack} />
                 <div onClick={togglePlay} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                    {isPlaying ? <Pause size={28} fill="currentColor" /> : <Play size={28} fill="currentColor" />}
+                    {isPlaying ? <Pause size={28} fill="currentColor" strokeWidth={0} /> : <Play size={28} fill="currentColor" strokeWidth={0} />}
                 </div>
-                <FastForward size={22} fill="currentColor" style={{ cursor: "pointer", opacity: 0.8 }} onClick={nextTrack} />
+                <FastForward size={22} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer", opacity: 0.8 }} onClick={nextTrack} />
             </div>
         </Squircle>
     );
