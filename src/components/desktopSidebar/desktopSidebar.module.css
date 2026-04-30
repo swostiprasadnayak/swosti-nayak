@@ -153,11 +153,19 @@
 
 .navItem:hover {
     background-color: var(--bg-card);
-    color: #ffffff;
+    color: #000000; /* light mode: dark text on white card */
 }
 
 :global(html.ios-cursor-active) .navItem:hover {
     background-color: transparent;
+    color: #000000;
+}
+
+[data-theme="dark"] .navItem:hover {
+    color: #ffffff; /* dark mode: keep white */
+}
+
+:global(html.ios-cursor-active) [data-theme="dark"] .navItem:hover {
     color: #ffffff;
 }
 
@@ -172,7 +180,7 @@
 }
 
 .navItemFeedback {
-    color: #ffffff !important;
+    color: #000000 !important; /* light mode: black */
     display: flex !important;
     align-items: center;
     justify-content: space-between;
@@ -190,6 +198,11 @@
 
 :global(html.ios-cursor-active) .navItemFeedback:hover {
     background-color: var(--bg-glass) !important;
+}
+
+/* Dark mode: keep feedback white */
+[data-theme="dark"] .navItemFeedback {
+    color: #ffffff !important;
 }
 
 /* Dark mode sidebar text color - black text for better contrast */
