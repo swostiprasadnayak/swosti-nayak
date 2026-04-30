@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import TrafficLights from "@/components/card/trafficLights/trafficLights";
 import CaseStudyTemplate from "@/components/caseStudy/template/CaseStudyTemplate";
 import UnicefCaseStudyTemplate from "@/components/caseStudy/template/UnicefCaseStudyTemplate";
+import BlinkitCaseStudyTemplate from "@/components/caseStudy/template/BlinkitCaseStudyTemplate";
 import classes from "./expandedProject.module.css";
 interface ExpandedProjectProps {
     projectName: string | null;
@@ -41,8 +42,9 @@ export default function ExpandedProject({ projectName, onClose, layoutId }: Expa
                         <div className={classes.content}>
                             {(projectName?.toLowerCase() === 'syne' || projectName?.toLowerCase() === 'surrounding') && <CaseStudyTemplate />}
                             {projectName?.toLowerCase() === 'unicef' && <UnicefCaseStudyTemplate />}
+                            {projectName?.toLowerCase() === 'blinkit' && <BlinkitCaseStudyTemplate />}
                             {/* Fallback for other projects temporarily */}
-                            {projectName && projectName.toLowerCase() !== 'syne' && projectName.toLowerCase() !== 'unicef' && (
+                            {projectName && projectName.toLowerCase() !== 'syne' && projectName.toLowerCase() !== 'surrounding' && projectName.toLowerCase() !== 'unicef' && projectName.toLowerCase() !== 'blinkit' && (
                                 <div style={{ padding: "60px", textAlign: "center", color: "rgba(0,0,0,0.5)" }}>
                                     Case study for {projectName} is currently under construction.
                                 </div>

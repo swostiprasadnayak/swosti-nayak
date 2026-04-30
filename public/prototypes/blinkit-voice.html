@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blinkit — Voice Quick Order</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --y:#F5C518;--y2:#FFF8D1;--y3:#FFFAED;--yd:#D4A900;
+  --g:#22C55E;--g2:#16A34A;--g3:#DCFCE7;
+  --dk:#1A1A1A;--dk2:#2E2E2E;--dk3:#444;
+  --mu:#686B78;--mu2:#9CA3AF;
+  --bd:#E8E8E8;--bd2:#F2F2F2;
+  --sf:#F7F7F5;--sf2:#FAFAF8;
+  --wh:#FFFFFF;
+  --r:#EF4444;--r2:#FEE2E2;
+  --font:'DM Sans',system-ui,sans-serif;
+}
+body{
+  font-family:var(--font);
+  background:linear-gradient(135deg,#F0EFE8 0%,#E8E6DD 100%);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:32px 16px 64px;gap:24px;
+}
+
+/* ─── PHONE ─── */
+.phone{
+  width:390px;height:844px;
+  border-radius:52px;overflow:hidden;position:relative;
+  background:var(--sf2);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.04),
+    0 0 0 11px #1A1A1A,
+    0 0 0 12px rgba(255,255,255,.07),
+    0 56px 100px rgba(0,0,0,.25),
+    0 24px 48px rgba(0,0,0,.15);
+  flex-shrink:0;
+}
+.phone::before{
+  content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:122px;height:34px;background:#000;border-radius:20px;z-index:999;
+}
+
+/* ─── SCREENS ─── */
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden;}
+.screen.active{display:flex;}
+
+/* ─── STATUS BAR ─── */
+.sb{
+  height:54px;padding:16px 28px 0;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.sb-time{font-size:15px;font-weight:800;color:var(--dk);}
+.sb-r{display:flex;align-items:center;gap:6px;}
+.sb-r svg{width:15px;height:15px;stroke:var(--dk);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.sb-5g{font-size:12px;font-weight:800;color:var(--dk);}
+
+/* ─── TOPBAR ─── */
+.topbar{
+  background:var(--wh);
+  padding:8px 16px 14px;
+  border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;gap:12px;
+  flex-shrink:0;
+}
+.x-btn{
+  width:32px;height:32px;border-radius:50%;background:var(--sf);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:var(--mu);cursor:pointer;
+  border:1.5px solid var(--bd);flex-shrink:0;transition:all .15s;
+}
+.x-btn:hover{background:var(--bd);color:var(--dk);}
+.top-title{
+  font-size:16px;font-weight:900;color:var(--dk);
+  display:flex;align-items:center;gap:6px;
+  letter-spacing:-.3px;
+}
+.top-badge{
+  font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;
+  background:var(--g3);color:var(--g2);
+}
+
+/* ─── CHAT AREA ─── */
+.chat{flex:1;overflow-y:auto;padding:16px 14px 8px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none;}
+.chat::-webkit-scrollbar{display:none;}
+
+/* bubble rows */
+.row{display:flex;align-items:flex-end;gap:8px;}
+.row.user{flex-direction:row-reverse;}
+.avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.av-ai{background:var(--y);font-size:13px;font-weight:900;color:var(--dk);}
+.av-user{background:var(--dk);color:var(--y);font-size:13px;font-weight:900;}
+
+/* bubbles */
+.bbl{
+  max-width:260px;padding:10px 14px;border-radius:18px;
+  font-size:13.5px;font-weight:500;line-height:1.55;
+  animation:bblIn .3s cubic-bezier(.34,1.56,.64,1) backwards;
+}
+@keyframes bblIn{from{opacity:0;transform:scale(.85) translateY(8px)}to{opacity:1;transform:none}}
+.bbl.ai{background:var(--wh);color:var(--dk);border:1.5px solid var(--bd);border-bottom-left-radius:4px;}
+.bbl.user{background:var(--dk);color:var(--wh);border-bottom-right-radius:4px;}
+.bbl em{font-style:normal;color:var(--y);font-weight:700;}
+.bbl b{font-weight:800;color:var(--dk);}
+.bbl.user b{color:var(--y);}
+.bbl.ai b{color:var(--dk);}
+
+/* typing indicator */
+.typing{display:flex;align-items:center;gap:4px;padding:12px 14px;}
+.td{width:7px;height:7px;border-radius:50%;background:var(--mu2);animation:tdot 1.2s ease-in-out infinite;}
+.td:nth-child(2){animation-delay:.15s;}
+.td:nth-child(3){animation-delay:.3s;}
+@keyframes tdot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* voice line - user speaking */
+.voice-bubble{
+  max-width:260px;padding:12px 14px;
+  background:var(--dk);border-radius:18px;border-bottom-right-radius:4px;
+  display:flex;align-items:center;gap:3px;height:46px;
+  animation:bblIn .3s cubic-bezier(.34,1.56,.64,1) backwards;
+}
+.vb{width:4px;background:var(--y);border-radius:100px;animation:vbar 0.7s ease-in-out infinite;}
+.vb:nth-child(1){height:8px;animation-delay:0s;}
+.vb:nth-child(2){height:20px;animation-delay:.05s;}
+.vb:nth-child(3){height:32px;animation-delay:.1s;}
+.vb:nth-child(4){height:40px;animation-delay:.15s;}
+.vb:nth-child(5){height:28px;animation-delay:.2s;}
+.vb:nth-child(6){height:36px;animation-delay:.25s;}
+.vb:nth-child(7){height:18px;animation-delay:.3s;}
+.vb:nth-child(8){height:28px;animation-delay:.35s;}
+.vb:nth-child(9){height:14px;animation-delay:.4s;}
+.vb:nth-child(10){height:24px;animation-delay:.45s;}
+.vb:nth-child(11){height:36px;animation-delay:.5s;}
+.vb:nth-child(12){height:20px;animation-delay:.55s;}
+.vb:nth-child(13){height:10px;animation-delay:.6s;}
+@keyframes vbar{0%,100%{transform:scaleY(.4);opacity:.6}50%{transform:scaleY(1);opacity:1}}
+
+/* cart card */
+.cart-card{
+  background:var(--wh);border:1.5px solid var(--bd);border-radius:16px;
+  overflow:hidden;width:260px;margin-top:2px;
+  animation:bblIn .35s cubic-bezier(.34,1.56,.64,1) backwards;
+}
+.cart-card-head{
+  padding:10px 14px 8px;font-size:11px;font-weight:800;
+  color:var(--mu);letter-spacing:.4px;text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--bd2);
+}
+.cart-item{display:flex;align-items:center;gap:10px;padding:10px 14px;}
+.ci-img{width:34px;height:34px;background:var(--sf);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ci-info{flex:1;min-width:0;}
+.ci-name{font-size:13px;font-weight:700;color:var(--dk);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-meta{font-size:11px;color:var(--mu);margin-top:1px;}
+.ci-usual{font-size:9.5px;background:var(--g3);color:var(--g2);padding:1px 6px;border-radius:100px;font-weight:700;margin-left:4px;}
+.ci-price{font-size:15px;font-weight:900;color:var(--dk);}
+.cart-total{padding:8px 14px 10px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--bd2);}
+.ct-label{font-size:12px;font-weight:600;color:var(--mu);}
+.ct-val{font-size:16px;font-weight:900;color:var(--dk);}
+
+/* action pills row */
+.action-row{display:flex;flex-wrap:wrap;gap:6px;max-width:260px;animation:bblIn .3s ease .1s backwards;}
+.act{
+  padding:8px 14px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;
+  transition:all .18s;border:1.5px solid var(--bd);
+  background:var(--wh);color:var(--dk);
+}
+.act:hover{border-color:var(--dk);background:var(--sf);}
+.act.primary{background:var(--dk);color:var(--y);border-color:var(--dk);}
+.act.primary:hover{background:var(--dk2);}
+.act.accent{background:var(--y);color:var(--dk);border-color:var(--y);}
+.act.accent:hover{background:var(--yd);}
+
+/* ─── BOTTOM AREA ─── */
+.chat-bottom{
+  background:var(--wh);border-top:1px solid var(--bd);
+  padding:10px 14px 16px;flex-shrink:0;
+}
+.input-row{display:flex;align-items:center;gap:10px;}
+.chat-input{
+  flex:1;background:var(--sf);border:1.5px solid var(--bd);
+  border-radius:24px;padding:11px 16px;
+  font-family:var(--font);font-size:14px;color:var(--dk);
+  outline:none;transition:border-color .18s;
+}
+.chat-input:focus{border-color:var(--y);background:var(--wh);}
+.chat-input::placeholder{color:var(--mu2);}
+.mic-fab{
+  width:44px;height:44px;border-radius:50%;background:var(--dk);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+  transition:all .2s;border:none;
+  box-shadow:0 3px 10px rgba(0,0,0,.2);
+}
+.mic-fab:hover{background:var(--dk2);transform:scale(1.08);}
+.mic-fab.listening{background:var(--y);animation:micPulse 1s ease-in-out infinite;}
+.mic-fab svg{width:20px;height:20px;fill:#fff;stroke:none;}
+.mic-fab.listening svg{fill:var(--dk);}
+.mic-icon-sm{display:inline-flex;align-items:center;vertical-align:middle;}
+.mic-icon-sm svg{width:13px;height:13px;fill:currentColor;stroke:none;}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,197,24,.6)}50%{box-shadow:0 0 0 12px rgba(245,197,24,0)}}
+.chat-hint{text-align:center;font-size:11px;color:var(--mu2);font-weight:500;margin-top:8px;}
+.hint-b{color:var(--mu);font-weight:700;}
+
+/* place order sticky bar */
+.order-bar{
+  background:var(--wh);border-top:1px solid var(--bd);
+  padding:10px 14px 14px;flex-shrink:0;
+}
+.order-btn{
+  width:100%;background:var(--y);color:var(--dk);border:none;
+  border-radius:16px;padding:16px;font-family:var(--font);
+  font-size:15px;font-weight:900;cursor:pointer;
+  transition:all .18s;letter-spacing:-.2px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.order-btn:hover{background:var(--yd);transform:translateY(-1px);}
+.order-btn:active{transform:scale(.97);}
+.order-btn.dim{opacity:.5;pointer-events:none;}
+
+/* ─── VOICE MODAL STATE ─── */
+.voice-modal{
+  position:absolute;inset:0;
+  background:rgba(255,255,255,.97);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:50;gap:0;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.voice-modal.open{opacity:1;pointer-events:all;}
+
+.vm-status{font-size:13px;font-weight:700;color:var(--mu);letter-spacing:.4px;text-transform:uppercase;margin-bottom:24px;}
+.vm-status.listening{color:var(--g2);}
+.vm-status.processing{color:var(--mu);}
+
+/* big waveform */
+.waveform{display:flex;align-items:center;gap:5px;height:100px;margin-bottom:32px;}
+.wf{width:6px;border-radius:100px;background:var(--y);transition:background .3s;}
+.wf.idle{height:6px;background:var(--bd);animation:none;}
+.wf.listening{animation:wfListen var(--d,0.6s) ease-in-out infinite alternate;}
+.wf.processing{background:var(--mu2);animation:wfProc .4s ease-in-out infinite alternate;}
+@keyframes wfListen{from{height:6px;opacity:.6}to{height:var(--h,60px);opacity:1}}
+@keyframes wfProc{from{height:4px}to{height:30px}}
+.wf:nth-child(1){--d:.55s;--h:28px}
+.wf:nth-child(2){--d:.45s;--h:52px}
+.wf:nth-child(3){--d:.65s;--h:78px}
+.wf:nth-child(4){--d:.50s;--h:92px}
+.wf:nth-child(5){--d:.70s;--h:100px}
+.wf:nth-child(6){--d:.42s;--h:88px}
+.wf:nth-child(7){--d:.60s;--h:72px}
+.wf:nth-child(8){--d:.48s;--h:96px}
+.wf:nth-child(9){--d:.68s;--h:84px}
+.wf:nth-child(10){--d:.53s;--h:64px}
+.wf:nth-child(11){--d:.72s;--h:76px}
+.wf:nth-child(12){--d:.47s;--h:56px}
+.wf:nth-child(13){--d:.62s;--h:40px}
+.wf:nth-child(14){--d:.44s;--h:24px}
+.wf:nth-child(15){--d:.58s;--h:14px}
+
+.vm-transcript{
+  min-height:28px;font-size:18px;font-weight:800;color:var(--dk);
+  letter-spacing:-.4px;text-align:center;padding:0 32px;margin-bottom:24px;
+}
+.vm-transcript .cursor{
+  display:inline-block;width:2px;height:18px;background:var(--y);
+  vertical-align:middle;margin-left:2px;
+  animation:blink .8s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.vm-close{
+  padding:12px 28px;border-radius:100px;background:var(--sf);
+  border:1.5px solid var(--bd);font-family:var(--font);
+  font-size:14px;font-weight:700;color:var(--mu);cursor:pointer;
+  transition:all .18s;
+}
+.vm-close:hover{border-color:var(--dk);color:var(--dk);}
+
+/* ─── ORDERED SCREEN ─── */
+.ordered-screen{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  flex:1;gap:0;padding:32px;text-align:center;background:var(--wh);
+}
+.ordered-screen.show{display:flex;}
+.check-circle{
+  width:88px;height:88px;border-radius:50%;background:var(--g);
+  display:flex;align-items:center;justify-content:center;
+  font-size:40px;margin-bottom:20px;
+  animation:checkPop .5s cubic-bezier(.34,1.56,.64,1) backwards;
+  box-shadow:0 8px 24px rgba(34,197,94,.35);
+}
+@keyframes checkPop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+.ordered-title{font-size:32px;font-weight:900;color:var(--dk);letter-spacing:-.8px;margin-bottom:8px;animation:fadeUp .4s ease .2s backwards;}
+.ordered-sub{font-size:15px;color:var(--mu);font-weight:500;margin-bottom:32px;animation:fadeUp .4s ease .3s backwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.arriving-card{
+  background:var(--sf);border:1.5px solid var(--bd);border-radius:20px;
+  padding:20px 28px;width:100%;max-width:280px;
+  margin-bottom:24px;
+  animation:fadeUp .4s ease .4s backwards;
+}
+.ac-time{font-size:40px;font-weight:900;color:var(--dk);letter-spacing:-1px;line-height:1;}
+.ac-label{font-size:13px;color:var(--mu);font-weight:600;margin-top:4px;}
+.ac-bar{width:100%;height:4px;background:var(--bd2);border-radius:100px;margin-top:14px;overflow:hidden;}
+.ac-fill{height:100%;background:var(--g);border-radius:100px;width:0%;animation:fillBar 12s linear .6s forwards;}
+@keyframes fillBar{to{width:100%}}
+
+.undo-btn{
+  display:flex;align-items:center;gap:10px;
+  background:var(--wh);border:1.5px solid var(--bd);border-radius:100px;
+  padding:12px 22px;font-family:var(--font);font-size:14px;font-weight:700;
+  color:var(--dk);cursor:pointer;transition:all .18s;
+  animation:fadeUp .4s ease .5s backwards;
+}
+.undo-btn:hover{border-color:var(--r);color:var(--r);}
+.undo-ring{
+  position:relative;width:28px;height:28px;flex-shrink:0;
+}
+.undo-ring svg{position:absolute;inset:0;transform:rotate(-90deg);}
+.undo-ring-bg{fill:none;stroke:var(--bd2);stroke-width:3;}
+.undo-ring-fill{fill:none;stroke:var(--r);stroke-width:3;stroke-dasharray:75.4;stroke-dashoffset:75.4;stroke-linecap:round;animation:ringDrain 8s linear .6s forwards;}
+@keyframes ringDrain{from{stroke-dashoffset:0}to{stroke-dashoffset:75.4}}
+.undo-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--dk);}
+
+/* ─── NAV ─── */
+.nav-outer{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:520px;}
+.nav-label{font-size:10.5px;font-weight:700;color:rgba(0,0,0,.35);letter-spacing:.8px;text-transform:uppercase;}
+.nav-row{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
+.nav-btn{
+  font-family:var(--font);font-size:11.5px;font-weight:700;
+  padding:8px 16px;border-radius:100px;cursor:pointer;
+  border:1.5px solid rgba(0,0,0,.1);
+  background:rgba(255,255,255,.8);color:rgba(0,0,0,.45);
+  transition:all .18s;
+}
+.nav-btn:hover{background:#fff;color:rgba(0,0,0,.7);}
+.nav-btn.active{background:var(--dk);color:var(--y);border-color:var(--dk);}
+
+/* TOAST */
+.toast{
+  position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);
+  background:var(--dk);color:#fff;padding:9px 18px;border-radius:100px;
+  font-size:12px;font-weight:700;white-space:nowrap;z-index:200;
+  opacity:0;pointer-events:none;transition:all .22s cubic-bezier(.34,1.56,.64,1);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     PHONE — QUICK ORDER / VOICE
+════════════════════════════════════ -->
+<div class="phone" id="phone">
+
+<!-- ───── SCREEN 1: IDLE / WELCOME ───── -->
+<div class="screen active" id="s1">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-r">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <span class="sb-5g">5G</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="x-btn" onclick="goHome()">✕</div>
+    <div class="top-title">⚡ Quick Order <span class="top-badge">Voice AI</span></div>
+  </div>
+  <div class="chat" id="chat-s1">
+    <!-- initial AI message -->
+    <div class="row" style="animation-delay:0s">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai" style="animation-delay:.1s">
+        Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> — I'll build your cart.
+      </div>
+    </div>
+    <div class="row">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai" style="animation-delay:.25s">
+        Try saying: <em>"I want to make paneer butter masala"</em> or <em>"Order me milk and eggs"</em>
+      </div>
+    </div>
+  </div>
+  <div class="chat-bottom">
+    <div class="input-row">
+      <input class="chat-input" id="input-s1" placeholder="Type your order…" onkeydown="if(event.key==='Enter')sendText()">
+      <button class="mic-fab" id="mic-s1" onclick="openVoice()" title="Tap to speak"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></button>
+    </div>
+    <div class="chat-hint"><span class="hint-b">Tap <span class="mic-icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></span> to speak</span> · AI understands Hindi &amp; English</div>
+  </div>
+
+  <!-- VOICE MODAL -->
+  <div class="voice-modal" id="voice-modal">
+    <div class="vm-status" id="vm-status">TAP TO SPEAK</div>
+    <div class="waveform" id="waveform">
+      <div class="wf idle"></div><div class="wf idle"></div><div class="wf idle"></div>
+      <div class="wf idle"></div><div class="wf idle"></div><div class="wf idle"></div>
+      <div class="wf idle"></div><div class="wf idle"></div><div class="wf idle"></div>
+      <div class="wf idle"></div><div class="wf idle"></div><div class="wf idle"></div>
+      <div class="wf idle"></div><div class="wf idle"></div><div class="wf idle"></div>
+    </div>
+    <div class="vm-transcript" id="vm-transcript"></div>
+    <button class="vm-close" onclick="closeVoice()">Cancel</button>
+  </div>
+</div>
+
+<!-- ───── SCREEN 2: LISTENING (voice demo state) ───── -->
+<div class="screen" id="s2">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-r">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <span class="sb-5g">5G</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="x-btn">✕</div>
+    <div class="top-title">⚡ Quick Order <span class="top-badge">Listening…</span></div>
+  </div>
+  <!-- Full-screen voice UI -->
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:0;background:var(--sf2);">
+    <div style="font-size:11px;font-weight:800;color:var(--g2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:6px;">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--g);display:inline-block;animation:gPulse 1s ease-in-out infinite;"></span>
+      LISTENING
+    </div>
+    <style>@keyframes gPulse{0%,100%{opacity:1}50%{opacity:.3}}</style>
+
+    <!-- Big animated waveform -->
+    <div style="display:flex;align-items:center;gap:5px;height:100px;margin-bottom:36px;" id="big-wave">
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .55s ease-in-out infinite alternate;--h:28px"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .45s ease-in-out infinite alternate;--h:52px;animation-delay:.05s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .65s ease-in-out infinite alternate;--h:78px;animation-delay:.1s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .50s ease-in-out infinite alternate;--h:92px;animation-delay:.15s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .70s ease-in-out infinite alternate;--h:100px;animation-delay:.2s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .42s ease-in-out infinite alternate;--h:88px;animation-delay:.25s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .60s ease-in-out infinite alternate;--h:72px;animation-delay:.3s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .48s ease-in-out infinite alternate;--h:96px;animation-delay:.35s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .68s ease-in-out infinite alternate;--h:84px;animation-delay:.4s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .53s ease-in-out infinite alternate;--h:64px;animation-delay:.45s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .72s ease-in-out infinite alternate;--h:76px;animation-delay:.5s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .47s ease-in-out infinite alternate;--h:56px;animation-delay:.55s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .62s ease-in-out infinite alternate;--h:40px;animation-delay:.6s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .44s ease-in-out infinite alternate;--h:24px;animation-delay:.65s"></div>
+      <div style="width:6px;border-radius:100px;background:var(--y);animation:bw .58s ease-in-out infinite alternate;--h:14px;animation-delay:.7s"></div>
+    </div>
+    <style>@keyframes bw{from{height:6px;opacity:.5}to{height:var(--h,40px);opacity:1}}</style>
+
+    <!-- Live transcript -->
+    <div style="font-size:22px;font-weight:900;color:var(--dk);letter-spacing:-.6px;text-align:center;min-height:60px;padding:0 24px;" id="live-transcript">
+      <span id="lt-text"></span><span style="display:inline-block;width:2px;height:20px;background:var(--y);vertical-align:middle;margin-left:2px;animation:blink .8s step-end infinite;"></span>
+    </div>
+
+    <div style="margin-top:32px;font-size:13px;color:var(--mu);font-weight:500;">Say your order in <b style="color:var(--dk)">Hindi or English</b></div>
+    <div style="margin-top:28px;display:flex;gap:12px;">
+      <button onclick="goTo(3)" style="padding:12px 28px;border-radius:100px;background:var(--dk);color:var(--y);border:none;font-family:var(--font);font-size:14px;font-weight:800;cursor:pointer;">Done →</button>
+      <button style="padding:12px 24px;border-radius:100px;background:var(--sf);border:1.5px solid var(--bd);font-family:var(--font);font-size:14px;font-weight:700;color:var(--mu);cursor:pointer;" onclick="goTo(1)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SCREEN 3: AI BUILDS CART ───── -->
+<div class="screen" id="s3">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-r">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <span class="sb-5g">5G</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="x-btn" onclick="goTo(1)">✕</div>
+    <div class="top-title">⚡ Quick Order</div>
+  </div>
+  <div class="chat" id="chat-s3">
+    <div class="row">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai">Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> — I'll build your cart.</div>
+    </div>
+    <!-- user voice bubble -->
+    <div class="row user" style="animation-delay:.1s">
+      <div class="avatar av-user">U</div>
+      <div class="voice-bubble" style="animation-delay:.1s">
+        <div class="vb"></div><div class="vb"></div><div class="vb"></div><div class="vb"></div><div class="vb"></div>
+        <div class="vb"></div><div class="vb"></div><div class="vb"></div><div class="vb"></div><div class="vb"></div>
+        <div class="vb"></div><div class="vb"></div><div class="vb"></div>
+      </div>
+    </div>
+    <!-- transcript text -->
+    <div class="row user" style="animation-delay:.15s">
+      <div class="avatar av-user">U</div>
+      <div class="bbl user" style="animation-delay:.15s"><span class="mic-icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></span> <em>Milk aur eggs de do</em></div>
+    </div>
+    <!-- AI typing -->
+    <div class="row" id="typing-s3" style="animation-delay:.3s">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai" style="padding:12px 16px;"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>
+    </div>
+  </div>
+  <div class="chat-bottom">
+    <div class="input-row">
+      <input class="chat-input" placeholder="Type your order…">
+      <button class="mic-fab" onclick="goTo(2)"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></button>
+    </div>
+    <div class="chat-hint"><span class="hint-b">Tap <span class="mic-icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></span> to speak</span> · AI understands Hindi &amp; English</div>
+  </div>
+</div>
+
+<!-- ───── SCREEN 4: CART SHOWN ───── -->
+<div class="screen" id="s4">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-r">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <span class="sb-5g">5G</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="x-btn" onclick="goTo(1)">✕</div>
+    <div class="top-title">⚡ Quick Order</div>
+  </div>
+  <div class="chat" id="chat-s4">
+    <div class="row">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai">Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> — I'll build your cart.</div>
+    </div>
+    <div class="row user">
+      <div class="avatar av-user">U</div>
+      <div class="bbl user"><span class="mic-icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></span> <em>Milk aur eggs de do</em></div>
+    </div>
+    <div class="row" style="animation-delay:.05s">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai" style="animation-delay:.05s">Got it! 🎯 Based on your history, here are the best matches:</div>
+    </div>
+    <!-- cart card -->
+    <div class="row" style="animation-delay:.15s">
+      <div class="avatar av-ai" style="visibility:hidden">B</div>
+      <div class="cart-card" style="animation-delay:.15s">
+        <div class="cart-card-head">🛒 Your cart (2 items)</div>
+        <div class="cart-item">
+          <div class="ci-img">🥛</div>
+          <div class="ci-info">
+            <div class="ci-name">Amul Toned Milk <span class="ci-usual">Your usual ⭐</span></div>
+            <div class="ci-meta">1L · Amul</div>
+          </div>
+          <div class="ci-price">₹68</div>
+        </div>
+        <div class="cart-item">
+          <div class="ci-img">🥚</div>
+          <div class="ci-info">
+            <div class="ci-name">NestEgg Brown Eggs ×12</div>
+            <div class="ci-meta">1 dozen · NestEgg</div>
+          </div>
+          <div class="ci-price">₹129</div>
+        </div>
+        <div class="cart-total">
+          <span class="ct-label">Estimated total</span>
+          <span class="ct-val">₹197</span>
+        </div>
+      </div>
+    </div>
+    <!-- AI follow-up -->
+    <div class="row" style="animation-delay:.25s">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai" style="animation-delay:.25s">Want to change any brand or size? Or shall I place this order?</div>
+    </div>
+    <!-- action pills -->
+    <div class="row" style="animation-delay:.35s">
+      <div class="avatar av-ai" style="visibility:hidden">B</div>
+      <div class="action-row" style="animation-delay:.35s">
+        <div class="act primary" onclick="goTo(6)">✓ Place Order</div>
+        <div class="act accent" onclick="goTo(5)">Change Brand</div>
+        <div class="act" onclick="goTo(5)">Change Size</div>
+        <div class="act" onclick="showToast('s4','Say or type what to add!')">Add More Items</div>
+      </div>
+    </div>
+  </div>
+  <div class="order-bar">
+    <button class="order-btn" onclick="goTo(6)">⚡ Place Order — ₹197</button>
+  </div>
+  <div class="toast" id="toast-s4"></div>
+</div>
+
+<!-- ───── SCREEN 5: BRAND CHANGE CONVERSATION ───── -->
+<div class="screen" id="s5">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-r">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <span class="sb-5g">5G</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="x-btn" onclick="goTo(1)">✕</div>
+    <div class="top-title">⚡ Quick Order</div>
+  </div>
+  <div class="chat" id="chat-s5">
+    <div class="row">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai">Got it! 🎯 Based on your history, here are the best matches:</div>
+    </div>
+    <div class="row">
+      <div class="avatar av-ai" style="visibility:hidden">B</div>
+      <div class="cart-card">
+        <div class="cart-card-head">🛒 Your cart (2 items)</div>
+        <div class="cart-item">
+          <div class="ci-img">🥛</div>
+          <div class="ci-info"><div class="ci-name">Amul Toned Milk <span class="ci-usual">Your usual ⭐</span></div><div class="ci-meta">1L · Amul</div></div>
+          <div class="ci-price">₹68</div>
+        </div>
+        <div class="cart-item">
+          <div class="ci-img">🥚</div>
+          <div class="ci-info"><div class="ci-name">NestEgg Brown Eggs ×12</div><div class="ci-meta">1 dozen · NestEgg</div></div>
+          <div class="ci-price">₹129</div>
+        </div>
+        <div class="cart-total"><span class="ct-label">Estimated total</span><span class="ct-val">₹197</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai">Want to change any brand or size? Or shall I place this order?</div>
+    </div>
+    <div class="row">
+      <div class="avatar av-ai" style="visibility:hidden">B</div>
+      <div class="action-row">
+        <div class="act primary">✓ Place Order</div>
+        <div class="act accent">Change Brand</div>
+        <div class="act">Change Size</div>
+        <div class="act">Add More Items</div>
+      </div>
+    </div>
+    <!-- user says change brand -->
+    <div class="row user" style="animation-delay:.1s">
+      <div class="avatar av-user">U</div>
+      <div class="bbl user" style="animation-delay:.1s"><span class="mic-icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></span> <em>Change Brand</em></div>
+    </div>
+    <!-- AI asks which item -->
+    <div class="row" style="animation-delay:.2s">
+      <div class="avatar av-ai">B</div>
+      <div class="bbl ai" style="animation-delay:.2s">Sure! Which brand would you prefer for <em>milk</em>?</div>
+    </div>
+    <div class="row" style="animation-delay:.3s">
+      <div class="avatar av-ai" style="visibility:hidden">B</div>
+      <div class="action-row" style="animation-delay:.3s">
+        <div class="act accent" id="brand-amul" onclick="pickBrand('Amul',this)">Amul ⭐</div>
+        <div class="act" id="brand-md" onclick="pickBrand('Mother Dairy',this)">Mother Dairy</div>
+        <div class="act" id="brand-ns" onclick="pickBrand('Nandini',this)">Nandini</div>
+      </div>
+    </div>
+  </div>
+  <div class="order-bar">
+    <button class="order-btn dim" id="s5-order-btn">⚡ Place Order — ₹197</button>
+  </div>
+  <div class="toast" id="toast-s5"></div>
+</div>
+
+<!-- ───── SCREEN 6: ORDERED! ───── -->
+<div class="screen" id="s6">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-r">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <span class="sb-5g">5G</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="x-btn" onclick="goTo(1)">✕</div>
+    <div class="top-title">⚡ Quick Order</div>
+  </div>
+  <!-- ordered content -->
+  <div class="ordered-screen show">
+    <div class="check-circle">✓</div>
+    <div class="ordered-title">Ordered!</div>
+    <div class="ordered-sub">Arriving in 12 min 🛵</div>
+    <div class="arriving-card">
+      <div class="ac-time">12:00</div>
+      <div class="ac-label">minutes away · Your rider is on the way</div>
+      <div class="ac-bar"><div class="ac-fill"></div></div>
+    </div>
+    <button class="undo-btn" onclick="undoOrder()" id="undo-btn">
+      <div class="undo-ring">
+        <svg viewBox="0 0 28 28" width="28" height="28">
+          <circle class="undo-ring-bg" cx="14" cy="14" r="12"/>
+          <circle class="undo-ring-fill" cx="14" cy="14" r="12"/>
+        </svg>
+        <div class="undo-num" id="undo-num">8</div>
+      </div>
+      ↩ Undo
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast-global"></div>
+</div>
+<!-- /phone -->
+
+<!-- ─── NAV ─── -->
+<div class="nav-outer">
+  <div class="nav-label">↑ Switch between voice journey screens</div>
+  <div class="nav-row">
+    <button class="nav-btn active" onclick="goTo(1)">1 · Welcome</button>
+    <button class="nav-btn" onclick="goTo(2)">2 · Listening</button>
+    <button class="nav-btn" onclick="goTo(3)">3 · AI Typing</button>
+    <button class="nav-btn" onclick="goTo(4)">4 · Cart Built</button>
+    <button class="nav-btn" onclick="goTo(5)">5 · Brand Change</button>
+    <button class="nav-btn" onclick="goTo(6)">6 · Ordered!</button>
+  </div>
+</div>
+
+<script>
+/* ─── NAVIGATION ─── */
+let current=1;
+function goTo(n){
+  document.querySelector('.screen.active')?.classList.remove('active');
+  document.getElementById('s'+n).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===(n-1)));
+  current=n;
+  if(n===2)startListeningDemo();
+  if(n===3)startTypingDemo();
+  if(n===6)startUndoCountdown();
+}
+function goHome(){goTo(1);}
+
+/* ─── SCREEN 1 — VOICE MODAL ─── */
+let voicePhase='idle',voiceTimer=null;
+const phrases=['Milk aur eggs de do','Order me 1L Amul milk','Paneer butter masala ingredients'];
+let phraseIdx=0,charIdx=0;
+
+function openVoice(){
+  document.getElementById('voice-modal').classList.add('open');
+  document.getElementById('mic-s1').classList.add('listening');
+  voicePhase='ready';
+  document.getElementById('vm-status').textContent='TAP TO SPEAK';
+  document.getElementById('vm-status').className='vm-status';
+  document.getElementById('vm-transcript').innerHTML='';
+  // set waveforms idle
+  setWave('idle');
+  document.getElementById('voice-modal').onclick=startRecording;
+}
+function closeVoice(){
+  document.getElementById('voice-modal').classList.remove('open');
+  document.getElementById('mic-s1').classList.remove('listening');
+  clearTimeout(voiceTimer);
+  setWave('idle');
+  voicePhase='idle';
+}
+function startRecording(){
+  if(voicePhase!=='ready')return;
+  voicePhase='listening';
+  document.getElementById('vm-status').textContent='LISTENING…';
+  document.getElementById('vm-status').className='vm-status listening';
+  setWave('listening');
+  // type out transcript
+  const phrase=phrases[phraseIdx%phrases.length];
+  phraseIdx++;charIdx=0;
+  document.getElementById('vm-transcript').innerHTML='<span class="cursor"></span>';
+  const span=document.createElement('span');
+  document.getElementById('vm-transcript').prepend(span);
+  function typeNext(){
+    if(charIdx<phrase.length){
+      span.textContent=phrase.slice(0,++charIdx);
+      voiceTimer=setTimeout(typeNext,60+Math.random()*40);
+    } else {
+      setTimeout(finishRecording,600);
+    }
+  }
+  typeNext();
+}
+function finishRecording(){
+  voicePhase='processing';
+  document.getElementById('vm-status').textContent='PROCESSING…';
+  document.getElementById('vm-status').className='vm-status processing';
+  setWave('processing');
+  setTimeout(()=>{closeVoice();goTo(3);},1200);
+}
+function setWave(state){
+  document.querySelectorAll('#waveform .wf').forEach(el=>{el.className='wf '+state;});
+}
+
+/* ─── SCREEN 2 — DEMO LISTENING ─── */
+let ltIdx=0,ltTimer=null;
+const ltPhrase='Milk aur eggs de do';
+function startListeningDemo(){
+  ltIdx=0;
+  document.getElementById('lt-text').textContent='';
+  clearInterval(ltTimer);
+  ltTimer=setInterval(()=>{
+    if(ltIdx<ltPhrase.length){
+      document.getElementById('lt-text').textContent=ltPhrase.slice(0,++ltIdx);
+    } else {
+      clearInterval(ltTimer);
+    }
+  },75);
+}
+
+/* ─── SCREEN 3 — TYPING THEN AUTO-ADVANCE ─── */
+function startTypingDemo(){
+  setTimeout(()=>{goTo(4);},2000);
+}
+
+/* ─── SCREEN 5 — BRAND PICK ─── */
+function pickBrand(name,el){
+  document.querySelectorAll('#chat-s5 .action-row:last-of-type .act').forEach(a=>{
+    a.className='act';
+  });
+  el.className='act accent';
+  // add response bubble
+  const chat=document.getElementById('chat-s5');
+  // user says brand
+  const uRow=document.createElement('div');
+  uRow.className='row user';
+  uRow.innerHTML=`<div class="avatar av-user">U</div><div class="bbl user" style="animation-delay:.05s"><span class="mic-icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg></span> <em>${name}</em></div>`;
+  chat.appendChild(uRow);
+  // AI confirms
+  setTimeout(()=>{
+    const aRow=document.createElement('div');
+    aRow.className='row';
+    aRow.innerHTML=`<div class="avatar av-ai">B</div><div class="bbl ai" style="animation-delay:.05s">Done! ✅ Switched to <em>${name}</em> milk. Shall I place the order now?</div>`;
+    chat.appendChild(aRow);
+    const btnRow=document.createElement('div');
+    btnRow.className='row';
+    btnRow.innerHTML=`<div class="avatar av-ai" style="visibility:hidden">B</div><div class="action-row" style="animation-delay:.1s"><div class="act primary" onclick="goTo(6)">✓ Yes, Place Order</div><div class="act" onclick="showToast('s5','Say what else you need!')">Add More</div></div>`;
+    chat.appendChild(btnRow);
+    chat.scrollTop=chat.scrollHeight;
+    document.getElementById('s5-order-btn').classList.remove('dim');
+    document.getElementById('s5-order-btn').textContent='⚡ Place Order — ₹197';
+  },600);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+/* ─── SCREEN 6 — UNDO COUNTDOWN ─── */
+let undoT=null,undoN=8;
+function startUndoCountdown(){
+  undoN=8;
+  clearInterval(undoT);
+  document.getElementById('undo-num').textContent=undoN;
+  // restart ring animation by cloning
+  const old=document.querySelector('.undo-ring-fill');
+  const neo=old.cloneNode(true);
+  old.parentNode.replaceChild(neo,old);
+  undoT=setInterval(()=>{
+    undoN--;
+    const el=document.getElementById('undo-num');
+    if(el)el.textContent=undoN;
+    if(undoN<=0){clearInterval(undoT);if(el)el.textContent='✓';}
+  },1000);
+}
+function undoOrder(){
+  clearInterval(undoT);
+  showToastGlobal('Order cancelled ↩');
+  setTimeout(()=>goTo(1),600);
+}
+
+/* ─── SCREEN 1 — TEXT INPUT ─── */
+function sendText(){
+  const v=document.getElementById('input-s1').value.trim();
+  if(!v)return;
+  const chat=document.getElementById('chat-s1');
+  const uRow=document.createElement('div');
+  uRow.className='row user';
+  uRow.innerHTML=`<div class="avatar av-user">U</div><div class="bbl user">${v}</div>`;
+  chat.appendChild(uRow);
+  document.getElementById('input-s1').value='';
+  chat.scrollTop=chat.scrollHeight;
+  setTimeout(()=>goTo(3),800);
+}
+
+/* ─── TOASTS ─── */
+const tt={};
+function showToast(sid,msg){
+  const el=document.getElementById('toast-'+sid);
+  if(!el)return;
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(tt[sid]);
+  tt[sid]=setTimeout(()=>el.classList.remove('show'),2400);
+}
+function showToastGlobal(msg){
+  const el=document.getElementById('toast-global');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(tt.g);
+  tt.g=setTimeout(()=>el.classList.remove('show'),2400);
+}
+</script>
+</body>
+</html>

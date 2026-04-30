@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blinkit — Scanner & Meal Intent</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --y:#F5C518;--y2:#FFF8D1;--y3:#FFFAED;
+  --g:#22C55E;--g2:#16A34A;--g3:#DCFCE7;
+  --dk:#1C1C1C;--dk2:#3D3D3D;
+  --mu:#686B78;--mu2:#9CA3AF;
+  --bd:#E5E5E5;--bd2:#F0F0F0;
+  --sf:#F7F7F7;--sf2:#FAFAFA;
+  --wh:#FFFFFF;
+  --r:#EF4444;--r2:#FEE2E2;
+  --font:'DM Sans',system-ui,sans-serif;
+  --radius:52px;
+}
+body{font-family:var(--font);background:#EAEAEA;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 56px;gap:20px;}
+
+/* PHONE */
+.phone-wrap{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+.phone{width:390px;height:844px;border-radius:var(--radius);overflow:hidden;position:relative;background:var(--wh);
+  box-shadow:0 0 0 1px rgba(0,0,0,.05),0 0 0 11px #1C1C1C,0 0 0 12px rgba(255,255,255,.06),0 48px 96px rgba(0,0,0,.28);
+  flex-shrink:0;}
+.phone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:122px;height:34px;background:#000;border-radius:20px;z-index:999;}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden;background:var(--wh);}
+.screen.active{display:flex;}
+
+/* STATUS BAR */
+.sb{height:54px;padding:16px 28px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sb-time{font-size:15px;font-weight:800;color:var(--dk);}
+.sb-icons{display:flex;align-items:center;gap:5px;color:var(--dk);}
+.sb-icons svg{width:15px;height:15px;stroke:var(--dk);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* TOP BAR (yellow) */
+.topbar{background:var(--y);padding:4px 16px 14px;flex-shrink:0;}
+.topbar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.back-btn{width:32px;height:32px;background:rgba(0,0,0,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;font-weight:700;flex-shrink:0;transition:background .15s;}
+.back-btn:hover{background:rgba(0,0,0,.18);}
+.topbar-title{font-size:18px;font-weight:900;color:var(--dk);letter-spacing:-.4px;}
+
+/* TABS */
+.tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:7px 13px;border-radius:100px;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer;transition:all .18s;flex-shrink:0;color:rgba(0,0,0,.45);background:rgba(0,0,0,.08);}
+.tab.active{background:var(--dk);color:var(--y);}
+.tab:hover:not(.active){background:rgba(0,0,0,.15);color:var(--dk);}
+
+/* BODY scroll */
+.scroll-body{flex:1;overflow-y:auto;scrollbar-width:none;}
+.scroll-body::-webkit-scrollbar{display:none;}
+
+/* ═══ SCREEN A — SCANNER ═══ */
+
+/* camera tab */
+.cam-viewport{background:#111;flex:1;position:relative;overflow:hidden;min-height:0;}
+.cam-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.scan-frame{width:260px;height:200px;position:relative;}
+.sc{position:absolute;width:22px;height:22px;border-color:var(--y);border-style:solid;}
+.sc.tl{top:0;left:0;border-width:3px 0 0 3px;border-radius:4px 0 0 0;}
+.sc.tr{top:0;right:0;border-width:3px 3px 0 0;border-radius:0 4px 0 0;}
+.sc.bl{bottom:0;left:0;border-width:0 0 3px 3px;border-radius:0 0 0 4px;}
+.sc.br{bottom:0;right:0;border-width:0 3px 3px 0;border-radius:0 0 4px 0;}
+.scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--y),transparent);animation:sl 2s ease-in-out infinite;}
+@keyframes sl{0%,100%{top:0;opacity:.7}50%{top:100%;opacity:1}}
+
+.grocery-doc{position:absolute;width:200px;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,.45);animation:docIn .7s cubic-bezier(.34,1.56,.64,1) forwards;top:50%;left:50%;transform:translate(-50%,-50%);}
+@keyframes docIn{from{opacity:0;transform:translate(-50%,-50%) scale(.85)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.doc-title{font-size:11px;font-weight:800;color:var(--mu);letter-spacing:.6px;text-transform:uppercase;text-align:center;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:5px;}
+.doc-item{display:flex;align-items:center;gap:7px;padding:2.5px 0;font-size:12.5px;font-weight:600;color:var(--dk);}
+.doc-dot{width:10px;height:10px;background:var(--y);border-radius:3px;flex-shrink:0;}
+
+/* chips bottom */
+.chips-bottom{background:var(--wh);border-top:1px solid var(--bd);flex-shrink:0;}
+.detected-label{padding:12px 16px 8px;font-size:10.5px;font-weight:800;color:var(--mu);letter-spacing:.5px;}
+.chips-row{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:7px;}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:100px;background:var(--sf);border:1.5px solid var(--bd);font-size:12px;font-weight:700;color:var(--dk);cursor:pointer;transition:all .18s;animation:chipPop .3s cubic-bezier(.34,1.56,.64,1) backwards;}
+@keyframes chipPop{from{opacity:0;transform:scale(.65)}to{opacity:1;transform:scale(1)}}
+.chip:hover{background:var(--y2);border-color:var(--y);}
+.chip.removed{opacity:.3;text-decoration:line-through;pointer-events:none;}
+.chip-x{font-size:10px;font-weight:900;color:var(--mu2);margin-left:1px;}
+
+.build-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin:2px 16px 18px;width:calc(100% - 32px);background:var(--y);color:var(--dk);border:none;border-radius:15px;padding:16px;font-family:var(--font);font-size:15px;font-weight:900;cursor:pointer;transition:all .18s;letter-spacing:-.2px;}
+.build-btn:hover{background:#eec000;transform:translateY(-1px);}
+.build-btn:active{transform:scale(.97) translateY(0);}
+
+/* upload tab */
+.upload-body{flex:1;display:flex;flex-direction:column;padding:24px 16px;gap:12px;}
+.upload-zone{background:var(--sf2);border:2px dashed var(--bd);border-radius:20px;padding:36px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;cursor:pointer;transition:all .22s;}
+.upload-zone:hover{border-color:var(--y);background:var(--y2);}
+.uz-emoji{font-size:44px;}
+.uz-title{font-size:17px;font-weight:900;color:var(--dk);letter-spacing:-.4px;margin-top:2px;}
+.uz-sub{font-size:12px;color:var(--mu);line-height:1.6;max-width:240px;}
+.gallery-btn{background:var(--y);color:var(--dk);border:none;padding:11px 22px;border-radius:12px;font-family:var(--font);font-size:14px;font-weight:800;cursor:pointer;margin-top:4px;transition:all .15s;}
+.gallery-btn:hover{background:#eec000;}
+.or-line{display:flex;align-items:center;gap:10px;width:100%;}
+.or-line::before,.or-line::after{content:'';flex:1;height:1px;background:var(--bd);}
+.or-line span{font-size:11px;color:var(--mu2);font-weight:600;}
+.paste-ss-btn{width:100%;background:var(--wh);border:1.5px solid var(--bd);border-radius:14px;padding:14px;font-family:var(--font);font-size:14px;font-weight:700;color:var(--dk);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;}
+.paste-ss-btn:hover{border-color:var(--dk);background:var(--sf);}
+
+/* paste tab */
+.paste-body{flex:1;display:flex;flex-direction:column;padding:20px 16px;gap:10px;}
+.paste-head{font-size:17px;font-weight:900;color:var(--dk);letter-spacing:-.4px;}
+.paste-sub{font-size:12px;color:var(--mu);}
+.paste-ta{flex:1;min-height:150px;background:var(--sf);border:1.5px solid var(--bd);border-radius:16px;padding:14px;font-family:var(--font);font-size:14px;color:var(--dk);resize:none;outline:none;line-height:1.7;transition:border-color .18s;}
+.paste-ta:focus{border-color:var(--y);background:var(--wh);}
+.paste-ta::placeholder{color:var(--mu2);}
+.analyse-btn{background:var(--y);color:var(--dk);border:none;border-radius:14px;padding:15px;font-family:var(--font);font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;}
+.analyse-btn:hover{background:#eec000;}
+.analyse-btn:active{transform:scale(.97);}
+
+/* processing overlay */
+.proc-overlay{position:absolute;inset:0;background:rgba(255,255,255,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:20;opacity:0;pointer-events:none;transition:opacity .25s;}
+.proc-overlay.show{opacity:1;pointer-events:all;}
+.spinner{width:52px;height:52px;border:3px solid var(--bd);border-top:3px solid var(--y);border-radius:50%;animation:spin .75s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.proc-title{font-size:16px;font-weight:900;color:var(--dk);}
+.proc-steps{display:flex;flex-direction:column;gap:7px;width:250px;}
+.ps{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--mu2);transition:color .25s;}
+.ps.running{color:var(--dk);}
+.ps.done{color:var(--g2);}
+.ps-dot{width:8px;height:8px;border-radius:50%;background:var(--bd);flex-shrink:0;transition:background .25s;}
+.ps.running .ps-dot{background:var(--y);animation:pdot 1s ease-in-out infinite;}
+.ps.done .ps-dot{background:var(--g);}
+@keyframes pdot{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+
+/* ═══ SCREEN B — MEAL INTENT ═══ */
+.meal-topbar{background:var(--wh);padding:4px 16px 14px;border-bottom:1px solid var(--bd);flex-shrink:0;}
+.meal-topbar-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.meal-topbar-title{font-size:18px;font-weight:900;color:var(--dk);letter-spacing:-.4px;}
+.search-wrap{background:var(--sf);border:1.5px solid var(--bd);border-radius:14px;height:50px;display:flex;align-items:center;padding:0 14px;gap:10px;transition:all .18s;}
+.search-wrap.focused{border-color:var(--y);background:var(--wh);box-shadow:0 0 0 3px var(--y2);}
+.sw-icon{font-size:18px;}
+.sw-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--font);font-size:15px;font-weight:500;color:var(--dk);}
+.sw-input::placeholder{color:var(--mu2);}
+.mic-btn{font-size:20px;cursor:pointer;}
+
+/* suggestion chips */
+.sugg-section{padding:14px 16px 8px;flex-shrink:0;}
+.sugg-label{font-size:10.5px;font-weight:800;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;}
+.sugg-row{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.sugg-row::-webkit-scrollbar{display:none;}
+.sugg-chip{padding:8px 14px;background:var(--wh);border:1.5px solid var(--bd);border-radius:100px;font-size:12px;font-weight:700;color:var(--dk);white-space:nowrap;cursor:pointer;transition:all .18s;flex-shrink:0;}
+.sugg-chip:hover{border-color:var(--y);background:var(--y2);}
+.sugg-chip.active{background:var(--dk);color:var(--y);border-color:var(--dk);}
+
+/* meal processing steps */
+.meal-proc{flex:1;display:none;flex-direction:column;padding:28px 20px 0;}
+.meal-proc.show{display:flex;}
+.meal-proc-top{text-align:center;margin-bottom:24px;}
+.meal-proc-emoji{font-size:44px;display:block;margin-bottom:10px;animation:bob 1.5s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.meal-proc-ttl{font-size:18px;font-weight:900;color:var(--dk);letter-spacing:-.4px;}
+.meal-proc-sub{font-size:12px;color:var(--mu);margin-top:4px;}
+.mstep{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;margin-bottom:8px;transition:all .3s;}
+.mstep.idle{background:var(--sf);color:var(--mu2);}
+.mstep.running{background:var(--y2);color:var(--dk);border:1.5px solid var(--y);}
+.mstep.done{background:var(--g3);color:var(--g2);border:1.5px solid #BBF7D0;}
+.mstep-ico{font-size:17px;width:26px;text-align:center;}
+.mstep-txt{font-size:13px;font-weight:700;flex:1;}
+.mstep-badge{font-size:10px;font-weight:800;padding:3px 9px;border-radius:100px;background:var(--bd);color:var(--mu);}
+.mstep.running .mstep-badge{background:var(--y);color:var(--dk);}
+.mstep.done .mstep-badge{background:var(--g);color:#fff;}
+
+/* result cards */
+.meal-result{flex:1;display:none;flex-direction:column;min-height:0;}
+.meal-result.show{display:flex;}
+.mresult-scroll{flex:1;overflow-y:auto;scrollbar-width:none;}
+.mresult-scroll::-webkit-scrollbar{display:none;}
+.mresult-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between;}
+.mresult-title{font-size:19px;font-weight:900;color:var(--dk);letter-spacing:-.5px;}
+.save-badge{background:var(--g3);color:var(--g2);font-size:11px;font-weight:800;padding:4px 11px;border-radius:100px;}
+.item-card{margin:0 16px 10px;background:var(--wh);border:1.5px solid var(--bd);border-radius:18px;padding:14px;animation:cardIn .35s ease backwards;}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ic-row{display:flex;align-items:center;gap:12px;}
+.ic-emoji{width:50px;height:50px;background:var(--sf);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.ic-info{flex:1;min-width:0;}
+.ic-name{font-size:14px;font-weight:800;color:var(--dk);}
+.ic-wt{font-size:11px;color:var(--mu);margin-top:1px;}
+.ic-price{font-size:19px;font-weight:900;color:var(--dk);letter-spacing:-.4px;}
+.brand-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.brand{padding:5px 11px;border-radius:100px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.brand.sel{background:var(--dk);color:var(--y);}
+.brand:not(.sel){background:var(--sf);border:1.5px solid var(--bd);color:var(--dk);}
+.brand:hover:not(.sel){border-color:var(--y);background:var(--y2);}
+.save-tag{font-size:9px;font-weight:900;background:var(--g);color:#fff;padding:1px 5px;border-radius:100px;margin-left:3px;}
+
+/* cart bar */
+.cart-bar{background:var(--dk);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;}
+.cart-bar-info .ci{font-size:13px;font-weight:800;color:var(--y);}
+.cart-bar-info .cs{font-size:10.5px;color:rgba(255,255,255,.4);margin-top:2px;}
+.cart-bar-btn{background:var(--y);color:var(--dk);border:none;padding:12px 20px;border-radius:12px;font-family:var(--font);font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s;}
+.cart-bar-btn:hover{background:#eec000;}
+.cart-bar-btn:active{transform:scale(.96);}
+
+/* NAV */
+.nav-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:500px;}
+.nav-lbl{font-size:10.5px;font-weight:700;color:rgba(0,0,0,.35);letter-spacing:.8px;text-transform:uppercase;}
+.nav-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.nav-btn{font-family:var(--font);font-size:11.5px;font-weight:700;padding:8px 16px;border-radius:100px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:rgba(255,255,255,.8);color:rgba(0,0,0,.45);transition:all .18s;}
+.nav-btn:hover{background:rgba(255,255,255,1);color:rgba(0,0,0,.7);}
+.nav-btn.active{background:var(--dk);color:var(--y);border-color:var(--dk);}
+
+/* TOAST */
+.toast-el{position:absolute;top:68px;left:50%;transform:translateX(-50%) translateY(-6px);background:var(--dk);color:#fff;padding:9px 18px;border-radius:100px;font-size:12px;font-weight:700;white-space:nowrap;z-index:999;opacity:0;pointer-events:none;transition:all .22s cubic-bezier(.34,1.56,.64,1);}
+.toast-el.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+
+<!-- ══════════════════════════════════════
+     SCREEN A — AI SCANNER
+══════════════════════════════════════ -->
+<div class="phone" id="phone-a">
+<div class="screen active" id="sa">
+  <!-- status bar -->
+  <div class="sb" style="background:var(--y)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-icons">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2" stroke-width="2"/><path d="M22 11v2" stroke-width="2"/></svg>
+    </div>
+  </div>
+  <!-- topbar -->
+  <div class="topbar">
+    <div class="topbar-row">
+      <div class="back-btn">←</div>
+      <span class="topbar-title">📷 Scan &amp; Build Cart</span>
+    </div>
+    <div class="tabs" id="tabs-a">
+      <div class="tab active" onclick="switchTab('camera')">📷 Camera</div>
+      <div class="tab" onclick="switchTab('upload')">🖼 Upload Image</div>
+      <div class="tab" onclick="switchTab('paste')">📋 Paste Text / List</div>
+    </div>
+  </div>
+
+  <!-- ─── CAMERA TAB ─── -->
+  <div id="tab-camera" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+    <div class="cam-viewport">
+      <div class="cam-inner">
+        <div class="scan-frame">
+          <div class="sc tl"></div><div class="sc tr"></div>
+          <div class="sc bl"></div><div class="sc br"></div>
+          <div class="scan-line"></div>
+          <div class="grocery-doc">
+            <div class="doc-title">🛒 Grocery List</div>
+            <div class="doc-item"><div class="doc-dot"></div>Milk – 2L</div>
+            <div class="doc-item"><div class="doc-dot"></div>Whole wheat atta 5kg</div>
+            <div class="doc-item"><div class="doc-dot"></div>Mustard oil</div>
+            <div class="doc-item"><div class="doc-dot"></div>Toor dal 1kg</div>
+            <div class="doc-item"><div class="doc-dot"></div>Eggs 1 dozen</div>
+            <div class="doc-item"><div class="doc-dot"></div>Paneer 200g</div>
+            <div class="doc-item"><div class="doc-dot"></div>Butter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chips-bottom">
+      <div class="detected-label">AI DETECTED 7 ITEMS • TAP TO DESELECT</div>
+      <div class="chips-row" id="cam-chips">
+        <div class="chip" style="animation-delay:.04s" onclick="toggleChip(this,'cam')"><span>🥛</span>Milk<span class="chip-x">✕</span></div>
+        <div class="chip" style="animation-delay:.09s" onclick="toggleChip(this,'cam')"><span>🌾</span>Atta<span class="chip-x">✕</span></div>
+        <div class="chip" style="animation-delay:.13s" onclick="toggleChip(this,'cam')"><span>🫙</span>Mustard Oil<span class="chip-x">✕</span></div>
+        <div class="chip" style="animation-delay:.17s" onclick="toggleChip(this,'cam')"><span>🫘</span>Toor Dal<span class="chip-x">✕</span></div>
+        <div class="chip" style="animation-delay:.21s" onclick="toggleChip(this,'cam')"><span>🥚</span>Eggs<span class="chip-x">✕</span></div>
+        <div class="chip" style="animation-delay:.25s" onclick="toggleChip(this,'cam')"><span>🧀</span>Paneer<span class="chip-x">✕</span></div>
+        <div class="chip" style="animation-delay:.29s" onclick="toggleChip(this,'cam')"><span>🧈</span>Butter<span class="chip-x">✕</span></div>
+      </div>
+      <button class="build-btn" id="cam-build-btn" onclick="goToB()">🛒 Build Cart — Review 7 Items →</button>
+    </div>
+  </div>
+
+  <!-- ─── UPLOAD TAB ─── -->
+  <div id="tab-upload" style="display:none;flex:1;flex-direction:column;position:relative;">
+    <div class="upload-body" id="upload-form">
+      <div class="upload-zone" onclick="doUpload()">
+        <div class="uz-emoji">🖼️</div>
+        <div class="uz-title">Upload Any Image</div>
+        <div class="uz-sub">Screenshot from BigBasket, Zepto, WhatsApp grocery list, handwritten note — AI reads everything</div>
+        <button class="gallery-btn" onclick="event.stopPropagation();doUpload()">🖼️ Choose from Gallery</button>
+      </div>
+      <div class="or-line"><span>— or —</span></div>
+      <button class="paste-ss-btn" onclick="doUpload()">📋 Paste Screenshot</button>
+    </div>
+    <!-- Upload result (hidden until processing done) -->
+    <div id="upload-result" style="display:none;flex-direction:column;">
+      <div class="chips-bottom">
+        <div class="detected-label">AI DETECTED 5 ITEMS • TAP TO DESELECT</div>
+        <div class="chips-row" id="upload-chips">
+          <div class="chip" style="animation-delay:.04s" onclick="toggleChip(this,'up')"><span>🥛</span>Amul Milk<span class="chip-x">✕</span></div>
+          <div class="chip" style="animation-delay:.09s" onclick="toggleChip(this,'up')"><span>🥚</span>Brown Eggs<span class="chip-x">✕</span></div>
+          <div class="chip" style="animation-delay:.13s" onclick="toggleChip(this,'up')"><span>🍅</span>Tomato<span class="chip-x">✕</span></div>
+          <div class="chip" style="animation-delay:.17s" onclick="toggleChip(this,'up')"><span>🧅</span>Onion<span class="chip-x">✕</span></div>
+          <div class="chip" style="animation-delay:.21s" onclick="toggleChip(this,'up')"><span>🌿</span>Coriander<span class="chip-x">✕</span></div>
+        </div>
+        <button class="build-btn" onclick="goToB()">🛒 Build Cart — Review 5 Items →</button>
+      </div>
+    </div>
+    <!-- Processing overlay -->
+    <div class="proc-overlay" id="upload-proc">
+      <div class="spinner"></div>
+      <div class="proc-title">Reading your image…</div>
+      <div class="proc-steps" id="upload-proc-steps">
+        <div class="ps" id="up1"><div class="ps-dot"></div>Detecting items in image</div>
+        <div class="ps" id="up2"><div class="ps-dot"></div>Parsing grocery items</div>
+        <div class="ps" id="up3"><div class="ps-dot"></div>Matching to Blinkit catalog</div>
+        <div class="ps" id="up4"><div class="ps-dot"></div>Building your cart</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PASTE TAB ─── -->
+  <div id="tab-paste" style="display:none;flex:1;flex-direction:column;position:relative;">
+    <div class="paste-body" id="paste-form">
+      <div class="paste-head">Paste your list or notes</div>
+      <div class="paste-sub">Copy-paste from WhatsApp, Notes, or just type your items</div>
+      <textarea class="paste-ta" id="paste-ta" placeholder="E.g.&#10;• Milk 2L&#10;• Atta 5kg (Aashirvaad)&#10;• Onions, tomatoes&#10;• Maggi noodles x3"></textarea>
+      <button class="analyse-btn" onclick="doPaste()">✦ Analyse with AI →</button>
+    </div>
+    <div id="paste-result" style="display:none;flex-direction:column;">
+      <div class="chips-bottom">
+        <div class="detected-label" id="paste-det-label">AI MATCHED 6 ITEMS • TAP TO DESELECT</div>
+        <div class="chips-row" id="paste-chips"></div>
+        <button class="build-btn" id="paste-build-btn" onclick="goToB()">🛒 Build Cart — Review 6 Items →</button>
+      </div>
+    </div>
+    <div class="proc-overlay" id="paste-proc">
+      <div class="spinner"></div>
+      <div class="proc-title">Analysing your list…</div>
+      <div class="proc-steps">
+        <div class="ps" id="pp1"><div class="ps-dot"></div>Parsing text input</div>
+        <div class="ps" id="pp2"><div class="ps-dot"></div>Identifying items &amp; quantities</div>
+        <div class="ps" id="pp3"><div class="ps-dot"></div>Matching to Blinkit catalog</div>
+        <div class="ps" id="pp4"><div class="ps-dot"></div>Applying your brand preferences</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-el" id="toast-a"></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN B — MEAL INTENT CART
+══════════════════════════════════════ -->
+<div class="phone" id="phone-b">
+<div class="screen active" id="sb">
+  <div class="sb" style="background:var(--wh)">
+    <span class="sb-time">9:41</span>
+    <div class="sb-icons">
+      <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg>
+    </div>
+  </div>
+
+  <div class="meal-topbar">
+    <div class="meal-topbar-row">
+      <div class="back-btn" style="background:var(--sf)">←</div>
+      <span class="meal-topbar-title">✦ AI Meal Cart</span>
+    </div>
+    <div class="search-wrap" id="search-wrap">
+      <span class="sw-icon">🍳</span>
+      <input class="sw-input" id="meal-input" placeholder="What are you cooking today?"
+        oninput="onMealType()"
+        onfocus="document.getElementById('search-wrap').classList.add('focused')"
+        onblur="document.getElementById('search-wrap').classList.remove('focused')">
+      <span class="mic-btn" title="Voice input">🎙️</span>
+    </div>
+  </div>
+
+  <!-- Quick suggestions -->
+  <div class="sugg-section" id="sugg-section">
+    <div class="sugg-label">Quick picks</div>
+    <div class="sugg-row" id="sugg-row">
+      <div class="sugg-chip" onclick="pickMeal('Pasta')">🍝 Pasta</div>
+      <div class="sugg-chip" onclick="pickMeal('Aloo Sabzi')">🥔 Aloo Sabzi</div>
+      <div class="sugg-chip" onclick="pickMeal('Omelette')">🥚 Omelette</div>
+      <div class="sugg-chip" onclick="pickMeal('Dal Tadka')">🫘 Dal Tadka</div>
+      <div class="sugg-chip" onclick="pickMeal('Paneer Masala')">🧀 Paneer Masala</div>
+      <div class="sugg-chip" onclick="pickMeal('Biryani')">🍛 Biryani</div>
+    </div>
+  </div>
+
+  <!-- AI processing -->
+  <div class="meal-proc" id="meal-proc">
+    <div class="meal-proc-top">
+      <span class="meal-proc-emoji" id="mp-emoji">🍳</span>
+      <div class="meal-proc-ttl" id="mp-title">Building your cart…</div>
+      <div class="meal-proc-sub" id="mp-sub">Finding fresh ingredients</div>
+    </div>
+    <div class="mstep idle" id="ms1"><span class="mstep-ico">🧠</span><span class="mstep-txt">Parse meal intent</span><span class="mstep-badge" id="mb1">—</span></div>
+    <div class="mstep idle" id="ms2"><span class="mstep-ico">📋</span><span class="mstep-txt">Extract ingredients</span><span class="mstep-badge" id="mb2">—</span></div>
+    <div class="mstep idle" id="ms3"><span class="mstep-ico">🔍</span><span class="mstep-txt">Match to catalog</span><span class="mstep-badge" id="mb3">—</span></div>
+    <div class="mstep idle" id="ms4"><span class="mstep-ico">⭐</span><span class="mstep-txt">Apply your brands</span><span class="mstep-badge" id="mb4">—</span></div>
+  </div>
+
+  <!-- Meal result -->
+  <div class="meal-result" id="meal-result">
+    <div class="mresult-scroll" id="mresult-scroll">
+      <div class="mresult-header">
+        <div class="mresult-title" id="mr-title">🍝 Pasta Cart</div>
+        <div class="save-badge" id="mr-save">Save ₹47</div>
+      </div>
+      <!-- items injected by JS -->
+    </div>
+    <div class="cart-bar">
+      <div class="cart-bar-info">
+        <div class="ci" id="cb-total">5 items · ₹427</div>
+        <div class="cs">Filled with your usual brands ⭐</div>
+      </div>
+      <button class="cart-bar-btn">Add All →</button>
+    </div>
+  </div>
+
+  <div class="toast-el" id="toast-b"></div>
+</div>
+</div>
+
+</div><!-- /phone-wrap -->
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-lbl">↑ Switch screens</div>
+  <div class="nav-row">
+    <button class="nav-btn active" onclick="focusScreen('a')">Screen A · AI Scanner</button>
+    <button class="nav-btn" onclick="focusScreen('b')">Screen B · Meal Intent Cart</button>
+  </div>
+</div>
+
+<script>
+/* ─── DATA ─── */
+const meals={
+  'Pasta':{e:'🍝',total:427,save:47,items:[
+    {e:'🍝',n:'Pasta',w:'500g',p:89,brands:[{n:'Barilla',p:89,s:0,usual:1},{n:'Del Monte',p:75,s:14},{n:'Borges',p:99,s:0}]},
+    {e:'🍅',n:'Tomato Puree',w:'200g',p:45,brands:[{n:'Heinz',p:45,s:0,usual:1},{n:'Dabur',p:38,s:7}]},
+    {e:'🧄',n:'Garlic Paste',w:'100g',p:35,brands:[{n:'Kitchens of India',p:35,s:0,usual:1}]},
+    {e:'🧀',n:'Parmesan',w:'100g',p:189,brands:[{n:'Amul',p:189,s:0,usual:1},{n:'Go Cheese',p:165,s:24}]},
+    {e:'🫒',n:'Olive Oil',w:'250ml',p:145,brands:[{n:'Figaro',p:145,s:0,usual:1},{n:'Leonardo',p:129,s:16}]},
+  ]},
+  'Aloo Sabzi':{e:'🥔',total:298,save:32,items:[
+    {e:'🥔',n:'Potatoes',w:'1kg',p:28,brands:[{n:'Farm Fresh',p:28,s:0,usual:1}]},
+    {e:'🌿',n:'Cumin Seeds',w:'100g',p:45,brands:[{n:'Everest',p:45,s:0,usual:1},{n:'MDH',p:38,s:7}]},
+    {e:'🟡',n:'Turmeric',w:'100g',p:38,brands:[{n:'Everest',p:38,s:0,usual:1},{n:'Patanjali',p:30,s:8}]},
+    {e:'🫙',n:'Mustard Oil',w:'1L',p:145,brands:[{n:'Fortune',p:145,s:0,usual:1},{n:'Dhara',p:120,s:25}]},
+    {e:'🌶️',n:'Red Chilli',w:'100g',p:42,brands:[{n:'Everest',p:42,s:0,usual:1}]},
+  ]},
+  'Omelette':{e:'🥚',total:224,save:18,items:[
+    {e:'🥚',n:'Brown Eggs',w:'×6',p:89,brands:[{n:'NestEgg',p:89,s:0,usual:1},{n:'Keggfarms',p:79,s:10}]},
+    {e:'🧈',n:'Butter',w:'100g',p:65,brands:[{n:'Amul',p:65,s:0,usual:1},{n:'Britannia',p:58,s:7}]},
+    {e:'🧅',n:'Onion',w:'500g',p:22,brands:[{n:'Farm Fresh',p:22,s:0,usual:1}]},
+    {e:'🌶️',n:'Green Chilli',w:'100g',p:18,brands:[{n:'Farm Fresh',p:18,s:0,usual:1}]},
+    {e:'🌿',n:'Coriander',w:'50g',p:14,brands:[{n:'Farm Fresh',p:14,s:0,usual:1}]},
+  ]},
+  'Dal Tadka':{e:'🫘',total:325,save:28,items:[
+    {e:'🫘',n:'Toor Dal',w:'500g',p:75,brands:[{n:'Tata Sampann',p:75,s:0,usual:1},{n:'BB Royal',p:65,s:10}]},
+    {e:'🍅',n:'Tomato',w:'500g',p:32,brands:[{n:'Farm Fresh',p:32,s:0,usual:1}]},
+    {e:'🧅',n:'Onion',w:'500g',p:22,brands:[{n:'Farm Fresh',p:22,s:0,usual:1}]},
+    {e:'🌿',n:'Cumin Seeds',w:'100g',p:45,brands:[{n:'Everest',p:45,s:0,usual:1},{n:'MDH',p:38,s:7}]},
+    {e:'🧈',n:'Ghee',w:'500ml',p:289,brands:[{n:'Amul',p:289,s:0,usual:1},{n:'Patanjali',p:249,s:40}]},
+  ]},
+  'Paneer Masala':{e:'🧀',total:538,save:55,items:[
+    {e:'🧀',n:'Paneer',w:'200g',p:89,brands:[{n:'Amul',p:89,s:0,usual:1},{n:'Mother Dairy',p:79,s:10}]},
+    {e:'🍅',n:'Tomato Puree',w:'200g',p:45,brands:[{n:'Heinz',p:45,s:0,usual:1}]},
+    {e:'🧅',n:'Onion',w:'500g',p:22,brands:[{n:'Farm Fresh',p:22,s:0,usual:1}]},
+    {e:'🌶️',n:'Chilli Powder',w:'100g',p:48,brands:[{n:'Everest',p:48,s:0,usual:1},{n:'MDH',p:42,s:6}]},
+    {e:'🫒',n:'Sunflower Oil',w:'1L',p:145,brands:[{n:'Fortune',p:145,s:0,usual:1},{n:'Saffola',p:132,s:13}]},
+  ]},
+  'Biryani':{e:'🍛',total:724,save:68,items:[
+    {e:'🍚',n:'Basmati Rice',w:'1kg',p:145,brands:[{n:'India Gate',p:145,s:0,usual:1},{n:'Daawat',p:129,s:16}]},
+    {e:'🍗',n:'Chicken',w:'500g',p:195,brands:[{n:'Licious',p:195,s:0,usual:1},{n:'FreshToHome',p:179,s:16}]},
+    {e:'🌿',n:'Biryani Masala',w:'50g',p:55,brands:[{n:'Shan',p:55,s:0,usual:1},{n:'Everest',p:45,s:10}]},
+    {e:'🥛',n:'Curd',w:'400g',p:45,brands:[{n:'Mother Dairy',p:45,s:0,usual:1}]},
+    {e:'🧅',n:'Onion',w:'1kg',p:38,brands:[{n:'Farm Fresh',p:38,s:0,usual:1}]},
+  ]},
+};
+
+/* ─── SCREEN FOCUS ─── */
+function focusScreen(s){
+  document.getElementById('phone-a').style.opacity = s==='a'?1:.45;
+  document.getElementById('phone-b').style.opacity = s==='b'?1:.45;
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===(s==='a'?0:1)));
+}
+// init both visible
+document.getElementById('phone-a').style.opacity=1;
+document.getElementById('phone-b').style.opacity=1;
+
+/* ─── SCANNER TABS ─── */
+const tabMap={camera:'tab-camera',upload:'tab-upload',paste:'tab-paste'};
+let activeTab='camera';
+function switchTab(name){
+  activeTab=name;
+  Object.values(tabMap).forEach(id=>{
+    const el=document.getElementById(id);
+    el.style.display='none';
+  });
+  document.getElementById(tabMap[name]).style.display='flex';
+  document.querySelectorAll('#tabs-a .tab').forEach((t,i)=>{
+    t.classList.toggle('active',['camera','upload','paste'][i]===name);
+  });
+}
+
+/* ─── CHIP TOGGLE ─── */
+function toggleChip(el,scope){
+  el.classList.toggle('removed');
+  if(scope==='cam') updateCamBtn();
+}
+function updateCamBtn(){
+  const n=document.querySelectorAll('#cam-chips .chip:not(.removed)').length;
+  document.getElementById('cam-build-btn').textContent=`🛒 Build Cart — Review ${n} Items →`;
+}
+
+/* ─── UPLOAD FLOW ─── */
+function doUpload(){
+  const form=document.getElementById('upload-form');
+  const proc=document.getElementById('upload-proc');
+  const result=document.getElementById('upload-result');
+  form.style.display='none';
+  proc.classList.add('show');
+  animateSteps(['up1','up2','up3','up4'],540,()=>{
+    proc.classList.remove('show');
+    result.style.display='flex';
+  });
+}
+
+/* ─── PASTE FLOW ─── */
+function doPaste(){
+  const val=document.getElementById('paste-ta').value.trim();
+  if(!val){showToast('a','Please type or paste your list first 👆');return;}
+  const form=document.getElementById('paste-form');
+  const proc=document.getElementById('paste-proc');
+  const result=document.getElementById('paste-result');
+  form.style.display='none';
+  proc.classList.add('show');
+  animateSteps(['pp1','pp2','pp3','pp4'],500,()=>{
+    proc.classList.remove('show');
+    buildPasteResult(val);
+    result.style.display='flex';
+  });
+}
+
+function buildPasteResult(text){
+  const lines=text.split('\n').filter(l=>l.trim()).slice(0,8);
+  const emojis=['🥛','🌾','🧅','🍅','🧈','🫘','🥚','🌿','🫙','🧀'];
+  const container=document.getElementById('paste-chips');
+  container.innerHTML='';
+  lines.forEach((line,i)=>{
+    const clean=line.replace(/^[•\-\*\d\.\)\s]+/,'').split(' ').slice(0,3).join(' ');
+    const c=document.createElement('div');
+    c.className='chip';
+    c.style.animationDelay=(i*.06)+'s';
+    c.innerHTML=`<span>${emojis[i%emojis.length]}</span>${clean}<span class="chip-x">✕</span>`;
+    c.onclick=()=>toggleChip(c,'paste');
+    container.appendChild(c);
+  });
+  const n=lines.length;
+  document.getElementById('paste-det-label').textContent=`AI MATCHED ${n} ITEMS FROM YOUR LIST • TAP TO DESELECT`;
+  document.getElementById('paste-build-btn').textContent=`🛒 Build Cart — Review ${n} Items →`;
+}
+
+/* ─── STEP ANIMATOR ─── */
+function animateSteps(ids,delay,cb){
+  ids.forEach((id,i)=>{
+    setTimeout(()=>{
+      if(i>0)document.getElementById(ids[i-1]).className='ps done';
+      document.getElementById(id).className='ps running';
+    },i*delay);
+  });
+  setTimeout(()=>{
+    document.getElementById(ids[ids.length-1]).className='ps done';
+    setTimeout(cb,320);
+  },ids.length*delay);
+}
+
+/* ─── MEAL INTENT ─── */
+function onMealType(){
+  const v=document.getElementById('meal-input').value.trim().toLowerCase();
+  const match=Object.keys(meals).find(k=>k.toLowerCase().startsWith(v)||k.toLowerCase().includes(v));
+  if(match&&v.length>1){
+    document.querySelectorAll('.sugg-chip').forEach(c=>{
+      c.classList.toggle('active',c.textContent.toLowerCase().includes(match.toLowerCase().substring(0,4)));
+    });
+  }
+  if(match&&v.length>=3){pickMeal(match);}
+}
+
+function pickMeal(name){
+  if(!meals[name])return;
+  document.getElementById('meal-input').value=name;
+  document.querySelectorAll('.sugg-chip').forEach(c=>c.classList.toggle('active',c.textContent.includes(name)));
+  document.getElementById('sugg-section').style.display='none';
+  document.getElementById('meal-result').classList.remove('show');
+  const proc=document.getElementById('meal-proc');
+  proc.classList.add('show');
+  const d=meals[name];
+  document.getElementById('mp-emoji').textContent=d.e;
+  document.getElementById('mp-title').textContent=`Building ${name} cart…`;
+  document.getElementById('mp-sub').textContent='Finding fresh ingredients for you';
+  ['ms1','ms2','ms3','ms4'].forEach(id=>{document.getElementById(id).className='mstep idle';});
+  ['mb1','mb2','mb3','mb4'].forEach(id=>{document.getElementById(id).textContent='—';});
+  const steps=['ms1','ms2','ms3','ms4'];
+  const badges=['mb1','mb2','mb3','mb4'];
+  steps.forEach((id,i)=>{
+    setTimeout(()=>{
+      if(i>0){document.getElementById(steps[i-1]).className='mstep done';document.getElementById(badges[i-1]).textContent='Done';}
+      document.getElementById(id).className='mstep running';document.getElementById(badges[i]).textContent='Running';
+    },i*460);
+  });
+  setTimeout(()=>{
+    document.getElementById('ms4').className='mstep done';document.getElementById('mb4').textContent='Done';
+    setTimeout(()=>{
+      proc.classList.remove('show');
+      renderMeal(name,d);
+    },300);
+  },4*460);
+}
+
+function renderMeal(name,data){
+  document.getElementById('mr-title').textContent=data.e+' '+name+' Cart';
+  document.getElementById('mr-save').textContent='Save ₹'+data.save;
+  document.getElementById('cb-total').textContent=data.items.length+' items · ₹'+data.total;
+  const scroll=document.getElementById('mresult-scroll');
+  const header=scroll.querySelector('.mresult-header');
+  scroll.innerHTML='';
+  scroll.appendChild(header);
+  data.items.forEach((item,i)=>{
+    const card=document.createElement('div');
+    card.className='item-card';
+    card.style.animationDelay=(i*.055)+'s';
+    const bHtml=item.brands.map((b,bi)=>`
+      <div class="brand${bi===0?' sel':''}" onclick="selectBrand(this,'${b.n}',${b.p},${b.s||0})">
+        ${b.n}${b.s?`<span class="save-tag">-₹${b.s}</span>`:''}${b.usual?'<span style="font-size:9px;margin-left:2px">⭐</span>':''}
+      </div>`).join('');
+    card.innerHTML=`
+      <div class="ic-row">
+        <div class="ic-emoji">${item.e}</div>
+        <div class="ic-info"><div class="ic-name">${item.n}</div><div class="ic-wt">${item.w}</div></div>
+        <div class="ic-price">₹${item.p}</div>
+      </div>
+      <div class="brand-row">${bHtml}</div>`;
+    scroll.appendChild(card);
+  });
+  document.getElementById('meal-result').classList.add('show');
+}
+
+function selectBrand(el,name,price,save){
+  el.closest('.brand-row').querySelectorAll('.brand').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  showToast('b','Switched to '+name+(save>0?' · Saving ₹'+save:''));
+}
+
+/* ─── NAVIGATE ─── */
+function goToB(){
+  pickMeal('Pasta');
+  focusScreen('b');
+}
+
+/* ─── TOAST ─── */
+const tTimers={};
+function showToast(s,msg){
+  const t=document.getElementById('toast-'+s);
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(tTimers[s]);
+  tTimers[s]=setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
