@@ -23,8 +23,8 @@
     position: absolute;
     top: 42%;
     left: 50%;
-    margin-left: calc(-1 * var(--card-window-width, 31.61rem) / 2);
-    margin-top: calc(-1 * var(--card-window-height, 29.32rem) / 2);
+    margin-left: calc(-1 * 26rem / 2);
+    margin-top: calc(-1 * 23.5rem / 2);
     cursor: grab;
     /* DO NOT use filter:drop-shadow here — it breaks backdrop-filter on children */
 }
