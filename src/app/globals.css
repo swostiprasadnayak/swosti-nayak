@@ -66,7 +66,7 @@
   /* Translucency & Glassmorphism */
   --bg-glass: rgba(28, 28, 30, 0.45);
   --bg-blur: rgba(25, 25, 28, 0.55);
-  --glass-sidebar: rgba(0, 0, 0, 0.55);
+  --glass-sidebar: rgba(30, 20, 10, 0.5);
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.18);
