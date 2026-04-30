@@ -89,7 +89,7 @@ export default function BlinkitCaseStudyTemplate() {
                 />
 
                 {/* Hero stat chips */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+                <div className={classes.responsiveGrid5}>
                     {[
                         { n: "24", l: "User interviews" },
                         { n: "4", l: "Pain points mapped" },
@@ -117,7 +117,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <p className={classes.bodyText}>Blinkit delivers in 10 minutes. Building the cart takes 4. The pre-order experience is the bottleneck the brand promise sits in front of.</p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+                <div className={classes.responsiveGrid2}>
                     <Squircle cornerRadius={16} style={card}>
                         <div style={sectionEyebrow}>AS-IS — Current Experience</div>
                         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -150,7 +150,7 @@ export default function BlinkitCaseStudyTemplate() {
                 </div>
 
                 {/* Metrics delta row */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+                <div className={classes.responsiveGrid5}>
                     {[
                         { before: "4m 12s", after: "1m 45s", label: "Cart-build time" },
                         { before: "—", after: "+₹290", label: "Avg order value" },
@@ -172,7 +172,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <h2 className={classes.sectionHeading}>The 10-minute promise hides a 4-minute friction.</h2>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+                <div className={classes.responsiveGrid4}>
                     {[
                         { n: "10 min", l: "What Blinkit promises — India's fastest grocery delivery, a genuine technical achievement." },
                         { n: "4:12", l: "What users actually experience. A 20-tap gauntlet that contradicts the brand promise." },
@@ -201,32 +201,41 @@ export default function BlinkitCaseStudyTemplate() {
                 </div>
 
                 {/* Personas */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                <div className={classes.responsiveGrid3}>
                     {[
                         {
                             name: "Priya, 32",
-                            role: "Primary · Mumbai · Orders 2–3x/day",
+                            role: "Mumbai · Orders 2–3x/day",
+                            tier: "Primary",
+                            tierClass: classes.tierPrimary,
                             emoji: "👩‍💼",
                             points: ["Forgets items constantly — places multiple orders daily", "Keeps a handwritten list the app can't read", "Brand selection fatigue for every staple"],
                             quote: "I just want to say 'stuff for pasta' and have it figure it out.",
                         },
                         {
                             name: "Rajan, 27",
-                            role: "Secondary · Bangalore · Voice-first user",
+                            role: "Bangalore · Voice-first user",
+                            tier: "Secondary",
+                            tierClass: classes.tierSecondary,
                             emoji: "👨‍💻",
                             points: ["Mid-cook emergencies need instant ordering", "Instagram recipe → can't translate to cart easily", "Wants zero-touch experience while hands are busy"],
                             quote: "I want to place an order without looking at my phone.",
                         },
                         {
                             name: "Sunita, 62",
-                            role: "Edge Case · Jodhpur · Notebook user",
+                            role: "Jodhpur · Notebook user",
+                            tier: "Edge Case",
+                            tierClass: classes.tierEdge,
                             emoji: "👩‍🦳",
                             points: ["Asks family to order for her — app feels overwhelming", "Small fonts, confusing SKU results for simple searches", "No Hindi voice input for her preferred language"],
                             quote: "I have the list right here. Why can't I show it to the phone?",
                         },
                     ].map((p, i) => (
                         <Squircle key={i} cornerRadius={16} style={card}>
-                            <div style={{ fontSize: "2rem" }}>{p.emoji}</div>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <div style={{ fontSize: "2rem" }}>{p.emoji}</div>
+                                <span className={`${classes.tierBadge} ${p.tierClass}`}>{p.tier}</span>
+                            </div>
                             <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--text-primary)" }}>{p.name}</div>
                             <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>{p.role}</div>
                             <ul style={{ margin: "8px 0", paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.55 }}>
@@ -257,8 +266,35 @@ export default function BlinkitCaseStudyTemplate() {
                     </p>
                 </Squircle>
 
+                {/* JTBD — Four-phase job map */}
+                <div className={classes.tableWrap}>
+                    <div className={classes.tableScroll}>
+                        <table className={classes.dataTable}>
+                            <thead>
+                                <tr>
+                                    {["Job Phase", "User Goal", "Pain (⚠)", "Desired Outcome (✓)"].map((h, i) => (
+                                        <th key={i}>{h}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {[
+                                    ["Pre-Order Discovery", "Decide what to order", "⚠ Cold home, no memory of preferences", "✓ Personalised reorder strip on open"],
+                                    ["List Translation", "Get my mental/physical list into the cart", "⚠ Manual typing, 6 searches per meal", "✓ Scan / speak / type — any modality, one pipeline"],
+                                    ["Brand Selection", "Pick the brand I trust", "⚠ 3.8 PDP opens per staple item", "✓ Preferred brand pre-selected from history"],
+                                    ["Post-Order Loop", "Catch what I forgot · reorder when I run out", "⚠ Cancel & restart only · zero predictive nudges", "✓ 2-min edit window · pantry run-out reminders"],
+                                ].map((row, i) => (
+                                    <tr key={i}>
+                                        {row.map((cell, j) => <td key={j}>{cell}</td>)}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 {/* 4 Research findings */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                <div className={classes.responsiveGrid2}>
                     {[
                         { n: "41%", t: "Sessions end with 0 add-to-cart", d: "Mental models ≠ SKU taxonomy. Not one participant described a grocery need as a category. They said “chai ingredients,” “party snacks” — intent-driven language search engines fail." },
                         { n: "72%", t: "Users with external list open", d: "Physical list is universal across age, city, and tech comfort. Users had self-invented the workaround. The app simply didn't see it." },
@@ -274,12 +310,12 @@ export default function BlinkitCaseStudyTemplate() {
                 </div>
 
                 {/* SECTION 5 — HOW MIGHT WE */}
-                <Squircle cornerRadius={24} style={{ background: "#111", color: "#fff", padding: "60px 40px", textAlign: "center" }}>
+                <div className={classes.hmwBlock}>
                     <div style={{ ...sectionEyebrow, color: ACCENT }}>How Might We</div>
-                    <p style={{ fontSize: "1.6rem", fontWeight: 500, lineHeight: 1.4, margin: 0, letterSpacing: "-0.01em" }}>
+                    <p>
                         How might we make Blinkit's pre-order experience as fast as its delivery — so that building a full grocery cart feels as effortless and instant as the 10-minute promise?
                     </p>
-                </Squircle>
+                </div>
 
                 {/* SECTION 6 — PRIMARY FEATURES (F1) */}
                 <div className={classes.textSection}>
@@ -299,7 +335,7 @@ export default function BlinkitCaseStudyTemplate() {
                         Any external list — paper, screenshot, WhatsApp, recipe image, or pasted URL — turns into a personalised, brand-ranked, ready-to-checkout cart. Three input modes, one AI pipeline, nine items in one tap.
                     </p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 12 }}>
+                    <div className={classes.responsiveGrid2} style={{ marginTop: 12 }}>
                         <Squircle cornerRadius={12} style={subtleCard}>
                             <div style={sectionEyebrow}>Design Logic 1</div>
                             <div style={{ fontSize: "0.95rem", color: "var(--text-primary)", fontWeight: 500 }}>3 tabs, not 3 separate flows</div>
@@ -312,31 +348,37 @@ export default function BlinkitCaseStudyTemplate() {
                         </Squircle>
                     </div>
 
-                    {/* F1 Prototype embed */}
+                    {/* F1 Prototype embed — phone frame */}
                     <div style={{ marginTop: 16 }}>
                         <div style={{ ...sectionEyebrow, marginBottom: 8 }}>📱 Interactive Prototype — Scan &amp; Build Cart</div>
-                        <Squircle cornerRadius={16} style={{ overflow: "hidden", border: "1px solid var(--border-subtle)" }}>
-                            <iframe
-                                src="/prototypes/blinkit-scanner.html"
-                                title="Blinkit Scan & Build Cart Prototype"
-                                style={{ width: "100%", minHeight: 700, border: "none", display: "block" }}
-                            />
-                        </Squircle>
+                        <div className={classes.phoneFrameStage}>
+                            <div className={classes.phoneFrame}>
+                                <iframe
+                                    src="/prototypes/blinkit-scanner.html"
+                                    title="Blinkit Scan & Build Cart Prototype"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                        <div className={classes.prototypeCaption}>
+                            <span>390 × 760 mobile prototype · click to interact</span>
+                            <a className={classes.openInNew} href="/prototypes/blinkit-scanner.html" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+                        </div>
                     </div>
 
                     {/* What I rejected */}
                     <div style={{ marginTop: 16 }}>
                         <div style={sectionEyebrow}>What I Tried First &amp; Rejected</div>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                        <div className={classes.responsiveGrid2}>
                             {[
                                 { t: "Dedicated “Import List” Screen", d: "Users don't think of grocery ordering as list management. 4/6 usability participants couldn't find it without prompting." },
                                 { t: "Voice FAB as Floating Button", d: "4/6 thought it was customer support. Moved inside search bar — association was immediate." },
                                 { t: "Image Upload as Separate Entry", d: "Splitting 3 flows = 3 chances to abandon. Unifying under one tabbed screen reduced abandonment." },
                                 { t: "AI Processing Modal (Full-Screen Spinner)", d: "Users couldn't tell if the AI understood them. Progressive chip reveal gave control mid-process." },
                             ].map((r, i) => (
-                                <div key={i} style={{ ...subtleCard, padding: 16 }}>
-                                    <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-primary)" }}>❌ {r.t}</div>
-                                    <div style={{ ...statLabel, fontSize: "0.82rem" }}>{r.d}</div>
+                                <div key={i} className={classes.rejectionCard}>
+                                    <div className={classes.rejectionTitle}>{r.t}</div>
+                                    <div className={classes.rejectionBody}>{r.d}</div>
                                 </div>
                             ))}
                         </div>
@@ -372,7 +414,7 @@ export default function BlinkitCaseStudyTemplate() {
                         One tap to start. Speak in Hindi, English, or code-switched (“Milk aur eggs de do”). AI builds the cart, shows it in a chat thread, and lets users confirm or edit by voice or tap. Fully touchless end-to-end.
                     </p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 12 }}>
+                    <div className={classes.responsiveGrid2} style={{ marginTop: 12 }}>
                         <Squircle cornerRadius={12} style={subtleCard}>
                             <div style={sectionEyebrow}>Design Logic 1</div>
                             <div style={{ fontSize: "0.95rem", color: "var(--text-primary)", fontWeight: 500 }}>Real-time transcript, not a spinner</div>
@@ -385,16 +427,22 @@ export default function BlinkitCaseStudyTemplate() {
                         </Squircle>
                     </div>
 
-                    {/* F2 Prototype embed */}
+                    {/* F2 Prototype embed — phone frame */}
                     <div style={{ marginTop: 16 }}>
                         <div style={{ ...sectionEyebrow, marginBottom: 8 }}>📱 Interactive Prototype — Voice Quick Order</div>
-                        <Squircle cornerRadius={16} style={{ overflow: "hidden", border: "1px solid var(--border-subtle)" }}>
-                            <iframe
-                                src="/prototypes/blinkit-voice.html"
-                                title="Blinkit Voice Quick Order Prototype"
-                                style={{ width: "100%", minHeight: 700, border: "none", display: "block" }}
-                            />
-                        </Squircle>
+                        <div className={classes.phoneFrameStage}>
+                            <div className={classes.phoneFrame}>
+                                <iframe
+                                    src="/prototypes/blinkit-voice.html"
+                                    title="Blinkit Voice Quick Order Prototype"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                        <div className={classes.prototypeCaption}>
+                            <span>390 × 760 mobile prototype · click to interact</span>
+                            <a className={classes.openInNew} href="/prototypes/blinkit-voice.html" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+                        </div>
                     </div>
 
                     <div style={{ ...subtleCard, marginTop: 12, borderLeft: `3px solid ${ACCENT}` }}>
@@ -419,7 +467,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <div style={sectionEyebrow}>Secondary Features</div>
                     <h2 className={classes.sectionHeading}>Closing the full loop</h2>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                <div className={classes.responsiveGrid3}>
                     {[
                         { tag: "F3", title: "Pantry Intelligence", sub: "Predict before they forget", pain: "Users place 2–3 orders/day due to forgetting. App has 6 months of purchase data and uses none of it proactively.", solution: "Post-order setup → “Time to Reorder?” home strip. Users set how long each item lasts; the app predicts run-out and surfaces the reminder." },
                         { tag: "F4", title: "2-Minute Edit Window", sub: "Catch the “I forgot” moment", pain: "After placing an order, users realise they forgot items. The only option is cancelling everything and starting over.", solution: "2-minute countdown after confirmation. AI suggests forgotten items as quick-add chips. Add or remove before the picker starts." },
@@ -451,13 +499,13 @@ export default function BlinkitCaseStudyTemplate() {
                     </p>
                 </div>
 
-                <Squircle cornerRadius={16} style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", overflow: "hidden" }}>
-                    <div style={{ overflowX: "auto" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                <div className={classes.tableWrap}>
+                    <div className={classes.tableScroll}>
+                        <table className={classes.dataTable}>
                             <thead>
-                                <tr style={{ background: "var(--bg-secondary)" }}>
+                                <tr>
                                     {["Feature", "Blinkit", "Zepto", "Swiggy Instamart", "Gap / Opportunity"].map((h, i) => (
-                                        <th key={i} style={{ textAlign: "left", padding: "14px 16px", fontWeight: 600, color: "var(--text-primary)", borderBottom: "1px solid var(--border-subtle)" }}>{h}</th>
+                                        <th key={i}>{h}</th>
                                     ))}
                                 </tr>
                             </thead>
@@ -470,16 +518,14 @@ export default function BlinkitCaseStudyTemplate() {
                                     ["Post-Order Edit Window", "✗ Cancel & restart only", "✗ Not available", "✗ Not available", "✓ Category-wide gap"],
                                     ["Brand Personalization", "⚡ Partial — “Frequently Bought,” not ranked in search", "✗ Not in search results", "✗ Not in search results", "✓ First to personalise search wins loyalty"],
                                 ].map((row, i) => (
-                                    <tr key={i} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-                                        {row.map((cell, j) => (
-                                            <td key={j} style={{ padding: "14px 16px", color: j === 0 ? "var(--text-primary)" : "var(--text-secondary)", fontWeight: j === 0 ? 600 : 400, verticalAlign: "top" }}>{cell}</td>
-                                        ))}
+                                    <tr key={i}>
+                                        {row.map((cell, j) => <td key={j}>{cell}</td>)}
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                </Squircle>
+                </div>
 
                 {/* SECTION 10 — ARCHITECTURE */}
                 <div className={classes.textSection}>
@@ -487,7 +533,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <h2 className={classes.sectionHeading}>One pipeline. Three entry points.</h2>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+                <div className={classes.responsiveGrid5}>
                     {[
                         { n: "1", t: "Input Layer", d: "Camera · Voice · Text — 3 modalities, 1 entry UX." },
                         { n: "2", t: "NLP / NLU Engine", d: "Gemini Vision + Whisper + semantic parser." },
@@ -503,13 +549,13 @@ export default function BlinkitCaseStudyTemplate() {
                     ))}
                 </div>
 
-                <Squircle cornerRadius={16} style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", overflow: "hidden" }}>
-                    <div style={{ overflowX: "auto" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.88rem" }}>
+                <div className={classes.tableWrap}>
+                    <div className={classes.tableScroll}>
+                        <table className={classes.dataTable}>
                             <thead>
-                                <tr style={{ background: "var(--bg-secondary)" }}>
+                                <tr>
                                     {["Layer", "Technology", "Rationale"].map((h, i) => (
-                                        <th key={i} style={{ textAlign: "left", padding: "14px 16px", fontWeight: 600, color: "var(--text-primary)", borderBottom: "1px solid var(--border-subtle)" }}>{h}</th>
+                                        <th key={i} scope="col">{h}</th>
                                     ))}
                                 </tr>
                             </thead>
@@ -521,16 +567,15 @@ export default function BlinkitCaseStudyTemplate() {
                                     ["Personalization", "Collaborative filtering + rules engine", "Low latency (<200ms)"],
                                     ["Backend", "Existing Blinkit microservices", "No new infrastructure"],
                                 ].map((row, i) => (
-                                    <tr key={i} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-                                        {row.map((cell, j) => (
-                                            <td key={j} style={{ padding: "14px 16px", color: j === 0 ? "var(--text-primary)" : "var(--text-secondary)", fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>
-                                        ))}
+                                    <tr key={i}>
+                                        <th scope="row" style={{ textAlign: "left", padding: "14px 16px", fontWeight: 600, color: "var(--text-primary)", borderBottom: "1px solid var(--border-subtle)" }}>{row[0]}</th>
+                                        {row.slice(1).map((cell, j) => <td key={j}>{cell}</td>)}
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                </Squircle>
+                </div>
 
                 <div style={{ ...subtleCard, borderLeft: `3px solid ${ACCENT}` }}>
                     <div style={sectionEyebrow}>Engineering Note</div>
@@ -545,7 +590,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <h2 className={classes.sectionHeading}>The journey, side by side.</h2>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+                <div className={classes.responsiveGrid2}>
                     <Squircle cornerRadius={16} style={card}>
                         <div style={sectionEyebrow}>Before</div>
                         <ol style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.7 }}>
@@ -569,7 +614,7 @@ export default function BlinkitCaseStudyTemplate() {
                 </div>
 
                 {/* Metrics row */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+                <div className={classes.responsiveGrid5}>
                     {[
                         { metric: "Cart-build time", before: "4m 12s", after: "1m 45s" },
                         { metric: "Avg order value", before: "—", after: "+₹290" },
@@ -585,10 +630,10 @@ export default function BlinkitCaseStudyTemplate() {
                     ))}
                 </div>
 
-                {/* Metric Honesty */}
-                <Squircle cornerRadius={16} style={{ ...card, borderLeft: `3px solid ${ACCENT}` }}>
-                    <div style={sectionEyebrow}>Metric Honesty — What's Validated vs Projected</div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                {/* Metric Honesty — callout */}
+                <div className={classes.calloutCard}>
+                    <div style={sectionEyebrow}>📊 Metric Honesty — What's Validated vs Projected</div>
+                    <div className={classes.responsiveGrid2}>
                         <div>
                             <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>✓ Validated</div>
                             <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.6 }}>
@@ -607,14 +652,14 @@ export default function BlinkitCaseStudyTemplate() {
                             </ul>
                         </div>
                     </div>
-                </Squircle>
+                </div>
 
                 {/* SECTION 12 — BUSINESS VALIDATION */}
                 <div className={classes.textSection}>
                     <div style={sectionEyebrow}>Business Validation</div>
                     <h2 className={classes.sectionHeading}>Why this is worth building now.</h2>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                <div className={classes.responsiveGrid2}>
                     {[
                         { t: "Business case — Revenue impact", d: "Higher AOV through bigger, more complete carts. Reduced support costs from fewer repeat orders. The reorder loop reduces churn." },
                         { t: "User need validation", d: "24 interviews, all converging on the same 3 pain points. Zero AI competition in list-scan. 72% of users already doing the workaround." },
@@ -633,7 +678,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <div style={sectionEyebrow}>Roadmap · Future Scope</div>
                     <h2 className={classes.sectionHeading}>Three phases. Shared pipeline. Increasing scope.</h2>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                <div className={classes.responsiveGrid3}>
                     {[
                         { phase: "Phase 1", time: "0–3 months", t: "Scan & Build Cart (F1) + Voice Quick Order (F2)", d: "Highest ROI, shared pipeline, immediate user impact." },
                         { phase: "Phase 2", time: "3–6 months", t: "Pantry Intelligence (F3) + 2-Minute Edit Window (F4)", d: "Requires back-end coordination with dark-store ops." },
