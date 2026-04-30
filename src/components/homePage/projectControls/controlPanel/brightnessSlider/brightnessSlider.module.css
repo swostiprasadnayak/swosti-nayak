@@ -1,65 +1,92 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
+  gap: 12px;
 }
 
 .label {
-  font-size: 1.15rem;
-  font-weight: 900;
-  color: rgba(0, 0, 0, 0.7);
-  letter-spacing: -0.02em;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.65);
+  letter-spacing: -0.01em;
 }
 
 [data-theme="dark"] .label {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.sliderWrapper {
-  position: relative;
-  flex: 1;
-  height: 64px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 32px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+/* Outer container: sun icon + inner slider pill side by side */
+.sliderOuter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   transition: all 0.2s ease;
 }
 
-[data-theme="dark"] .sliderWrapper {
+[data-theme="dark"] .sliderOuter {
   background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.icon {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(0, 0, 0, 0.45);
-  z-index: 5;
-  pointer-events: none;
+/* Sun icon sits outside the pill */
+.sunIcon {
+  color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-[data-theme="dark"] .icon {
+[data-theme="dark"] .sunIcon {
   color: rgba(255, 255, 255, 0.45);
 }
 
-/* Tick marks layer */
+/* Inner rounded pill — rail background = light gray (unfilled area) */
+.sliderInner {
+  position: relative;
+  flex: 1;
+  height: 46px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .sliderInner {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Fill layer — lighter/white overlay on the left (active/filled area) */
+.sliderFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.88);
+  pointer-events: none;
+  z-index: 1;
+  transition: width 0.1s ease-out;
+}
+
+[data-theme="dark"] .sliderFill {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Tick marks — 10 segments */
 .ticks {
   position: absolute;
-  inset: 0 24px 0 76px;
+  inset: 0 14px;
   background: repeating-linear-gradient(
     to right,
     transparent,
-    transparent calc(12.5% - 1px),
-    rgba(0,0,0,0.1) calc(12.5% - 1px),
-    rgba(0,0,0,0.1) 12.5%
+    transparent calc(10% - 1px),
+    rgba(0, 0, 0, 0.22) calc(10% - 1px),
+    rgba(0, 0, 0, 0.22) 10%
   );
   pointer-events: none;
   height: 24px;
@@ -72,29 +99,13 @@
   background: repeating-linear-gradient(
     to right,
     transparent,
-    transparent calc(12.5% - 1px),
-    rgba(255,255,255,0.1) calc(12.5% - 1px),
-    rgba(255,255,255,0.1) 12.5%
+    transparent calc(10% - 1px),
+    rgba(255, 255, 255, 0.32) calc(10% - 1px),
+    rgba(255, 255, 255, 0.32) 10%
   );
 }
 
-/* Filled portion */
-.sliderFill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background: rgba(180, 170, 140, 0.1);
-  border-radius: 0;
-  pointer-events: none;
-  z-index: 1;
-  transition: width 0.1s ease-out;
-}
-
-[data-theme="dark"] .sliderFill {
-  background: rgba(255, 255, 255, 0.15);
-}
-
+/* Range input covers entire inner pill */
 .slider {
   -webkit-appearance: none;
   appearance: none;
@@ -109,9 +120,42 @@
   z-index: 4;
 }
 
-.slider::-webkit-slider-thumb {
+/* Light mode thumb — small visible rounded rect */
+.sliderLight::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 0;
-  height: 0;
+  width: 5px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sliderLight::-moz-range-thumb {
+  width: 5px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dark mode thumb */
+.sliderDark::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 5px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sliderDark::-moz-range-thumb {
+  width: 5px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
 }

@@ -1,3 +1,6 @@
+"use client";
+import React from "react";
+import { Squircle } from "corner-smoothing";
 import { useTheme } from "@/app/contexts/ThemeContext";
 
 export default function ToggleCard({ icon, label, isActive, onClick }: any) {
@@ -36,10 +39,10 @@ export default function ToggleCard({ icon, label, isActive, onClick }: any) {
                     {React.cloneElement(icon as React.ReactElement, { size: 20 })}
                 </div>
                 <span style={{
-                    fontSize: "1.1rem",
-                    fontWeight: 900,
-                    letterSpacing: "-0.02em",
-                    color: isDark ? "rgba(255, 255, 255, 0.98)" : "rgba(0, 0, 0, 0.95)",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    letterSpacing: "-0.01em",
+                    color: isDark ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0.8)",
                 }}>
                     {label}
                 </span>

@@ -1,3 +1,6 @@
+"use client";
+import React from "react";
+import { Squircle } from "corner-smoothing";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import { Play, Pause, FastForward, Rewind } from "lucide-react";
 import classes from "./musicCard.module.css";
@@ -20,7 +23,7 @@ export default function MusicCard({ player }: any) {
     return (
         <Squircle cornerRadius={24} style={{
             flex: 1, padding: "20px 18px",
-            background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.85)",
+            background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.7)",
             border: "none",
             display: "flex", flexDirection: "column", justifyContent: "space-between",
             width: "100%", height: "100%", boxSizing: "border-box", minWidth: 0, margin: 0,
@@ -36,8 +39,8 @@ export default function MusicCard({ player }: any) {
                     )}
                 </Squircle>
                 <div style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: "2px" }}>
-                    <h4 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 900, color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0,0,0,0.9)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "-0.02em" }}>{track?.title || "No Track"}</h4>
-                    <p style={{ margin: 0, fontSize: "0.95rem", color: isDark ? "rgba(255, 255, 255, 0.45)" : "rgba(0,0,0,0.45)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 700 }}>{track?.artist || "Unknown Artist"}</p>
+                    <h4 style={{ margin: 0, fontSize: "1.05rem", fontWeight: 600, color: isDark ? "rgba(255, 255, 255, 0.9)" : "rgba(0,0,0,0.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "-0.01em" }}>{track?.title || "No Track"}</h4>
+                    <p style={{ margin: 0, fontSize: "0.85rem", color: isDark ? "rgba(255, 255, 255, 0.45)" : "rgba(0,0,0,0.45)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontWeight: 500 }}>{track?.artist || "Unknown Artist"}</p>
                 </div>
             </div>
 
@@ -63,11 +66,11 @@ export default function MusicCard({ player }: any) {
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", gap: "40px", marginTop: "14px", color: isDark ? "rgba(255, 255, 255, 0.75)" : "rgba(0,0,0,0.75)" }}>
-                <Rewind size={22} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer", opacity: 0.8 }} onClick={prevTrack} />
+                <Rewind size={26} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer", opacity: 0.8 }} onClick={prevTrack} />
                 <div onClick={togglePlay} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                     {isPlaying ? <Pause size={28} fill="currentColor" strokeWidth={0} /> : <Play size={28} fill="currentColor" strokeWidth={0} />}
                 </div>
-                <FastForward size={22} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer", opacity: 0.8 }} onClick={nextTrack} />
+                <FastForward size={26} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer", opacity: 0.8 }} onClick={nextTrack} />
             </div>
         </Squircle>
     );
