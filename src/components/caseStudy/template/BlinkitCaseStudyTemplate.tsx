@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import classes from "./caseStudy.module.css";
-import { MonitorPlay, ExternalLink, Menu } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 const ACCENT = "#F5C518";
 
@@ -75,71 +75,61 @@ function Section({ children }: { children: React.ReactNode }) {
     );
 }
 
-// ── Live prototype Finder window ───────────────────────────────────────────
-function BlinkitFinderWindow() {
-    const [active, setActive] = useState<"scanner" | "voice">("scanner");
-    const files = {
-        scanner: { label: "F1 · Scanner", name: "Scan & Build Cart", href: "/prototypes/blinkit-scanner.html" },
-        voice:   { label: "F2 · Voice",   name: "Voice Quick Order", href: "/prototypes/blinkit-voice.html"   },
-    };
-    const current = files[active];
-    const PROTO_W = 390, PROTO_H = 844, SCALE = 0.68;
+// ── Live prototypes — clean, side-by-side display ───────────────────────────
+function BlinkitPrototypes() {
+    const PROTO_W = 390, PROTO_H = 844, SCALE = 0.65;
     const frameW = Math.round(PROTO_W * SCALE);
     const frameH = Math.round(PROTO_H * SCALE);
 
+    const prototypes = [
+        { label: "F1 — Scan & Build Cart", href: "/prototypes/blinkit-scanner.html", description: "Camera, image upload, or paste text. AI builds cart with preferred brands." },
+        { label: "F2 — Voice Quick Order", href: "/prototypes/blinkit-voice.html", description: "Speak in Hindi, English, or code-switched. Hands-free ordering while cooking." },
+    ];
+
     return (
-        <div style={{ width: "100%", background: "var(--bg-card)", borderRadius: 16, overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.08)", border: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column" }}>
-            {/* macOS title bar */}
-            <div style={{ display: "flex", alignItems: "center", padding: "12px 16px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-subtle)", gap: 16, flexShrink: 0 }}>
-                <div style={{ display: "flex", gap: 6 }}>
-                    <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FE5F57" }} />
-                    <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FEBC2E" }} />
-                    <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28C840" }} />
-                </div>
-                <Menu size={16} color="var(--text-secondary)" />
-                <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--text-primary)" }}>
-                    Blinkit Prototypes — {current.name}
-                </span>
-                <a href={current.href} target="_blank" rel="noreferrer"
-                    style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: 4, fontSize: "0.75rem", color: "var(--text-secondary)", textDecoration: "none" }}>
-                    Full screen <ExternalLink size={11} />
-                </a>
-            </div>
-            {/* Body */}
-            <div style={{ display: "flex", minHeight: `${frameH + 48}px` }}>
-                {/* Sidebar */}
-                <div style={{ width: 180, background: "var(--bg-secondary)", borderRight: "1px solid var(--border-subtle)", padding: "16px 8px", display: "flex", flexDirection: "column", gap: 4, flexShrink: 0 }}>
-                    <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", padding: "0 8px", marginBottom: 6, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Interactive</div>
-                    {(["scanner", "voice"] as const).map(key => (
-                        <button key={key} onClick={() => setActive(key)}
-                            style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 8, border: "none", background: active === key ? "#fff" : "transparent", boxShadow: active === key ? "0 1px 4px rgba(0,0,0,0.08)" : "none", cursor: "pointer", textAlign: "left", fontSize: "0.84rem", color: active === key ? "#111" : "rgba(0,0,0,0.55)", fontWeight: active === key ? 600 : 400, transition: "all 0.15s ease" }}>
-                            <MonitorPlay size={14} color={active === key ? ACCENT : "#9ca3af"} />
-                            {files[key].label}
-                        </button>
-                    ))}
-                    <div style={{ marginTop: "auto", padding: "12px 8px 4px", fontSize: "0.72rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                        Scroll &amp; tap to interact with the prototype live.
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+            {prototypes.map((proto, i) => (
+                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    <div>
+                        <h4 style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", margin: "0 0 4px 0" }}>
+                            {proto.label}
+                        </h4>
+                        <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", margin: 0 }}>
+                            {proto.description}
+                        </p>
                     </div>
-                </div>
-                {/* Phone frame */}
-                <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", background: "rgba(0,0,0,0.02)" }}>
-                    <div style={{ width: frameW + 16, background: "#1a1a1a", borderRadius: 36, padding: "14px 8px", boxShadow: "0 20px 60px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08)", flexShrink: 0 }}>
-                        <div style={{ width: 80, height: 22, background: "#111", borderRadius: 12, margin: "0 auto 10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#333" }} />
-                        </div>
-                        <div style={{ width: frameW, height: frameH, overflow: "hidden", borderRadius: 20, background: "#fff", position: "relative" }}>
-                            <iframe
-                                key={active}
-                                src={current.href}
-                                title={current.name}
-                                style={{ width: PROTO_W, height: PROTO_H, border: "none", display: "block", transform: `scale(${SCALE})`, transformOrigin: "top left", pointerEvents: "auto" }}
-                                loading="lazy"
-                            />
-                        </div>
-                        <div style={{ width: 60, height: 4, background: "#444", borderRadius: 2, margin: "10px auto 0" }} />
+                    <div style={{
+                        background: "var(--bg-card)",
+                        borderRadius: 16,
+                        border: "1px solid var(--border-subtle)",
+                        overflow: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        aspectRatio: `${frameW} / ${frameH}`,
+                        minHeight: 400
+                    }}>
+                        <iframe
+                            src={proto.href}
+                            title={proto.label}
+                            style={{
+                                width: PROTO_W,
+                                height: PROTO_H,
+                                border: "none",
+                                display: "block",
+                                transform: `scale(${SCALE})`,
+                                transformOrigin: "top left",
+                                pointerEvents: "auto"
+                            }}
+                            loading="lazy"
+                        />
                     </div>
+                    <a href={proto.href} target="_blank" rel="noreferrer"
+                        style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: "0.8rem", color: "var(--text-secondary)", textDecoration: "none", transition: "color 0.2s" }}>
+                        Full screen <ExternalLink size={12} />
+                    </a>
                 </div>
-            </div>
+            ))}
         </div>
     );
 }
@@ -167,6 +157,24 @@ export default function BlinkitCaseStudyTemplate() {
                     {["Quick Commerce", "AI/ML", "Product Design", "Mobile UX"].map((t, i) => (
                         <span key={i} style={{ padding: "4px 10px", borderRadius: 100, border: "1px dashed var(--border-strong)", fontSize: "0.78rem", color: "var(--text-secondary)" }}>{t}</span>
                     ))}
+                </div>
+
+                {/* ── HERO IMAGE ────────────────────────────────────────────── */}
+                <div style={{
+                    width: "100%",
+                    aspectRatio: "16 / 10",
+                    background: "linear-gradient(135deg, rgba(245,197,24,0.08) 0%, rgba(0,0,0,0.02) 100%)",
+                    border: "1px solid var(--border-subtle)",
+                    borderRadius: 16,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--text-secondary)",
+                    fontSize: "0.9rem",
+                    fontStyle: "italic",
+                    overflow: "hidden"
+                }}>
+                    Hero image or key visual will go here
                 </div>
 
                 {/* ── 01 — CHALLENGE VS IMPACT ─────────────────────────────── */}
@@ -388,8 +396,8 @@ export default function BlinkitCaseStudyTemplate() {
                         </div>
                     </div>
 
-                    {/* Live prototype */}
-                    <BlinkitFinderWindow />
+                    {/* Live prototypes */}
+                    <BlinkitPrototypes />
                 </Section>
 
                 {/* ── 07 — SOLUTION: F2 VOICE QUICK ORDER ──────────────────── */}
