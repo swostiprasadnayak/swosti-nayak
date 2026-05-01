@@ -4,7 +4,7 @@ import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import InteractiveNotes from "../blocks/InteractiveNotes";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import classes from "./caseStudy.module.css";
-import { MonitorPlay, FileText, ExternalLink, Menu } from "lucide-react";
+import { MonitorPlay, ExternalLink, Menu } from "lucide-react";
 
 const ACCENT = "#F5C518";
 
@@ -47,52 +47,79 @@ const label: React.CSSProperties = {
     lineHeight: 1.5,
 };
 
-// Blinkit-specific Finder window (shows prototype files)
+// Blinkit Finder window — live interactive prototype embedded at mobile size
 function BlinkitFinderWindow() {
     const [active, setActive] = useState<"scanner" | "voice">("scanner");
     const files = {
-        scanner: { name: "blinkit-scanner.html", href: "/prototypes/blinkit-scanner.html", desc: "F1 · Scan & Build Cart — camera, upload, paste-text prototype" },
-        voice: { name: "blinkit-voice.html", href: "/prototypes/blinkit-voice.html", desc: "F2 · Voice Quick Order — conversational cart-building prototype" },
+        scanner: { label: "F1 · Scanner", name: "Scan & Build Cart", href: "/prototypes/blinkit-scanner.html" },
+        voice:   { label: "F2 · Voice",   name: "Voice Quick Order", href: "/prototypes/blinkit-voice.html" },
     };
     const current = files[active];
+
+    // Prototype is 390px wide mobile design. We display it at ~70% scale inside
+    // a phone-shaped container so it stays fully interactive.
+    const PROTO_W = 390;
+    const PROTO_H = 844;
+    const SCALE   = 0.68;
+    const frameW  = Math.round(PROTO_W * SCALE); // ≈265px
+    const frameH  = Math.round(PROTO_H * SCALE); // ≈574px
+
     return (
-        <div style={{ width: "100%", background: "var(--bg-card)", borderRadius: 12, overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.08)", border: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column", height: 400 }}>
-            {/* Title bar */}
-            <div style={{ display: "flex", alignItems: "center", padding: "12px 16px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-subtle)", gap: 16 }}>
+        <div style={{ width: "100%", background: "var(--bg-card)", borderRadius: 16, overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.08)", border: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column" }}>
+            {/* macOS title bar */}
+            <div style={{ display: "flex", alignItems: "center", padding: "12px 16px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-subtle)", gap: 16, flexShrink: 0 }}>
                 <div style={{ display: "flex", gap: 6 }}>
                     <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FE5F57" }} />
                     <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FEBC2E" }} />
                     <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28C840" }} />
                 </div>
-                <div style={{ display: "flex", gap: 12, color: "var(--text-secondary)" }}>
-                    <Menu size={16} />
-                    <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--text-primary)" }}>Blinkit Prototypes</span>
-                </div>
+                <Menu size={16} color="var(--text-secondary)" />
+                <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--text-primary)" }}>
+                    Blinkit Prototypes — {current.name}
+                </span>
+                <a href={current.href} target="_blank" rel="noreferrer"
+                    style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: 4, fontSize: "0.75rem", color: "var(--text-secondary)", textDecoration: "none" }}>
+                    Full screen <ExternalLink size={11} />
+                </a>
             </div>
-            <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
+
+            {/* Body: sidebar + live iframe */}
+            <div style={{ display: "flex", minHeight: `${frameH + 48}px` }}>
                 {/* Sidebar */}
-                <div style={{ width: 200, background: "var(--bg-secondary)", borderRight: "1px solid var(--border-subtle)", padding: "16px 8px", display: "flex", flexDirection: "column", gap: 4 }}>
-                    <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", padding: "0 8px", marginBottom: 4, fontWeight: 600 }}>Prototypes</div>
+                <div style={{ width: 180, background: "var(--bg-secondary)", borderRight: "1px solid var(--border-subtle)", padding: "16px 8px", display: "flex", flexDirection: "column", gap: 4, flexShrink: 0 }}>
+                    <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", padding: "0 8px", marginBottom: 6, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Interactive</div>
                     {(["scanner", "voice"] as const).map(key => (
                         <button key={key} onClick={() => setActive(key)}
-                            style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 8px", borderRadius: 6, border: "none", background: active === key ? "rgba(0,0,0,0.06)" : "transparent", cursor: "pointer", textAlign: "left", fontSize: "0.85rem", color: active === key ? "#111" : "rgba(0,0,0,0.6)", fontWeight: active === key ? 500 : 400 }}>
-                            <MonitorPlay size={14} color="#3b82f6" />
-                            {key === "scanner" ? "F1 · Scanner" : "F2 · Voice"}
+                            style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 8, border: "none", background: active === key ? "#fff" : "transparent", boxShadow: active === key ? "0 1px 4px rgba(0,0,0,0.08)" : "none", cursor: "pointer", textAlign: "left", fontSize: "0.84rem", color: active === key ? "#111" : "rgba(0,0,0,0.55)", fontWeight: active === key ? 600 : 400, transition: "all 0.15s ease" }}>
+                            <MonitorPlay size={14} color={active === key ? ACCENT : "#9ca3af"} />
+                            {files[key].label}
                         </button>
                     ))}
-                </div>
-                {/* Content */}
-                <div style={{ flex: 1, padding: 24, display: "flex", flexDirection: "column", gap: 16, justifyContent: "center", alignItems: "center" }}>
-                    <div style={{ width: 72, height: 54, background: "var(--bg-secondary)", borderRadius: 6, border: "1px solid var(--border-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <FileText size={24} color={ACCENT} />
+                    <div style={{ marginTop: "auto", padding: "12px 8px 4px", fontSize: "0.72rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                        Scroll &amp; tap to interact with the prototype live.
                     </div>
-                    <div style={{ textAlign: "center" }}>
-                        <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>{current.name}</div>
-                        <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", marginBottom: 16 }}>{current.desc}</div>
-                        <a href={current.href} target="_blank" rel="noreferrer"
-                            style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 8, background: "#111", color: "#fff", fontSize: "0.82rem", fontWeight: 500, textDecoration: "none" }}>
-                            Open prototype <ExternalLink size={12} />
-                        </a>
+                </div>
+
+                {/* Live prototype — centered phone frame */}
+                <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", background: "rgba(0,0,0,0.02)" }}>
+                    {/* Phone bezel */}
+                    <div style={{ width: frameW + 16, background: "#1a1a1a", borderRadius: 36, padding: "14px 8px", boxShadow: "0 20px 60px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08)", flexShrink: 0 }}>
+                        {/* Notch */}
+                        <div style={{ width: 80, height: 22, background: "#111", borderRadius: 12, margin: "0 auto 10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#333" }} />
+                        </div>
+                        {/* Screen */}
+                        <div style={{ width: frameW, height: frameH, overflow: "hidden", borderRadius: 20, background: "#fff", position: "relative" }}>
+                            <iframe
+                                key={active}
+                                src={current.href}
+                                title={current.name}
+                                style={{ width: PROTO_W, height: PROTO_H, border: "none", display: "block", transform: `scale(${SCALE})`, transformOrigin: "top left", pointerEvents: "auto" }}
+                                loading="lazy"
+                            />
+                        </div>
+                        {/* Home indicator */}
+                        <div style={{ width: 60, height: 4, background: "#444", borderRadius: 2, margin: "10px auto 0" }} />
                     </div>
                 </div>
             </div>
