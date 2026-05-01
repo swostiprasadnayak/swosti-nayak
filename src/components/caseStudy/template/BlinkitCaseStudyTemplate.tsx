@@ -75,61 +75,46 @@ function Section({ children }: { children: React.ReactNode }) {
     );
 }
 
-// ── Live prototypes — clean, side-by-side display ───────────────────────────
-function BlinkitPrototypes() {
-    const PROTO_W = 390, PROTO_H = 844, SCALE = 0.65;
+// ── Single prototype embed — correct scale positioning ─────────────────────
+function ProtoEmbed({ href, title }: { href: string; title: string }) {
+    const PROTO_W = 390, PROTO_H = 844, SCALE = 0.68;
     const frameW = Math.round(PROTO_W * SCALE);
     const frameH = Math.round(PROTO_H * SCALE);
-
-    const prototypes = [
-        { label: "F1 — Scan & Build Cart", href: "/prototypes/blinkit-scanner.html", description: "Camera, image upload, or paste text. AI builds cart with preferred brands." },
-        { label: "F2 — Voice Quick Order", href: "/prototypes/blinkit-voice.html", description: "Speak in Hindi, English, or code-switched. Hands-free ordering while cooking." },
-    ];
-
     return (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-            {prototypes.map((proto, i) => (
-                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <div>
-                        <h4 style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", margin: "0 0 4px 0" }}>
-                            {proto.label}
-                        </h4>
-                        <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", margin: 0 }}>
-                            {proto.description}
-                        </p>
-                    </div>
-                    <div style={{
-                        background: "var(--bg-card)",
-                        borderRadius: 16,
-                        border: "1px solid var(--border-subtle)",
-                        overflow: "hidden",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        aspectRatio: `${frameW} / ${frameH}`,
-                        minHeight: 400
-                    }}>
-                        <iframe
-                            src={proto.href}
-                            title={proto.label}
-                            style={{
-                                width: PROTO_W,
-                                height: PROTO_H,
-                                border: "none",
-                                display: "block",
-                                transform: `scale(${SCALE})`,
-                                transformOrigin: "top left",
-                                pointerEvents: "auto"
-                            }}
-                            loading="lazy"
-                        />
-                    </div>
-                    <a href={proto.href} target="_blank" rel="noreferrer"
-                        style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: "0.8rem", color: "var(--text-secondary)", textDecoration: "none", transition: "color 0.2s" }}>
-                        Full screen <ExternalLink size={12} />
-                    </a>
-                </div>
-            ))}
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {/* Container is exact scaled pixel size — no aspect-ratio tricks */}
+            <div style={{
+                width: frameW,
+                height: frameH,
+                position: "relative",
+                overflow: "hidden",
+                borderRadius: 16,
+                border: "1px solid var(--border-subtle)",
+                background: "var(--bg-card)",
+                flexShrink: 0,
+            }}>
+                <iframe
+                    src={href}
+                    title={title}
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: PROTO_W,
+                        height: PROTO_H,
+                        border: "none",
+                        display: "block",
+                        transform: `scale(${SCALE})`,
+                        transformOrigin: "top left",
+                        pointerEvents: "auto",
+                    }}
+                    loading="lazy"
+                />
+            </div>
+            <a href={href} target="_blank" rel="noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: "0.8rem", color: "var(--text-secondary)", textDecoration: "none" }}>
+                Full screen <ExternalLink size={12} />
+            </a>
         </div>
     );
 }
@@ -396,8 +381,8 @@ export default function BlinkitCaseStudyTemplate() {
                         </div>
                     </div>
 
-                    {/* Live prototypes */}
-                    <BlinkitPrototypes />
+                    {/* F1 prototype */}
+                    <ProtoEmbed href="/prototypes/blinkit-scanner.html" title="F1 — Scan & Build Cart" />
                 </Section>
 
                 {/* ── 07 — SOLUTION: F2 VOICE QUICK ORDER ──────────────────── */}
@@ -442,6 +427,9 @@ export default function BlinkitCaseStudyTemplate() {
                             ))}
                         </div>
                     </div>
+
+                    {/* F2 prototype */}
+                    <ProtoEmbed href="/prototypes/blinkit-voice.html" title="F2 — Voice Quick Order" />
                 </Section>
 
                 {/* ── 08 — SECONDARY FEATURES ──────────────────────────────── */}
@@ -454,12 +442,13 @@ export default function BlinkitCaseStudyTemplate() {
                             { tag: "F4", t: "2-Minute Edit Window",   sub: "Catch the 'I forgot' moment",       pain: "After placing an order, users realise they forgot items. The only option is cancelling everything.", sol: "2-minute countdown after confirmation. AI suggests forgotten items as quick-add chips. Add or remove before the picker starts." },
                             { tag: "F5", t: "Meal Intent Search",     sub: "Type a dish, get a cart",           pain: "Instagram recipe inspiration requires 6+ separate searches to buy all ingredients.", sol: "User types meal name → AI parses intent → extracts ingredients → matches catalog → applies brand preferences." },
                         ].map((f, i) => (
-                            <div key={i} style={sCard}>
+                            <div key={i} style={{ ...sCard, display: "flex", flexDirection: "column", gap: 10 }}>
                                 <span style={{ padding: "5px 10px", borderRadius: 100, background: ACCENT, fontSize: "0.72rem", fontWeight: 700, color: "#1a1a1a", alignSelf: "flex-start" }}>{f.tag}</span>
-                                <div style={{ fontSize: "1rem", fontWeight: 600, color: "var(--text-primary)" }}>{f.t}</div>
+                                <div style={{ fontSize: "1rem", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3 }}>{f.t}</div>
                                 <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", fontStyle: "italic" }}>{f.sub}</div>
-                                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55 }}><strong style={{ color: "var(--text-primary)" }}>Pain:</strong> {f.pain}</div>
-                                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55 }}><strong style={{ color: "var(--text-primary)" }}>Solution:</strong> {f.sol}</div>
+                                <div style={{ height: 1, background: "rgba(0,0,0,0.06)" }} />
+                                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.6 }}><strong style={{ color: "var(--text-primary)" }}>Pain:</strong> {f.pain}</div>
+                                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.6 }}><strong style={{ color: "var(--text-primary)" }}>Solution:</strong> {f.sol}</div>
                             </div>
                         ))}
                     </div>
@@ -604,13 +593,13 @@ export default function BlinkitCaseStudyTemplate() {
                             { phase: "Phase 2", time: "3–6 months", t: "F3 Pantry Intelligence + F4 2-Minute Edit Window", d: "Requires back-end coordination with dark-store ops." },
                             { phase: "Phase 3", time: "6–12 months", t: "F5 Meal Intent Search + full personalization layer", d: "Catalog partnership, cuisine model training." },
                         ].map((p, i) => (
-                            <div key={i} style={sCard}>
+                            <div key={i} style={{ ...sCard, display: "flex", flexDirection: "column", gap: 10 }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <span style={{ padding: "4px 10px", borderRadius: 100, background: ACCENT, fontSize: "0.72rem", fontWeight: 700, color: "#1a1a1a" }}>{p.phase}</span>
                                     <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>{p.time}</span>
                                 </div>
-                                <div style={{ fontSize: "0.97rem", fontWeight: 600, color: "var(--text-primary)" }}>{p.t}</div>
-                                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>{p.d}</div>
+                                <div style={{ fontSize: "0.97rem", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.4 }}>{p.t}</div>
+                                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.d}</div>
                             </div>
                         ))}
                     </div>
