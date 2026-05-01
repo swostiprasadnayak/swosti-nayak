@@ -359,59 +359,129 @@ export default function BlinkitCaseStudyTemplate() {
                 <Section>
                     <SectionHeader num="06" label="Solution: F1 — Scan & Build Cart" />
 
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-                        <span style={{ padding: "5px 12px", borderRadius: 100, background: ACCENT, fontSize: "0.78rem", fontWeight: 700, color: "#1a1a1a" }}>Highest ROI</span>
-                        <span style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>72% of users benefit immediately · No new behaviour required</span>
-                    </div>
+                    {/* Two-column: text LEFT · prototype RIGHT */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 56, alignItems: "flex-start" }}>
 
-                    <p style={bodyText}>
-                        Any external list — paper, screenshot, WhatsApp, recipe image, or pasted URL — turns into a personalised, brand-ranked, ready-to-checkout cart. Three input modes, one AI pipeline, nine items in one tap.
-                    </p>
+                        {/* ── Text column ── */}
+                        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                        <div style={sSubtle}>
-                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 10 }}>Design Logic 1</div>
-                            <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>3 tabs, not 3 separate flows</div>
-                            <div style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Camera, upload, and paste-text unified under one screen. Detected items appear as dismissible chips — visible AI progress, not a black-box spinner.</div>
+                            {/* Numbered badge + category label */}
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                <div style={{ width: 28, height: 28, borderRadius: "50%", background: ACCENT, color: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.85rem", flexShrink: 0 }}>1</div>
+                                <span style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(0,0,0,0.4)" }}>AI List Scanner</span>
+                            </div>
+
+                            {/* Big headline */}
+                            <h3 style={{ fontSize: "2.2rem", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--text-primary)", margin: 0 }}>
+                                Point. Scan.<br />Done.
+                            </h3>
+
+                            {/* Body */}
+                            <p style={{ ...bodyText, margin: 0 }}>
+                                Users photograph their handwritten grocery list. The AI reads it using multilingual OCR (Hindi + English), extracts each item with its quantity, maps to the Blinkit product catalog, and returns a fully editable cart — with brand swap options for every item.
+                            </p>
+
+                            {/* Feature bullets */}
+                            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                                {[
+                                    { icon: "📷", bold: "Handwriting-aware OCR", text: "— reads messy handwriting in Hindi and English, catches abbreviations" },
+                                    { icon: "🔄", bold: "Brand swap UI", text: "— every item shows 2–3 brand options, tap to switch before checkout" },
+                                    { icon: "✏️", bold: "Item-level control", text: "— uncheck items you already have at home, total updates live" },
+                                    { icon: "🛒", bold: "One-tap bulk checkout", text: '— "Add All 9 to Cart" replaces 9 individual add actions' },
+                                    { icon: "📝", bold: '"From list" attribution', text: "— shows the original text so users trust the AI understood correctly" },
+                                ].map((pt, i) => (
+                                    <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                                        <span style={{ fontSize: "1rem", flexShrink: 0, lineHeight: 1.55 }}>{pt.icon}</span>
+                                        <span style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+                                            <strong style={{ color: "var(--text-primary)" }}>{pt.bold}</strong>{pt.text}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Design logic cards — below bullets */}
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 4 }}>
+                                <div style={sSubtle}>
+                                    <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>3 tabs, not 3 flows</div>
+                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Camera, upload, and paste-text unified under one screen. Items appear as dismissible chips — visible AI progress.</div>
+                                </div>
+                                <div style={sSubtle}>
+                                    <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 2</div>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Attribution on every card</div>
+                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Every product shows the exact text from the list that triggered the AI match. Trust through transparency.</div>
+                                </div>
+                            </div>
                         </div>
-                        <div style={sSubtle}>
-                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 10 }}>Design Logic 2</div>
-                            <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>"From list" attribution on every card</div>
-                            <div style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Every product shows the exact text from the user's list that triggered the AI match. Trust through transparency.</div>
-                        </div>
-                    </div>
 
-                    {/* F1 prototype */}
-                    <ProtoEmbed href="/prototypes/blinkit-scanner.html" title="F1 — Scan & Build Cart" />
+                        {/* ── Prototype column ── */}
+                        <ProtoEmbed href="/prototypes/blinkit-scanner.html" title="F1 — Scan & Build Cart" />
+                    </div>
                 </Section>
 
                 {/* ── 07 — SOLUTION: F2 VOICE QUICK ORDER ──────────────────── */}
                 <Section>
                     <SectionHeader num="07" label="Solution: F2 — Voice Quick Order" />
 
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-                        <span style={{ padding: "5px 12px", borderRadius: 100, background: ACCENT, fontSize: "0.78rem", fontWeight: 700, color: "#1a1a1a" }}>New Modality</span>
-                        <span style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>Mid-cook · Hands-busy · Emergency ordering</span>
+                    {/* Two-column: prototype LEFT · text RIGHT  (alternating) */}
+                    <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: 56, alignItems: "flex-start" }}>
+
+                        {/* ── Prototype column ── */}
+                        <ProtoEmbed href="/prototypes/blinkit-voice.html" title="F2 — Voice Quick Order" />
+
+                        {/* ── Text column ── */}
+                        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+                            {/* Numbered badge + category label */}
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                <div style={{ width: 28, height: 28, borderRadius: "50%", background: ACCENT, color: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.85rem", flexShrink: 0 }}>2</div>
+                                <span style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(0,0,0,0.4)" }}>Voice Quick Order</span>
+                            </div>
+
+                            {/* Big headline */}
+                            <h3 style={{ fontSize: "2.2rem", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--text-primary)", margin: 0 }}>
+                                One tap.<br />Speak your order.
+                            </h3>
+
+                            {/* Body */}
+                            <p style={{ ...bodyText, margin: 0 }}>
+                                One tap to start. Speak in Hindi, English, or code-switched ("Milk aur eggs de do"). AI builds the cart, shows it in a chat thread, and lets users confirm or edit by voice or tap. Fully touchless end-to-end.
+                            </p>
+
+                            {/* Feature bullets */}
+                            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                                {[
+                                    { icon: "🎙️", bold: "Speak naturally", text: "— Hindi, English, or code-switched. 'Dahi aur bread le aao' is a valid order" },
+                                    { icon: "📝", bold: "Real-time transcript", text: "— appears character-by-character, proof of active listening not a silent spinner" },
+                                    { icon: "💬", bold: "Cart card in the thread", text: "— AI's response is an inline cart card, never breaks context or opens a new screen" },
+                                    { icon: "✅", bold: "Fully touchless", text: "— confirm, edit, or cancel entirely by voice, no screen needed from intent to checkout" },
+                                ].map((pt, i) => (
+                                    <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                                        <span style={{ fontSize: "1rem", flexShrink: 0, lineHeight: 1.55 }}>{pt.icon}</span>
+                                        <span style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+                                            <strong style={{ color: "var(--text-primary)" }}>{pt.bold}</strong>{pt.text}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Design logic cards */}
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 4 }}>
+                                <div style={sSubtle}>
+                                    <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Transcript, not a spinner</div>
+                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Yellow waveform + live transcript runs simultaneously — proof the AI is listening before results appear.</div>
+                                </div>
+                                <div style={sSubtle}>
+                                    <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 2</div>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Cart inside the thread</div>
+                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Inline cart card, not a modal. Users say "change brand" as natural continuation — context never breaks.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <p style={bodyText}>
-                        One tap to start. Speak in Hindi, English, or code-switched ("Milk aur eggs de do"). AI builds the cart, shows it in a chat thread, and lets users confirm or edit by voice or tap. Fully touchless end-to-end.
-                    </p>
-
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                        <div style={sSubtle}>
-                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 10 }}>Design Logic 1</div>
-                            <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Real-time transcript, not a spinner</div>
-                            <div style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Transcript appears character-by-character. Yellow waveform runs simultaneously — proof of active listening, not silent black-box recording.</div>
-                        </div>
-                        <div style={sSubtle}>
-                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 10 }}>Design Logic 2</div>
-                            <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Cart card inside the chat thread</div>
-                            <div style={{ fontSize: "0.87rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>The AI's response is an inline cart card, not a modal or new screen. Users say "change brand" as a natural continuation. Context is never broken.</div>
-                        </div>
-                    </div>
-
-                    {/* User testing */}
+                    {/* User testing — full width below */}
                     <div style={{ ...sCard }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 16 }}>Tested with 12+ design students · 20+ sessions</div>
                         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -427,9 +497,6 @@ export default function BlinkitCaseStudyTemplate() {
                             ))}
                         </div>
                     </div>
-
-                    {/* F2 prototype */}
-                    <ProtoEmbed href="/prototypes/blinkit-voice.html" title="F2 — Voice Quick Order" />
                 </Section>
 
                 {/* ── 08 — SECONDARY FEATURES ──────────────────────────────── */}
