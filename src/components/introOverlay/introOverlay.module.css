@@ -1,10 +1,10 @@
-/* ── Full-screen Overlay ── */
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
   background: rgba(0, 0, 0, 0.43);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 
 /* ── Scene root (fills the overlay) ── */
@@ -17,8 +17,12 @@
   position: absolute;
   left: 22%;
   top: 50%;
+  bottom: auto;
   transform: translate(-50%, -50%);
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatarVideo {

@@ -125,21 +125,21 @@ const IntroOverlay: React.FC = () => {
   }, [isVisible]);
 
   // ── Auto-start after 2 seconds ───
-  // Strategy: start video MUTED (browsers always allow muted autoplay),
-  // then immediately unmute. If unmuting fails, register a one-time
-  // interaction handler to unmute.
   useEffect(() => {
     if (!isVisible) return;
 
     autoStartTimerRef.current = setTimeout(() => {
       const video = videoRef.current;
       if (video) {
+        // Start muted to bypass autoplay policy
         video.muted = true;
-        video.currentTime = 0;
         video.play().then(() => {
-          // Started muted — now unmute
+          // Once playing, attempt to unmute
           video.muted = false;
-        }).catch(() => {});
+        }).catch((err) => {
+          console.warn("Autoplay failed:", err);
+          // If it fails even muted, we still show the bubble
+        });
       }
 
       // Show bubble and start typing immediately
@@ -181,10 +181,10 @@ const IntroOverlay: React.FC = () => {
     return () => video.removeEventListener("ended", handleEnded);
   }, [handleClose]);
 
-  // Fallback auto-close: 15s after typing finishes
+  // Fallback auto-close: 20s after typing finishes
   useEffect(() => {
     if (charCount >= totalChars && charCount > 0) {
-      const timer = setTimeout(() => handleClose(), 15000);
+      const timer = setTimeout(() => handleClose(), 20000);
       return () => clearTimeout(timer);
     }
   }, [charCount, totalChars, handleClose]);
@@ -215,7 +215,7 @@ const IntroOverlay: React.FC = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <div className={classes.scene}>
-            {/* Avatar */}
+            {/* Avatar container — positioned at top: 50% */}
             <motion.div
               className={classes.avatarContainer}
               initial={{ opacity: 0, y: 20 }}
@@ -226,9 +226,9 @@ const IntroOverlay: React.FC = () => {
                 ref={videoRef}
                 className={classes.avatarVideo}
                 src="/videos/intro-merged.webm"
-                muted
                 playsInline
                 preload="auto"
+                style={{ background: 'transparent' }}
               />
             </motion.div>
 
