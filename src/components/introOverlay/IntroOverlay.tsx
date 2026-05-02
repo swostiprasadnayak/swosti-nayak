@@ -169,7 +169,7 @@ const IntroOverlay: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
     const handleEnded = () => {
-      setTimeout(() => handleClose(), 5000);
+      setTimeout(() => handleClose(), 3000);
     };
     video.addEventListener("ended", handleEnded);
     return () => video.removeEventListener("ended", handleEnded);
@@ -206,8 +206,8 @@ const IntroOverlay: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          onClick={!hasStarted ? handleStart : undefined}
-          style={{ cursor: !hasStarted ? "pointer" : "default" }}
+          onClick={!hasStarted ? handleStart : handleClose}
+          style={{ cursor: "pointer" }}
         >
           <div className={classes.scene}>
             <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
