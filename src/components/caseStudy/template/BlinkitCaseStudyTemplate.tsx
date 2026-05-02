@@ -140,9 +140,39 @@ function ProtoEmbed({ href, title }: { href: string; title: string }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Screen flow data
+const SCREENS = [
+    { src: "/images/blinkit/screen-1-home.png",          label: "Home" },
+    { src: "/images/blinkit/screen-2-scan-list.png",      label: "Scan List" },
+    { src: "/images/blinkit/screen-3-product-match.png",  label: "Product Match" },
+    { src: "/images/blinkit/screen-4-upload.png",         label: "Upload Image" },
+    { src: "/images/blinkit/screen-5-paste-text.png",     label: "Paste Text" },
+    { src: "/images/blinkit/screen-6-personalizing.png",  label: "Personalizing" },
+];
+
 export default function BlinkitCaseStudyTemplate() {
     const { openModal } = useVoiceModal();
-    const [lightbox, setLightbox] = React.useState<{ src: string; label: string } | null>(null);
+    const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null);
+
+    // Handle keyboard navigation
+    React.useEffect(() => {
+        if (lightboxIndex === null) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "ArrowRight") {
+                e.preventDefault();
+                setLightboxIndex((prev) => (prev !== null && prev < SCREENS.length - 1 ? prev + 1 : prev));
+            } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                setLightboxIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
+            } else if (e.key === "Escape") {
+                setLightboxIndex(null);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [lightboxIndex]);
 
     return (
         <div className={classes.pageWrapper}>
@@ -429,18 +459,11 @@ export default function BlinkitCaseStudyTemplate() {
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow — All 6 Screens</div>
                         {/* 6-col grid */}
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
-                            {[
-                                { src: "/images/blinkit/screen-1-home.png",          label: "Home" },
-                                { src: "/images/blinkit/screen-2-scan-list.png",      label: "Scan List" },
-                                { src: "/images/blinkit/screen-3-product-match.png",  label: "Product Match" },
-                                { src: "/images/blinkit/screen-4-upload.png",         label: "Upload Image" },
-                                { src: "/images/blinkit/screen-5-paste-text.png",     label: "Paste Text" },
-                                { src: "/images/blinkit/screen-6-personalizing.png",  label: "Personalizing" },
-                            ].map((s, i) => (
+                            {SCREENS.map((s, i) => (
                                 <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                     {/* Clickable phone frame */}
                                     <div
-                                        onClick={() => setLightbox(s)}
+                                        onClick={() => setLightboxIndex(i)}
                                         style={{
                                             width: "100%",
                                             aspectRatio: "390 / 844",
@@ -495,10 +518,10 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 </Section>
 
-                {/* ── LIGHTBOX ──────────────────────────────────────────────── */}
-                {lightbox && (
+                {/* ── LIGHTBOX with Next/Previous ──────────────────────────── */}
+                {lightboxIndex !== null && (
                     <div
-                        onClick={() => setLightbox(null)}
+                        onClick={() => setLightboxIndex(null)}
                         style={{
                             position: "fixed", inset: 0, zIndex: 9999,
                             background: "rgba(0,0,0,0.85)",
@@ -507,10 +530,11 @@ export default function BlinkitCaseStudyTemplate() {
                             backdropFilter: "blur(8px)",
                         }}
                     >
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, maxHeight: "90vh" }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, maxHeight: "90vh", position: "relative" }}>
+                            {/* Image */}
                             <img
-                                src={lightbox.src}
-                                alt={lightbox.label}
+                                src={SCREENS[lightboxIndex].src}
+                                alt={SCREENS[lightboxIndex].label}
                                 style={{
                                     maxHeight: "80vh",
                                     maxWidth: "min(420px, 90vw)",
@@ -520,8 +544,60 @@ export default function BlinkitCaseStudyTemplate() {
                                     objectFit: "contain",
                                 }}
                             />
-                            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                                {lightbox.label} · Click anywhere to close
+
+                            {/* Navigation arrows */}
+                            {/* Left arrow */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (lightboxIndex > 0) setLightboxIndex(lightboxIndex - 1);
+                                }}
+                                style={{
+                                    position: "absolute", left: -80, top: "50%", transform: "translateY(-50%)",
+                                    background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.25)",
+                                    color: "#fff", width: 48, height: 48, borderRadius: "50%",
+                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                    cursor: lightboxIndex > 0 ? "pointer" : "not-allowed",
+                                    opacity: lightboxIndex > 0 ? 1 : 0.3,
+                                    transition: "all 0.2s ease",
+                                    fontSize: "1.2rem", fontWeight: 600,
+                                    padding: 0,
+                                }}
+                                disabled={lightboxIndex === 0}
+                            >
+                                ←
+                            </button>
+
+                            {/* Right arrow */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (lightboxIndex < SCREENS.length - 1) setLightboxIndex(lightboxIndex + 1);
+                                }}
+                                style={{
+                                    position: "absolute", right: -80, top: "50%", transform: "translateY(-50%)",
+                                    background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.25)",
+                                    color: "#fff", width: 48, height: 48, borderRadius: "50%",
+                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                    cursor: lightboxIndex < SCREENS.length - 1 ? "pointer" : "not-allowed",
+                                    opacity: lightboxIndex < SCREENS.length - 1 ? 1 : 0.3,
+                                    transition: "all 0.2s ease",
+                                    fontSize: "1.2rem", fontWeight: 600,
+                                    padding: 0,
+                                }}
+                                disabled={lightboxIndex === SCREENS.length - 1}
+                            >
+                                →
+                            </button>
+
+                            {/* Caption and counter */}
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                                <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "rgba(255,255,255,0.9)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                                    {SCREENS[lightboxIndex].label}
+                                </div>
+                                <div style={{ fontSize: "0.75rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                                    {lightboxIndex + 1} of {SCREENS.length}
+                                </div>
                             </div>
                         </div>
                     </div>
