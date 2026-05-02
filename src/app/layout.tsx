@@ -7,6 +7,9 @@ import "./globals.css";
 export const metadata = {
   title: "Swosti - Portfolio",
   description: "Design engineer crafting AI-native interfaces.",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
