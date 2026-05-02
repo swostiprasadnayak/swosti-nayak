@@ -379,8 +379,8 @@ export default function BlinkitCaseStudyTemplate() {
                 <Section>
                     <SectionHeader num="06" label="Solution: F1 — Scan & Build Cart" />
 
-                    {/* Two-column: text LEFT · prototype RIGHT */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 56, alignItems: "flex-start" }}>
+                    {/* Two-column: text LEFT · design logic RIGHT */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "flex-start" }}>
 
                         {/* ── Text column ── */}
                         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -418,24 +418,88 @@ export default function BlinkitCaseStudyTemplate() {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* Design logic cards — below bullets */}
-                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 4 }}>
-                                <div style={sSubtle}>
-                                    <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
-                                    <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>3 tabs, not 3 flows</div>
-                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Camera, upload, and paste-text unified under one screen. Items appear as dismissible chips — visible AI progress.</div>
-                                </div>
-                                <div style={sSubtle}>
-                                    <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 2</div>
-                                    <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Attribution on every card</div>
-                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Every product shows the exact text from the list that triggered the AI match. Trust through transparency.</div>
-                                </div>
-                            </div>
                         </div>
 
-                        {/* ── Prototype column ── */}
-                        <ProtoEmbed href="/prototypes/blinkit-scanner.html" title="F1 — Scan & Build Cart" />
+                        {/* ── Design Logic column (RIGHT) ── */}
+                        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 4 }}>Design Logic</div>
+                            <div style={sSubtle}>
+                                <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
+                                <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>3 tabs, not 3 flows</div>
+                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Camera, upload, and paste-text unified under one screen. Items appear as dismissible chips — visible AI progress.</div>
+                            </div>
+                            <div style={sSubtle}>
+                                <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 2</div>
+                                <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Attribution on every card</div>
+                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Every product shows the exact text from the list that triggered the AI match. Trust through transparency.</div>
+                            </div>
+                            <div style={sSubtle}>
+                                <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 3</div>
+                                <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Personalising, not loading</div>
+                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>The processing screen shows AI steps in real time — brand matching, quantity parsing — so the wait feels purposeful.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ── 6 screens strip — full width below ── */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8 }}>
+                        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow — All 6 Screens</div>
+                        <div style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(6, 1fr)",
+                            gap: 16,
+                        }}>
+                            {[
+                                { src: "/images/blinkit/screen-1-home.png",          label: "Home" },
+                                { src: "/images/blinkit/screen-2-scan-list.png",      label: "Scan List" },
+                                { src: "/images/blinkit/screen-3-product-match.png",  label: "Product Match" },
+                                { src: "/images/blinkit/screen-4-upload.png",         label: "Upload Image" },
+                                { src: "/images/blinkit/screen-5-paste-text.png",     label: "Paste Text" },
+                                { src: "/images/blinkit/screen-6-personalizing.png",  label: "Personalizing" },
+                            ].map((s, i) => (
+                                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                    {/* Phone frame */}
+                                    <div style={{
+                                        width: "100%",
+                                        aspectRatio: "390 / 844",
+                                        borderRadius: 24,
+                                        overflow: "hidden",
+                                        boxShadow: "0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)",
+                                        background: "#f0f0f0",
+                                        border: "1px solid rgba(0,0,0,0.06)",
+                                        position: "relative",
+                                    }}>
+                                        <img
+                                            src={s.src}
+                                            alt={s.label}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "cover",
+                                                display: "block",
+                                            }}
+                                            onError={(e) => {
+                                                // Graceful placeholder until images are added
+                                                const target = e.currentTarget;
+                                                target.style.display = "none";
+                                                const parent = target.parentElement;
+                                                if (parent && !parent.querySelector(".placeholder-label")) {
+                                                    const ph = document.createElement("div");
+                                                    ph.className = "placeholder-label";
+                                                    ph.style.cssText = "position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(160deg,#f5f5f5,#e8e8e8);";
+                                                    ph.innerHTML = `<span style="font-size:1.5rem">${["🏠","📷","✅","🖼️","📋","✨"][${i}]}</span><span style="font-size:0.7rem;color:#999;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;">${s.label}</span>`;
+                                                    parent.appendChild(ph);
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    {/* Caption */}
+                                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--text-secondary)", textAlign: "center", letterSpacing: "0.03em" }}>
+                                        <span style={{ color: ACCENT, marginRight: 4 }}>{i + 1}</span>{s.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </Section>
 
