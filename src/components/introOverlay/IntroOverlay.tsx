@@ -206,23 +206,9 @@ const IntroOverlay: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
+          onClick={!hasStarted ? handleStart : undefined}
+          style={{ cursor: !hasStarted ? "pointer" : "default" }}
         >
-          {/* Start Overlay - blocks until clicked */}
-          <AnimatePresence>
-            {!hasStarted && (
-              <motion.div 
-                className={classes.startOverlay}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <button className={classes.startButton} onClick={handleStart}>
-                  Start Experience
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           <div className={classes.scene}>
             <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
             
@@ -268,7 +254,7 @@ const IntroOverlay: React.FC = () => {
                 >
                   <button
                     className={classes.closeButton}
-                    onClick={handleClose}
+                    onClick={(e) => { e.stopPropagation(); handleClose(); }}
                     aria-label="Close introduction"
                   >
                     <X size={16} strokeWidth={2.5} color="#111111" />
