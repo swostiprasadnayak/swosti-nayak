@@ -22,6 +22,7 @@
   z-index: 2;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .avatarVideo {
@@ -56,9 +57,11 @@
   position: relative;
   display: flex;
   width: 361px;
+  height: 480px; /* Fixed height to prevent expansion */
   padding: 32px 64px;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: flex-start; /* Start text from top */
   gap: 24px;
   box-sizing: border-box;
   border-radius: 15px;
@@ -67,6 +70,7 @@
   backdrop-filter: blur(54px);
   -webkit-backdrop-filter: blur(54px);
   flex-shrink: 0;
+  overflow: visible;
 }
 
 /* ── Close Button — outside the bubble overflow, positioned on top ── */

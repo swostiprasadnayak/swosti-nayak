@@ -132,20 +132,18 @@ const IntroOverlay: React.FC = () => {
     const audio = audioRef.current;
     if (!video || !audio) return;
 
+    // Reset streams
     video.currentTime = 0;
     audio.currentTime = 0;
 
-    const startPlay = () => {
-      video.play().catch(() => {});
-      audio.play().catch(() => {});
-    };
-
+    // Attempt video (usually allows muted autoplay, but we want unmuted)
     video.play().then(() => {
+      // If video started, try audio
       audio.play().catch(() => {
-        // Audio blocked, wait for unlock
+        // Audio blocked by policy — will resume on any document interaction
       });
     }).catch(() => {
-      // Autoplay blocked — register a one-time unlock on ANY user interaction
+      // Both blocked — register a one-time unlock on ANY user interaction
       const unlock = () => {
         video.play().catch(() => {});
         audio.play().catch(() => {});
@@ -167,27 +165,27 @@ const IntroOverlay: React.FC = () => {
     if (!isVisible) return;
 
     autoStartTimerRef.current = setTimeout(() => {
-      // Attempt playback
+      // Directly attempt playback
       playMedia();
 
-      // Show bubble
+      // Show bubble and start typing
       setShowBubble(true);
 
-      // Start typing
-      setTimeout(() => {
-        const CHAR_DELAY = 35;
-        let current = 0;
-        intervalRef.current = setInterval(() => {
-          current++;
-          setCharCount(current);
-          if (current >= totalChars) {
-            if (intervalRef.current) clearInterval(intervalRef.current);
-          }
-        }, CHAR_DELAY);
-      }, 300);
+      const CHAR_DELAY = 35;
+      let current = 0;
+      intervalRef.current = setInterval(() => {
+        current++;
+        setCharCount(current);
+        if (current >= totalChars) {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+        }
+      }, CHAR_DELAY);
     }, 2000);
 
-    return () => { if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current); };
+    return () => {
+      if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [isVisible, totalChars, playMedia]);
 
   const handleClose = useCallback(() => {
