@@ -5,7 +5,6 @@
   z-index: 9999;
   background: rgba(0, 0, 0, 0.43);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  cursor: default;
 }
 
 /* ── Positioned content layer ── */
@@ -15,32 +14,32 @@
   z-index: 1;
 }
 
-/* ── Avatar — always centered, never shifts ── */
+/* ── Avatar — vertically centered, not at bottom ── */
 .avatarContainer {
   position: absolute;
-  bottom: 0;
   left: 50%;
-  transform: translateX(-55%);
+  top: 50%;
+  transform: translate(-55%, -42%);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   z-index: 2;
 }
 
 .avatarVideo {
-  height: 75vh;
-  max-height: 620px;
+  height: 72vh;
+  max-height: 600px;
   width: auto;
   object-fit: contain;
   pointer-events: none;
 }
 
-/* ── Connector line + Speech bubble wrapper — positioned to the right of avatar ── */
+/* ── Connector + Speech bubble — positioned right of center ── */
 .bubbleGroup {
   position: absolute;
   top: 50%;
   left: 55%;
-  transform: translateY(-55%);
+  transform: translateY(-60%);
   display: flex;
   align-items: center;
   gap: 0;
@@ -54,42 +53,39 @@
   align-items: center;
 }
 
-/* ── Speech Bubble — exact Figma specs ── */
+/* ── Speech Bubble — exact Figma specs, FIXED size (no expand) ── */
 .speechBubble {
   position: relative;
   display: flex;
   width: 361px;
+  min-height: 300px;
   padding: 32px 64px;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
   box-sizing: border-box;
-  /* Figma style: corner-radius 15, stroke #FFF 100% inside 1px dashed 3.55/3.55 */
   border-radius: 15px;
   border: 1px dashed #FFF;
-  /* Figma fill: #FFFFFF 10% */
   background: rgba(255, 255, 255, 0.10);
-  /* Figma effect: Background blur 54 */
   backdrop-filter: blur(54px);
   -webkit-backdrop-filter: blur(54px);
   flex-shrink: 0;
 }
 
-/* ── Close Button — exact Figma specs ── */
+/* ── Close Button — positioned further out, more opaque so it doesn't merge ── */
 .closeButton {
   position: absolute;
-  top: -14px;
-  right: -14px;
+  top: -18px;
+  right: -18px;
   display: inline-flex;
-  padding: 12.169px;
+  padding: 12px;
   justify-content: center;
   align-items: center;
-  gap: 5.07px;
-  border-radius: 17.746px;
-  border: 1px dashed #FFF;
-  background: rgba(255, 255, 255, 0.40);
-  backdrop-filter: blur(13.69px);
-  -webkit-backdrop-filter: blur(13.69px);
+  border-radius: 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: #FFF;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -97,35 +93,8 @@
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.7);
   transform: scale(1.06);
-}
-
-/* ── Click to start prompt ── */
-.startPrompt {
-  position: absolute;
-  bottom: 56px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.startText {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.02em;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
 }
 
 /* ── Typography ── */
@@ -173,8 +142,7 @@
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .avatarContainer {
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -40%);
   }
 
   .avatarVideo {
@@ -198,9 +166,6 @@
     width: 85vw;
     max-width: 361px;
     padding: 24px 32px;
-  }
-
-  .startPrompt {
-    bottom: 32px;
+    min-height: auto;
   }
 }

@@ -6,8 +6,9 @@ import { X } from "lucide-react";
 import classes from "./introOverlay.module.css";
 
 const STORAGE_KEY = "swosti_intro_seen";
+const RESHOW_INTERVAL_MS = 2 * 60 * 1000; // 2 minutes
 
-// Exact SVG connector line from the Figma design
+// Exact SVG connector line from Figma
 const ConnectorSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="217" height="6" viewBox="0 0 217 6" fill="none">
     <path d="M-0.00260425 2.66797C-0.00260425 4.14073 1.1913 5.33464 2.66406 5.33464C4.13682 5.33464 5.33073 4.14073 5.33073 2.66797C5.33073 1.19521 4.13682 0.001302 2.66406 0.001302C1.1913 0.001302 -0.00260425 1.19521 -0.00260425 2.66797ZM2.66406 2.66797V3.16797H5.62934V2.66797V2.16797H2.66406V2.66797ZM11.5599 2.66797V3.16797H17.4905V2.66797V2.16797H11.5599V2.66797ZM23.421 2.66797V3.16797H29.3516V2.66797V2.16797H23.421V2.66797ZM35.2821 2.66797V3.16797H41.2127V2.66797V2.16797H35.2821V2.66797ZM47.1432 2.66797V3.16797H53.0738V2.66797V2.16797H47.1432V2.66797ZM59.0043 2.66797V3.16797H64.9349V2.66797V2.16797H59.0043V2.66797ZM70.8655 2.66797V3.16797H76.796V2.66797V2.16797H70.8655V2.66797ZM82.7266 2.66797V3.16797H88.6571V2.66797V2.16797H82.7266V2.66797ZM94.5877 2.66797V3.16797H100.518V2.66797V2.16797H94.5877V2.66797ZM106.449 2.66797V3.16797H112.379V2.66797V2.16797H106.449V2.66797ZM118.31 2.66797V3.16797H124.24V2.66797V2.16797H118.31V2.66797ZM130.171 2.66797V3.16797H136.102V2.66797V2.16797H130.171V2.66797ZM142.032 2.66797V3.16797H147.963V2.66797V2.16797H142.032V2.66797ZM153.893 2.66797V3.16797H159.824V2.66797V2.16797H153.893V2.66797ZM165.754 2.66797V3.16797H171.685V2.66797V2.16797H165.754V2.66797ZM177.615 2.66797V3.16797H183.546V2.66797V2.16797H177.615V2.66797ZM189.477 2.66797V3.16797H195.407V2.66797V2.16797H189.477V2.66797ZM201.338 2.66797V3.16797H207.268V2.66797V2.16797H201.338V2.66797ZM213.199 2.66797V3.16797H216.164V2.66797V2.16797H213.199V2.66797Z" fill="white"/>
@@ -89,82 +90,123 @@ function renderPartialText(charCount: number, cls: typeof classes) {
 
 const IntroOverlay: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const totalChars = getTotalChars();
 
-  // Only show on first visit
+  // ─── Check if should show: first visit OR >2 minutes since last close ───
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const seen = localStorage.getItem(STORAGE_KEY);
-    if (!seen) setIsVisible(true);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) {
+      // First visit ever
+      setIsVisible(true);
+    } else {
+      const lastSeen = parseInt(stored, 10);
+      if (Date.now() - lastSeen > RESHOW_INTERVAL_MS) {
+        setIsVisible(true);
+      }
+    }
   }, []);
 
-  // ─── Apply blur to page content behind the overlay (Figma: Background blur 14) ───
-  // backdrop-filter is unreliable across stacking contexts, so we directly
-  // blur the sibling DOM elements instead.
+  // ─── Apply blur to page content (reduced intensity: 7px) ───
   useEffect(() => {
     if (!isVisible) return;
 
     const mainEl = document.querySelector("main");
     if (!mainEl) return;
 
-    const blurredElements: HTMLElement[] = [];
+    const blurred: HTMLElement[] = [];
     Array.from(mainEl.children).forEach((child) => {
       const el = child as HTMLElement;
       if (!el.dataset.introOverlay) {
-        el.style.filter = "blur(14px)";
+        el.style.filter = "blur(7px)";
         el.style.transition = "filter 0.4s ease";
-        blurredElements.push(el);
+        blurred.push(el);
       }
     });
 
-    return () => {
-      blurredElements.forEach((el) => {
-        el.style.filter = "";
-      });
-    };
+    return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ─── Click to start: plays both video AND audio together ───
-  const handleStart = useCallback(() => {
-    if (hasStarted) return;
-    setHasStarted(true);
+  // ─── Auto-start after 2 seconds (no click needed) ───
+  useEffect(() => {
+    if (!isVisible) return;
 
-    // Start video playback
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {});
+    autoStartTimerRef.current = setTimeout(() => {
+      // Start video
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {});
+      }
+
+      // Try to play audio (may fail without prior interaction — that's OK)
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(() => {});
+      }
+
+      // Show bubble and start typing
+      setShowBubble(true);
+
+      setTimeout(() => {
+        const CHAR_DELAY = 35;
+        let current = 0;
+        intervalRef.current = setInterval(() => {
+          current++;
+          setCharCount(current);
+          if (current >= totalChars) {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+          }
+        }, CHAR_DELAY);
+      }, 300);
+    }, 2000);
+
+    return () => {
+      if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
+    };
+  }, [isVisible, totalChars]);
+
+  // ─── Auto-close when audio ends ───
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => {
+      // Small delay after audio finishes, then close
+      setTimeout(() => {
+        handleClose();
+      }, 1500);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+    return () => audio.removeEventListener("ended", handleEnded);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ─── Also auto-close after typing finishes (fallback if audio fails) ───
+  useEffect(() => {
+    if (charCount >= totalChars && charCount > 0) {
+      // Wait 3 seconds after typing finishes, then close
+      const timer = setTimeout(() => {
+        handleClose();
+      }, 3000);
+      return () => clearTimeout(timer);
     }
-
-    // Start audio playback
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch((e) => console.warn("Audio playback failed:", e));
-    }
-
-    // Start typing effect after a short delay
-    setTimeout(() => {
-      const CHAR_DELAY = 35;
-      let current = 0;
-      intervalRef.current = setInterval(() => {
-        current++;
-        setCharCount(current);
-        if (current >= totalChars) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-        }
-      }, CHAR_DELAY);
-    }, 300);
-  }, [hasStarted, totalChars]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [charCount, totalChars]);
 
   const handleClose = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, "true");
+    // Store timestamp (not boolean) so we can reshow after 2 minutes
+    localStorage.setItem(STORAGE_KEY, Date.now().toString());
     if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     if (videoRef.current) { videoRef.current.pause(); }
     if (intervalRef.current) clearInterval(intervalRef.current);
+    if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
     setIsVisible(false);
   }, []);
 
@@ -176,8 +218,18 @@ const IntroOverlay: React.FC = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, [isVisible, handleClose]);
 
-  // Cleanup interval
-  useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current); }, []);
+  // Cleanup
+  useEffect(() => () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
+  }, []);
+
+  // ─── Allow click anywhere to start audio if autoplay was blocked ───
+  const handleOverlayClick = useCallback(() => {
+    if (audioRef.current && audioRef.current.paused && showBubble) {
+      audioRef.current.play().catch(() => {});
+    }
+  }, [showBubble]);
 
   return (
     <AnimatePresence>
@@ -189,16 +241,15 @@ const IntroOverlay: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          onClick={!hasStarted ? handleStart : undefined}
+          onClick={handleOverlayClick}
         >
-          {/* Hidden audio */}
           <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
 
           <div className={classes.content}>
-            {/* Avatar — centered, never shifts */}
+            {/* Avatar — vertically centered */}
             <motion.div
               className={classes.avatarContainer}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
             >
@@ -213,31 +264,30 @@ const IntroOverlay: React.FC = () => {
               />
             </motion.div>
 
-            {/* Connector + Speech Bubble — appears on click, positioned right of center */}
-            {hasStarted && (
+            {/* Connector + Speech Bubble — appears at full size, text types inside */}
+            {showBubble && (
               <motion.div
                 className={classes.bubbleGroup}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.35 }}
               >
-                {/* Dashed connector line (exact SVG from Figma) */}
                 <motion.div
                   className={classes.connectorLine}
                   initial={{ opacity: 0, scaleX: 0 }}
                   animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ duration: 0.35, delay: 0.05, ease: "easeOut" }}
+                  transition={{ duration: 0.3, delay: 0.05 }}
                   style={{ transformOrigin: "left center" }}
                 >
                   <ConnectorSVG />
                 </motion.div>
 
-                {/* Speech Bubble — exact Figma specs */}
+                {/* Speech bubble appears at FULL fixed size instantly */}
                 <motion.div
                   className={classes.speechBubble}
-                  initial={{ opacity: 0, x: 20, scale: 0.96 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
                 >
                   <button
                     className={classes.closeButton}
@@ -249,18 +299,6 @@ const IntroOverlay: React.FC = () => {
 
                   {renderPartialText(charCount, classes)}
                 </motion.div>
-              </motion.div>
-            )}
-
-            {/* Click to start prompt */}
-            {!hasStarted && (
-              <motion.div
-                className={classes.startPrompt}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
-                <span className={classes.startText}>Click anywhere to begin</span>
               </motion.div>
             )}
           </div>
