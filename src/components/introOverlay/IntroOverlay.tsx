@@ -126,40 +126,49 @@ const IntroOverlay: React.FC = () => {
     return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ── Auto-start after 2 seconds ───
+  // ── Interaction-based Start Sequence ───
+  // We wait for ANY user interaction (including mouse move) to start the sequence
+  // so that the video, typing, and audio all start perfectly in sync.
   useEffect(() => {
     if (!isVisible) return;
 
-    autoStartTimerRef.current = setTimeout(() => {
+    let hasStarted = false;
+
+    const startSequence = () => {
+      if (hasStarted) return;
+      hasStarted = true;
+
       const video = videoRef.current;
       const audio = audioRef.current;
 
       if (video) {
         video.currentTime = 0;
-        // Video starts muted to guarantee visual autoplay
+        // Start muted to guarantee visual start, then try to unmute
         video.muted = true;
-        video.play().catch(() => {});
+        video.play().then(() => {
+          video.muted = false;
+        }).catch(() => {});
       }
 
       if (audio) {
         audio.currentTime = 0;
-        // Attempt to play audio
         audio.play().catch(() => {
-          // Audio blocked by browser policy — register silent unlock
-          const unlock = () => {
+          // If browser strictly blocks audio on mousemove, wait for a click to unmute/play
+          const unlockAudio = () => {
             if (audio) audio.play().catch(() => {});
-            document.removeEventListener("click", unlock, true);
-            document.removeEventListener("keydown", unlock, true);
-            document.removeEventListener("touchstart", unlock, true);
+            if (video) video.muted = false;
+            document.removeEventListener("click", unlockAudio, true);
+            document.removeEventListener("keydown", unlockAudio, true);
+            document.removeEventListener("touchstart", unlockAudio, true);
           };
-          unlockRef.current = unlock;
-          document.addEventListener("click", unlock, { capture: true, once: true });
-          document.addEventListener("keydown", unlock, { capture: true, once: true });
-          document.addEventListener("touchstart", unlock, { capture: true, once: true });
+          unlockRef.current = unlockAudio;
+          document.addEventListener("click", unlockAudio, { capture: true, once: true });
+          document.addEventListener("keydown", unlockAudio, { capture: true, once: true });
+          document.addEventListener("touchstart", unlockAudio, { capture: true, once: true });
         });
       }
 
-      // Show bubble and start typing immediately
+      // Show bubble and start typing synchronously
       setShowBubble(true);
 
       const CHAR_DELAY = 35;
@@ -171,10 +180,28 @@ const IntroOverlay: React.FC = () => {
           if (intervalRef.current) clearInterval(intervalRef.current);
         }
       }, CHAR_DELAY);
-    }, 2000);
+
+      // Clean up start listeners since we've started
+      removeStartListeners();
+    };
+
+    const removeStartListeners = () => {
+      document.removeEventListener("mousemove", startSequence, true);
+      document.removeEventListener("click", startSequence, true);
+      document.removeEventListener("keydown", startSequence, true);
+      document.removeEventListener("touchstart", startSequence, true);
+      document.removeEventListener("scroll", startSequence, true);
+    };
+
+    // Add listeners for ANY interaction
+    document.addEventListener("mousemove", startSequence, { capture: true, once: true });
+    document.addEventListener("click", startSequence, { capture: true, once: true });
+    document.addEventListener("keydown", startSequence, { capture: true, once: true });
+    document.addEventListener("touchstart", startSequence, { capture: true, once: true });
+    document.addEventListener("scroll", startSequence, { capture: true, once: true });
 
     return () => {
-      if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
+      removeStartListeners();
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isVisible, totalChars]);
