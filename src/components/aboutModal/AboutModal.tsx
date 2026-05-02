@@ -71,24 +71,33 @@ const AboutModal: React.FC = () => {
 
                                 <div className={classes.contentArea}>
                                     <p className={classes.paragraph}>
-                                        Growing up in Scandinavia shaped my taste for clarity, restraint, and
-                                        practicality. But good design isn't just visual polish — it's rooted in
-                                        <span className={classes.bold}> cognitive science</span>: reducing friction
-                                        and making software feel like an effortless extension of your mind.
+                                        I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.
                                     </p>
                                     <p className={classes.paragraph}>
-                                        I'm a San Francisco–based
-                                        <span className={classes.bold}> design engineer</span> with an HCI background
-                                        from UPenn. I build production-grade interfaces end-to-end, from interaction
-                                        design to implementation.
+                                        Over the past 2+ years, I’ve worked across B2B and B2C products — from internal platforms to customer-facing solutions — leading UX from research to high-fidelity execution. My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.
                                     </p>
                                     <p className={classes.paragraph}>
-                                        My current focus is designing better interaction models for
-                                        <span className={classes.bold}> LLMs and agents</span>. I'm influenced by
-                                        Bret Victor and Alan Kay's vision for tools that
-                                        <span className={classes.bold}> expand human thinking</span>, and by Dieter
-                                        Rams and Bas Ording's commitment to
-                                        <span className={classes.bold}> clarity and craft</span>.
+                                        <span className={classes.bold}>I specialize in:</span><br/>
+                                        • UX Research & Discovery<br/>
+                                        • Information Architecture & Experience Strategy<br/>
+                                        • Interaction & Visual Design<br/>
+                                        • Design Systems & Scalable Components<br/>
+                                        • Cross-functional collaboration with Product & Engineering
+                                    </p>
+                                    <p className={classes.paragraph}>
+                                        I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements — always focusing on clarity, usability, and measurable impact.
+                                    </p>
+                                    <p className={classes.paragraph}>
+                                        <span className={classes.bold}>What drives me?</span><br/>
+                                        Designing systems that scale.<br/>
+                                        Creating experiences that reduce friction.<br/>
+                                        Building products that users actually enjoy using.
+                                    </p>
+                                    <p className={classes.paragraph}>
+                                        Currently exploring opportunities where I can contribute to high-impact product teams building thoughtful, well-crafted digital experiences.
+                                    </p>
+                                    <p className={classes.paragraph}>
+                                        <span className={classes.bold}>Let’s build something meaningful.</span>
                                     </p>
                                 </div>
                             </Squircle>

@@ -6,15 +6,16 @@ import classes from "./voiceModal.module.css";
 
 const SCRIPT = [
     { text: "", delay: 0 },
-    { text: "Swosti is a product designer based in Delhi.", delay: 500 },
-    { text: "For her, good design isn't just pretty;", delay: 4000 },
-    { text: "it's rooted in research and cognitive science.", delay: 7000 },
-    { text: "She aims to design interfaces that feel frictionless and intuitive.", delay: 10500 },
-    { text: "From meaningful projects like The Children's Society,", delay: 15500 },
-    { text: "she strives to build production-grade interfaces end-to-end.", delay: 19000 },
-    { text: "Right now, she's exploring better interaction models,", delay: 23500 },
-    { text: "bringing real clarity and craft to every project she touches.", delay: 27000 },
-    { text: "", delay: 32000 }
+    { text: "Hey there, I'm Swosti. I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.", delay: 500 },
+    { text: "Over the past 2+ years, I’ve worked across B2B and B2C products — from internal platforms to customer-facing solutions.", delay: 8500 },
+    { text: "My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.", delay: 15500 },
+    { text: "I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements.", delay: 24500 },
+    { text: "Always focusing on clarity, usability, and measurable impact.", delay: 31000 },
+    { text: "What drives me? Designing systems that scale. Creating experiences that reduce friction.", delay: 35000 },
+    { text: "Building products that users actually enjoy using.", delay: 41000 },
+    { text: "Currently exploring opportunities where I can contribute to high-impact product teams.", delay: 44000 },
+    { text: "Let’s build something meaningful.", delay: 49500 },
+    { text: "", delay: 52000 }
 ];
 
 export default function VoiceModal() {
@@ -44,8 +45,13 @@ export default function VoiceModal() {
 
         const fullText = SCRIPT.filter(s => s.text).map(s => s.text).join(" ");
         const utterance = new SpeechSynthesisUtterance(fullText);
-        utterance.rate = 0.9;
-        utterance.pitch = 1.1;
+        
+        const voices = window.speechSynthesis.getVoices();
+        const preferredVoice = voices.find(v => v.name.includes("Ishan") || v.name.includes("Daniel") || v.name.includes("Male") || v.name.includes("Alex"));
+        if (preferredVoice) utterance.voice = preferredVoice;
+
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
         utterance.onend = () => setIsPlaying(false);
         window.speechSynthesis.speak(utterance);
 
