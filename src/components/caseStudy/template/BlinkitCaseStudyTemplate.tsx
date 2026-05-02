@@ -427,16 +427,8 @@ export default function BlinkitCaseStudyTemplate() {
                     {/* ── 6 screens strip — full width below ── */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8 }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow — All 6 Screens</div>
-                        {/* Horizontal scroll strip — each phone 220px wide */}
-                        <div style={{
-                            display: "flex",
-                            gap: 20,
-                            overflowX: "auto",
-                            paddingBottom: 12,
-                            scrollSnapType: "x mandatory",
-                            msOverflowStyle: "none",
-                            scrollbarWidth: "none",
-                        }}>
+                        {/* 6-col grid */}
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
                             {[
                                 { src: "/images/blinkit/screen-1-home.png",          label: "Home" },
                                 { src: "/images/blinkit/screen-2-scan-list.png",      label: "Scan List" },
@@ -445,28 +437,28 @@ export default function BlinkitCaseStudyTemplate() {
                                 { src: "/images/blinkit/screen-5-paste-text.png",     label: "Paste Text" },
                                 { src: "/images/blinkit/screen-6-personalizing.png",  label: "Personalizing" },
                             ].map((s, i) => (
-                                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0, scrollSnapAlign: "start" }}>
+                                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                     {/* Clickable phone frame */}
                                     <div
                                         onClick={() => setLightbox(s)}
                                         style={{
-                                            width: 220,
+                                            width: "100%",
                                             aspectRatio: "390 / 844",
-                                            borderRadius: 28,
+                                            borderRadius: 24,
                                             overflow: "hidden",
-                                            boxShadow: "0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
+                                            boxShadow: "0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)",
                                             background: "#f0f0f0",
                                             border: "1px solid rgba(0,0,0,0.06)",
                                             cursor: "zoom-in",
-                                            transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                                            position: "relative",
                                         }}
                                         onMouseEnter={e => {
-                                            (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px) scale(1.02)";
-                                            (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 48px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08)";
+                                            const overlay = e.currentTarget.querySelector(".hover-overlay") as HTMLDivElement;
+                                            if (overlay) overlay.style.opacity = "1";
                                         }}
                                         onMouseLeave={e => {
-                                            (e.currentTarget as HTMLDivElement).style.transform = "none";
-                                            (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)";
+                                            const overlay = e.currentTarget.querySelector(".hover-overlay") as HTMLDivElement;
+                                            if (overlay) overlay.style.opacity = "0";
                                         }}
                                     >
                                         <img
@@ -474,9 +466,27 @@ export default function BlinkitCaseStudyTemplate() {
                                             alt={s.label}
                                             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }}
                                         />
+                                        {/* Hover overlay */}
+                                        <div className="hover-overlay" style={{
+                                            position: "absolute", inset: 0,
+                                            background: "rgba(0,0,0,0.45)",
+                                            display: "flex", alignItems: "center", justifyContent: "center",
+                                            opacity: 0,
+                                            transition: "opacity 0.2s ease",
+                                            pointerEvents: "none",
+                                        }}>
+                                            <span style={{
+                                                fontSize: "0.72rem", fontWeight: 700,
+                                                color: "#fff", letterSpacing: "0.08em",
+                                                textTransform: "uppercase",
+                                                background: "rgba(255,255,255,0.15)",
+                                                padding: "6px 12px", borderRadius: 100,
+                                                border: "1px solid rgba(255,255,255,0.3)",
+                                            }}>Click to preview</span>
+                                        </div>
                                     </div>
                                     {/* Caption */}
-                                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--text-secondary)", textAlign: "center", letterSpacing: "0.03em", width: 220 }}>
+                                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--text-secondary)", textAlign: "center", letterSpacing: "0.03em" }}>
                                         <span style={{ color: ACCENT, marginRight: 4 }}>{i + 1}</span>{s.label}
                                     </div>
                                 </div>
