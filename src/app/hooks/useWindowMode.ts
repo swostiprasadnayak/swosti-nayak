@@ -36,11 +36,11 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
         if (viewMode === 'card') {
             // Grid layout positions
             const gridPositions: Record<string, { x: number, y: number }> = {
-                syne:      { x: -240, y: -150 },
-                unicef:    { x:  240, y: -150 },
-                blinkit:   { x: -240, y:  180 },
-                aristotle: { x:  240, y:  180 },
-                "pid-tool":{ x:    0, y:  180 },
+                syne:      { x: -380, y: -20 },
+                unicef:    { x:   50, y: -20 },
+                blinkit:   { x: -380, y: 350 },
+                aristotle: { x:   50, y: 350 },
+                "pid-tool":{ x: -165, y: 350 },
             };
             return gridPositions[slug] || { x: 0, y: 0 };
         }

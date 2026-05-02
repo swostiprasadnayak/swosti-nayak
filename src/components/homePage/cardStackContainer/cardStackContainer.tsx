@@ -120,7 +120,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                         key={slug}
                         className={classes.windowCardOuter}
                         style={{ x: pos?.x, y: pos?.y, zIndex }}
-                        drag={viewMode === 'tab'} // Only allow drag in tab mode to maintain grid order in card mode
+                        drag
                         dragMomentum={false}
                         dragElastic={0}
                         onDragStart={(e, info) => handleWindowDragStart(e, info, slug)}
