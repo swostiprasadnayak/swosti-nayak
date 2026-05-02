@@ -7,6 +7,13 @@ import classes from "./introOverlay.module.css";
 
 const STORAGE_KEY = "swosti_intro_seen";
 
+// The exact SVG connector line from the design
+const ConnectorSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="217" height="6" viewBox="0 0 217 6" fill="none">
+    <path d="M-0.00260425 2.66797C-0.00260425 4.14073 1.1913 5.33464 2.66406 5.33464C4.13682 5.33464 5.33073 4.14073 5.33073 2.66797C5.33073 1.19521 4.13682 0.001302 2.66406 0.001302C1.1913 0.001302 -0.00260425 1.19521 -0.00260425 2.66797ZM2.66406 2.66797V3.16797H5.62934V2.66797V2.16797H2.66406V2.66797ZM11.5599 2.66797V3.16797H17.4905V2.66797V2.16797H11.5599V2.66797ZM23.421 2.66797V3.16797H29.3516V2.66797V2.16797H23.421V2.66797ZM35.2821 2.66797V3.16797H41.2127V2.66797V2.16797H35.2821V2.66797ZM47.1432 2.66797V3.16797H53.0738V2.66797V2.16797H47.1432V2.66797ZM59.0043 2.66797V3.16797H64.9349V2.66797V2.16797H59.0043V2.66797ZM70.8655 2.66797V3.16797H76.796V2.66797V2.16797H70.8655V2.66797ZM82.7266 2.66797V3.16797H88.6571V2.66797V2.16797H82.7266V2.66797ZM94.5877 2.66797V3.16797H100.518V2.66797V2.16797H94.5877V2.66797ZM106.449 2.66797V3.16797H112.379V2.66797V2.16797H106.449V2.66797ZM118.31 2.66797V3.16797H124.24V2.66797V2.16797H118.31V2.66797ZM130.171 2.66797V3.16797H136.102V2.66797V2.16797H130.171V2.66797ZM142.032 2.66797V3.16797H147.963V2.66797V2.16797H142.032V2.66797ZM153.893 2.66797V3.16797H159.824V2.66797V2.16797H153.893V2.66797ZM165.754 2.66797V3.16797H171.685V2.66797V2.16797H165.754V2.66797ZM177.615 2.66797V3.16797H183.546V2.66797V2.16797H177.615V2.66797ZM189.477 2.66797V3.16797H195.407V2.66797V2.16797H189.477V2.66797ZM201.338 2.66797V3.16797H207.268V2.66797V2.16797H201.338V2.66797ZM213.199 2.66797V3.16797H216.164V2.66797V2.16797H213.199V2.66797Z" fill="white"/>
+  </svg>
+);
+
 // Speech content segments for the typing effect
 const SPEECH_SEGMENTS = [
   { type: "title", text: "Welcome to my digital workspace.." },
@@ -40,7 +47,7 @@ function getTotalChars(): number {
   return total;
 }
 
-function renderPartialText(charCount: number) {
+function renderPartialText(charCount: number, cssClasses: typeof classes) {
   let remaining = charCount;
   const elements: React.ReactNode[] = [];
 
@@ -53,9 +60,9 @@ function renderPartialText(charCount: number) {
       const slice = text.slice(0, remaining);
       remaining -= slice.length;
       elements.push(
-        <h2 key={`title-${i}`} className={classes.speechTitle}>
+        <h2 key={`title-${i}`} className={cssClasses.speechTitle}>
           {slice}
-          {remaining <= 0 && <span className={classes.cursor} />}
+          {remaining <= 0 && <span className={cssClasses.cursor} />}
         </h2>
       );
     } else {
@@ -70,7 +77,7 @@ function renderPartialText(charCount: number) {
 
         if (part.bold) {
           partElements.push(
-            <span key={`b-${i}-${j}`} className={classes.bold}>{slice}</span>
+            <span key={`b-${i}-${j}`} className={cssClasses.bold}>{slice}</span>
           );
         } else {
           partElements.push(
@@ -80,13 +87,13 @@ function renderPartialText(charCount: number) {
 
         if (remaining <= 0) {
           partElements.push(
-            <span key={`cursor-${i}-${j}`} className={classes.cursor} />
+            <span key={`cursor-${i}-${j}`} className={cssClasses.cursor} />
           );
         }
       }
 
       elements.push(
-        <p key={`p-${i}`} className={classes.speechText}>{partElements}</p>
+        <p key={`p-${i}`} className={cssClasses.speechText}>{partElements}</p>
       );
     }
   }
@@ -112,14 +119,14 @@ const IntroOverlay: React.FC = () => {
     }
   }, []);
 
-  // Start video silently on mount (no audio yet — browsers allow muted autoplay)
+  // Start video silently on mount (browsers allow muted autoplay)
   useEffect(() => {
     if (isVisible && videoRef.current) {
       videoRef.current.play().catch(() => {});
     }
   }, [isVisible]);
 
-  // User clicks to start audio + typing
+  // User clicks to start audio + typing (required by browser autoplay policy)
   const handleStart = useCallback(() => {
     if (hasStarted) return;
     setHasStarted(true);
@@ -132,7 +139,7 @@ const IntroOverlay: React.FC = () => {
       });
     }
 
-    // Start typing effect after a small delay
+    // Start typing effect
     setTimeout(() => {
       const CHAR_DELAY = 35;
       let current = 0;
@@ -153,9 +160,7 @@ const IntroOverlay: React.FC = () => {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setIsVisible(false);
   }, []);
 
@@ -169,7 +174,7 @@ const IntroOverlay: React.FC = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isVisible, handleClose]);
 
-  // Cleanup on unmount
+  // Cleanup
   useEffect(() => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -187,17 +192,14 @@ const IntroOverlay: React.FC = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           onClick={!hasStarted ? handleStart : undefined}
         >
-          {/* Separate blur layer for reliable backdrop-filter */}
-          <div className={classes.blurLayer} />
-
           {/* Hidden audio */}
           <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
 
-          {/* Center Group: Avatar + Connector + Speech Bubble */}
+          {/* Centered content */}
           <div className={classes.content}>
             <div className={classes.centerGroup}>
 
-              {/* Avatar Video */}
+              {/* Avatar Video — centered */}
               <motion.div
                 className={classes.avatarContainer}
                 initial={{ opacity: 0, y: 30 }}
@@ -215,25 +217,28 @@ const IntroOverlay: React.FC = () => {
                 />
               </motion.div>
 
-              {/* Connector dot */}
+              {/* Dashed connector line (exact SVG from design) */}
               {hasStarted && (
                 <motion.div
-                  className={classes.connector}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                />
+                  className={classes.connectorLine}
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.35, delay: 0.05, ease: "easeOut" }}
+                  style={{ transformOrigin: "left center" }}
+                >
+                  <ConnectorSVG />
+                </motion.div>
               )}
 
-              {/* Speech Bubble */}
+              {/* Speech Bubble — exact design specs */}
               {hasStarted && (
                 <motion.div
                   className={classes.speechBubble}
-                  initial={{ opacity: 0, x: 20, scale: 0.95 }}
+                  initial={{ opacity: 0, x: 20, scale: 0.96 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ duration: 0.45, delay: 0.05, ease: "easeOut" }}
+                  transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
                 >
-                  {/* Close button on the bubble */}
+                  {/* Close button — exact design specs */}
                   <button
                     className={classes.closeButton}
                     onClick={(e) => {
@@ -242,15 +247,15 @@ const IntroOverlay: React.FC = () => {
                     }}
                     aria-label="Close introduction"
                   >
-                    <X size={16} strokeWidth={2.5} />
+                    <X size={14} strokeWidth={2.5} />
                   </button>
 
-                  {renderPartialText(charCount)}
+                  {renderPartialText(charCount, classes)}
                 </motion.div>
               )}
             </div>
 
-            {/* Click to start prompt (before audio starts) */}
+            {/* Click to start prompt */}
             {!hasStarted && (
               <motion.div
                 className={classes.startPrompt}

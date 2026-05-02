@@ -1,4 +1,4 @@
-/* ── Full-screen Backdrop (sits BEHIND main content to blur it) ── */
+/* ── Full-screen Backdrop ── */
 .overlay {
   position: fixed;
   inset: 0;
@@ -6,36 +6,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.15);
+  /* Exact spec from design */
+  background: rgba(0, 0, 0, 0.43);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* The blur layer — separate from the overlay so backdrop-filter works reliably */
-.blurLayer {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(24px) saturate(120%);
-  -webkit-backdrop-filter: blur(24px) saturate(120%);
-  z-index: 0;
-}
-
-/* ── Main Content Area — centers avatar + bubble as a group ── */
+/* ── Main Content Area — centers avatar + line + bubble as a group ── */
 .content {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
   width: 100%;
   height: 100%;
 }
 
-/* ── Center Group: avatar + connector + bubble ── */
+/* ── Center Group: avatar + connector line + bubble ── */
 .centerGroup {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
   position: relative;
 }
 
@@ -57,56 +50,60 @@
   pointer-events: none;
 }
 
-/* ── Connector dot between avatar and speech bubble ── */
-.connector {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1.5px dashed rgba(255, 255, 255, 0.45);
+/* ── Dashed connector SVG line ── */
+.connectorLine {
   flex-shrink: 0;
-  margin: 0 12px 0 -8px;
   z-index: 3;
-}
-
-/* ── Speech Bubble with dashed stroke ── */
-.speechBubble {
-  position: relative;
-  width: 300px;
-  padding: 32px 28px;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 2px dashed rgba(255, 255, 255, 0.45);
-  border-radius: 20px;
-  z-index: 3;
-  flex-shrink: 0;
-}
-
-/* ── Close Button — anchored to the speech bubble ── */
-.closeButton {
-  position: absolute;
-  top: -12px;
-  right: -12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
   display: flex;
   align-items: center;
+  margin-left: -10px;
+}
+
+/* ── Speech Bubble — exact design spec ── */
+.speechBubble {
+  position: relative;
+  display: flex;
+  width: 361px;
+  padding: 32px 64px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  /* Style */
+  border-radius: 15px;
+  border: 1px dashed #FFF;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(27px);
+  -webkit-backdrop-filter: blur(27px);
+  z-index: 3;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* ── Close Button — exact design spec ── */
+.closeButton {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  display: inline-flex;
+  padding: 12.169px;
   justify-content: center;
+  align-items: center;
+  gap: 5.07px;
+  /* Style */
+  border-radius: 17.746px;
+  border: 1px dashed #FFF;
+  background: rgba(255, 255, 255, 0.40);
+  backdrop-filter: blur(13.69px);
+  -webkit-backdrop-filter: blur(13.69px);
+  color: #FFF;
+  cursor: pointer;
   transition: all 0.25s ease;
   z-index: 10;
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.45);
-  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.55);
+  transform: scale(1.06);
 }
 
 /* ── Click to start prompt ── */
@@ -124,8 +121,9 @@
 }
 
 .startText {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.02em;
   animation: pulse 2s ease-in-out infinite;
@@ -138,30 +136,28 @@
 
 /* ── Typography ── */
 .speechTitle {
-  margin: 0 0 18px 0;
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: rgba(255, 255, 255, 0.95);
-  line-height: 1.25;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #FFF;
+  line-height: 1.3;
 }
 
 .speechText {
-  margin: 0 0 14px 0;
-  font-size: 0.92rem;
-  font-weight: 500;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   letter-spacing: -0.01em;
 }
 
-.speechText .bold {
+.bold {
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.speechText:last-child {
-  margin-bottom: 0;
+  color: #FFF;
 }
 
 /* ── Typing Cursor ── */
@@ -169,7 +165,7 @@
   display: inline-block;
   width: 2px;
   height: 1em;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
   margin-left: 2px;
   vertical-align: text-bottom;
   animation: blink 1s step-end infinite;
@@ -185,22 +181,22 @@
   .centerGroup {
     flex-direction: column;
     align-items: center;
-    gap: 0;
   }
 
   .avatarVideo {
-    height: 45vh;
-    max-height: 380px;
+    height: 42vh;
+    max-height: 360px;
   }
 
-  .connector {
+  .connectorLine {
     display: none;
   }
 
   .speechBubble {
     width: 85vw;
-    max-width: 340px;
-    margin-top: -30px;
+    max-width: 361px;
+    padding: 24px 32px;
+    margin-top: -20px;
   }
 
   .startPrompt {
