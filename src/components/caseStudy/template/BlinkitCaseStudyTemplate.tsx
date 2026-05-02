@@ -75,38 +75,58 @@ function Section({ children }: { children: React.ReactNode }) {
     );
 }
 
-// ── Single prototype embed — correct scale positioning ─────────────────────
+// ── Single prototype embed ─────────────────────────────────────────────────
+// Both prototypes share the same layout:
+//   body { padding: 32px top } → blank space before the phone
+//   .phone { width:390, height:844, border-radius:52px }
+//   nav bar below the phone (must be hidden)
+//
+// Fix: offset the iframe upward by (BODY_PAD_TOP × SCALE) so the phone
+// sits flush at y=0; clip container to exactly (PHONE_H × SCALE) tall;
+// match border-radius to the phone's own corners (PHONE_RADIUS × SCALE).
 function ProtoEmbed({ href, title }: { href: string; title: string }) {
-    const PROTO_W = 390, PROTO_H = 844, SCALE = 0.68;
-    const frameW = Math.round(PROTO_W * SCALE);
-    const frameH = Math.round(PROTO_H * SCALE);
+    const PROTO_W       = 390;   // phone width in the HTML
+    const PROTO_H       = 844;   // phone height in the HTML
+    const PHONE_RADIUS  = 52;    // border-radius of .phone in the HTML
+    const BODY_PAD_TOP  = 32;    // body padding-top in the HTML
+    const SCALE         = 0.72;  // display scale
+
+    // Visible container — exactly the phone, nothing else
+    const containerW  = Math.round(PROTO_W      * SCALE);   // 281
+    const containerH  = Math.round(PROTO_H      * SCALE);   // 608
+    const cornerR     = Math.round(PHONE_RADIUS * SCALE);   // 37  ← matches phone corners
+    const topOffset   = -(BODY_PAD_TOP * SCALE);            // -23 ← skip body padding
+
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {/* Container is exact scaled pixel size — no aspect-ratio tricks */}
+            {/*
+              Container clips to exactly the phone dimensions.
+              border: none — the phone itself provides the visual boundary.
+            */}
             <div style={{
-                width: frameW,
-                height: frameH,
-                position: "relative",
-                overflow: "hidden",
-                borderRadius: 16,
-                border: "1px solid var(--border-subtle)",
-                background: "var(--bg-card)",
-                flexShrink: 0,
+                width:        containerW,
+                height:       containerH,
+                position:     "relative",
+                overflow:     "hidden",
+                borderRadius: cornerR,
+                flexShrink:   0,
+                // Subtle shadow so the phone "floats" off the page
+                boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
             }}>
                 <iframe
                     src={href}
                     title={title}
                     style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: PROTO_W,
-                        height: PROTO_H,
-                        border: "none",
-                        display: "block",
-                        transform: `scale(${SCALE})`,
+                        position:        "absolute",
+                        top:             topOffset, // shift up to skip body padding
+                        left:            0,
+                        width:           PROTO_W,
+                        height:          PROTO_H + BODY_PAD_TOP + 120, // include full phone height
+                        border:          "none",
+                        display:         "block",
+                        transform:       `scale(${SCALE})`,
                         transformOrigin: "top left",
-                        pointerEvents: "auto",
+                        pointerEvents:   "auto",
                     }}
                     loading="lazy"
                 />
