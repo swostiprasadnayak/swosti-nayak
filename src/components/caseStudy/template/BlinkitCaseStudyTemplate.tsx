@@ -164,22 +164,103 @@ export default function BlinkitCaseStudyTemplate() {
                     ))}
                 </div>
 
-                {/* ── HERO IMAGE ────────────────────────────────────────────── */}
+                {/* ── HERO BANNER ───────────────────────────────────────────── */}
                 <div style={{
                     width: "100%",
-                    aspectRatio: "16 / 10",
-                    background: "linear-gradient(135deg, rgba(245,197,24,0.08) 0%, rgba(0,0,0,0.02) 100%)",
-                    border: "1px solid var(--border-subtle)",
-                    borderRadius: 16,
+                    aspectRatio: "16 / 7",
+                    background: "#f0ebe0",
+                    borderRadius: 20,
+                    overflow: "hidden",
+                    position: "relative",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--text-secondary)",
-                    fontSize: "0.9rem",
-                    fontStyle: "italic",
-                    overflow: "hidden"
+                    alignItems: "flex-end",
                 }}>
-                    Hero image or key visual will go here
+                    {/* Top-right Blinkit logo */}
+                    <div style={{
+                        position: "absolute",
+                        top: 28,
+                        right: 32,
+                        fontWeight: 900,
+                        fontSize: "1.5rem",
+                        letterSpacing: "-0.03em",
+                        color: "#1a8a2e",
+                        fontFamily: "inherit",
+                        lineHeight: 1,
+                    }}>blinkit</div>
+
+                    {/* Left: headline copy */}
+                    <div style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: 44,
+                        transform: "translateY(-50%)",
+                        zIndex: 2,
+                    }}>
+                        <div style={{
+                            fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)",
+                            fontWeight: 700,
+                            lineHeight: 1.15,
+                            letterSpacing: "-0.03em",
+                            color: "#1a1a1a",
+                        }}>
+                            Making Grocery<br />
+                            Shopping{" "}
+                            <span style={{ color: ACCENT }}>Effortless</span><br />
+                            <span style={{ color: ACCENT }}>with AI</span>
+                        </div>
+                    </div>
+
+                    {/* Right: 4 phone mockups at staggered heights */}
+                    <div style={{
+                        position: "absolute",
+                        right: 0,
+                        bottom: 0,
+                        top: 0,
+                        width: "68%",
+                        display: "flex",
+                        alignItems: "flex-end",
+                        justifyContent: "flex-end",
+                        gap: 12,
+                        paddingRight: 32,
+                        paddingBottom: 0,
+                    }}>
+                        {[
+                            { src: "/images/blinkit/screen-1-home.png",         bottomOffset: "-2%",  height: "82%", label: "Home" },
+                            { src: "/images/blinkit/screen-2-scan-list.png",    bottomOffset: "-2%",  height: "95%", label: "Scan" },
+                            { src: "/images/blinkit/screen-3-product-match.png",bottomOffset: "-2%",  height: "88%", label: "Match" },
+                            { src: "/images/blinkit/screen-4-upload.png",       bottomOffset: "-2%",  height: "96%", label: "Results" },
+                        ].map((phone, i) => (
+                            <div key={i} style={{
+                                height: phone.height,
+                                aspectRatio: "390 / 844",
+                                borderRadius: "28px 28px 0 0",
+                                overflow: "hidden",
+                                boxShadow: "0 -8px 40px rgba(0,0,0,0.14), 0 -2px 8px rgba(0,0,0,0.08)",
+                                background: "#e0dbd0",
+                                flexShrink: 0,
+                                position: "relative",
+                                alignSelf: "flex-end",
+                                marginBottom: phone.bottomOffset,
+                            }}>
+                                <img
+                                    src={phone.src}
+                                    alt={phone.label}
+                                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
+                                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                                />
+                                {/* Gradient overlay at bottom for depth */}
+                                <div style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: "30%",
+                                    background: "linear-gradient(to top, rgba(240,235,224,0.5), transparent)",
+                                    pointerEvents: "none",
+                                }} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* ── 01 — CHALLENGE VS IMPACT ─────────────────────────────── */}
