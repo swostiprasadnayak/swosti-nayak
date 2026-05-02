@@ -7,14 +7,14 @@ import classes from "./introOverlay.module.css";
 
 const STORAGE_KEY = "swosti_intro_seen";
 
-// The exact SVG connector line from the design
+// Exact SVG connector line from the Figma design
 const ConnectorSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="217" height="6" viewBox="0 0 217 6" fill="none">
     <path d="M-0.00260425 2.66797C-0.00260425 4.14073 1.1913 5.33464 2.66406 5.33464C4.13682 5.33464 5.33073 4.14073 5.33073 2.66797C5.33073 1.19521 4.13682 0.001302 2.66406 0.001302C1.1913 0.001302 -0.00260425 1.19521 -0.00260425 2.66797ZM2.66406 2.66797V3.16797H5.62934V2.66797V2.16797H2.66406V2.66797ZM11.5599 2.66797V3.16797H17.4905V2.66797V2.16797H11.5599V2.66797ZM23.421 2.66797V3.16797H29.3516V2.66797V2.16797H23.421V2.66797ZM35.2821 2.66797V3.16797H41.2127V2.66797V2.16797H35.2821V2.66797ZM47.1432 2.66797V3.16797H53.0738V2.66797V2.16797H47.1432V2.66797ZM59.0043 2.66797V3.16797H64.9349V2.66797V2.16797H59.0043V2.66797ZM70.8655 2.66797V3.16797H76.796V2.66797V2.16797H70.8655V2.66797ZM82.7266 2.66797V3.16797H88.6571V2.66797V2.16797H82.7266V2.66797ZM94.5877 2.66797V3.16797H100.518V2.66797V2.16797H94.5877V2.66797ZM106.449 2.66797V3.16797H112.379V2.66797V2.16797H106.449V2.66797ZM118.31 2.66797V3.16797H124.24V2.66797V2.16797H118.31V2.66797ZM130.171 2.66797V3.16797H136.102V2.66797V2.16797H130.171V2.66797ZM142.032 2.66797V3.16797H147.963V2.66797V2.16797H142.032V2.66797ZM153.893 2.66797V3.16797H159.824V2.66797V2.16797H153.893V2.66797ZM165.754 2.66797V3.16797H171.685V2.66797V2.16797H165.754V2.66797ZM177.615 2.66797V3.16797H183.546V2.66797V2.16797H177.615V2.66797ZM189.477 2.66797V3.16797H195.407V2.66797V2.16797H189.477V2.66797ZM201.338 2.66797V3.16797H207.268V2.66797V2.16797H201.338V2.66797ZM213.199 2.66797V3.16797H216.164V2.66797V2.16797H213.199V2.66797Z" fill="white"/>
   </svg>
 );
 
-// Speech content segments for the typing effect
+// Speech content
 const SPEECH_SEGMENTS = [
   { type: "title", text: "Welcome to my digital workspace.." },
   {
@@ -36,18 +36,13 @@ const SPEECH_SEGMENTS = [
 function getTotalChars(): number {
   let total = 0;
   for (const seg of SPEECH_SEGMENTS) {
-    if (seg.type === "title") {
-      total += (seg.text as string).length;
-    } else {
-      for (const part of (seg as any).parts) {
-        total += part.text.length;
-      }
-    }
+    if (seg.type === "title") total += (seg.text as string).length;
+    else for (const part of (seg as any).parts) total += part.text.length;
   }
   return total;
 }
 
-function renderPartialText(charCount: number, cssClasses: typeof classes) {
+function renderPartialText(charCount: number, cls: typeof classes) {
   let remaining = charCount;
   const elements: React.ReactNode[] = [];
 
@@ -60,9 +55,9 @@ function renderPartialText(charCount: number, cssClasses: typeof classes) {
       const slice = text.slice(0, remaining);
       remaining -= slice.length;
       elements.push(
-        <h2 key={`title-${i}`} className={cssClasses.speechTitle}>
+        <h2 key={`title-${i}`} className={cls.speechTitle}>
           {slice}
-          {remaining <= 0 && <span className={cssClasses.cursor} />}
+          {remaining <= 0 && <span className={cls.cursor} />}
         </h2>
       );
     } else {
@@ -76,28 +71,19 @@ function renderPartialText(charCount: number, cssClasses: typeof classes) {
         remaining -= slice.length;
 
         if (part.bold) {
-          partElements.push(
-            <span key={`b-${i}-${j}`} className={cssClasses.bold}>{slice}</span>
-          );
+          partElements.push(<span key={`b-${i}-${j}`} className={cls.bold}>{slice}</span>);
         } else {
-          partElements.push(
-            <React.Fragment key={`t-${i}-${j}`}>{slice}</React.Fragment>
-          );
+          partElements.push(<React.Fragment key={`t-${i}-${j}`}>{slice}</React.Fragment>);
         }
 
         if (remaining <= 0) {
-          partElements.push(
-            <span key={`cursor-${i}-${j}`} className={cssClasses.cursor} />
-          );
+          partElements.push(<span key={`cur-${i}-${j}`} className={cls.cursor} />);
         }
       }
 
-      elements.push(
-        <p key={`p-${i}`} className={cssClasses.speechText}>{partElements}</p>
-      );
+      elements.push(<p key={`p-${i}`} className={cls.speechText}>{partElements}</p>);
     }
   }
-
   return elements;
 }
 
@@ -114,36 +100,56 @@ const IntroOverlay: React.FC = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const seen = localStorage.getItem(STORAGE_KEY);
-    if (!seen) {
-      setIsVisible(true);
-    }
+    if (!seen) setIsVisible(true);
   }, []);
 
-  // Start video silently on mount (browsers allow muted autoplay)
+  // ─── Apply blur to page content behind the overlay (Figma: Background blur 14) ───
+  // backdrop-filter is unreliable across stacking contexts, so we directly
+  // blur the sibling DOM elements instead.
   useEffect(() => {
-    if (isVisible && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
+    if (!isVisible) return;
+
+    const mainEl = document.querySelector("main");
+    if (!mainEl) return;
+
+    const blurredElements: HTMLElement[] = [];
+    Array.from(mainEl.children).forEach((child) => {
+      const el = child as HTMLElement;
+      if (!el.dataset.introOverlay) {
+        el.style.filter = "blur(14px)";
+        el.style.transition = "filter 0.4s ease";
+        blurredElements.push(el);
+      }
+    });
+
+    return () => {
+      blurredElements.forEach((el) => {
+        el.style.filter = "";
+      });
+    };
   }, [isVisible]);
 
-  // User clicks to start audio + typing (required by browser autoplay policy)
+  // ─── Click to start: plays both video AND audio together ───
   const handleStart = useCallback(() => {
     if (hasStarted) return;
     setHasStarted(true);
 
-    // Play audio
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch((e) => {
-        console.warn("Audio playback failed:", e);
-      });
+    // Start video playback
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
     }
 
-    // Start typing effect
+    // Start audio playback
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((e) => console.warn("Audio playback failed:", e));
+    }
+
+    // Start typing effect after a short delay
     setTimeout(() => {
       const CHAR_DELAY = 35;
       let current = 0;
-
       intervalRef.current = setInterval(() => {
         current++;
         setCharCount(current);
@@ -156,10 +162,8 @@ const IntroOverlay: React.FC = () => {
 
   const handleClose = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, "true");
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
+    if (videoRef.current) { videoRef.current.pause(); }
     if (intervalRef.current) clearInterval(intervalRef.current);
     setIsVisible(false);
   }, []);
@@ -167,25 +171,20 @@ const IntroOverlay: React.FC = () => {
   // Escape to close
   useEffect(() => {
     if (!isVisible) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleClose();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") handleClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [isVisible, handleClose]);
 
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
+  // Cleanup interval
+  useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current); }, []);
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
           className={classes.overlay}
+          data-intro-overlay="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -195,30 +194,34 @@ const IntroOverlay: React.FC = () => {
           {/* Hidden audio */}
           <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
 
-          {/* Centered content */}
           <div className={classes.content}>
-            <div className={classes.centerGroup}>
+            {/* Avatar — centered, never shifts */}
+            <motion.div
+              className={classes.avatarContainer}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            >
+              <video
+                ref={videoRef}
+                className={classes.avatarVideo}
+                src="/videos/intro-avatar.webm"
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+            </motion.div>
 
-              {/* Avatar Video — centered */}
+            {/* Connector + Speech Bubble — appears on click, positioned right of center */}
+            {hasStarted && (
               <motion.div
-                className={classes.avatarContainer}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+                className={classes.bubbleGroup}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
               >
-                <video
-                  ref={videoRef}
-                  className={classes.avatarVideo}
-                  src="/videos/intro-avatar.webm"
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                />
-              </motion.div>
-
-              {/* Dashed connector line (exact SVG from design) */}
-              {hasStarted && (
+                {/* Dashed connector line (exact SVG from Figma) */}
                 <motion.div
                   className={classes.connectorLine}
                   initial={{ opacity: 0, scaleX: 0 }}
@@ -228,23 +231,17 @@ const IntroOverlay: React.FC = () => {
                 >
                   <ConnectorSVG />
                 </motion.div>
-              )}
 
-              {/* Speech Bubble — exact design specs */}
-              {hasStarted && (
+                {/* Speech Bubble — exact Figma specs */}
                 <motion.div
                   className={classes.speechBubble}
                   initial={{ opacity: 0, x: 20, scale: 0.96 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
                 >
-                  {/* Close button — exact design specs */}
                   <button
                     className={classes.closeButton}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleClose();
-                    }}
+                    onClick={(e) => { e.stopPropagation(); handleClose(); }}
                     aria-label="Close introduction"
                   >
                     <X size={14} strokeWidth={2.5} />
@@ -252,8 +249,8 @@ const IntroOverlay: React.FC = () => {
 
                   {renderPartialText(charCount, classes)}
                 </motion.div>
-              )}
-            </div>
+              </motion.div>
+            )}
 
             {/* Click to start prompt */}
             {!hasStarted && (
@@ -261,7 +258,7 @@ const IntroOverlay: React.FC = () => {
                 className={classes.startPrompt}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
               >
                 <span className={classes.startText}>Click anywhere to begin</span>
               </motion.div>
