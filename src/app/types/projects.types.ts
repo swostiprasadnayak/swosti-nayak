@@ -11,6 +11,14 @@ export type ProjectContent = {
 
 export const PROJECTS: ProjectContent[] = [
     {
+        name: "Blinkit",
+        slug: "blinkit",
+        description: "AI-powered grocery delivery experience redesign.",
+        tags: ["Interaction", "Systems"],
+        video: "/videos/blinkit.mp4",
+        demoPoster: "/images/project-2.jpg"
+    },
+    {
         name: "Unicef",
         slug: "unicef",
         description: "Building a global education data portal with AI to track learning outcomes for every child.",
@@ -24,14 +32,6 @@ export const PROJECTS: ProjectContent[] = [
         tags: ["UX", "AI", "XR", "Flutter", "Next.js"],
         video: "/videos/syne-iot.mp4",
         demoPoster: "/images/project-1.jpg"
-    },
-    {
-        name: "Blinkit",
-        slug: "blinkit",
-        description: "AI-powered grocery delivery experience redesign.",
-        tags: ["Interaction", "Systems"],
-        video: "/videos/blinkit.mp4",
-        demoPoster: "/images/project-2.jpg"
     },
     {
         name: "Dynamic Map",
