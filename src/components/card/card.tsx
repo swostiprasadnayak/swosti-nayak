@@ -20,7 +20,6 @@ const VIDEO_FIT: Record<string, "cover" | "contain"> = {
 
 // Slugs where demoPoster should be contained with padding instead of cropped
 const POSTER_CONTAIN: Record<string, boolean> = {
-    unicef: true,
 };
 
 const CARD_BG_COLORS: Record<string, string> = {
