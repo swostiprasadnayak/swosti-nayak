@@ -8,7 +8,10 @@ export const metadata = {
   title: "Swosti - Portfolio",
   description: "Design engineer crafting AI-native interfaces.",
   icons: {
-    icon: "/icon.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
   },
 };
 
