@@ -150,19 +150,10 @@ export default function BlinkitCaseStudyTemplate() {
                 {/* ── HERO ─────────────────────────────────────────────────── */}
                 <CaseStudyHeader
                     title="Grocery in 10 min"
-                    subtitle="Cart takes 4. Designing an AI layer that makes building a grocery cart as fast as the delivery promise — through intelligent scanning, voice ordering, and predictive intelligence."
+                    subtitle="Cart takes 20. Designing an AI layer that eliminates decision paralysis, app-switching, and manual list entry — so building a grocery cart is as fast as the delivery promise."
                     tags={["Blinkit · AI Personalization Layer", "Quick Commerce", "AI/ML", "Mobile UX"]}
                     onVoiceModeClick={openModal}
                 />
-
-                {/* Meta */}
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", marginTop: -40 }}>
-                    <span style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>Swosti Nayak · Product Designer · 2025</span>
-                    <span style={{ color: "var(--border-strong)" }}>·</span>
-                    {["Quick Commerce", "AI/ML", "Product Design", "Mobile UX"].map((t, i) => (
-                        <span key={i} style={{ padding: "4px 10px", borderRadius: 100, border: "1px dashed var(--border-strong)", fontSize: "0.78rem", color: "var(--text-secondary)" }}>{t}</span>
-                    ))}
-                </div>
 
                 {/* ── HERO BANNER ───────────────────────────────────────────── */}
                 <div style={{
@@ -268,7 +259,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <SectionHeader num="01" label="Challenge vs Impact" />
 
                     <p style={{ ...bodyText, maxWidth: 680 }}>
-                        Blinkit delivers groceries in 10 minutes — a genuine engineering achievement. But the pre-order experience is broken. The average cart takes <strong style={{ color: "var(--text-primary)" }}>4 minutes 12 seconds</strong> to build. That's the bottleneck the brand promise sits in front of.
+                        Blinkit delivers groceries in 10 minutes — a genuine engineering achievement. But the pre-order experience is broken. The average user spends <strong style={{ color: "var(--text-primary)" }}>20–30 minutes</strong> browsing, comparing, and deciding what to buy — before the cart is even built. That's the bottleneck the brand promise sits in front of.
                     </p>
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -276,7 +267,7 @@ export default function BlinkitCaseStudyTemplate() {
                         <div style={sSubtle}>
                             <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>AS-IS — Current Experience</div>
                             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
-                                {["4m 12s", "41% abandon", "Zero learning"].map(c => (
+                                {["20–30 min", "41% abandon", "Zero learning"].map(c => (
                                     <span key={c} style={{ padding: "4px 10px", borderRadius: 100, background: "rgba(0,0,0,0.06)", fontSize: "0.78rem", color: "var(--text-secondary)", fontWeight: 500 }}>{c}</span>
                                 ))}
                             </div>
@@ -777,7 +768,7 @@ export default function BlinkitCaseStudyTemplate() {
                     {/* Metrics */}
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
                         {[
-                            { metric: "Cart-build time", before: "4m 12s", after: "1m 45s" },
+                            { metric: "Pre-order time", before: "20–30 min", after: "<2 min" },
                             { metric: "Avg order value", before: "—",      after: "+₹290" },
                             { metric: "Drop-off rate",   before: "41%",    after: "<13%" },
                             { metric: "Brand decision",  before: "3.8 PDPs", after: "1 glance" },
