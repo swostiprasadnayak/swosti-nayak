@@ -9,10 +9,10 @@ export type WindowModeAPI = {
 };
 
 export function useWindowMode(): WindowModeAPI {
-    // Open Surrounding (syne) and Unicef on startup
-    const [openWindows, setOpenWindows] = useState<string[]>(["unicef", "blinkit"]);
-    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ unicef: 1, blinkit: 2 });
-    const [topZ, setTopZ] = useState(2);
+    // Open Surrounding (syne), Unicef and Blinkit on startup
+    const [openWindows, setOpenWindows] = useState<string[]>(["syne", "unicef", "blinkit"]);
+    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ syne: 1, unicef: 2, blinkit: 3 });
+    const [topZ, setTopZ] = useState(3);
 
     const bringToFront = useCallback((slug: string) => {
         setOpenWindows((prev) => {
