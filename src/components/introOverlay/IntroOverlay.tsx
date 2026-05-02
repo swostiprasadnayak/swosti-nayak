@@ -198,26 +198,30 @@ const IntroOverlay: React.FC = () => {
     setIsVisible(false);
   }, []);
 
-  // Auto-close: 5 seconds after audio ends
+  // Auto-close: 5 seconds after VIDEO ends
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const handleEnded = () => {
-      setTimeout(() => handleClose(), 5000);
-    };
-    audio.addEventListener("ended", handleEnded);
-    return () => audio.removeEventListener("ended", handleEnded);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const video = videoRef.current;
+    if (!video) return;
 
-  // Fallback auto-close: 5s after typing finishes (if audio never played)
+    const handleEnded = () => {
+      setTimeout(() => {
+        handleClose();
+      }, 5000);
+    };
+
+    video.addEventListener("ended", handleEnded);
+    return () => video.removeEventListener("ended", handleEnded);
+  }, [handleClose]);
+
+  // Fallback auto-close: 10s after typing finishes (if video never plays/ends)
   useEffect(() => {
     if (charCount >= totalChars && charCount > 0) {
-      const timer = setTimeout(() => handleClose(), 8000);
+      const timer = setTimeout(() => {
+        handleClose();
+      }, 10000);
       return () => clearTimeout(timer);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [charCount, totalChars]);
+  }, [charCount, totalChars, handleClose]);
 
   // Escape key
   useEffect(() => {
@@ -264,7 +268,6 @@ const IntroOverlay: React.FC = () => {
                 className={classes.avatarVideo}
                 src="/videos/intro-avatar.webm"
                 muted
-                loop
                 playsInline
                 preload="auto"
               />

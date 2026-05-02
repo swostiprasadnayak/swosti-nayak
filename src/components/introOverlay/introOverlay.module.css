@@ -20,6 +20,8 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  display: flex;
+  align-items: center;
 }
 
 .avatarVideo {
@@ -53,12 +55,13 @@
 .speechBubble {
   position: relative;
   display: flex;
-  width: 320px;
-  height: 300px;
-  padding: 32px 36px;
+  width: 361px;
+  height: 341px;
+  padding: 32px 64px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  justify-content: center;
+  gap: 24px;
   box-sizing: border-box;
   border-radius: 15px;
   border: 1px dashed #FFF;
@@ -66,7 +69,6 @@
   backdrop-filter: blur(54px);
   -webkit-backdrop-filter: blur(54px);
   flex-shrink: 0;
-  /* NO overflow: hidden — so close button isn't clipped */
 }
 
 /* ── Close Button — outside the bubble overflow, positioned on top ── */
