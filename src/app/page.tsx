@@ -21,6 +21,7 @@ import MobileNav from "@/components/mobile/MobileNav";
 import MobileControls from "@/components/mobile/MobileControls";
 import MobileBlocker from "@/components/mobile/MobileBlocker";
 import { useWindowMode } from "@/app/hooks/useWindowMode";
+import IntroOverlay from "@/components/introOverlay/IntroOverlay";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
 import { AudioLines, Terminal } from "lucide-react";
@@ -172,6 +173,9 @@ export default function Home() {
         captureKey={captureKey}
         onDismiss={() => setScreenshotUrl(null)}
       />
+
+      {/* First-visit Introduction Overlay */}
+      <IntroOverlay />
     </main>
   );
 }

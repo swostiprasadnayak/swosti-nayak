@@ -63,7 +63,8 @@
       "Bash(mv \"Mock Phone Container.png\" \"screen-1-home.png\")",
       "Bash(mv \"Mock Phone Container-1.png\" \"screen-2-scan-list.png\")",
       "Bash(mv \"Mock Phone Container-2.png\" \"screen-3-product-match.png\")",
-      "Bash(mv \"Mock Phone Container-3.png\" \"screen-4-upload.png\")"
+      "Bash(mv \"Mock Phone Container-3.png\" \"screen-4-upload.png\")",
+      "Bash(sips -s format jpeg /Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/images/unicef-portal.png --out /Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/images/unicef-portal.jpg)"
     ]
   }
 }
