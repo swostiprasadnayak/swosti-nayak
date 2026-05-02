@@ -5,21 +5,33 @@
   z-index: 9999;
   background: rgba(0, 0, 0, 0.43);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Positioned content layer ── */
+/* ── Content layer — flex row, avatar + connector + bubble, all centered ── */
 .content {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
-/* ── Avatar — vertically centered, not at bottom ── */
+/* ── Center group — avatar left, connector + bubble right ── */
+.centerGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+/* ── Avatar ── */
 .avatarContainer {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-55%, -42%);
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,16 +46,13 @@
   pointer-events: none;
 }
 
-/* ── Connector + Speech bubble — positioned right of center ── */
+/* ── Connector + Speech bubble ── */
 .bubbleGroup {
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translateY(-60%);
   display: flex;
   align-items: center;
   gap: 0;
   z-index: 3;
+  flex-shrink: 0;
 }
 
 /* ── Dashed connector SVG line ── */
@@ -53,13 +62,13 @@
   align-items: center;
 }
 
-/* ── Speech Bubble — exact Figma specs, FIXED size (no expand) ── */
+/* ── Speech Bubble — fixed height so text types INSIDE without resizing ── */
 .speechBubble {
   position: relative;
   display: flex;
   width: 361px;
-  min-height: 300px;
-  padding: 32px 64px;
+  height: 320px;
+  padding: 32px 48px;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
@@ -70,31 +79,32 @@
   backdrop-filter: blur(54px);
   -webkit-backdrop-filter: blur(54px);
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-/* ── Close Button — positioned further out, more opaque so it doesn't merge ── */
+/* ── Close Button — white background, black icon ── */
 .closeButton {
   position: absolute;
-  top: -18px;
-  right: -18px;
+  top: -16px;
+  right: -16px;
   display: inline-flex;
-  padding: 12px;
+  width: 36px;
+  height: 36px;
   justify-content: center;
   align-items: center;
-  border-radius: 18px;
-  border: 1px dashed rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: #FFF;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.7);
-  transform: scale(1.06);
+  background: #FFF;
+  transform: scale(1.08);
 }
 
 /* ── Typography ── */
@@ -141,21 +151,14 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .avatarContainer {
-    transform: translate(-50%, -40%);
+  .centerGroup {
+    flex-direction: column;
+    align-items: center;
   }
 
   .avatarVideo {
     height: 42vh;
     max-height: 360px;
-  }
-
-  .bubbleGroup {
-    left: 50%;
-    top: auto;
-    bottom: 10%;
-    transform: translateX(-50%);
-    flex-direction: column;
   }
 
   .connectorLine {
@@ -165,7 +168,8 @@
   .speechBubble {
     width: 85vw;
     max-width: 361px;
-    padding: 24px 32px;
-    min-height: auto;
+    padding: 24px 28px;
+    height: auto;
+    min-height: 280px;
   }
 }

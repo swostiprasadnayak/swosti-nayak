@@ -133,21 +133,33 @@ const IntroOverlay: React.FC = () => {
     return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ─── Auto-start after 2 seconds (no click needed) ───
+  // ─── Auto-start after 2 seconds: video + bubble + typing ───
+  // Audio will auto-play if browser allows, otherwise unlocked on first click
   useEffect(() => {
     if (!isVisible) return;
 
     autoStartTimerRef.current = setTimeout(() => {
-      // Start video
+      // Start video (muted autoplay always works)
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
         videoRef.current.play().catch(() => {});
       }
 
-      // Try to play audio (may fail without prior interaction — that's OK)
+      // Attempt audio autoplay
       if (audioRef.current) {
         audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(() => {});
+        audioRef.current.play().catch(() => {
+          // Autoplay blocked — register a one-time click handler to unlock
+          const unlockAudio = () => {
+            if (audioRef.current && audioRef.current.paused) {
+              audioRef.current.play().catch(() => {});
+            }
+            document.removeEventListener("click", unlockAudio);
+            document.removeEventListener("touchstart", unlockAudio);
+          };
+          document.addEventListener("click", unlockAudio, { once: true });
+          document.addEventListener("touchstart", unlockAudio, { once: true });
+        });
       }
 
       // Show bubble and start typing
@@ -224,12 +236,12 @@ const IntroOverlay: React.FC = () => {
     if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
   }, []);
 
-  // ─── Allow click anywhere to start audio if autoplay was blocked ───
+  // ─── Click anywhere to resume audio if it was blocked ───
   const handleOverlayClick = useCallback(() => {
-    if (audioRef.current && audioRef.current.paused && showBubble) {
+    if (audioRef.current && audioRef.current.paused) {
       audioRef.current.play().catch(() => {});
     }
-  }, [showBubble]);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -246,61 +258,64 @@ const IntroOverlay: React.FC = () => {
           <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
 
           <div className={classes.content}>
-            {/* Avatar — vertically centered */}
-            <motion.div
-              className={classes.avatarContainer}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            >
-              <video
-                ref={videoRef}
-                className={classes.avatarVideo}
-                src="/videos/intro-avatar.webm"
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
-            </motion.div>
-
-            {/* Connector + Speech Bubble — appears at full size, text types inside */}
-            {showBubble && (
+            <div className={classes.centerGroup}>
+              {/* Avatar — inside flex, vertically centered naturally */}
               <motion.div
-                className={classes.bubbleGroup}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.35 }}
+                className={classes.avatarContainer}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
               >
-                <motion.div
-                  className={classes.connectorLine}
-                  initial={{ opacity: 0, scaleX: 0 }}
-                  animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ duration: 0.3, delay: 0.05 }}
-                  style={{ transformOrigin: "left center" }}
-                >
-                  <ConnectorSVG />
-                </motion.div>
-
-                {/* Speech bubble appears at FULL fixed size instantly */}
-                <motion.div
-                  className={classes.speechBubble}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                >
-                  <button
-                    className={classes.closeButton}
-                    onClick={(e) => { e.stopPropagation(); handleClose(); }}
-                    aria-label="Close introduction"
-                  >
-                    <X size={14} strokeWidth={2.5} />
-                  </button>
-
-                  {renderPartialText(charCount, classes)}
-                </motion.div>
+                <video
+                  ref={videoRef}
+                  className={classes.avatarVideo}
+                  src="/videos/intro-avatar.webm"
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                />
               </motion.div>
-            )}
+
+              {/* Connector + Speech Bubble */}
+              {showBubble && (
+                <motion.div
+                  className={classes.bubbleGroup}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <motion.div
+                    className={classes.connectorLine}
+                    initial={{ opacity: 0, scaleX: 0 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    transition={{ duration: 0.3, delay: 0.05 }}
+                    style={{ transformOrigin: "left center" }}
+                  >
+                    <ConnectorSVG />
+                  </motion.div>
+
+                  {/* Fixed-size speech bubble — text types inside */}
+                  <motion.div
+                    className={classes.speechBubble}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                  >
+                    {/* White bg, black icon */}
+                    <button
+                      className={classes.closeButton}
+                      onClick={(e) => { e.stopPropagation(); handleClose(); }}
+                      aria-label="Close introduction"
+                    >
+                      <X size={14} strokeWidth={2.5} color="#111" />
+                    </button>
+
+                    {renderPartialText(charCount, classes)}
+                  </motion.div>
+                </motion.div>
+              )}
+            </div>
           </div>
         </motion.div>
       )}
