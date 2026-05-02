@@ -8,7 +8,7 @@ export type WindowModeAPI = {
     getZIndex: (slug: string) => number;
 };
 
-export function useWindowMode(): WindowModeAPI {
+export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Open Surrounding (syne), Unicef and Blinkit on startup
     const [openWindows, setOpenWindows] = useState<string[]>(["syne", "unicef", "blinkit"]);
     const [zIndexes, setZIndexes] = useState<Record<string, number>>({ syne: 1, unicef: 2, blinkit: 3 });
@@ -33,6 +33,18 @@ export function useWindowMode(): WindowModeAPI {
     }, []);
 
     const getPosition = useCallback((slug: string) => {
+        if (viewMode === 'card') {
+            // Grid layout positions
+            const gridPositions: Record<string, { x: number, y: number }> = {
+                syne:      { x: -240, y: -150 },
+                unicef:    { x:  240, y: -150 },
+                blinkit:   { x: -240, y:  180 },
+                aristotle: { x:  240, y:  180 },
+                "pid-tool":{ x:    0, y:  180 },
+            };
+            return gridPositions[slug] || { x: 0, y: 0 };
+        }
+
         // Initial staggered positions so they stack nicely like a desktop
         const positions: Record<string, { x: number, y: number }> = {
             syne:      { x: -160, y: -60 },
@@ -42,7 +54,7 @@ export function useWindowMode(): WindowModeAPI {
             "pid-tool":{ x:   80, y:  20 },
         };
         return positions[slug] || { x: 0, y: 0 };
-    }, []);
+    }, [viewMode]);
 
     const getZIndex = useCallback((slug: string) => zIndexes[slug] || 1, [zIndexes]);
 

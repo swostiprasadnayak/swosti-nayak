@@ -28,11 +28,11 @@ import { PROJECTS } from "@/app/types/projects.types";
 import { AudioLines } from "lucide-react";
 
 function HomeContent() {
-  const windowModeState = useWindowMode();
+  const [viewMode, setViewMode] = useState<ViewMode>("tab");
+  const windowModeState = useWindowMode(viewMode);
   const { openModal: openVoiceModal } = useVoiceModal();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [imageIndex, setImageIndex] = useState<number>(0);
-  const [viewMode, setViewMode] = useState<ViewMode>("tab");
   const WALLPAPERS = ["/wallpapers/pexels-sergei-31959340.jpg", "/bg.jpg", "/wallpapers/bg1.jpg", "/wallpapers/bg2.jpg", "/wallpapers/bg3.jpg", "/wallpapers/bg4.jpg"];
   const bgImage = WALLPAPERS[imageIndex];
 
@@ -169,6 +169,7 @@ function HomeContent() {
           expandedProject={expandedProject}
           onExpandProject={setExpandedProject}
           getProjectLayoutId={getProjectLayoutId}
+          viewMode={viewMode}
         />
 
         <ExpandedProject

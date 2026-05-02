@@ -32,6 +32,7 @@ type CardStackContainerProps = {
     activeFilters?: string[];
     expandedProject?: string | null;
     windowModeState?: WindowModeAPI;
+    viewMode?: "tab" | "card";
 };
 
 const CardStackContainer: React.FC<CardStackContainerProps> = ({
@@ -42,6 +43,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     activeFilters = [],
     expandedProject,
     windowModeState,
+    viewMode,
 }) => {
     const filteredProjects = useMemo(() => {
         if (activeFilters.length === 0 || activeFilters.includes("All Works")) {
@@ -103,7 +105,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
     const windowCards = useMemo(() => {
         if (!windowModeState) return null;
-        const cardDimensions = CARD_STYLES.window;
+        const cardDimensions = viewMode === 'card' ? CARD_STYLES.grid : CARD_STYLES.window;
 
         return windowModeState.openWindows
             .map((slug) => {
@@ -118,7 +120,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                         key={slug}
                         className={classes.windowCardOuter}
                         style={{ x: pos?.x, y: pos?.y, zIndex }}
-                        drag
+                        drag={viewMode === 'tab'} // Only allow drag in tab mode to maintain grid order in card mode
                         dragMomentum={false}
                         dragElastic={0}
                         onDragStart={(e, info) => handleWindowDragStart(e, info, slug)}
