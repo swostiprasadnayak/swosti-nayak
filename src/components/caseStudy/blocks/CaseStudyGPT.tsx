@@ -22,7 +22,7 @@ export default function CaseStudyGPT() {
             </div>
             <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#fff" }}>
                 <div style={{ padding: "16px 24px", borderBottom: "1px solid rgba(0,0,0,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ fontWeight: 500, fontSize: "0.9rem" }}>VardnanGPT 5.3</span>
+                    <span style={{ fontWeight: 500, fontSize: "0.9rem" }}>SwostiGPT 5.5</span>
                     <div style={{ width: 24, height: 24, borderRadius: "50%", background: "#111" }} />
                 </div>
                 <div style={{ flex: 1, padding: "24px", overflowY: "auto", display: "flex", flexDirection: "column", gap: "24px" }}>
