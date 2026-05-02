@@ -476,12 +476,12 @@ export default function BlinkitCaseStudyTemplate() {
                                             pointerEvents: "none",
                                         }}>
                                             <span style={{
-                                                fontSize: "0.72rem", fontWeight: 700,
-                                                color: "#fff", letterSpacing: "0.08em",
+                                                fontSize: "0.65rem", fontWeight: 600,
+                                                color: "#fff", letterSpacing: "0.06em",
                                                 textTransform: "uppercase",
-                                                background: "rgba(255,255,255,0.15)",
-                                                padding: "6px 12px", borderRadius: 100,
-                                                border: "1px solid rgba(255,255,255,0.3)",
+                                                background: "rgba(255,255,255,0.1)",
+                                                padding: "4px 10px", borderRadius: 100,
+                                                border: "1px solid rgba(255,255,255,0.25)",
                                             }}>Click to preview</span>
                                         </div>
                                     </div>
