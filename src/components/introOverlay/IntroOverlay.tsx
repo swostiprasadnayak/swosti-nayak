@@ -89,8 +89,10 @@ const IntroOverlay: React.FC = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const unlockRef = useRef<(() => void) | null>(null);
   const totalChars = getTotalChars();
 
   // Check if should show
@@ -130,15 +132,30 @@ const IntroOverlay: React.FC = () => {
 
     autoStartTimerRef.current = setTimeout(() => {
       const video = videoRef.current;
+      const audio = audioRef.current;
+
       if (video) {
-        // Start muted to bypass autoplay policy
+        video.currentTime = 0;
+        // Video starts muted to guarantee visual autoplay
         video.muted = true;
-        video.play().then(() => {
-          // Once playing, attempt to unmute
-          video.muted = false;
-        }).catch((err) => {
-          console.warn("Autoplay failed:", err);
-          // If it fails even muted, we still show the bubble
+        video.play().catch(() => {});
+      }
+
+      if (audio) {
+        audio.currentTime = 0;
+        // Attempt to play audio
+        audio.play().catch(() => {
+          // Audio blocked by browser policy — register silent unlock
+          const unlock = () => {
+            if (audio) audio.play().catch(() => {});
+            document.removeEventListener("click", unlock, true);
+            document.removeEventListener("keydown", unlock, true);
+            document.removeEventListener("touchstart", unlock, true);
+          };
+          unlockRef.current = unlock;
+          document.addEventListener("click", unlock, { capture: true, once: true });
+          document.addEventListener("keydown", unlock, { capture: true, once: true });
+          document.addEventListener("touchstart", unlock, { capture: true, once: true });
         });
       }
 
@@ -165,8 +182,14 @@ const IntroOverlay: React.FC = () => {
   const handleClose = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
     if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
+    if (unlockRef.current) {
+      document.removeEventListener("click", unlockRef.current, true);
+      document.removeEventListener("keydown", unlockRef.current, true);
+      document.removeEventListener("touchstart", unlockRef.current, true);
+    }
     setIsVisible(false);
   }, []);
 
@@ -215,7 +238,9 @@ const IntroOverlay: React.FC = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <div className={classes.scene}>
-            {/* Avatar container — positioned at top: 50% */}
+            <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
+            
+            {/* Avatar container */}
             <motion.div
               className={classes.avatarContainer}
               initial={{ opacity: 0, y: 20 }}
@@ -225,10 +250,11 @@ const IntroOverlay: React.FC = () => {
               <video
                 ref={videoRef}
                 className={classes.avatarVideo}
-                src="/videos/intro-merged.webm"
+                src="/videos/intro-avatar.webm"
+                muted
+                autoPlay
                 playsInline
                 preload="auto"
-                style={{ background: 'transparent' }}
               />
             </motion.div>
 
