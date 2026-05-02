@@ -88,11 +88,10 @@ const IntroOverlay: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
   const [charCount, setCharCount] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const audioUnlockRef = useRef<(() => void) | null>(null);
+  const unlockRef = useRef<(() => void) | null>(null);
   const totalChars = getTotalChars();
 
   // Check if should show
@@ -126,21 +125,21 @@ const IntroOverlay: React.FC = () => {
     return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ── Play audio — attempt autoplay, unlock on first user interaction if blocked
-  const playAudio = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.currentTime = 0;
-    audio.play().catch(() => {
+  // ── Play video — attempt autoplay (with sound), unlock on first user interaction if blocked
+  const playVideo = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = 0;
+    video.play().catch(() => {
       // Autoplay blocked — register a one-time unlock on ANY user interaction
       const unlock = () => {
-        audio.play().catch(() => {});
+        video.play().catch(() => {});
         document.removeEventListener("click", unlock, true);
         document.removeEventListener("keydown", unlock, true);
         document.removeEventListener("touchstart", unlock, true);
         document.removeEventListener("pointerdown", unlock, true);
       };
-      audioUnlockRef.current = unlock;
+      unlockRef.current = unlock;
       document.addEventListener("click", unlock, { capture: true, once: true });
       document.addEventListener("keydown", unlock, { capture: true, once: true });
       document.addEventListener("touchstart", unlock, { capture: true, once: true });
@@ -153,14 +152,8 @@ const IntroOverlay: React.FC = () => {
     if (!isVisible) return;
 
     autoStartTimerRef.current = setTimeout(() => {
-      // Start video (muted autoplay always allowed)
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(() => {});
-      }
-
-      // Attempt audio
-      playAudio();
+      // Attempt video playback (contains audio, so may be blocked)
+      playVideo();
 
       // Show bubble
       setShowBubble(true);
@@ -180,20 +173,19 @@ const IntroOverlay: React.FC = () => {
     }, 2000);
 
     return () => { if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current); };
-  }, [isVisible, totalChars, playAudio]);
+  }, [isVisible, totalChars, playVideo]);
 
   const handleClose = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
-    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
-    if (videoRef.current) { videoRef.current.pause(); }
+    if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
     // Clean up pending unlock listener
-    if (audioUnlockRef.current) {
-      document.removeEventListener("click", audioUnlockRef.current, true);
-      document.removeEventListener("keydown", audioUnlockRef.current, true);
-      document.removeEventListener("touchstart", audioUnlockRef.current, true);
-      document.removeEventListener("pointerdown", audioUnlockRef.current, true);
+    if (unlockRef.current) {
+      document.removeEventListener("click", unlockRef.current, true);
+      document.removeEventListener("keydown", unlockRef.current, true);
+      document.removeEventListener("touchstart", unlockRef.current, true);
+      document.removeEventListener("pointerdown", unlockRef.current, true);
     }
     setIsVisible(false);
   }, []);
@@ -248,13 +240,6 @@ const IntroOverlay: React.FC = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          {/* Audio — autoplay attr attempts browser autoplay, JS play() is fallback */}
-          <audio
-            ref={audioRef}
-            src="/audio/intro-voice.mp3"
-            preload="auto"
-          />
-
           <div className={classes.scene}>
             {/* Avatar — independently positioned, NEVER shifts */}
             <motion.div
@@ -266,8 +251,7 @@ const IntroOverlay: React.FC = () => {
               <video
                 ref={videoRef}
                 className={classes.avatarVideo}
-                src="/videos/intro-avatar.webm"
-                muted
+                src="/videos/vid+aud.mp4"
                 playsInline
                 preload="auto"
               />
@@ -292,7 +276,7 @@ const IntroOverlay: React.FC = () => {
                   <ConnectorSVG />
                 </motion.div>
 
-                {/* Speech bubble — fixed size, no overflow clipping */}
+                {/* Speech bubble — fixed padding, auto height */}
                 <motion.div
                   className={classes.speechBubble}
                   initial={{ opacity: 0, scale: 0.97 }}
