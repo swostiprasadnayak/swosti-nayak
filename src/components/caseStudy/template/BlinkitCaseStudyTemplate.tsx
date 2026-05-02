@@ -142,6 +142,7 @@ function ProtoEmbed({ href, title }: { href: string; title: string }) {
 // ─────────────────────────────────────────────────────────────────────────────
 export default function BlinkitCaseStudyTemplate() {
     const { openModal } = useVoiceModal();
+    const [lightbox, setLightbox] = React.useState<{ src: string; label: string } | null>(null);
 
     return (
         <div className={classes.pageWrapper}>
@@ -156,19 +157,13 @@ export default function BlinkitCaseStudyTemplate() {
                 />
 
                 {/* ── HERO BANNER ───────────────────────────────────────────── */}
-                <div style={{
-                    width: "100%",
-                    aspectRatio: "16 / 7",
-                    borderRadius: 20,
-                    overflow: "hidden",
-                    position: "relative",
-                    background: "#f0ebe0",
-                    backgroundImage: "url(/images/blinkit/blinkit-hero-banner.png)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                    border: "1px solid rgba(0,0,0,0.06)",
-                }} />
+                <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.06)" }}>
+                    <img
+                        src="/images/blinkit/blinkit-hero-banner.png"
+                        alt="Making Grocery Shopping Effortless with AI"
+                        style={{ width: "100%", height: "auto", display: "block" }}
+                    />
+                </div>
 
                 {/* ── 01 — CHALLENGE VS IMPACT ─────────────────────────────── */}
                 <Section>
@@ -432,10 +427,15 @@ export default function BlinkitCaseStudyTemplate() {
                     {/* ── 6 screens strip — full width below ── */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8 }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow — All 6 Screens</div>
+                        {/* Horizontal scroll strip — each phone 220px wide */}
                         <div style={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(6, 1fr)",
-                            gap: 16,
+                            display: "flex",
+                            gap: 20,
+                            overflowX: "auto",
+                            paddingBottom: 12,
+                            scrollSnapType: "x mandatory",
+                            msOverflowStyle: "none",
+                            scrollbarWidth: "none",
                         }}>
                             {[
                                 { src: "/images/blinkit/screen-1-home.png",          label: "Home" },
@@ -445,51 +445,38 @@ export default function BlinkitCaseStudyTemplate() {
                                 { src: "/images/blinkit/screen-5-paste-text.png",     label: "Paste Text" },
                                 { src: "/images/blinkit/screen-6-personalizing.png",  label: "Personalizing" },
                             ].map((s, i) => (
-                                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                    {/* Phone frame */}
-                                    <div style={{
-                                        width: "100%",
-                                        aspectRatio: "390 / 844",
-                                        borderRadius: 24,
-                                        overflow: "hidden",
-                                        boxShadow: "0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)",
-                                        background: "#f0f0f0",
-                                        border: "1px solid rgba(0,0,0,0.06)",
-                                        position: "relative",
-                                    }}>
+                                <div key={i} style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0, scrollSnapAlign: "start" }}>
+                                    {/* Clickable phone frame */}
+                                    <div
+                                        onClick={() => setLightbox(s)}
+                                        style={{
+                                            width: 220,
+                                            aspectRatio: "390 / 844",
+                                            borderRadius: 28,
+                                            overflow: "hidden",
+                                            boxShadow: "0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
+                                            background: "#f0f0f0",
+                                            border: "1px solid rgba(0,0,0,0.06)",
+                                            cursor: "zoom-in",
+                                            transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                                        }}
+                                        onMouseEnter={e => {
+                                            (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px) scale(1.02)";
+                                            (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 48px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08)";
+                                        }}
+                                        onMouseLeave={e => {
+                                            (e.currentTarget as HTMLDivElement).style.transform = "none";
+                                            (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)";
+                                        }}
+                                    >
                                         <img
                                             src={s.src}
                                             alt={s.label}
-                                            style={{
-                                                width: "100%",
-                                                height: "100%",
-                                                objectFit: "cover",
-                                                display: "block",
-                                            }}
-                                            onError={(e) => {
-                                                const target = e.currentTarget;
-                                                target.style.display = "none";
-                                                const parent = target.parentElement;
-                                                if (parent && !parent.querySelector(".placeholder-label")) {
-                                                    const ph = document.createElement("div");
-                                                    ph.className = "placeholder-label";
-                                                    ph.style.cssText = "position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(160deg,#f5f5f5,#e8e8e8);";
-                                                    const emojis = ["🏠", "📷", "✅", "🖼️", "📋", "✨"];
-                                                    const span1 = document.createElement("span");
-                                                    span1.style.fontSize = "1.5rem";
-                                                    span1.textContent = emojis[i] || "📋";
-                                                    const span2 = document.createElement("span");
-                                                    span2.style.cssText = "font-size:0.7rem;color:#999;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;";
-                                                    span2.textContent = s.label;
-                                                    ph.appendChild(span1);
-                                                    ph.appendChild(span2);
-                                                    parent.appendChild(ph);
-                                                }
-                                            }}
+                                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }}
                                         />
                                     </div>
                                     {/* Caption */}
-                                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--text-secondary)", textAlign: "center", letterSpacing: "0.03em" }}>
+                                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--text-secondary)", textAlign: "center", letterSpacing: "0.03em", width: 220 }}>
                                         <span style={{ color: ACCENT, marginRight: 4 }}>{i + 1}</span>{s.label}
                                     </div>
                                 </div>
@@ -497,6 +484,38 @@ export default function BlinkitCaseStudyTemplate() {
                         </div>
                     </div>
                 </Section>
+
+                {/* ── LIGHTBOX ──────────────────────────────────────────────── */}
+                {lightbox && (
+                    <div
+                        onClick={() => setLightbox(null)}
+                        style={{
+                            position: "fixed", inset: 0, zIndex: 9999,
+                            background: "rgba(0,0,0,0.85)",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            padding: 32, cursor: "zoom-out",
+                            backdropFilter: "blur(8px)",
+                        }}
+                    >
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, maxHeight: "90vh" }}>
+                            <img
+                                src={lightbox.src}
+                                alt={lightbox.label}
+                                style={{
+                                    maxHeight: "80vh",
+                                    maxWidth: "min(420px, 90vw)",
+                                    borderRadius: 40,
+                                    boxShadow: "0 32px 80px rgba(0,0,0,0.5)",
+                                    display: "block",
+                                    objectFit: "contain",
+                                }}
+                            />
+                            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                                {lightbox.label} · Click anywhere to close
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* ── 07 — SOLUTION: F2 VOICE QUICK ORDER ──────────────────── */}
                 <Section>
