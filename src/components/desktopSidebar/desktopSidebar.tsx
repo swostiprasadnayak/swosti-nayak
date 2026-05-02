@@ -17,13 +17,13 @@ const socialItems = ["LinkedIn", "Instagram", "Contact", "Feedback"];
 
 const getNavigationProps = (section: string) => {
     switch (section) {
-        case "LinkedIn": return { href: "https://linkedin.com", target: "_blank" };
+        case "LinkedIn": return { href: "https://www.linkedin.com/in/swosti-nayak-49b2ba131", target: "_blank" };
         case "Twitter": return { href: "https://twitter.com", target: "_blank" };
-        case "Instagram": return { href: "https://instagram.com", target: "_blank" };
-        case "Contact": return { href: "mailto:hello@example.com", target: "_self" };
+        case "Instagram": return { href: "https://www.instagram.com/swosti_2001/", target: "_blank" };
+        case "Contact": return { href: "tel:7978659329", target: "_self" };
         case "Work": return { href: "/", target: "_self" };
         case "Post": return { href: "#", target: "_self" };
-        case "Resume": return { href: "#", target: "_blank" };
+        case "Resume": return { href: "https://drive.google.com/file/d/1Rajt_0Jg-7ywpB0bX3N1JPgLXnW3uPiF/view?usp=sharing", target: "_blank" };
         case "Feedback": return { href: "#", target: "_self" };
         default: return { href: "#", target: "_self" };
     }

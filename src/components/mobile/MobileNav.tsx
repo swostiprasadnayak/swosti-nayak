@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import classes from "./mobileNav.module.css";
 import { ChevronDown, Share2, Heart, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Work", href: "#work" },
+    { label: "Work", href: "/" },
     { label: "About", href: "#about" },
-    { label: "Post", href: "#post" },
-    { label: "Resume", href: "#resume" },
+    { label: "Post", href: "#" },
+    { label: "Resume", href: "https://drive.google.com/file/d/1Rajt_0Jg-7ywpB0bX3N1JPgLXnW3uPiF/view?usp=sharing" },
   ];
 
   return (
@@ -56,13 +57,15 @@ export default function MobileNav() {
             >
               {/* Navigation items */}
               {navItems.map((item) => (
-                <button
+                <Link
                   key={item.label}
+                  href={item.href}
                   className={classes.navItem}
                   onClick={() => setIsOpen(false)}
+                  target={item.label === "Resume" ? "_blank" : undefined}
                 >
                   {item.label}
-                </button>
+                </Link>
               ))}
 
               {/* Divider */}
@@ -71,7 +74,7 @@ export default function MobileNav() {
               {/* Socials & Contact - Icons only in separate box */}
               <div className={classes.socialsBox}>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/swosti-nayak-49b2ba131"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classes.socialIcon}
@@ -80,7 +83,7 @@ export default function MobileNav() {
                   <Share2 size={18} />
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/swosti_2001/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classes.socialIcon}
@@ -89,7 +92,7 @@ export default function MobileNav() {
                   <Heart size={18} />
                 </a>
                 <a
-                  href="mailto:hello@example.com"
+                  href="tel:7978659329"
                   className={classes.socialIcon}
                   title="Contact"
                 >
