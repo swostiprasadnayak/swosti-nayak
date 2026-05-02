@@ -86,13 +86,12 @@ function renderPartialText(charCount: number, cls: typeof classes) {
 
 const IntroOverlay: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const autoStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const unlockRef = useRef<(() => void) | null>(null);
   const totalChars = getTotalChars();
 
   // Check if should show
@@ -126,97 +125,42 @@ const IntroOverlay: React.FC = () => {
     return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ── Interaction-based Start Sequence ───
-  // We wait for ANY user interaction (including mouse move) to start the sequence
-  // so that the video, typing, and audio all start perfectly in sync.
-  useEffect(() => {
-    if (!isVisible) return;
+  const handleStart = useCallback(() => {
+    setHasStarted(true);
+    
+    const video = videoRef.current;
+    const audio = audioRef.current;
 
-    let hasStarted = false;
+    if (video) {
+      video.currentTime = 0;
+      video.muted = false; // We can play unmuted immediately because of the explicit click
+      video.play().catch(() => {});
+    }
 
-    const startSequence = () => {
-      if (hasStarted) return;
-      hasStarted = true;
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    }
 
-      const video = videoRef.current;
-      const audio = audioRef.current;
+    // Show bubble and start typing immediately
+    setShowBubble(true);
 
-      if (video) {
-        video.currentTime = 0;
-        // Start muted to guarantee visual start, then try to unmute
-        video.muted = true;
-        video.play().then(() => {
-          video.muted = false;
-        }).catch(() => {});
+    const CHAR_DELAY = 35;
+    let current = 0;
+    intervalRef.current = setInterval(() => {
+      current++;
+      setCharCount(current);
+      if (current >= totalChars) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
       }
-
-      if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch(() => {
-          // If browser strictly blocks audio on mousemove, wait for a click to unmute/play
-          const unlockAudio = () => {
-            if (audio) audio.play().catch(() => {});
-            if (video) video.muted = false;
-            document.removeEventListener("click", unlockAudio, true);
-            document.removeEventListener("keydown", unlockAudio, true);
-            document.removeEventListener("touchstart", unlockAudio, true);
-          };
-          unlockRef.current = unlockAudio;
-          document.addEventListener("click", unlockAudio, { capture: true, once: true });
-          document.addEventListener("keydown", unlockAudio, { capture: true, once: true });
-          document.addEventListener("touchstart", unlockAudio, { capture: true, once: true });
-        });
-      }
-
-      // Show bubble and start typing synchronously
-      setShowBubble(true);
-
-      const CHAR_DELAY = 35;
-      let current = 0;
-      intervalRef.current = setInterval(() => {
-        current++;
-        setCharCount(current);
-        if (current >= totalChars) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-        }
-      }, CHAR_DELAY);
-
-      // Clean up start listeners since we've started
-      removeStartListeners();
-    };
-
-    const removeStartListeners = () => {
-      document.removeEventListener("mousemove", startSequence, true);
-      document.removeEventListener("click", startSequence, true);
-      document.removeEventListener("keydown", startSequence, true);
-      document.removeEventListener("touchstart", startSequence, true);
-      document.removeEventListener("scroll", startSequence, true);
-    };
-
-    // Add listeners for ANY interaction
-    document.addEventListener("mousemove", startSequence, { capture: true, once: true });
-    document.addEventListener("click", startSequence, { capture: true, once: true });
-    document.addEventListener("keydown", startSequence, { capture: true, once: true });
-    document.addEventListener("touchstart", startSequence, { capture: true, once: true });
-    document.addEventListener("scroll", startSequence, { capture: true, once: true });
-
-    return () => {
-      removeStartListeners();
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isVisible, totalChars]);
+    }, CHAR_DELAY);
+  }, [totalChars]);
 
   const handleClose = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
     if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
     if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     if (intervalRef.current) clearInterval(intervalRef.current);
-    if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
-    if (unlockRef.current) {
-      document.removeEventListener("click", unlockRef.current, true);
-      document.removeEventListener("keydown", unlockRef.current, true);
-      document.removeEventListener("touchstart", unlockRef.current, true);
-    }
     setIsVisible(false);
   }, []);
 
@@ -250,7 +194,6 @@ const IntroOverlay: React.FC = () => {
   // Cleanup
   useEffect(() => () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
-    if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
   }, []);
 
   return (
@@ -264,6 +207,22 @@ const IntroOverlay: React.FC = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
+          {/* Start Overlay - blocks until clicked */}
+          <AnimatePresence>
+            {!hasStarted && (
+              <motion.div 
+                className={classes.startOverlay}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <button className={classes.startButton} onClick={handleStart}>
+                  Start Experience
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <div className={classes.scene}>
             <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
             
@@ -278,8 +237,6 @@ const IntroOverlay: React.FC = () => {
                 ref={videoRef}
                 className={classes.avatarVideo}
                 src="/videos/intro-avatar.webm"
-                muted
-                autoPlay
                 playsInline
                 preload="auto"
               />
