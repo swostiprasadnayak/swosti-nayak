@@ -89,6 +89,7 @@ const IntroOverlay: React.FC = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const unlockRef = useRef<(() => void) | null>(null);
@@ -125,15 +126,29 @@ const IntroOverlay: React.FC = () => {
     return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ── Play video — attempt autoplay (with sound), unlock on first user interaction if blocked
-  const playVideo = useCallback(() => {
+  // ── Play media — attempt autoplay, unlock on first user interaction if blocked
+  const playMedia = useCallback(() => {
     const video = videoRef.current;
-    if (!video) return;
+    const audio = audioRef.current;
+    if (!video || !audio) return;
+
     video.currentTime = 0;
-    video.play().catch(() => {
+    audio.currentTime = 0;
+
+    const startPlay = () => {
+      video.play().catch(() => {});
+      audio.play().catch(() => {});
+    };
+
+    video.play().then(() => {
+      audio.play().catch(() => {
+        // Audio blocked, wait for unlock
+      });
+    }).catch(() => {
       // Autoplay blocked — register a one-time unlock on ANY user interaction
       const unlock = () => {
         video.play().catch(() => {});
+        audio.play().catch(() => {});
         document.removeEventListener("click", unlock, true);
         document.removeEventListener("keydown", unlock, true);
         document.removeEventListener("touchstart", unlock, true);
@@ -152,8 +167,8 @@ const IntroOverlay: React.FC = () => {
     if (!isVisible) return;
 
     autoStartTimerRef.current = setTimeout(() => {
-      // Attempt video playback (contains audio, so may be blocked)
-      playVideo();
+      // Attempt playback
+      playMedia();
 
       // Show bubble
       setShowBubble(true);
@@ -173,11 +188,12 @@ const IntroOverlay: React.FC = () => {
     }, 2000);
 
     return () => { if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current); };
-  }, [isVisible, totalChars, playVideo]);
+  }, [isVisible, totalChars, playMedia]);
 
   const handleClose = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
     if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
     // Clean up pending unlock listener
@@ -210,7 +226,7 @@ const IntroOverlay: React.FC = () => {
     if (charCount >= totalChars && charCount > 0) {
       const timer = setTimeout(() => {
         handleClose();
-      }, 10000);
+      }, 15000);
       return () => clearTimeout(timer);
     }
   }, [charCount, totalChars, handleClose]);
@@ -241,6 +257,8 @@ const IntroOverlay: React.FC = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <div className={classes.scene}>
+            <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
+            
             {/* Avatar — independently positioned, NEVER shifts */}
             <motion.div
               className={classes.avatarContainer}
@@ -251,7 +269,7 @@ const IntroOverlay: React.FC = () => {
               <video
                 ref={videoRef}
                 className={classes.avatarVideo}
-                src="/videos/vid+aud.mp4"
+                src="/videos/intro-avatar.webm"
                 playsInline
                 preload="auto"
               />
@@ -304,3 +322,4 @@ const IntroOverlay: React.FC = () => {
 };
 
 export default React.memo(IntroOverlay);
+
