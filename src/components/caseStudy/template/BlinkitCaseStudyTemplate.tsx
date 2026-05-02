@@ -551,7 +551,6 @@ export default function BlinkitCaseStudyTemplate() {
                                                 display: "block",
                                             }}
                                             onError={(e) => {
-                                                // Graceful placeholder until images are added
                                                 const target = e.currentTarget;
                                                 target.style.display = "none";
                                                 const parent = target.parentElement;
@@ -559,7 +558,15 @@ export default function BlinkitCaseStudyTemplate() {
                                                     const ph = document.createElement("div");
                                                     ph.className = "placeholder-label";
                                                     ph.style.cssText = "position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(160deg,#f5f5f5,#e8e8e8);";
-                                                    ph.innerHTML = `<span style="font-size:1.5rem">${["🏠","📷","✅","🖼️","📋","✨"][${i}]}</span><span style="font-size:0.7rem;color:#999;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;">${s.label}</span>`;
+                                                    const emojis = ["🏠", "📷", "✅", "🖼️", "📋", "✨"];
+                                                    const span1 = document.createElement("span");
+                                                    span1.style.fontSize = "1.5rem";
+                                                    span1.textContent = emojis[i] || "📋";
+                                                    const span2 = document.createElement("span");
+                                                    span2.style.cssText = "font-size:0.7rem;color:#999;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;";
+                                                    span2.textContent = s.label;
+                                                    ph.appendChild(span1);
+                                                    ph.appendChild(span2);
                                                     parent.appendChild(ph);
                                                 }
                                             }}
