@@ -17,7 +17,7 @@ import { useViewport } from "@/app/contexts/ViewportContext";
 import { useControlsRow } from "@/components/homePage/projectControls/controlsRow/controlsRow";
 import classes from "./filterButton.module.css";
 
-const FILTER_OPTIONS = ["All Works", "Featured", "Workplace", "Creative"] as const;
+const FILTER_OPTIONS = ["All Works", "Featured", "Corporate"] as const;
 type FilterOption = (typeof FILTER_OPTIONS)[number];
 
 type FilterButtonProps = {

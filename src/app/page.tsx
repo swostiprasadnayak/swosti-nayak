@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, Suspense, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import html2canvas from "html2canvas";
 import DesktopSidebar from "@/components/desktopSidebar/desktopSidebar";
 import CardStackContainer from "@/components/homePage/cardStackContainer/cardStackContainer";
@@ -24,9 +25,9 @@ import { useWindowMode } from "@/app/hooks/useWindowMode";
 import IntroOverlay from "@/components/introOverlay/IntroOverlay";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
-import { AudioLines, Terminal } from "lucide-react";
+import { AudioLines } from "lucide-react";
 
-export default function Home() {
+function HomeContent() {
   const windowModeState = useWindowMode();
   const { openModal: openVoiceModal } = useVoiceModal();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
@@ -42,6 +43,35 @@ export default function Home() {
   // Project Expansion State
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
   const getProjectLayoutId = useCallback((slug: string) => `project-card-${slug}`, []);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // 1. Sync URL -> State on mount
+  useEffect(() => {
+    const projectSlug = searchParams.get("project");
+    if (projectSlug) {
+      const project = PROJECTS.find(p => p.slug.toLowerCase() === projectSlug.toLowerCase());
+      if (project) {
+        setExpandedProject(project.name);
+      }
+    }
+  }, [searchParams]);
+
+  // 2. Sync State -> URL on change
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (expandedProject) {
+      const project = PROJECTS.find(p => p.name === expandedProject);
+      if (project) {
+        params.set("project", project.slug.toLowerCase());
+      }
+    } else {
+      params.delete("project");
+    }
+    const newPathname = window.location.pathname + (params.toString() ? `?${params.toString()}` : "");
+    router.replace(newPathname, { scroll: false });
+  }, [expandedProject, router]);
 
   // The function that takes the picture
   const handleScreenshot = useCallback(async () => {
@@ -177,5 +207,13 @@ export default function Home() {
       {/* First-visit Introduction Overlay */}
       <IntroOverlay />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
   );
 }
