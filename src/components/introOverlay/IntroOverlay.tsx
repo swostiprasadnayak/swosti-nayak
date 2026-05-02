@@ -64,24 +64,20 @@ function renderPartialText(charCount: number, cls: typeof classes) {
     } else {
       const parts = (seg as any).parts as { text: string; bold?: boolean }[];
       const partElements: React.ReactNode[] = [];
-
       for (let j = 0; j < parts.length; j++) {
         if (remaining <= 0) break;
         const part = parts[j];
         const slice = part.text.slice(0, remaining);
         remaining -= slice.length;
-
         if (part.bold) {
           partElements.push(<span key={`b-${i}-${j}`} className={cls.bold}>{slice}</span>);
         } else {
           partElements.push(<React.Fragment key={`t-${i}-${j}`}>{slice}</React.Fragment>);
         }
-
         if (remaining <= 0) {
           partElements.push(<span key={`cur-${i}-${j}`} className={cls.cursor} />);
         }
       }
-
       elements.push(<p key={`p-${i}`} className={cls.speechText}>{partElements}</p>);
     }
   }
@@ -96,14 +92,14 @@ const IntroOverlay: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const audioUnlockRef = useRef<(() => void) | null>(null);
   const totalChars = getTotalChars();
 
-  // ─── Check if should show: first visit OR >2 minutes since last close ───
+  // Check if should show
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) {
-      // First visit ever
       setIsVisible(true);
     } else {
       const lastSeen = parseInt(stored, 10);
@@ -113,13 +109,11 @@ const IntroOverlay: React.FC = () => {
     }
   }, []);
 
-  // ─── Apply blur to page content (reduced intensity: 7px) ───
+  // Apply blur to page content behind overlay
   useEffect(() => {
     if (!isVisible) return;
-
     const mainEl = document.querySelector("main");
     if (!mainEl) return;
-
     const blurred: HTMLElement[] = [];
     Array.from(mainEl.children).forEach((child) => {
       const el = child as HTMLElement;
@@ -129,42 +123,49 @@ const IntroOverlay: React.FC = () => {
         blurred.push(el);
       }
     });
-
     return () => { blurred.forEach((el) => { el.style.filter = ""; }); };
   }, [isVisible]);
 
-  // ─── Auto-start after 2 seconds: video + bubble + typing ───
-  // Audio will auto-play if browser allows, otherwise unlocked on first click
+  // ── Play audio — attempt autoplay, unlock on first user interaction if blocked
+  const playAudio = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {
+      // Autoplay blocked — register a one-time unlock on ANY user interaction
+      const unlock = () => {
+        audio.play().catch(() => {});
+        document.removeEventListener("click", unlock, true);
+        document.removeEventListener("keydown", unlock, true);
+        document.removeEventListener("touchstart", unlock, true);
+        document.removeEventListener("pointerdown", unlock, true);
+      };
+      audioUnlockRef.current = unlock;
+      document.addEventListener("click", unlock, { capture: true, once: true });
+      document.addEventListener("keydown", unlock, { capture: true, once: true });
+      document.addEventListener("touchstart", unlock, { capture: true, once: true });
+      document.addEventListener("pointerdown", unlock, { capture: true, once: true });
+    });
+  }, []);
+
+  // Auto-start after 2 seconds
   useEffect(() => {
     if (!isVisible) return;
 
     autoStartTimerRef.current = setTimeout(() => {
-      // Start video (muted autoplay always works)
+      // Start video (muted autoplay always allowed)
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
         videoRef.current.play().catch(() => {});
       }
 
-      // Attempt audio autoplay
-      if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(() => {
-          // Autoplay blocked — register a one-time click handler to unlock
-          const unlockAudio = () => {
-            if (audioRef.current && audioRef.current.paused) {
-              audioRef.current.play().catch(() => {});
-            }
-            document.removeEventListener("click", unlockAudio);
-            document.removeEventListener("touchstart", unlockAudio);
-          };
-          document.addEventListener("click", unlockAudio, { once: true });
-          document.addEventListener("touchstart", unlockAudio, { once: true });
-        });
-      }
+      // Attempt audio
+      playAudio();
 
-      // Show bubble and start typing
+      // Show bubble
       setShowBubble(true);
 
+      // Start typing
       setTimeout(() => {
         const CHAR_DELAY = 35;
         let current = 0;
@@ -178,51 +179,47 @@ const IntroOverlay: React.FC = () => {
       }, 300);
     }, 2000);
 
-    return () => {
-      if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
-    };
-  }, [isVisible, totalChars]);
-
-  // ─── Auto-close when audio ends ───
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const handleEnded = () => {
-      // Small delay after audio finishes, then close
-      setTimeout(() => {
-        handleClose();
-      }, 1500);
-    };
-
-    audio.addEventListener("ended", handleEnded);
-    return () => audio.removeEventListener("ended", handleEnded);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ─── Also auto-close after typing finishes (fallback if audio fails) ───
-  useEffect(() => {
-    if (charCount >= totalChars && charCount > 0) {
-      // Wait 3 seconds after typing finishes, then close
-      const timer = setTimeout(() => {
-        handleClose();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [charCount, totalChars]);
+    return () => { if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current); };
+  }, [isVisible, totalChars, playAudio]);
 
   const handleClose = useCallback(() => {
-    // Store timestamp (not boolean) so we can reshow after 2 minutes
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
     if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     if (videoRef.current) { videoRef.current.pause(); }
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
+    // Clean up pending unlock listener
+    if (audioUnlockRef.current) {
+      document.removeEventListener("click", audioUnlockRef.current, true);
+      document.removeEventListener("keydown", audioUnlockRef.current, true);
+      document.removeEventListener("touchstart", audioUnlockRef.current, true);
+      document.removeEventListener("pointerdown", audioUnlockRef.current, true);
+    }
     setIsVisible(false);
   }, []);
 
-  // Escape to close
+  // Auto-close: 5 seconds after audio ends
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const handleEnded = () => {
+      setTimeout(() => handleClose(), 5000);
+    };
+    audio.addEventListener("ended", handleEnded);
+    return () => audio.removeEventListener("ended", handleEnded);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Fallback auto-close: 5s after typing finishes (if audio never played)
+  useEffect(() => {
+    if (charCount >= totalChars && charCount > 0) {
+      const timer = setTimeout(() => handleClose(), 8000);
+      return () => clearTimeout(timer);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [charCount, totalChars]);
+
+  // Escape key
   useEffect(() => {
     if (!isVisible) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") handleClose(); };
@@ -236,13 +233,6 @@ const IntroOverlay: React.FC = () => {
     if (autoStartTimerRef.current) clearTimeout(autoStartTimerRef.current);
   }, []);
 
-  // ─── Click anywhere to resume audio if it was blocked ───
-  const handleOverlayClick = useCallback(() => {
-    if (audioRef.current && audioRef.current.paused) {
-      audioRef.current.play().catch(() => {});
-    }
-  }, []);
-
   return (
     <AnimatePresence>
       {isVisible && (
@@ -253,69 +243,72 @@ const IntroOverlay: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          onClick={handleOverlayClick}
         >
-          <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
+          {/* Audio — autoplay attr attempts browser autoplay, JS play() is fallback */}
+          <audio
+            ref={audioRef}
+            src="/audio/intro-voice.mp3"
+            preload="auto"
+          />
 
-          <div className={classes.content}>
-            <div className={classes.centerGroup}>
-              {/* Avatar — inside flex, vertically centered naturally */}
+          <div className={classes.scene}>
+            {/* Avatar — independently positioned, NEVER shifts */}
+            <motion.div
+              className={classes.avatarContainer}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            >
+              <video
+                ref={videoRef}
+                className={classes.avatarVideo}
+                src="/videos/intro-avatar.webm"
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+            </motion.div>
+
+            {/* Bubble — independently positioned, separate from avatar */}
+            {showBubble && (
               <motion.div
-                className={classes.avatarContainer}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                className={classes.bubbleAnchor}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35 }}
               >
-                <video
-                  ref={videoRef}
-                  className={classes.avatarVideo}
-                  src="/videos/intro-avatar.webm"
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                />
-              </motion.div>
-
-              {/* Connector + Speech Bubble */}
-              {showBubble && (
+                {/* Connector line */}
                 <motion.div
-                  className={classes.bubbleGroup}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.35 }}
+                  className={classes.connectorLine}
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.3, delay: 0.05 }}
+                  style={{ transformOrigin: "left center" }}
                 >
-                  <motion.div
-                    className={classes.connectorLine}
-                    initial={{ opacity: 0, scaleX: 0 }}
-                    animate={{ opacity: 1, scaleX: 1 }}
-                    transition={{ duration: 0.3, delay: 0.05 }}
-                    style={{ transformOrigin: "left center" }}
-                  >
-                    <ConnectorSVG />
-                  </motion.div>
-
-                  {/* Fixed-size speech bubble — text types inside */}
-                  <motion.div
-                    className={classes.speechBubble}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                  >
-                    {/* White bg, black icon */}
-                    <button
-                      className={classes.closeButton}
-                      onClick={(e) => { e.stopPropagation(); handleClose(); }}
-                      aria-label="Close introduction"
-                    >
-                      <X size={14} strokeWidth={2.5} color="#111" />
-                    </button>
-
-                    {renderPartialText(charCount, classes)}
-                  </motion.div>
+                  <ConnectorSVG />
                 </motion.div>
-              )}
-            </div>
+
+                {/* Speech bubble — fixed size, no overflow clipping */}
+                <motion.div
+                  className={classes.speechBubble}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                >
+                  {/* Close button — outside bubble overflow */}
+                  <button
+                    className={classes.closeButton}
+                    onClick={handleClose}
+                    aria-label="Close introduction"
+                  >
+                    <X size={16} strokeWidth={2.5} color="#111111" />
+                  </button>
+
+                  {renderPartialText(charCount, classes)}
+                </motion.div>
+              </motion.div>
+            )}
           </div>
         </motion.div>
       )}
