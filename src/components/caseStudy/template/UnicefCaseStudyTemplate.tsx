@@ -51,7 +51,7 @@ export default function UnicefCaseStudyTemplate() {
          </h2>
          
          <p style={{ fontSize: '1.1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-           UNICEF maintains one of the world's most comprehensive education datasets — 190 countries, 120+ indicators, 25 years of time-series data. But the infrastructure to access it was broken. The data was authoritative. The problem was entirely about access, trust, and usability.
+           The data existed. The access layer didn't. 190 countries, 120+ indicators — and no unified way to reach any of it.
          </p>
 
          {/* 3 Pillar Cards */}
@@ -61,7 +61,7 @@ export default function UnicefCaseStudyTemplate() {
                <Search size={24} color="#e11d48" style={{ marginBottom: '8px' }} />
                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e11d48', letterSpacing: '0.05em' }}>DISCOVERABILITY FAILURE</h3>
                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
-                 Education data was fragmented across PDFs, internal dashboards, and disconnected microsites. No unified search, no taxonomy, no cross-referencing. Users couldn't find what they needed — and couldn't trust what they found.
+                 No unified search. No taxonomy. Data scattered across PDFs, dashboards, and microsites with no cross-referencing.
                </p>
                <div style={{ background: '#fff1f2', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #e11d48', fontSize: '0.85rem', fontStyle: 'italic', color: '#be123c' }}>
                  "I spent two hours triangulating a single indicator before I could start my analysis."
@@ -73,7 +73,7 @@ export default function UnicefCaseStudyTemplate() {
                <ShieldAlert size={24} color="#ca8a04" style={{ marginBottom: '8px' }} />
                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ca8a04', letterSpacing: '0.05em' }}>TRUST & CITATION BREAKDOWN</h3>
                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
-                 No inline methodology links, no data provenance labels, no citation strings. Researchers couldn't formally cite UNICEF data without emailing the team directly and waiting days for a response — making it unusable for peer-reviewed work.
+                 No methodology links. No provenance. Researchers couldn't formally cite UNICEF data without emailing the team and waiting days.
                </p>
                <div style={{ background: '#fefce8', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #ca8a04', fontSize: '0.85rem', fontStyle: 'italic', color: '#a16207' }}>
                  "I couldn't put this in a peer-reviewed paper without knowing the methodology."
@@ -85,7 +85,7 @@ export default function UnicefCaseStudyTemplate() {
                <Clock size={24} color="#ea580c" style={{ marginBottom: '8px' }} />
                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ea580c', letterSpacing: '0.05em' }}>EDITORIAL BOTTLENECK</h3>
                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
-                 Every chart update required a developer ticket. A 3-week queue for 5-minute changes. Static image charts went out of date immediately with no live data connection. Editors had zero autonomy over the content they were responsible for.
+                 Every chart update required a developer ticket. 3-week queue for 5-minute changes. Zero editorial autonomy.
                </p>
                <div style={{ background: '#fff7ed', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #ea580c', fontSize: '0.85rem', fontStyle: 'italic', color: '#c2410c' }}>
                  "I raised a Jira ticket three weeks ago to change the default year on one chart."
@@ -97,7 +97,7 @@ export default function UnicefCaseStudyTemplate() {
          <Squircle cornerRadius={16} style={{ background: '#f0f9ff', padding: '48px', border: '1px solid #bae6fd', marginBottom: '80px' }}>
             <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0284c7', letterSpacing: '0.1em' }}>CORE PROBLEM STATEMENT</span>
             <p style={{ fontSize: '1.4rem', color: '#0f172a', fontStyle: 'italic', fontWeight: 400, lineHeight: 1.5, marginTop: '16px', fontFamily: 'Instrument Serif, serif' }}>
-              "UNICEF cannot ensure its authoritative data reaches the people who can act on it — because there is no accessible, unified, trustworthy public interface to the data. Meanwhile, its editorial team is dependent on developers to publish even the simplest update."
+              "No accessible, unified interface to UNICEF's own data. The editorial team can't publish without a developer. The people who can act on the data can't reach it."
             </p>
             <span style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '16px', display: 'block' }}>— Problem framing synthesised from RFP brief & stakeholder documentation</span>
          </Squircle>
@@ -105,10 +105,10 @@ export default function UnicefCaseStudyTemplate() {
          {/* Big Stats */}
          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', borderTop: '1px solid #e2e8f0', paddingTop: '40px' }}>
             {[
-              { num: "617M", val: "Children who cannot read a simple text — the crisis this data must surface to decision-makers", color: "#e11d48" },
-              { num: "57%", val: "Learning poverty rate in low & middle-income countries — invisible to policymakers without a portal", color: "#ea580c" },
-              { num: "190", val: "Country datasets with 2000-2024 time series — all previously inaccessible without a unified system", color: "#0284c7" },
-              { num: "120+", val: "Indicators across 6 thematic areas — impossible to navigate without taxonomy and search", color: "#16a34a" }
+              { num: "617M", val: "Children who cannot read a simple text", color: "#e11d48" },
+              { num: "57%", val: "Learning poverty rate in low & middle-income countries", color: "#ea580c" },
+              { num: "190", val: "Country datasets — 2000–2024 time series, all previously inaccessible", color: "#0284c7" },
+              { num: "120+", val: "Indicators across 6 thematic areas, impossible to navigate without taxonomy", color: "#16a34a" }
             ].map((stat, i) => (
                <div key={i} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                  <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: stat.color, fontWeight: 300 }}>{stat.num}</div>
@@ -138,10 +138,10 @@ export default function UnicefCaseStudyTemplate() {
                   title: "Researcher trying to answer a policy question", 
                   persona: "Persona P1 · Academic Researcher",
                   points: [
-                    "Searches UNICEF website — gets a PDF from 2021 with no interactive filtering",
-                    "Downloads 4 different CSV files with inconsistent column naming conventions",
-                    "Spends 2+ hours in Excel rebuilding a comparison that should take minutes",
-                    "Cannot verify indicator methodology — emails UNICEF directly, waits 5 days"
+                    "PDF from 2021. No filtering.",
+                    "4 CSVs with inconsistent column names",
+                    "2+ hours in Excel for a 5-minute task",
+                    "Emails UNICEF. Waits 5 days."
                   ]
                 },
                 { 
@@ -149,10 +149,10 @@ export default function UnicefCaseStudyTemplate() {
                   title: "Policymaker building a cross-country brief", 
                   persona: "Persona P2 · Government Analyst",
                   points: [
-                    "No tool exists to compare multiple countries on a single indicator at once",
-                    "Map visuals in reports are static PNGs — no interactivity, no context",
-                    "Insight is presented as <<[insert data]>> placeholders until day-before deadline",
-                    "Can't share a live link — sends screenshots that quickly go stale"
+                    "No multi-country comparison tool",
+                    "Static PNG maps. No interactivity.",
+                    "Data placeholders until the night before",
+                    "Screenshots that go stale immediately"
                   ]
                 },
                 { 
@@ -160,10 +160,10 @@ export default function UnicefCaseStudyTemplate() {
                   title: "Partner finding data for a funding proposal", 
                   persona: "Persona P3 · Development Partner",
                   points: [
-                    "Navigates 3 different UNICEF sub-portals to find related indicators",
-                    "No unified download — must stitch together files from separate systems",
-                    "Data has no provenance labels — unclear if it's the most recent estimate",
-                    "No citation format — builds citation string manually, introduces error risk"
+                    "3 separate portals for related indicators",
+                    "Manual stitching across systems",
+                    "No provenance. Is this even current?",
+                    "Manual citation → error risk"
                   ]
                 },
                 { 
@@ -171,10 +171,10 @@ export default function UnicefCaseStudyTemplate() {
                   title: "Editor publishing a story with charts", 
                   persona: "Persona P4 · UNICEF Content Editor",
                   points: [
-                    "Raises a Jira ticket to update a chart default — 3-week developer queue",
-                    "Static image charts go out of date — no connection to live data API",
-                    "Cannot preview how a story will look with data until it's in production",
-                    "Map compliance review is ad-hoc — non-compliant boundaries slip through"
+                    "3-week queue to change a chart default",
+                    "Static charts go stale immediately",
+                    "Can't preview before production",
+                    "Non-compliant boundaries slip through"
                   ]
                 }
               ].map((card, i) => (
@@ -215,7 +215,7 @@ export default function UnicefCaseStudyTemplate() {
            Understanding before <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>designing.</span>
          </h2>
          <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-           The research phase ran for two weeks before any design work began. Good research context is also good AI prompt context — every finding here became an input that shaped the quality and precision of the AI-assisted build.
+           Two weeks of research before any design. Every finding became an AI prompt input — research quality determined output quality.
          </p>
 
          {/* 5-Step Process Timeline */}
@@ -252,11 +252,11 @@ export default function UnicefCaseStudyTemplate() {
                
                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                  {[
-                   { name: "World Bank Open Data", desc: "Strong download infrastructure, weak discoverability — users must know indicator names before searching. No country-first navigation." },
-                   { name: "Our World in Data", desc: "Excellent editorial storytelling, but methodology depth is buried 3 clicks deep. Citation workflow requires manual URL copying." },
-                   { name: "OECD.Stat", desc: "Technically comprehensive, but overwhelming for non-expert users. No progressive disclosure — everything shown at once creates cognitive overload." },
-                   { name: "WHO GHO", desc: "Good accessibility foundation, but comparison tool is limited to 2 countries. No URL state sharing for comparisons." },
-                   { name: "ODI & UN Stats", desc: "Trusted by researchers but require academic familiarity with indicator terminology. No entry point for policy or partner audiences." }
+                   { name: "World Bank Open Data", desc: "Strong downloads. Zero discoverability. No country-first navigation." },
+                   { name: "Our World in Data", desc: "Best-in-class storytelling. Methodology buried 3 clicks deep." },
+                   { name: "OECD.Stat", desc: "Technically comprehensive. Overwhelming for non-experts. Everything shown at once." },
+                   { name: "WHO GHO", desc: "Good accessibility base. Comparison limited to 2 countries. No URL sharing." },
+                   { name: "ODI & UN Stats", desc: "Trusted by researchers. Requires academic familiarity. No entry point for policy." }
                  ].map((portal, i) => (
                     <div key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
                        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#111' }}>{portal.name}</span>
@@ -289,7 +289,7 @@ export default function UnicefCaseStudyTemplate() {
                <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Research → Prompt Pipeline</span>
                   <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, marginTop: '12px' }}>
-                    All research outputs were compiled into a single structured Markdown context document. This became the master input for every AI session — the reason the product outputs were coherent and client-ready rather than generic. <strong style={{ color: '#111' }}>Research quality directly determined AI output quality.</strong>
+                    All outputs compiled into a structured Markdown context document — the master input for every AI session. <strong style={{ color: '#111' }}>Research quality directly determined AI output quality.</strong>
                   </p>
                </Squircle>
             </div>
@@ -299,7 +299,7 @@ export default function UnicefCaseStudyTemplate() {
          <Squircle cornerRadius={16} style={{ background: '#f0f9ff', border: '1px solid #bae6fd', padding: '32px', marginBottom: '80px' }}>
             <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0284c7', letterSpacing: '0.1em', textTransform: 'uppercase' }}>KEY RESEARCH INSIGHT</span>
             <p style={{ fontSize: '1.05rem', color: '#0f172a', lineHeight: 1.6, marginTop: '12px', fontWeight: 500 }}>
-              Every comparable portal optimises for one user type. None successfully serve a researcher, a policymaker, and an editorial team with a single coherent architecture. <span style={{ color: '#0284c7' }}>Progressive disclosure was not a UX preference — it was the only structurally honest solution.</span>
+              Every comparable portal serves one user type. None serve all three. <span style={{ color: '#0284c7' }}>Progressive disclosure wasn't a preference — it was the only honest solution.</span>
             </p>
          </Squircle>
 
@@ -345,11 +345,11 @@ export default function UnicefCaseStudyTemplate() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                {[
-                 { icon: "🎓", role: "Researcher", jtbd: "When I'm analyzing education gaps across regions, I want to compare countries on the same indicator with normalized, time-aligned data so I can identify statistically valid trends without manual data wrangling." },
-                 { icon: "🏛️", role: "Policy Analyst", jtbd: "When I need evidence for a policy brief, I want to pull indicator data with full methodology and citation strings so my analysis is defensible in peer review and committee presentations." },
-                 { icon: "✍️", role: "UNICEF Editor", jtbd: "When I have an analytical narrative, I want to embed live data visuals inside my story without writing code, so I can publish data stories at editorial speed, not developer speed." },
-                 { icon: "🌍", role: "Country Rep", jtbd: "When I'm preparing a country-level briefing, I want a single profile page with all learning indicators for my country so I can brief stakeholders without cross-referencing multiple data sources." },
-                 { icon: "👤", role: "General Public", jtbd: "When I land on the portal with no domain expertise, I want to understand the global education picture instantly so I can decide where to explore without needing to know the indicator taxonomy." }
+                 { icon: "🎓", role: "Researcher", jtbd: "Compare countries on the same indicator — normalized, time-aligned — without manual wrangling." },
+                 { icon: "🏛️", role: "Policy Analyst", jtbd: "Pull indicator data with methodology and citation — defensible in peer review and committee." },
+                 { icon: "✍️", role: "UNICEF Editor", jtbd: "Embed live data visuals in a story without code — publish at editorial speed, not developer speed." },
+                 { icon: "🌍", role: "Country Rep", jtbd: "One profile page with all learning indicators — brief stakeholders without cross-referencing sources." },
+                 { icon: "👤", role: "General Public", jtbd: "Understand the global education picture instantly — explore without knowing the indicator taxonomy." }
                ].map((job, i) => (
                   <Squircle key={i} cornerRadius={12} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '24px 32px', display: 'flex', alignItems: 'flex-start', gap: '32px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '180px' }}>
@@ -400,12 +400,12 @@ export default function UnicefCaseStudyTemplate() {
 
          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '40px' }}>
             {[
-              { icon: "📄", title: "Research-first prompting", desc: "Every AI session started with the full research context document — personas, JTBD, constraints, tech stack, and feature definitions. The quality of research input directly determines the quality of AI output. Sessions without structured context produced generic components. Sessions with full context produced client-ready product decisions." },
-              { icon: "⚡", title: "Vibe vs. direct prompting — knowing which to use", desc: "I used two distinct prompt modes. Vibe prompting (high-level intent, let AI propose implementation): effective for visual design, layout composition, and color decisions. Direct prompting (specific technical requirements, exact behavior): essential for accessibility compliance, performance budgets, and CMS architecture." },
-              { icon: "🎯", title: "Problem-framing, not solution-asking", desc: "Instead of \"build a map with a tooltip,\" I prompted, \"When a user clicks a country on the choropleth map, they expect an immediate data preview without a full page navigation. Design an inline panel that shows Learning Poverty %, global rank, 5-year trend sparkline, and primary CTAs — optimized for a policymaker making a briefing in under 3 minutes.\" The difference in output quality is significant." },
-              { icon: "🧱", title: "Design system as AI context", desc: "After the first variation of the design system was established, it became a permanent part of every prompt context — CSS variables, token names, component patterns, color usage rules. This is what maintained visual consistency across 15 screen templates built across multiple AI sessions." },
-              { icon: "🔄", title: "Structured iteration cycles", desc: "Each feature had a defined iteration protocol: (1) First-pass build from full context → (2) Specific refinement prompts per component → (3) Performance / accessibility audit prompt → (4) Final integration test. This prevented prompt drift and maintained design system consistency across 15+ screens." },
-              { icon: "🔍", title: "Testing as a prompt input", desc: "Each iteration cycle ended with a testing prompt: \"Review this component against UAT scenario UAT-02 (Policymaker — Compare 4 countries, keyboard-only). Identify any keyboard navigation gaps, ARIA label issues, or flow breaks. Output a list of specific changes required.\" Using AI to self-audit against acceptance criteria significantly reduced manual testing cycles." }
+              { icon: "📄", title: "Research-first prompting", desc: "Full research context injected at session start — personas, JTBD, constraints. Research quality directly determined AI output quality." },
+              { icon: "⚡", title: "Vibe vs. direct prompting — knowing which to use", desc: "Vibe prompting for visual/layout decisions. Direct prompting for accessibility, performance, and CMS architecture. Knowing which to use is the skill." },
+              { icon: "🎯", title: "Problem-framing, not solution-asking", desc: "Prompt the user job and expected behavior — not the implementation. The output quality difference is significant." },
+              { icon: "🧱", title: "Design system as AI context", desc: "Design system tokens became permanent prompt context — maintaining visual consistency across 15 templates built in multiple AI sessions." },
+              { icon: "🔄", title: "Structured iteration cycles", desc: "Defined 4-step iteration protocol per feature: build → refine → audit → integrate. Prevented prompt drift across 15+ screens." },
+              { icon: "🔍", title: "Testing as a prompt input", desc: "Each cycle ended with an AI self-audit against UAT acceptance criteria — significantly reducing manual testing cycles." }
             ].map((card, i) => (
                <Squircle key={i} cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                  <div style={{ fontSize: '1.5rem' }}>{card.icon}</div>
@@ -495,42 +495,42 @@ export default function UnicefCaseStudyTemplate() {
                  { 
                    id: '01', icon: '🔍', title: 'Unified Data Discovery', solves: 'Findability', impact: 'Highest',
                    bg: '#eff6ff', border: '#bfdbfe', pillBg: '#dbeafe', color: '#2563eb',
-                   desc: "One portal to search countries, indicators, datasets, stories, and methodology — instead of jumping between PDFs and scattered microsites. The clearest \"problem solved\" feature. It directly fixes the findability crisis."
+                   desc: "One portal for countries, indicators, datasets, stories, and methodology — instead of jumping between PDFs and microsites."
                  },
                  { 
                    id: '02', icon: '🌍', title: 'Country Profile Pages', solves: 'Findability + Trust', impact: 'Policymaker',
                    bg: '#f0fdf4', border: '#bbf7d0', pillBg: '#dcfce7', color: '#16a34a',
-                   desc: "Dynamic pages with headline indicators, trend charts, stories, downloads, and comparison entry point. Powerful because policymakers think in country-first terms — the mental model becomes the navigation model."
+                   desc: "Dynamic pages with headline indicators, trend charts, downloads, and a comparison entry point — country-first navigation."
                  },
                  { 
                    id: '03', icon: '📋', title: 'Indicator Trust Layer', solves: 'Trust', impact: 'Researcher',
                    bg: '#fefce8', border: '#fef08a', pillBg: '#fef9c3', color: '#ca8a04',
-                   desc: "Every indicator backed by definition, methodology, source, last updated date, coverage notes, and related indicators. Shows design for data trust and citation confidence — not just usability."
+                   desc: "Every indicator backed by definition, methodology, source, coverage notes, and related indicators."
                  },
                  { 
                    id: '04', icon: '⚖️', title: 'Comparison Tool', solves: 'Comparison', impact: 'P2 + P3',
                    bg: '#fff7ed', border: '#fed7aa', pillBg: '#ffedd5', color: '#ea580c',
-                   desc: "Side-by-side country comparison with URL state preservation — users share the exact same view. Heatmap, scatter, and percentile views for ministries, donors, and analysts preparing briefings."
+                   desc: "Side-by-side country comparison with URL state preservation. Heatmap, scatter, and percentile views."
                  },
                  { 
                    id: '05', icon: '📥', title: 'Download + Citation', solves: 'Trust', impact: 'Differentiator',
                    bg: '#faf5ff', border: '#e9d5ff', pillBg: '#f3e8ff', color: '#9333ea',
-                   desc: "CSVs with full metadata and a pre-formatted citation or stable permalink. Turns the portal from a \"nice dashboard\" into a research-grade tool that academics and ministries can formally cite."
+                   desc: "CSVs with full metadata and a pre-formatted citation string — turns the portal into a research-grade citable tool."
                  },
                  { 
                    id: '06', icon: '📈', title: 'Interactive Stories with Live Data', solves: 'Publishing', impact: 'Editor',
                    bg: '#fff1f2', border: '#fecdd3', pillBg: '#ffe4e6', color: '#e11d48',
-                   desc: "Editors publish analytical stories with embedded charts and maps tied to live data — narrative and evidence permanently connected. Shows product thinking beyond dashboards."
+                   desc: "Editors publish analytical stories with embedded charts tied to live data — narrative and evidence permanently connected."
                  },
                  { 
                    id: '07', icon: '⚡', title: 'No-Code CMS Publishing', solves: 'Publishing speed', impact: 'Highest (client)',
                    bg: '#f0fdf2', border: '#bcf0da', pillBg: '#d1fae5', color: '#059669',
-                   desc: "Editors configure chart type, default year, region, annotations, and featured indicators — zero developer involvement. Eliminates the editorial bottleneck. Highest client value of all features."
+                   desc: "Editors configure chart type, year, region, and annotations — zero developer involvement."
                  },
                  { 
                    id: '08', icon: '♿', title: 'Accessibility & Compliance by Design', solves: 'Access + Risk', impact: 'Global audience',
                    bg: '#f0f9ff', border: '#bae6fd', pillBg: '#e0f2fe', color: '#0284c7',
-                   desc: "WCAG AA, keyboard navigation, table fallbacks for all charts, progressive loading, mobile responsiveness, and UN-compliant map approval workflows — baked into the system from day one."
+                   desc: "WCAG AA, keyboard navigation, table fallbacks, mobile-responsive, and UN map compliance — baked in from day one."
                  }
                ].map((card, i) => (
                   <Squircle key={i} cornerRadius={20} style={{ background: card.bg, border: `1px solid ${card.border}`, padding: '24px', display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -584,7 +584,7 @@ export default function UnicefCaseStudyTemplate() {
                <div style={{ paddingLeft: '32px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', textTransform: 'uppercase' }}>WEEK 01</span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#111', margin: '8px 0 16px 0' }}>Understanding the RFP and client requirements</h3>
-                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Translating a UN/academic brief (UNICEF's RFP). The mandate was clear: a public-facing data portal. Redacting out 80 pages of UN procurement docs to extract competitive constraints, tech stack baselines, and audience definitions. This wasn't just "We need a map." This was "We need maps from 2000-2024, multiple sources, datasets, and strict UN map compliance requirements."</p>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>80 pages of UN procurement docs reduced to competitive constraints, tech stack baselines, and audience definitions.</p>
                   
                   <Squircle cornerRadius={16} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '24px' }}>
                      <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em' }}>KEY REQUIREMENTS EXTRACTED FROM RFP</span>
@@ -607,7 +607,7 @@ export default function UnicefCaseStudyTemplate() {
                <div style={{ paddingLeft: '32px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#16a34a', letterSpacing: '0.1em', textTransform: 'uppercase' }}>WEEK 02-03</span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#111', margin: '8px 0 16px 0' }}>Design thinking — primary, secondary, analogous</h3>
-                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Before opening any design tool or writing any AI prompt, I ran a strict research phase using a Design Thinking framework. This level of rigorous synthesis before execution is what separates AI enabling true value creation. Without my structured research output, AI output would just form a nice aesthetic map with no use cases.</p>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Strict research phase before any design tool. Without structured research output, AI produces aesthetically nice but purposeless components.</p>
                   
                   <Squircle cornerRadius={16} style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '24px' }}>
                      <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#16a34a', letterSpacing: '0.05em' }}>RESEARCH METHODOLOGY</span>
@@ -635,7 +635,7 @@ export default function UnicefCaseStudyTemplate() {
                <div style={{ paddingLeft: '32px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#9333ea', letterSpacing: '0.1em', textTransform: 'uppercase' }}>CLIENT APPROVAL</span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#111', margin: '8px 0 16px 0' }}>Client deliverable alignment + feature and tech stack definition</h3>
-                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Client research completed, findings shared, and client signs off. We lock the features list, define the tech stack, and establish a clear north star before any building begins. This was a critical bridge between research and AI-assisted execution — this exact document produced here became the master context for all subsequent prompts.</p>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Research findings presented, client signs off. Features locked, tech stack defined. This document became the master context for all subsequent AI prompts.</p>
                   
                   <Squircle cornerRadius={16} style={{ background: '#faf5ff', border: '1px solid #e9d5ff', padding: '24px' }}>
                      <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#9333ea', letterSpacing: '0.05em' }}>DELIVERABLES SIGNED OFF FOR BUILD SPRINT</span>
@@ -661,7 +661,7 @@ export default function UnicefCaseStudyTemplate() {
                <div style={{ paddingLeft: '32px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#f97316', letterSpacing: '0.1em', textTransform: 'uppercase' }}>CONSTRUCTING UX/UI</span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#111', margin: '8px 0 16px 0' }}>Feeding AI with structured research — direct and vibe prompting</h3>
-                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>This is where the AI actually provides immense leverage. I feed exactly the Master context document — the JTBD statements, the 5 personas, the constraints list, and the tech stack decisions. The difference between a generic output and a client-ready product is the quality and structure of the context prompt.</p>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Master context document — JTBD, personas, constraints, tech stack — injected at session start. Context quality determines output quality.</p>
                   
                   {/* Dark Mode Prompt Terminal */}
                   <Squircle cornerRadius={16} style={{ background: '#0f172a', border: '1px solid #1e293b', padding: '32px', color: '#f8fafc', boxShadow: 'inset 0 2px 20px rgba(0,0,0,0.5)' }}>
@@ -691,7 +691,7 @@ export default function UnicefCaseStudyTemplate() {
                <div style={{ paddingLeft: '32px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#3b82f6', letterSpacing: '0.1em', textTransform: 'uppercase' }}>ITERATION CYCLES</span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#111', margin: '8px 0 16px 0' }}>Multiple variations, tech stack upgrades, feature integration, testing</h3>
-                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>The build was not a single prompt — it was a systematic iteration process. Each screen went through multiple AI-assisted revision cycles. When a component hit performance issues, I prompted on a tech stack upgrade. When a feature needed a new interaction pattern (like the map-to-compare flow), I described the user job and let the AI propose the implementation.</p>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Systematic iteration, not a single prompt. Each screen through multiple AI-assisted revision cycles — tech upgrades, interaction patterns, edge cases.</p>
                   
                   <Squircle cornerRadius={16} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '24px' }}>
                      <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em' }}>KEY ITERATION CYCLES</span>
@@ -719,7 +719,7 @@ export default function UnicefCaseStudyTemplate() {
                <div style={{ paddingLeft: '32px' }}>
                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', textTransform: 'uppercase' }}>CLIENT DELIVERY & PHASE 2</span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#111', margin: '8px 0 16px 0' }}>Phase 1 delivered — client approved — Phase 2 engaged</h3>
-                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Phase 1 delivered 15 screen templates with full Figma design system, UAT acceptance criteria, and a coded prototype. The client's response was to immediately move forward with the full engagement — full product development from design system through to engineering handoff, UI kit, CI/CD setup, and live go-live.</p>
+                  <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>15 screen templates, full design system, UAT criteria, coded prototype. Client immediately moved to full engagement.</p>
                   
                   <div style={{ background: '#ecfeff', border: '1px solid #a5f3fc', borderRadius: '8px', padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '12px', marginTop: '24px' }}>
                      <Check size={20} color="#0891b2" style={{ marginTop: '2px', flexShrink: 0 }} />
@@ -1001,20 +1001,20 @@ export default function UnicefCaseStudyTemplate() {
             {[
               { 
                 num: "01", type: "ARCHITECTURE DECISION", title: "Headless CMS + SSG over a monolithic CMS build",
-                whyItMattered: "UNICEF's editorial team needed zero-dependency publishing — the ability to update chart defaults, featured indicators, and story content without developer involvement. A traditional CMS-rendered frontend would couple every design change to a release cycle.",
-                whatWeChose: "Drupal 11 headless API + Next.js SSG. SSG renders at build time — near-zero origin load under traffic spikes. Editors own chart defaults and featured content in Drupal without touching code. The design system decouples — brand refreshes require token changes, not 15 template rewrites.",
+                whyItMattered: "UNICEF's editorial team needed zero-dependency publishing. A traditional CMS would couple every update to a developer release cycle.",
+                whatWeChose: "Drupal 11 headless + Next.js SSG. Editors own chart defaults without touching code. Brand refreshes require token changes, not 15 template rewrites.",
                 result: "Editors publish stories with live data visuals in <2hrs, zero developer involvement. ~80% reduction in content-related dev tickets."
               },
               { 
                 num: "02", type: "UX DECISION", title: "Progressive disclosure over a single \"dashboard\" for data exploration",
-                whyItMattered: "The initial brief framed Explore as a \"dashboard.\" But 5-persona research revealed irreconcilable divergence: a PhD researcher needs raw tables, uncertainty ranges, and methodology links. A policymaker needs a chart, a headline number, and a download button. One dashboard would have served none of them.",
-                whatWeChose: "Three tiers of progressive disclosure. Tier 1: scannable headline stats. Tier 2: Interactive charts on Explore. Tier 3: full methodology, coverage tables, and downloads one click deeper. A policymaker gets their answer in under 3 minutes. The researcher gets full academic rigour.",
+                whyItMattered: "5-persona research revealed irreconcilable divergence. One dashboard would have served none of them.",
+                whatWeChose: "Three tiers of progressive disclosure. Policymaker gets the answer in under 3 minutes. Researcher gets full academic rigour one click deeper.",
                 result: "Post-task confidence scores >4.2/5 — \"trusted the data enough to cite it\" — across both Researcher and Policymaker personas."
               },
               { 
                 num: "03", type: "GOVERNANCE DECISION", title: "UN map compliance enforced via CMS workflow gate — not design spec or training",
-                whyItMattered: "UNICEF operates under strict UN map policy: disputed boundaries must render as dashed lines. The original approach documented this in specs and relied on editors to comply. With 190 countries and a growing editorial team, spec-based compliance is inherently fragile.",
-                whatWeChose: "A mandatory Geospatial Review workflow state in Drupal's CMS. Any map-containing content cannot publish until the Geospatial Reviewer role approves. The UN disclaimer renders at framework level — not editable by content authors. Process design as product design.",
+                whyItMattered: "UN map policy requires disputed boundaries as dashed lines. Spec-based compliance with 190 countries and a growing team is inherently fragile.",
+                whatWeChose: "Mandatory Geospatial Review CMS workflow gate — map content can't publish without approval. UN disclaimer renders at framework level, not editable by authors.",
                 result: "Zero non-compliant boundary representations in production since implementation. Map compliance became a system guarantee, not a training requirement."
               }
             ].map((dec, i) => (
@@ -1123,12 +1123,12 @@ export default function UnicefCaseStudyTemplate() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '80px' }}>
                {[
-                 { icon: "🎨", title: "Figma Design System", tags: ["Design tokens", "Components", "Viz patterns"], desc: "Token architecture (CSS variables via Style Dictionary), component library, visualization pattern rules, responsive grid system, WCAG-compliant color system" },
-                 { icon: "🌐", title: "15 Screen Templates", tags: ["375 / 768 / 1440px", "WCAG AA"], desc: "Home, Explore, Country Profile, Countries Grid, Compare (Heatmap + Scatter + Normalized), Global Map (2D + 3D), Insights, Data & Downloads, Methodology — all responsive" },
-                 { icon: "📋", title: "Service Blueprint", tags: ["5 Personas", "4 Journeys"], desc: "AS-IS and TO-BE journey maps for all 5 personas, CMS workflow state diagram, Geospatial Review gate design, editorial publishing flow" },
-                 { icon: "🧪", title: "Validation Plan", tags: ["4 UAT scenarios", "Success metrics"], desc: "4 UAT scenarios with written acceptance criteria, usability test scripts, WCAG audit checklist, performance budget targets, success metric definitions" },
-                 { icon: "📱", title: "Interactive Prototype", tags: ["Live prototype", "Interactive"], desc: "Fully interactive Figma Sites prototype with working maps, chart interactions, navigation flows, and the new map-to-compare interaction — delivered for client Phase 1 review" },
-                 { icon: "⚙️", title: "Tech Architecture Spec", tags: ["CMS Architecture", "Dev handoff"], desc: "Drupal 11 headless CMS field design, Next.js SSG architecture decisions, Geospatial Review CMS workflow gate, visualization config block specifications for engineering handoff" },
+                 { icon: "🎨", title: "Figma Design System", tags: ["Design tokens", "Components", "Viz patterns"], desc: "Token architecture, component library, WCAG-compliant color system, and visualization pattern rules." },
+                 { icon: "🌐", title: "15 Screen Templates", tags: ["375 / 768 / 1440px", "WCAG AA"], desc: "Home, Explore, Country Profile, Compare (Heatmap + Scatter + Normalized), Global Map (2D + 3D), Insights, Downloads — all responsive." },
+                 { icon: "📋", title: "Service Blueprint", tags: ["5 Personas", "4 Journeys"], desc: "AS-IS and TO-BE journey maps for all 5 personas, CMS workflow diagram, and editorial publishing flow." },
+                 { icon: "🧪", title: "Validation Plan", tags: ["4 UAT scenarios", "Success metrics"], desc: "4 UAT scenarios with written acceptance criteria, WCAG audit checklist, and success metric definitions." },
+                 { icon: "📱", title: "Interactive Prototype", tags: ["Live prototype", "Interactive"], desc: "Fully interactive Figma Sites prototype with working maps, chart interactions, and the map-to-compare flow." },
+                 { icon: "⚙️", title: "Tech Architecture Spec", tags: ["CMS Architecture", "Dev handoff"], desc: "Drupal 11 headless CMS field design, Next.js SSG decisions, and visualization config specifications for engineering handoff." },
                ].map((card, i) => (
                   <Squircle key={i} cornerRadius={16} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '32px', display: 'flex', flexDirection: 'column' }}>
                      <div style={{ fontSize: '1.5rem', marginBottom: '16px' }}>{card.icon}</div>
