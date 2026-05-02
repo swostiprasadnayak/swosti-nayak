@@ -16,14 +16,14 @@ export const PROJECTS: ProjectContent[] = [
         description: "AI-powered grocery delivery experience redesign.",
         tags: ["Interaction", "Systems"],
         video: "/videos/blinkit.mp4",
-        demoPoster: "/images/project-2.jpg"
+        demoPoster: "/images/blinkit-portal.png"
     },
     {
         name: "Unicef",
         slug: "unicef",
         description: "Building a global education data portal with AI to track learning outcomes for every child.",
         tags: ["Interaction", "Web"],
-        demoPoster: "/images/unicef-portal.jpg"
+        demoPoster: "/images/unicef-portal.png"
     },
     {
         name: "Surrounding",
