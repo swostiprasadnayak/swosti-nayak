@@ -213,10 +213,9 @@ const IntroOverlay: React.FC = () => {
               <video
                 ref={videoRef}
                 className={classes.avatarVideo}
-                src="/videos/intro-avatar-new.mp4"
+                src="/videos/intro-avatar-new.webm"
                 playsInline
                 preload="auto"
-                style={{ mixBlendMode: 'multiply' }}
               />
             </motion.div>
 
