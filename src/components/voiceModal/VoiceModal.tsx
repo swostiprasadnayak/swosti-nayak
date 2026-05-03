@@ -23,9 +23,26 @@ export default function VoiceModal() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTextIndex, setCurrentTextIndex] = useState(0);
     const timersRef = useRef<NodeJS.Timeout[]>([]);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    useEffect(() => {
+        // Initialize audio
+        audioRef.current = new Audio("/audio/voice-mode-ishan.mp3");
+        audioRef.current.onended = () => setIsPlaying(false);
+        
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current = null;
+            }
+        };
+    }, []);
 
     const handleClose = useCallback(() => {
-        window.speechSynthesis.cancel();
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+        }
         timersRef.current.forEach(clearTimeout);
         timersRef.current = [];
         setIsPlaying(false);
@@ -43,17 +60,10 @@ export default function VoiceModal() {
         if (isPlaying) return;
         setIsPlaying(true);
 
-        const fullText = SCRIPT.filter(s => s.text).map(s => s.text).join(" ");
-        const utterance = new SpeechSynthesisUtterance(fullText);
-        
-        const voices = window.speechSynthesis.getVoices();
-        const preferredVoice = voices.find(v => v.name.includes("Ishan") || v.name.includes("Daniel") || v.name.includes("Male") || v.name.includes("Alex"));
-        if (preferredVoice) utterance.voice = preferredVoice;
-
-        utterance.rate = 0.95;
-        utterance.pitch = 1.0;
-        utterance.onend = () => setIsPlaying(false);
-        window.speechSynthesis.speak(utterance);
+        if (audioRef.current) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
+        }
 
         SCRIPT.forEach((line, index) => {
             const timer = setTimeout(() => {
