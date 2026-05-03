@@ -90,7 +90,6 @@ const IntroOverlay: React.FC = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const totalChars = getTotalChars();
 
@@ -129,17 +128,11 @@ const IntroOverlay: React.FC = () => {
     setHasStarted(true);
     
     const video = videoRef.current;
-    const audio = audioRef.current;
 
     if (video) {
       video.currentTime = 0;
       video.muted = false; // We can play unmuted immediately because of the explicit click
       video.play().catch(() => {});
-    }
-
-    if (audio) {
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
     }
 
     // Show bubble and start typing immediately
@@ -159,7 +152,6 @@ const IntroOverlay: React.FC = () => {
   const handleClose = useCallback(() => {
     localStorage.setItem(STORAGE_KEY, Date.now().toString());
     if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
-    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     if (intervalRef.current) clearInterval(intervalRef.current);
     setIsVisible(false);
   }, []);
@@ -210,7 +202,6 @@ const IntroOverlay: React.FC = () => {
           style={{ cursor: "pointer" }}
         >
           <div className={classes.scene}>
-            <audio ref={audioRef} src="/audio/intro-voice-ishan.mp3" preload="auto" />
             
             {/* Avatar container */}
             <motion.div
@@ -222,9 +213,10 @@ const IntroOverlay: React.FC = () => {
               <video
                 ref={videoRef}
                 className={classes.avatarVideo}
-                src="/videos/intro-avatar.webm"
+                src="/videos/intro-avatar-new.mp4"
                 playsInline
                 preload="auto"
+                style={{ mixBlendMode: 'multiply' }}
               />
             </motion.div>
 
