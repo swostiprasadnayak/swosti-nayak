@@ -44,7 +44,7 @@
   --control-btn-border: rgba(255, 255, 255, 0.9) !important;
   --control-btn-icon: #111827 !important;
   
-  /* LIGHT MODE: Brightness Slider — white pill, darker fill for differentiation */
+  /* LIGHT MODE: Brightness Slider  white pill, darker fill for differentiation */
   --slider-track: rgba(255, 255, 255, 0.95) !important;
   --slider-fill-color: rgba(0, 0, 0, 0.09) !important;
   --slider-tick: rgba(0, 0, 0, 0.14) !important;

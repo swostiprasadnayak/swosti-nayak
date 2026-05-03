@@ -23,7 +23,7 @@ const SPEECH_SEGMENTS = [
     parts: [
       { text: "I'm " },
       { text: "Swosti", bold: true },
-      { text: ", a product designer crafting AI-native interfaces. Everything you see here isn't just a mockup — it's a live, interactive prototype." },
+      { text: ", a product designer crafting AI-native interfaces. Everything you see here isn't just a mockup  it's a live, interactive prototype." },
     ],
   },
   {

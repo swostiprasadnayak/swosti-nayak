@@ -34,7 +34,7 @@
   display: block;
 }
 
-/* ── Connector + Bubble — independently positioned, NEVER affects avatar ── */
+/* ── Connector + Bubble  independently positioned, NEVER affects avatar ── */
 .bubbleAnchor {
   position: absolute;
   left: 54%;
@@ -73,7 +73,7 @@
   overflow: visible;
 }
 
-/* ── Close Button — outside the bubble overflow, positioned on top ── */
+/* ── Close Button  outside the bubble overflow, positioned on top ── */
 .closeButton {
   position: absolute;
   top: -20px;

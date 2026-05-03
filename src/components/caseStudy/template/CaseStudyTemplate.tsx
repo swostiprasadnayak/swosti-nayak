@@ -57,7 +57,7 @@ export default function CaseStudyTemplate() {
                 </div>
                 {/* 7. Ideas Sticky Notes */}
                 <div className={classes.textSection}>
-                    <h2 className={classes.sectionHeading}>I brainstormed various potential ideas — from user testing to real-time modelling in XR</h2>
+                    <h2 className={classes.sectionHeading}>I brainstormed various potential ideas  from user testing to real-time modelling in XR</h2>
                 </div>
                 <div className={classes.ideasGrid}>
                     {["Uploading CAD models to XR", "Touring inaccessible locations virtually", "Multiplayer XR experience for doing user tests", "Real-time 3D modelling in XR"].map((idea, i) => (

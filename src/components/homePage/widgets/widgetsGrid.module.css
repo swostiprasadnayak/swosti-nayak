@@ -27,25 +27,25 @@
     transition: transform 0.25s ease;
 }
 
-/* Notes — tall left column (2x2) */
+/* Notes  tall left column (2x2) */
 .notes {
     grid-column: span 2;
     grid-row: span 2;
 }
 
-/* Weather — wide top-right (2x1) */
+/* Weather  wide top-right (2x1) */
 .weather {
     grid-column: span 2;
     grid-row: span 1;
 }
 
-/* Clock — bottom (1x1) */
+/* Clock  bottom (1x1) */
 .clock {
     grid-column: span 1;
     grid-row: span 1;
 }
 
-/* Music — bottom right next to clock (1x1) */
+/* Music  bottom right next to clock (1x1) */
 .music {
     grid-column: span 1;
     grid-row: span 1;

@@ -105,7 +105,7 @@
 .bio {
     font-size: 0.875rem;
     font-weight: 400;
-    /* Was 300 — raised for legibility */
+    /* Was 300  raised for legibility */
     line-height: 155%;
     color: var(--text-secondary);
     /* Using CSS variable for consistent contrast */
@@ -136,7 +136,7 @@
     line-height: 130%;
     letter-spacing: 0.01rem;
     font-weight: 400;
-    /* Was 300 — slightly more readable */
+    /* Was 300  slightly more readable */
     color: var(--text-secondary);
     /* Using CSS variable for consistent contrast */
     padding: var(--space-sm) var(--space-md);

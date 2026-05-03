@@ -34,7 +34,7 @@ const bodyText: React.CSSProperties = {
     color: "var(--text-secondary)",
 };
 
-// ── Section header — numbered, bold, clearly separated ────────────────────
+// ── Section header  numbered, bold, clearly separated ────────────────────
 function SectionHeader({ num, label }: { num: string; label: string }) {
     return (
         <div style={{
@@ -66,7 +66,7 @@ function SectionHeader({ num, label }: { num: string; label: string }) {
     );
 }
 
-// ── Section wrapper — spacing between sections ─────────────────────────────
+// ── Section wrapper  spacing between sections ─────────────────────────────
 function Section({ children }: { children: React.ReactNode }) {
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -91,7 +91,7 @@ function ProtoEmbed({ href, title }: { href: string; title: string }) {
     const BODY_PAD_TOP  = 32;    // body padding-top in the HTML
     const SCALE         = 0.72;  // display scale
 
-    // Visible container — exactly the phone, nothing else
+    // Visible container  exactly the phone, nothing else
     const containerW  = Math.round(PROTO_W      * SCALE);   // 281
     const containerH  = Math.round(PROTO_H      * SCALE);   // 608
     const cornerR     = Math.round(PHONE_RADIUS * SCALE);   // 37  ← matches phone corners
@@ -101,7 +101,7 @@ function ProtoEmbed({ href, title }: { href: string; title: string }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {/*
               Container clips to exactly the phone dimensions.
-              border: none — the phone itself provides the visual boundary.
+              border: none  the phone itself provides the visual boundary.
             */}
             <div style={{
                 width:        containerW,
@@ -181,7 +181,7 @@ export default function BlinkitCaseStudyTemplate() {
                 {/* ── HERO ─────────────────────────────────────────────────── */}
                 <CaseStudyHeader
                     title="Grocery in 10 min"
-                    subtitle="Cart takes 20. Designing an AI layer that eliminates decision paralysis, app-switching, and manual list entry — so building a grocery cart is as fast as the delivery promise."
+                    subtitle="Cart takes 20. Designing an AI layer that eliminates decision paralysis, app-switching, and manual list entry  so building a grocery cart is as fast as the delivery promise."
                     tags={["Blinkit · AI Personalization Layer", "Quick Commerce", "AI/ML", "Mobile UX"]}
                     onVoiceModeClick={openModal}
                 />
@@ -195,61 +195,61 @@ export default function BlinkitCaseStudyTemplate() {
                     />
                 </div>
 
-                {/* ── 01 — CHALLENGE VS IMPACT ─────────────────────────────── */}
+                {/* ── 01  CHALLENGE VS IMPACT ─────────────────────────────── */}
                 <Section>
                     <SectionHeader num="01" label="Challenge vs Impact" />
 
                     <p style={{ ...bodyText, maxWidth: 680 }}>
-                        Blinkit delivers groceries in 10 minutes — a genuine engineering achievement. But the pre-order experience is broken. The average user spends <strong style={{ color: "var(--text-primary)" }}>20–30 minutes</strong> browsing, comparing, and deciding what to buy — before the cart is even built. That's the bottleneck the brand promise sits in front of.
+                        Blinkit delivers groceries in 10 minutes  a genuine engineering achievement. But the pre-order experience is broken. The average user spends <strong style={{ color: "var(--text-primary)" }}>20–30 minutes</strong> browsing, comparing, and deciding what to buy  before the cart is even built. That's the bottleneck the brand promise sits in front of.
                     </p>
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                         {/* AS-IS */}
                         <div style={sSubtle}>
-                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>AS-IS — Current Experience</div>
+                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>AS-IS  Current Experience</div>
                             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
                                 {["20–30 min", "41% abandon", "Zero learning"].map(c => (
                                     <span key={c} style={{ padding: "4px 10px", borderRadius: 100, background: "rgba(0,0,0,0.06)", fontSize: "0.78rem", color: "var(--text-secondary)", fontWeight: 500 }}>{c}</span>
                                 ))}
                             </div>
                             <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7 }}>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Cold start every session</strong> — Generic homepage, no memory of preferences.</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Keyword search fails intent</strong> — "Pasta tonight" returns nothing.</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Brand paralysis at staples</strong> — 3.8 PDP opens per atta/dal item.</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Physical list is invisible</strong> — 72% have a handwritten list typed manually.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Cold start every session</strong>  Generic homepage, no memory of preferences.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Keyword search fails intent</strong>  "Pasta tonight" returns nothing.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Brand paralysis at staples</strong>  3.8 PDP opens per atta/dal item.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Physical list is invisible</strong>  72% have a handwritten list typed manually.</li>
                             </ul>
                         </div>
                         {/* TO-BE */}
                         <div style={{ ...sCard, borderLeft: `3px solid ${ACCENT}` }}>
-                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>TO-BE — With AI Layer</div>
+                            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>TO-BE  With AI Layer</div>
                             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
                                 {["1m 45s", "<13% abandon", "Learns every order"].map(c => (
                                     <span key={c} style={{ padding: "4px 10px", borderRadius: 100, background: ACCENT, fontSize: "0.78rem", color: "#1a1a1a", fontWeight: 600 }}>{c}</span>
                                 ))}
                             </div>
                             <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7 }}>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Warm personalised home</strong> — AI-predicted reorder strip on open.</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Scan / speak / type intent</strong> — Camera reads the paper list. Any modality.</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>Full cart in 1.5 seconds</strong> — Preferred brands pre-selected.</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>"Add All" — one tap</strong> — 9 items, 1 action. Cold start eliminated.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Warm personalised home</strong>  AI-predicted reorder strip on open.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Scan / speak / type intent</strong>  Camera reads the paper list. Any modality.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>Full cart in 1.5 seconds</strong>  Preferred brands pre-selected.</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>"Add All"  one tap</strong>  9 items, 1 action. Cold start eliminated.</li>
                             </ul>
                         </div>
                     </div>
                 </Section>
 
-                {/* ── 02 — UNDERSTANDING THE PROBLEM ──────────────────────── */}
+                {/* ── 02  UNDERSTANDING THE PROBLEM ──────────────────────── */}
                 <Section>
                     <SectionHeader num="02" label="Understanding the Problem" />
 
                     <p style={{ ...bodyText, maxWidth: 680 }}>
-                        I examined the 10-minute promise and discovered <strong style={{ color: "var(--text-primary)" }}>3 structural friction points</strong> — each independent, each solvable with one AI pipeline.
+                        I examined the 10-minute promise and discovered <strong style={{ color: "var(--text-primary)" }}>3 structural friction points</strong>  each independent, each solvable with one AI pipeline.
                     </p>
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                         {[
-                            { n: "10 min", l: "What Blinkit promises — India's fastest grocery delivery, a genuine technical achievement." },
-                            { n: "4:12",   l: "What users actually experience — a 20-tap gauntlet that contradicts the brand promise." },
-                            { n: "72%",    l: "Users who had a physical list open while ordering — handwritten notes, WhatsApp threads, screenshots." },
+                            { n: "10 min", l: "What Blinkit promises  India's fastest grocery delivery, a genuine technical achievement." },
+                            { n: "4:12",   l: "What users actually experience  a 20-tap gauntlet that contradicts the brand promise." },
+                            { n: "72%",    l: "Users who had a physical list open while ordering  handwritten notes, WhatsApp threads, screenshots." },
                             { n: "3.8×",   l: "Product page opens per staple item. Users compare brands repeatedly. Six months of data, completely ignored." },
                         ].map((s, i) => (
                             <div key={i} style={sCard}>
@@ -263,12 +263,12 @@ export default function BlinkitCaseStudyTemplate() {
                     <div style={{ ...sSubtle, borderLeft: `3px solid ${ACCENT}`, padding: "20px 24px" }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Goal</div>
                         <p style={{ fontSize: "1.05rem", fontWeight: 500, lineHeight: 1.55, color: "var(--text-primary)", margin: 0, fontStyle: "italic" }}>
-                            "Make cart-building as fast as Blinkit's delivery — so the pre-order experience lives up to the 10-minute promise it sits in front of."
+                            "Make cart-building as fast as Blinkit's delivery  so the pre-order experience lives up to the 10-minute promise it sits in front of."
                         </p>
                     </div>
                 </Section>
 
-                {/* ── 03 — MY ROLE & RESEARCH ──────────────────────────────── */}
+                {/* ── 03  MY ROLE & RESEARCH ──────────────────────────────── */}
                 <Section>
                     <SectionHeader num="03" label="My Role & Research" />
 
@@ -286,8 +286,8 @@ export default function BlinkitCaseStudyTemplate() {
                         <div style={sCard}>
                             <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>Research Methodology</div>
                             <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7 }}>
-                                <li><strong style={{ color: "var(--text-primary)" }}>24 interviews</strong> — 45-min semi-structured sessions</li>
-                                <li><strong style={{ color: "var(--text-primary)" }}>6 weeks</strong> — Mumbai, Bangalore, Jodhpur</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>24 interviews</strong>  45-min semi-structured sessions</li>
+                                <li><strong style={{ color: "var(--text-primary)" }}>6 weeks</strong>  Mumbai, Bangalore, Jodhpur</li>
                                 <li>Screen-sharing + "walk me through your last order"</li>
                                 <li>Network (8) · WhatsApp communities (9) · LinkedIn (7)</li>
                                 <li>Screened for last-30-day Blinkit/Zepto/Instamart use</li>
@@ -299,13 +299,13 @@ export default function BlinkitCaseStudyTemplate() {
                     <div style={{ background: "#1a1a1a", borderRadius: 16, padding: "28px 32px" }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>The Surprising Finding</div>
                         <p style={{ fontSize: "1.1rem", fontWeight: 500, lineHeight: 1.6, color: "#fff", margin: 0 }}>
-                            I expected the primary pain to be delivery time. It wasn't. Every participant was satisfied with 10-minute delivery. The frustration was entirely pre-order — the gap between having a list and getting it into the cart.{" "}
+                            I expected the primary pain to be delivery time. It wasn't. Every participant was satisfied with 10-minute delivery. The frustration was entirely pre-order  the gap between having a list and getting it into the cart.{" "}
                             <span style={{ color: ACCENT }}>The delivery problem was solved. The ordering problem wasn't.</span>
                         </p>
                     </div>
                 </Section>
 
-                {/* ── 04 — USER INSIGHTS & PERSONAS ───────────────────────── */}
+                {/* ── 04  USER INSIGHTS & PERSONAS ───────────────────────── */}
                 <Section>
                     <SectionHeader num="04" label="User Insights & Personas" />
 
@@ -314,7 +314,7 @@ export default function BlinkitCaseStudyTemplate() {
                         {[
                             { emoji: "👩‍💼", name: "Priya, 32", role: "Primary · Mumbai · 2–3× orders/day", tier: "Primary", tierBg: ACCENT, points: ["Forgets items, places multiple orders daily", "Handwritten list the app can't read", "Brand selection fatigue on every staple"], quote: "I just want to say 'stuff for pasta' and have it figure it out." },
                             { emoji: "👨‍💻", name: "Rajan, 27", role: "Secondary · Bangalore · Voice-first",    tier: "Secondary", tierBg: "#e5e7eb", points: ["Mid-cook emergencies need instant ordering", "Instagram recipe → can't translate to cart", "Wants zero-touch while hands are busy"],      quote: "I want to place an order without looking at my phone." },
-                            { emoji: "👩‍🦳", name: "Sunita, 62", role: "Edge Case · Jodhpur · Notebook user",  tier: "Edge Case", tierBg: "#f3f4f6", points: ["Asks family to order — app feels overwhelming", "Small fonts, confusing SKU results",    "No Hindi voice input for her language"],         quote: "I have the list right here. Why can't I show it to the phone?" },
+                            { emoji: "👩‍🦳", name: "Sunita, 62", role: "Edge Case · Jodhpur · Notebook user",  tier: "Edge Case", tierBg: "#f3f4f6", points: ["Asks family to order  app feels overwhelming", "Small fonts, confusing SKU results",    "No Hindi voice input for her language"],         quote: "I have the list right here. Why can't I show it to the phone?" },
                         ].map((p, i) => (
                             <div key={i} style={{ ...sCard, borderTop: i === 0 ? `3px solid ${ACCENT}` : "1px solid rgba(0,0,0,0.07)" }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -336,10 +336,10 @@ export default function BlinkitCaseStudyTemplate() {
                     {/* Research stats */}
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
                         {[
-                            { n: "41%", t: "Sessions end with 0 add-to-cart", d: "Mental models ≠ SKU taxonomy. Users said 'chai ingredients,' 'party snacks' — intent-driven language search engines fail completely." },
+                            { n: "41%", t: "Sessions end with 0 add-to-cart", d: "Mental models ≠ SKU taxonomy. Users said 'chai ingredients,' 'party snacks'  intent-driven language search engines fail completely." },
                             { n: "72%", t: "Users with an external list open", d: "Physical list is universal across age, city, and tech comfort. Users self-invented the workaround. The app simply didn't see it." },
                             { n: "3.8×", t: "PDP opens per staple item",       d: "Brand is the #1 stall point. App shows identical unranked results to every user. Six months of purchase history, completely ignored." },
-                            { n: "JTBD", t: "Four-phase job map",               d: "Pre-Order Discovery · List Translation · Brand Selection · Post-Order Loop — each with its own pain and desired outcome." },
+                            { n: "JTBD", t: "Four-phase job map",               d: "Pre-Order Discovery · List Translation · Brand Selection · Post-Order Loop  each with its own pain and desired outcome." },
                         ].map((f, i) => (
                             <div key={i} style={sSubtle}>
                                 <div style={bigNum}>{f.n}</div>
@@ -350,15 +350,15 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 </Section>
 
-                {/* ── 05 — IDEATION & WHAT I REJECTED ─────────────────────── */}
+                {/* ── 05  IDEATION & WHAT I REJECTED ─────────────────────── */}
                 <Section>
-                    <SectionHeader num="05" label="Ideation — What I Explored & Rejected" />
+                    <SectionHeader num="05" label="Ideation  What I Explored & Rejected" />
 
                     {/* HMW */}
                     <div style={{ background: "#1a1a1a", borderRadius: 16, padding: "32px 36px" }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 12 }}>How Might We</div>
                         <p style={{ fontSize: "1.25rem", fontWeight: 500, lineHeight: 1.5, color: "#fff", margin: 0 }}>
-                            How might we make Blinkit's pre-order experience as fast as its delivery — so that building a full grocery cart feels as effortless and instant as the 10-minute promise?
+                            How might we make Blinkit's pre-order experience as fast as its delivery  so that building a full grocery cart feels as effortless and instant as the 10-minute promise?
                         </p>
                     </div>
 
@@ -372,7 +372,7 @@ export default function BlinkitCaseStudyTemplate() {
                         <div className={classes.ideasGrid}>
                             {[
                                 { bg: "#fef3c7", t: "❌ Dedicated 'Import List' Screen",  d: "4/6 participants couldn't find it. Users don't think of ordering as list management." },
-                                { bg: "#dbeafe", t: "❌ Voice FAB as Floating Button",    d: "4/6 thought it was customer support. Moved inside search bar — the association was immediate." },
+                                { bg: "#dbeafe", t: "❌ Voice FAB as Floating Button",    d: "4/6 thought it was customer support. Moved inside search bar  the association was immediate." },
                                 { bg: "#dcfce7", t: "❌ Image Upload as Separate Entry",  d: "Splitting 3 flows = 3 chances to abandon. One tabbed screen fixed it." },
                                 { bg: "#fce7f3", t: "❌ Full-Screen Spinner Modal",        d: "Users couldn't tell if the AI understood them. Progressive chip reveal gave control." },
                             ].map((s, i) => (
@@ -383,14 +383,14 @@ export default function BlinkitCaseStudyTemplate() {
                             ))}
                         </div>
                         <div style={{ marginTop: 16, borderLeft: `3px solid ${ACCENT}`, paddingLeft: 16, fontSize: "0.92rem", color: "var(--text-primary)", lineHeight: 1.6 }}>
-                            <strong>V1 assumption → What research showed:</strong> Users don't want to manage lists. They want their list to disappear into the cart as fast as possible. The metaphor isn't "import" — it's <em>"scan and forget."</em>
+                            <strong>V1 assumption → What research showed:</strong> Users don't want to manage lists. They want their list to disappear into the cart as fast as possible. The metaphor isn't "import"  it's <em>"scan and forget."</em>
                         </div>
                     </div>
                 </Section>
 
-                {/* ── 06 — SOLUTION: F1 SCAN & BUILD CART ─────────────────── */}
+                {/* ── 06  SOLUTION: F1 SCAN & BUILD CART ─────────────────── */}
                 <Section>
-                    <SectionHeader num="06" label="Solution: F1 — Scan & Build Cart" />
+                    <SectionHeader num="06" label="Solution: F1  Scan & Build Cart" />
 
                     {/* Two-column: text LEFT · design logic RIGHT */}
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "flex-start" }}>
@@ -411,17 +411,17 @@ export default function BlinkitCaseStudyTemplate() {
 
                             {/* Body */}
                             <p style={{ ...bodyText, margin: 0 }}>
-                                Users photograph their handwritten grocery list. The AI reads it using multilingual OCR (Hindi + English), extracts each item with its quantity, maps to the Blinkit product catalog, and returns a fully editable cart — with brand swap options for every item.
+                                Users photograph their handwritten grocery list. The AI reads it using multilingual OCR (Hindi + English), extracts each item with its quantity, maps to the Blinkit product catalog, and returns a fully editable cart  with brand swap options for every item.
                             </p>
 
                             {/* Feature bullets */}
                             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                                 {[
-                                    { icon: "📷", bold: "Handwriting-aware OCR", text: "— reads messy handwriting in Hindi and English, catches abbreviations" },
-                                    { icon: "🔄", bold: "Brand swap UI", text: "— every item shows 2–3 brand options, tap to switch before checkout" },
-                                    { icon: "✏️", bold: "Item-level control", text: "— uncheck items you already have at home, total updates live" },
-                                    { icon: "🛒", bold: "One-tap bulk checkout", text: '— "Add All 9 to Cart" replaces 9 individual add actions' },
-                                    { icon: "📝", bold: '"From list" attribution', text: "— shows the original text so users trust the AI understood correctly" },
+                                    { icon: "📷", bold: "Handwriting-aware OCR", text: " reads messy handwriting in Hindi and English, catches abbreviations" },
+                                    { icon: "🔄", bold: "Brand swap UI", text: " every item shows 2–3 brand options, tap to switch before checkout" },
+                                    { icon: "✏️", bold: "Item-level control", text: " uncheck items you already have at home, total updates live" },
+                                    { icon: "🛒", bold: "One-tap bulk checkout", text: ' "Add All 9 to Cart" replaces 9 individual add actions' },
+                                    { icon: "📝", bold: '"From list" attribution', text: " shows the original text so users trust the AI understood correctly" },
                                 ].map((pt, i) => (
                                     <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                                         <span style={{ fontSize: "1rem", flexShrink: 0, lineHeight: 1.55 }}>{pt.icon}</span>
@@ -439,7 +439,7 @@ export default function BlinkitCaseStudyTemplate() {
                             <div style={sSubtle}>
                                 <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
                                 <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>3 tabs, not 3 flows</div>
-                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Camera, upload, and paste-text unified under one screen. Items appear as dismissible chips — visible AI progress.</div>
+                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Camera, upload, and paste-text unified under one screen. Items appear as dismissible chips  visible AI progress.</div>
                             </div>
                             <div style={sSubtle}>
                                 <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 2</div>
@@ -449,14 +449,14 @@ export default function BlinkitCaseStudyTemplate() {
                             <div style={sSubtle}>
                                 <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 3</div>
                                 <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Personalising, not loading</div>
-                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>The processing screen shows AI steps in real time — brand matching, quantity parsing — so the wait feels purposeful.</div>
+                                <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>The processing screen shows AI steps in real time  brand matching, quantity parsing  so the wait feels purposeful.</div>
                             </div>
                         </div>
                     </div>
 
-                    {/* ── 6 screens strip — full width below ── */}
+                    {/* ── 6 screens strip  full width below ── */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8 }}>
-                        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow — All 6 Screens</div>
+                        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow  All 6 Screens</div>
                         {/* 6-col grid */}
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
                             {SCREENS.map((s, i) => (
@@ -603,15 +603,15 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 )}
 
-                {/* ── 07 — SOLUTION: F2 VOICE QUICK ORDER ──────────────────── */}
+                {/* ── 07  SOLUTION: F2 VOICE QUICK ORDER ──────────────────── */}
                 <Section>
-                    <SectionHeader num="07" label="Solution: F2 — Voice Quick Order" />
+                    <SectionHeader num="07" label="Solution: F2  Voice Quick Order" />
 
                     {/* Two-column: prototype LEFT · text RIGHT  (alternating) */}
                     <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: 56, alignItems: "flex-start" }}>
 
                         {/* ── Prototype column ── */}
-                        <ProtoEmbed href="/prototypes/blinkit-voice.html" title="F2 — Voice Quick Order" />
+                        <ProtoEmbed href="/prototypes/blinkit-voice.html" title="F2  Voice Quick Order" />
 
                         {/* ── Text column ── */}
                         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -635,10 +635,10 @@ export default function BlinkitCaseStudyTemplate() {
                             {/* Feature bullets */}
                             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                                 {[
-                                    { icon: "🎙️", bold: "Speak naturally", text: "— Hindi, English, or code-switched. 'Dahi aur bread le aao' is a valid order" },
-                                    { icon: "📝", bold: "Real-time transcript", text: "— appears character-by-character, proof of active listening not a silent spinner" },
-                                    { icon: "💬", bold: "Cart card in the thread", text: "— AI's response is an inline cart card, never breaks context or opens a new screen" },
-                                    { icon: "✅", bold: "Fully touchless", text: "— confirm, edit, or cancel entirely by voice, no screen needed from intent to checkout" },
+                                    { icon: "🎙️", bold: "Speak naturally", text: " Hindi, English, or code-switched. 'Dahi aur bread le aao' is a valid order" },
+                                    { icon: "📝", bold: "Real-time transcript", text: " appears character-by-character, proof of active listening not a silent spinner" },
+                                    { icon: "💬", bold: "Cart card in the thread", text: " AI's response is an inline cart card, never breaks context or opens a new screen" },
+                                    { icon: "✅", bold: "Fully touchless", text: " confirm, edit, or cancel entirely by voice, no screen needed from intent to checkout" },
                                 ].map((pt, i) => (
                                     <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                                         <span style={{ fontSize: "1rem", flexShrink: 0, lineHeight: 1.55 }}>{pt.icon}</span>
@@ -654,24 +654,24 @@ export default function BlinkitCaseStudyTemplate() {
                                 <div style={sSubtle}>
                                     <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
                                     <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Transcript, not a spinner</div>
-                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Yellow waveform + live transcript runs simultaneously — proof the AI is listening before results appear.</div>
+                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Yellow waveform + live transcript runs simultaneously  proof the AI is listening before results appear.</div>
                                 </div>
                                 <div style={sSubtle}>
                                     <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 2</div>
                                     <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Cart inside the thread</div>
-                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Inline cart card, not a modal. Users say "change brand" as natural continuation — context never breaks.</div>
+                                    <div style={{ fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>Inline cart card, not a modal. Users say "change brand" as natural continuation  context never breaks.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* User testing — full width below */}
+                    {/* User testing  full width below */}
                     <div style={{ ...sCard }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 16 }}>Tested with 12+ design students · 20+ sessions</div>
                         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                             {[
                                 "I just showed the app my list and it built the cart. Felt like magic.",
-                                "The voice order while cooking was a game-changer — no screen needed.",
+                                "The voice order while cooking was a game-changer  no screen needed.",
                                 "Finally, it remembered I always buy Aashirvaad atta. Saved me 3 taps.",
                             ].map((m, i) => (
                                 <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
@@ -683,10 +683,10 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 </Section>
 
-                {/* ── 08 — SECONDARY FEATURES ──────────────────────────────── */}
+                {/* ── 08  SECONDARY FEATURES ──────────────────────────────── */}
                 <Section>
                     <SectionHeader num="08" label="Secondary Features" />
-                    <p style={{ ...bodyText, maxWidth: 680 }}>Three supporting features that close the full ordering loop — from prediction to post-order recovery.</p>
+                    <p style={{ ...bodyText, maxWidth: 680 }}>Three supporting features that close the full ordering loop  from prediction to post-order recovery.</p>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
                         {[
                             { tag: "F3", t: "Pantry Intelligence",    sub: "Predict before they forget",        pain: "Users place 2–3 orders/day due to forgetting. The app has 6 months of data and uses none of it proactively.", sol: "Post-order setup → 'Time to Reorder?' home strip. Users set duration; the app predicts run-out." },
@@ -705,7 +705,7 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 </Section>
 
-                {/* ── 09 — COMPETITIVE AUDIT ───────────────────────────────── */}
+                {/* ── 09  COMPETITIVE AUDIT ───────────────────────────────── */}
                 <Section>
                     <SectionHeader num="09" label="Competitive Audit" />
                     <div style={{ ...sCard, padding: 0, overflow: "hidden" }}>
@@ -740,12 +740,12 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 </Section>
 
-                {/* ── 10 — ARCHITECTURE ────────────────────────────────────── */}
+                {/* ── 10  ARCHITECTURE ────────────────────────────────────── */}
                 <Section>
-                    <SectionHeader num="10" label="Architecture — One Pipeline, Three Entry Points" />
+                    <SectionHeader num="10" label="Architecture  One Pipeline, Three Entry Points" />
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
                         {[
-                            { n: "1", t: "Input Layer",        d: "Camera · Voice · Text — 3 modalities, 1 entry UX." },
+                            { n: "1", t: "Input Layer",        d: "Camera · Voice · Text  3 modalities, 1 entry UX." },
                             { n: "2", t: "NLP / NLU Engine",   d: "Gemini Vision + Whisper + semantic parser." },
                             { n: "3", t: "Intent Resolution",  d: "Meal → ingredients · List → SKUs · Voice → query." },
                             { n: "4", t: "Personalization",    d: "Brand-preference scoring · Purchase history." },
@@ -766,7 +766,7 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
                 </Section>
 
-                {/* ── 11 — RESULTS & IMPACT ────────────────────────────────── */}
+                {/* ── 11  RESULTS & IMPACT ────────────────────────────────── */}
                 <Section>
                     <SectionHeader num="11" label="Results & Impact" />
 
@@ -777,7 +777,7 @@ export default function BlinkitCaseStudyTemplate() {
                                 <li>Open app → cold home screen, no personalisation</li>
                                 <li>Search keyword → wrong / irrelevant results</li>
                                 <li>Open multiple PDPs → brand comparison paralysis</li>
-                                <li>Add items one by one — 9 taps for 9 items</li>
+                                <li>Add items one by one  9 taps for 9 items</li>
                                 <li>Forgot something → cancel entire order</li>
                             </ol>
                         </div>
@@ -787,8 +787,8 @@ export default function BlinkitCaseStudyTemplate() {
                                 <li>Open app → warm home with predicted reorder strip</li>
                                 <li>Scan list / speak intent / type meal → AI pipeline</li>
                                 <li>Brand auto-selected from history → no PDP needed</li>
-                                <li>"Add All" — 1 tap for the entire list</li>
-                                <li>2-minute edit window — add forgotten items instantly</li>
+                                <li>"Add All"  1 tap for the entire list</li>
+                                <li>2-minute edit window  add forgotten items instantly</li>
                             </ol>
                         </div>
                     </div>
@@ -797,10 +797,10 @@ export default function BlinkitCaseStudyTemplate() {
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
                         {[
                             { metric: "Pre-order time", before: "20–30 min", after: "<2 min" },
-                            { metric: "Avg order value", before: "—",      after: "+₹290" },
+                            { metric: "Avg order value", before: "",      after: "+₹290" },
                             { metric: "Drop-off rate",   before: "41%",    after: "<13%" },
                             { metric: "Brand decision",  before: "3.8 PDPs", after: "1 glance" },
-                            { metric: "Reorder gap",     before: "—",      after: "−34%" },
+                            { metric: "Reorder gap",     before: "",      after: "−34%" },
                         ].map((m, i) => (
                             <div key={i} style={sSubtle}>
                                 <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>{m.metric}</div>
@@ -812,7 +812,7 @@ export default function BlinkitCaseStudyTemplate() {
 
                     {/* Metric honesty */}
                     <div style={{ background: "rgba(245,197,24,0.08)", border: "1px solid rgba(245,197,24,0.3)", borderLeft: `3px solid ${ACCENT}`, borderRadius: 16, padding: "20px 24px" }}>
-                        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>Metric Honesty — Validated vs Projected</div>
+                        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>Metric Honesty  Validated vs Projected</div>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                             <div>
                                 <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>✓ Validated</div>
@@ -827,14 +827,14 @@ export default function BlinkitCaseStudyTemplate() {
                                 <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: 1.6 }}>
                                     <li>+₹290 AOV uplift</li>
                                     <li>−34% reorder gap</li>
-                                    <li>&lt;13% abandon rate — analogous benchmarks from similar AI launches</li>
+                                    <li>&lt;13% abandon rate  analogous benchmarks from similar AI launches</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </Section>
 
-                {/* ── 12 — ROADMAP & WHAT I LEARNED ───────────────────────── */}
+                {/* ── 12  ROADMAP & WHAT I LEARNED ───────────────────────── */}
                 <Section>
                     <SectionHeader num="12" label="Roadmap & What I Learned" />
 
@@ -859,9 +859,9 @@ export default function BlinkitCaseStudyTemplate() {
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 20 }}>What I Learned</div>
                         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                             {[
-                                { bold: "Research inversion:", body: "I expected delivery speed to be the pain. It was the ordering, not the delivery — that finding reframed the entire solution space." },
+                                { bold: "Research inversion:", body: "I expected delivery speed to be the pain. It was the ordering, not the delivery  that finding reframed the entire solution space." },
                                 { bold: "Rejection is the design:", body: "The 4 rejected directions are as important as the final solution. They show the design pressure the right answer had to survive." },
-                                { bold: "Trust is the hardest feature:", body: "Every AI feature needed a 'show your work' layer — chips, transcripts, attribution — before users felt safe to trust it." },
+                                { bold: "Trust is the hardest feature:", body: "Every AI feature needed a 'show your work' layer  chips, transcripts, attribution  before users felt safe to trust it." },
                             ].map((l, i) => (
                                 <p key={i} style={{ margin: 0, fontSize: "1rem", lineHeight: 1.65, color: "var(--text-secondary)" }}>
                                     <strong style={{ color: "var(--text-primary)" }}>{l.bold}</strong> {l.body}

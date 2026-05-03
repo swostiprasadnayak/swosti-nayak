@@ -7,7 +7,7 @@ import classes from "./voiceModal.module.css";
 const SCRIPT = [
     { text: "", delay: 0 },
     { text: "Hey there, I'm Swosti. I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.", delay: 500 },
-    { text: "Over the past 2+ years, I’ve worked across B2B and B2C products — from internal platforms to customer-facing solutions.", delay: 8500 },
+    { text: "Over the past 2+ years, I’ve worked across B2B and B2C products  from internal platforms to customer-facing solutions.", delay: 8500 },
     { text: "My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.", delay: 15500 },
     { text: "I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements.", delay: 24500 },
     { text: "Always focusing on clarity, usability, and measurable impact.", delay: 31000 },

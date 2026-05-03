@@ -74,7 +74,7 @@ const AboutModal: React.FC = () => {
                                         I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.
                                     </p>
                                     <p className={classes.paragraph}>
-                                        Over the past 2+ years, I’ve worked across B2B and B2C products — from internal platforms to customer-facing solutions — leading UX from research to high-fidelity execution. My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.
+                                        Over the past 2+ years, I’ve worked across B2B and B2C products  from internal platforms to customer-facing solutions  leading UX from research to high-fidelity execution. My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.
                                     </p>
                                     <p className={classes.paragraph}>
                                         <span className={classes.bold}>I specialize in:</span><br/>
@@ -85,7 +85,7 @@ const AboutModal: React.FC = () => {
                                         • Cross-functional collaboration with Product & Engineering
                                     </p>
                                     <p className={classes.paragraph}>
-                                        I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements — always focusing on clarity, usability, and measurable impact.
+                                        I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements  always focusing on clarity, usability, and measurable impact.
                                     </p>
                                     <p className={classes.paragraph}>
                                         <span className={classes.bold}>What drives me?</span><br/>
