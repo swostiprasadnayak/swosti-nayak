@@ -570,13 +570,7 @@ export default function UnicefCaseStudyTemplate() {
                 ))}
              </div>
           </div>
-       </div>      </div>
-                     </div>
-                  </Squircle>
-               ))}
-            </div>
-         </div>
-      </div>
+       </div>
 
       {/* ============================================================
           SECTION 8: THE PROCESS (TIMELINE)
