@@ -39,516 +39,538 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION 2: PROBLEM STATEMENT
           ============================================================ */}
-      <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
-         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-            <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
-            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>01 - PROBLEM STATEMENT</span>
-         </div>
-         
-         <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
-           The data existed.<br/>
-           The <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>access layer</span> didn't.
-         </h2>
-         
-         <p style={{ fontSize: '1.1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-           The data existed. The access layer didn't. 190 countries, 120+ indicators  and no unified way to reach any of it.
-         </p>
+       {/* ============================================================
+           SECTION 2: PROBLEM STATEMENT
+           ============================================================ */}
+       <div className={classes.contentMaxWidth} style={{ padding: '80px 0', maxWidth: '1000px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>01 - PROBLEM STATEMENT</span>
+          </div>
+          
+          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
+            The data existed.<br/>
+            The <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>access layer</span> didn't.
+          </h2>
+          
+          <p style={{ fontSize: '1.1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
+            The data existed. The access layer didn't. 190 countries, 120+ indicators and no unified way to reach any of it.
+          </p>
 
-         {/* 3 Pillar Cards */}
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px' }}>
-            {/* Card 1 */}
-            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-               <Search size={24} color="#e11d48" style={{ marginBottom: '8px' }} />
-               <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e11d48', letterSpacing: '0.05em' }}>DISCOVERABILITY FAILURE</h3>
-               <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
-                 No unified search. No taxonomy. Data scattered across PDFs, dashboards, and microsites with no cross-referencing.
-               </p>
-               <div style={{ background: '#fff1f2', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #e11d48', fontSize: '0.85rem', fontStyle: 'italic', color: '#be123c' }}>
-                 "I spent two hours triangulating a single indicator before I could start my analysis."
-               </div>
-            </Squircle>
-
-            {/* Card 2 */}
-            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #fef08a', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-               <ShieldAlert size={24} color="#ca8a04" style={{ marginBottom: '8px' }} />
-               <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ca8a04', letterSpacing: '0.05em' }}>TRUST & CITATION BREAKDOWN</h3>
-               <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
-                 No methodology links. No provenance. Researchers couldn't formally cite UNICEF data without emailing the team and waiting days.
-               </p>
-               <div style={{ background: '#fefce8', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #ca8a04', fontSize: '0.85rem', fontStyle: 'italic', color: '#a16207' }}>
-                 "I couldn't put this in a peer-reviewed paper without knowing the methodology."
-               </div>
-            </Squircle>
-
-            {/* Card 3 */}
-            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #fed7aa', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-               <Clock size={24} color="#ea580c" style={{ marginBottom: '8px' }} />
-               <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ea580c', letterSpacing: '0.05em' }}>EDITORIAL BOTTLENECK</h3>
-               <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
-                 Every chart update required a developer ticket. 3-week queue for 5-minute changes. Zero editorial autonomy.
-               </p>
-               <div style={{ background: '#fff7ed', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #ea580c', fontSize: '0.85rem', fontStyle: 'italic', color: '#c2410c' }}>
-                 "I raised a Jira ticket three weeks ago to change the default year on one chart."
-               </div>
-            </Squircle>
-         </div>
-
-         {/* Core Problem Block */}
-         <Squircle cornerRadius={16} style={{ background: '#f0f9ff', padding: '48px', border: '1px solid #bae6fd', marginBottom: '80px' }}>
-            <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0284c7', letterSpacing: '0.1em' }}>CORE PROBLEM STATEMENT</span>
-            <p style={{ fontSize: '1.4rem', color: '#0f172a', fontStyle: 'italic', fontWeight: 400, lineHeight: 1.5, marginTop: '16px', fontFamily: 'Instrument Serif, serif' }}>
-              "No accessible, unified interface to UNICEF's own data. The editorial team can't publish without a developer. The people who can act on the data can't reach it."
-            </p>
-            <span style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '16px', display: 'block' }}> Problem framing synthesised from RFP brief & stakeholder documentation</span>
-         </Squircle>
-
-         {/* Big Stats */}
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', borderTop: '1px solid #e2e8f0', paddingTop: '40px' }}>
-            {[
-              { num: "617M", val: "Children who cannot read a simple text", color: "#e11d48" },
-              { num: "57%", val: "Learning poverty rate in low & middle-income countries", color: "#ea580c" },
-              { num: "190", val: "Country datasets  2000–2024 time series, all previously inaccessible", color: "#0284c7" },
-              { num: "120+", val: "Indicators across 6 thematic areas, impossible to navigate without taxonomy", color: "#16a34a" }
-            ].map((stat, i) => (
-               <div key={i} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                 <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: stat.color, fontWeight: 300 }}>{stat.num}</div>
-                 <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.5, maxWidth: '80%' }}>{stat.val}</p>
-               </div>
-            ))}
-         </div>
-      </div>
-      
-      {/* ============================================================
-          SECTION 3: AS-IS - PAIN POINTS
-          ============================================================ */}
-      <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
-         <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
-            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '-40px', display: 'block' }}>AS-IS - PAIN POINTS</span>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
-              Where the current experience <span style={{ fontStyle: 'italic', color: '#ea580c' }}>breaks down</span>
-            </h2>
-            <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '60%' }}>
-              Journey mapping revealed critical failure modes that the portal must resolve.
-            </p>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '20px' }}>
-              {[
-                { 
-                  icon: "🔍",
-                  title: "Researcher trying to answer a policy question", 
-                  persona: "Persona P1 · Academic Researcher",
-                  points: [
-                    "PDF from 2021. No filtering.",
-                    "4 CSVs with inconsistent column names",
-                    "2+ hours in Excel for a 5-minute task",
-                    "Emails UNICEF. Waits 5 days."
-                  ]
-                },
-                { 
-                  icon: "📊",
-                  title: "Policymaker building a cross-country brief", 
-                  persona: "Persona P2 · Government Analyst",
-                  points: [
-                    "No multi-country comparison tool",
-                    "Static PNG maps. No interactivity.",
-                    "Data placeholders until the night before",
-                    "Screenshots that go stale immediately"
-                  ]
-                },
-                { 
-                  icon: "🤝",
-                  title: "Partner finding data for a funding proposal", 
-                  persona: "Persona P3 · Development Partner",
-                  points: [
-                    "3 separate portals for related indicators",
-                    "Manual stitching across systems",
-                    "No provenance. Is this even current?",
-                    "Manual citation → error risk"
-                  ]
-                },
-                { 
-                  icon: "✏️",
-                  title: "Editor publishing a story with charts", 
-                  persona: "Persona P4 · UNICEF Content Editor",
-                  points: [
-                    "3-week queue to change a chart default",
-                    "Static charts go stale immediately",
-                    "Can't preview before production",
-                    "Non-compliant boundaries slip through"
-                  ]
-                }
-              ].map((card, i) => (
-                 <Squircle key={i} cornerRadius={16} style={{ background: '#f8fafc', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', border: '1px solid #e2e8f0' }}>
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                        {card.icon}
-                      </div>
-                      <div>
-                         <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: 0 }}>{card.title}</h3>
-                         <span style={{ fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic' }}>{card.persona}</span>
-                      </div>
-                   </div>
-                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '8px' }}>
-                     {card.points.map((pt, j) => (
-                       <li key={j} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                         <span style={{ color: '#ea580c', fontSize: '1.2rem', lineHeight: '1rem', marginTop: '2px' }}>•</span>
-                         <span style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.5 }}>{pt}</span>
-                       </li>
-                     ))}
-                   </ul>
-                 </Squircle>
-              ))}
-            </div>
-         </div>
-      </div>
-
-      {/* ============================================================
-          SECTION 4: RESEARCH & DISCOVERY
-          ============================================================ */}
-      <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
-         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-            <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
-            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>02 - RESEARCH & DISCOVERY</span>
-         </div>
-         
-         <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
-           Understanding before <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>designing.</span>
-         </h2>
-         <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-           Two weeks of research before any design. Every finding became an AI prompt input  research quality determined output quality.
-         </p>
-
-         {/* 5-Step Process Timeline */}
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '80px', position: 'relative' }}>
-             {/* Background connecting line */}
-             <div style={{ position: 'absolute', top: '24px', left: '10%', right: '10%', height: '1px', background: '#e2e8f0', zIndex: 0 }} />
-             
-             {[
-               { id: "1", title: "EMPATHIZE", sum: "Understand users & context", list: "Analogous portal audit · Persona literature review · Stakeholder docs · UNICEF data landscape mapping" },
-               { id: "2", title: "DEFINE", sum: "Frame the real problem", list: "Pain synthesis · 5 personas · 8 JTBD statements · AS-IS journey maps · Constraint definition" },
-               { id: "3", title: "IDEATE", sum: "Generate solutions", list: "Feature prioritization · IA design · Tech stack selection · Prompt context document · North Star definition" },
-               { id: "4", title: "PROTOTYPE", sum: "AI-assisted build", list: "AI prompt cycles · 15 screen templates · Design system · Coded prototype · 13+ variation iterations" },
-               { id: "5", title: "TEST", sum: "Validate & refine", list: "UAT scenarios · WCAG audit · Keyboard-only testing · UN map compliance gate · Performance testing" }
-             ].map((st, i) => (
-                <div key={i} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                   <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#fff', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9' }}>
-                     {st.id}
-                   </div>
-                   <div style={{ marginTop: '8px' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#16a34a', letterSpacing: '0.05em' }}>{st.title}</span>
-                      <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '4px 0 8px 0' }}>{st.sum}</h4>
-                      <p style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: 1.5 }}>{st.list}</p>
-                   </div>
+          {/* 3 Pillar Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px' }}>
+             {/* Card 1 */}
+             <Squircle cornerRadius={16} style={{ background: '#fff', border: '1.5px solid #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                <Search size={24} color="#e11d48" style={{ marginBottom: '8px' }} />
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e11d48', letterSpacing: '0.05em' }}>DISCOVERABILITY FAILURE</h3>
+                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
+                  No unified search. No taxonomy. Data scattered across PDFs, dashboards, and microsites with no cross-referencing.
+                </p>
+                <div style={{ background: '#fff1f2', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #e11d48', fontSize: '0.85rem', fontStyle: 'italic', color: '#be123c' }}>
+                  "I spent two hours triangulating a single indicator before I could start my analysis."
                 </div>
-             ))}
-         </div>
+             </Squircle>
 
-         {/* Portals & Stats Split */}
-         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginBottom: '80px' }}>
-            <div>
-               <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Analogous Portal Benchmark</span>
-               <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#111', lineHeight: 1.2, margin: '12px 0 24px 0' }}>What 6 comparable portals <span style={{ fontStyle: 'italic' }}>taught us</span> about what not to do.</h3>
-               <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Before designing anything, I audited 6 analogous data portals to extract UX patterns, IA structures, and known failure modes. This wasn't about copying  it was about understanding the design space and identifying where every existing portal fails its users.</p>
-               
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                 {[
-                   { name: "World Bank Open Data", desc: "Strong downloads. Zero discoverability. No country-first navigation." },
-                   { name: "Our World in Data", desc: "Best-in-class storytelling. Methodology buried 3 clicks deep." },
-                   { name: "OECD.Stat", desc: "Technically comprehensive. Overwhelming for non-experts. Everything shown at once." },
-                   { name: "WHO GHO", desc: "Good accessibility base. Comparison limited to 2 countries. No URL sharing." },
-                   { name: "ODI & UN Stats", desc: "Trusted by researchers. Requires academic familiarity. No entry point for policy." }
-                 ].map((portal, i) => (
-                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
-                       <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#111' }}>{portal.name}</span>
-                       <span style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5 }}>{portal.desc}</span>
-                    </div>
-                 ))}
-               </div>
-            </div>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                     <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>6</span>
-                     <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Analogous portals benchmarked & audited</span>
-                  </Squircle>
-                  <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                     <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>5</span>
-                     <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Distinct user personas built from research</span>
-                  </Squircle>
-                  <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                     <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>8</span>
-                     <span style={{ fontSize: '0.8rem', color: '#64748b' }}>JTBD statements that drove every feature decision</span>
-                  </Squircle>
-                  <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                     <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>5</span>
-                     <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Non-negotiable constraints mapped before any design</span>
-                  </Squircle>
-               </div>
-               
-               <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px' }}>
-                  <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Research → Prompt Pipeline</span>
-                  <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, marginTop: '12px' }}>
-                    All outputs compiled into a structured Markdown context document  the master input for every AI session. <strong style={{ color: '#111' }}>Research quality directly determined AI output quality.</strong>
-                  </p>
-               </Squircle>
-            </div>
-         </div>
+             {/* Card 2 */}
+             <Squircle cornerRadius={16} style={{ background: '#fff', border: '1.5px solid #fef08a', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                <ShieldAlert size={24} color="#ca8a04" style={{ marginBottom: '8px' }} />
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ca8a04', letterSpacing: '0.05em' }}>TRUST & CITATION BREAKDOWN</h3>
+                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
+                  No methodology links. No provenance. Researchers couldn't formally cite UNICEF data without emailing the team and waiting days.
+                </p>
+                <div style={{ background: '#fefce8', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #ca8a04', fontSize: '0.85rem', fontStyle: 'italic', color: '#a16207' }}>
+                  "I couldn't put this in a peer-reviewed paper without knowing the methodology."
+                </div>
+             </Squircle>
 
-         {/* Key Insight */}
-         <Squircle cornerRadius={16} style={{ background: '#f0f9ff', border: '1px solid #bae6fd', padding: '32px', marginBottom: '80px' }}>
-            <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0284c7', letterSpacing: '0.1em', textTransform: 'uppercase' }}>KEY RESEARCH INSIGHT</span>
-            <p style={{ fontSize: '1.05rem', color: '#0f172a', lineHeight: 1.6, marginTop: '12px', fontWeight: 500 }}>
-              Every comparable portal serves one user type. None serve all three. <span style={{ color: '#0284c7' }}>Progressive disclosure wasn't a preference  it was the only honest solution.</span>
-            </p>
-         </Squircle>
+             {/* Card 3 */}
+             <Squircle cornerRadius={16} style={{ background: '#fff', border: '1.5px solid #fed7aa', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                <Clock size={24} color="#ea580c" style={{ marginBottom: '8px' }} />
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#ea580c', letterSpacing: '0.05em' }}>EDITORIAL BOTTLENECK</h3>
+                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, flexGrow: 1 }}>
+                  Every chart update required a developer ticket. 3-week queue for 5-minute changes. Zero editorial autonomy.
+                </p>
+                <div style={{ background: '#fff7ed', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #ea580c', fontSize: '0.85rem', fontStyle: 'italic', color: '#c2410c' }}>
+                  "I raised a Jira ticket three weeks ago to change the default year on one chart."
+                </div>
+             </Squircle>
+          </div>
 
-         {/* Personas */}
-         <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '24px', display: 'block' }}>5 USER PERSONAS  SYNTHESISED FROM RESEARCH</span>
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
-            {[
-              { icon: "🎓", id: "P1 · ACADEMIC", title: "The Researcher", pain: "45+ min triangulating indicator definitions across 6 PDFs before any analysis.", needs: "Needs methodology depth, data provenance, citable CSV" },
-              { icon: "🏛️", id: "P2 · GOVERNMENT", title: "The Policymaker", pain: "No cross-country benchmarking tool  rebuilds comparisons in Excel from inconsistent files.", needs: "Needs defensible comparison exportable in <3 min" },
-              { icon: "🤝", id: "P3 · NGO / DONOR", title: "The Partner", pain: "Stitches 3 separate portal downloads together to compile one funding proposal appendix.", needs: "Needs provenance-labelled datasets in one place" },
-              { icon: "✍️", id: "P4 · EDITORIAL", title: "The Editor", pain: "3-week developer queue for 5-minute chart updates. Zero editorial autonomy.", needs: "Needs CMS viz blocks, zero-code publish flow" },
-              { icon: "🗺️", id: "P5 · GEOSPATIAL", title: "Data Steward", pain: "No systematic UN map compliance gate  non-compliant boundaries can reach production.", needs: "Needs mandatory CMS review gate before publish" }
-            ].map((p, i) => (
-               <Squircle key={i} cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>{p.icon}</div>
-                 <div>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.05em' }}>{p.id}</span>
-                    <h4 style={{ fontSize: '1rem', fontWeight: 600, color: '#111', margin: '4px 0 0 0' }}>{p.title}</h4>
-                 </div>
-                 <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, flexGrow: 1 }}>
-                   <strong style={{ color: '#e11d48' }}>Pain:</strong> {p.pain}
-                 </p>
-                 <p style={{ fontSize: '0.8rem', color: '#16a34a', lineHeight: 1.5, fontWeight: 500 }}>
-                   ↗ {p.needs}
-                 </p>
-               </Squircle>
-            ))}
-         </div>
-      </div>
-      
-      {/* ============================================================
-          SECTION 5: JOBS TO BE DONE
-          ============================================================ */}
-      <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '100px 0' }}>
-         <div className={classes.contentMaxWidth} style={{ maxWidth: '1000px' }}>
-            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '-40px', display: 'block' }}>03 - JOBS TO BE DONE</span>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
-              What users <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>actually</span> need to accomplish
-            </h2>
-            <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '60%', marginBottom: '40px' }}>
-              Every feature in this product traces back to one of these five jobs. If it doesn't serve a real user outcome, it didn't get built.
-            </p>
+          {/* Core Problem Block */}
+          <Squircle cornerRadius={16} style={{ background: '#f0f9ff', padding: '48px', border: '1px solid #bae6fd', marginBottom: '80px' }}>
+             <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0284c7', letterSpacing: '0.1em' }}>CORE PROBLEM STATEMENT</span>
+             <p style={{ fontSize: '1.4rem', color: '#0f172a', fontStyle: 'italic', fontWeight: 400, lineHeight: 1.5, marginTop: '16px', fontFamily: 'Instrument Serif, serif' }}>
+               "No accessible, unified interface to UNICEF's own data. The editorial team can't publish without a developer. The people who can act on the data can't reach it."
+             </p>
+             <span style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '16px', display: 'block' }}> Problem framing synthesised from RFP brief & stakeholder documentation</span>
+          </Squircle>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-               {[
-                 { icon: "🎓", role: "Researcher", jtbd: "Compare countries on the same indicator  normalized, time-aligned  without manual wrangling." },
-                 { icon: "🏛️", role: "Policy Analyst", jtbd: "Pull indicator data with methodology and citation  defensible in peer review and committee." },
-                 { icon: "✍️", role: "UNICEF Editor", jtbd: "Embed live data visuals in a story without code  publish at editorial speed, not developer speed." },
-                 { icon: "🌍", role: "Country Rep", jtbd: "One profile page with all learning indicators  brief stakeholders without cross-referencing sources." },
-                 { icon: "👤", role: "General Public", jtbd: "Understand the global education picture instantly  explore without knowing the indicator taxonomy." }
-               ].map((job, i) => (
-                  <Squircle key={i} cornerRadius={12} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '24px 32px', display: 'flex', alignItems: 'flex-start', gap: '32px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '180px' }}>
-                       <div style={{ fontSize: '1.2rem' }}>{job.icon}</div>
-                       <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111' }}>{job.role}</span>
-                    </div>
-                    <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, margin: 0, paddingLeft: '32px', borderLeft: '1px solid #e2e8f0' }}>
-                       {job.jtbd.split(/(I want to.*?)( so|$)/).map((part, index) => 
-                          part.startsWith("I want to") ? <strong key={index} style={{ color: '#111' }}>{part}</strong> : part
-                       )}
-                    </p>
-                  </Squircle>
-               ))}
-            </div>
+          {/* Big Stats */}
+          <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '80px', marginBottom: '80px' }}>
+             <h3 style={{ fontSize: '1.8rem', fontWeight: 500, color: '#111', marginBottom: '40px', textAlign: 'center' }}>
+               Education data remains <span style={{ fontStyle: 'italic', color: '#e11d48' }}>inaccessible</span> at a global scale.
+             </h3>
+             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+                {[
+                  { num: "617M", val: "Children who cannot read a simple text", color: "#e11d48", bg: "#fff1f2", border: "#fecdd3" },
+                  { num: "57%", val: "Learning poverty rate in low & middle-income countries", color: "#ea580c", bg: "#fff7ed", border: "#fed7aa" },
+                  { num: "190", val: "Country datasets 2000–2024 time series, all previously inaccessible", color: "#0284c7", bg: "#f0f9ff", border: "#bae6fd" },
+                  { num: "120+", val: "Indicators across 6 thematic areas, impossible to navigate without taxonomy", color: "#16a34a", bg: "#f0fdf4", border: "#bbf7d0" }
+                ].map((stat, i) => (
+                   <Squircle key={i} cornerRadius={16} style={{ background: stat.bg, border: `1px solid ${stat.border}`, padding: '32px 20px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                     <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: stat.color, fontWeight: 300, lineHeight: 1 }}>{stat.num}</div>
+                     <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: '8px 0 0 0', fontWeight: 500 }}>{stat.val}</p>
+                   </Squircle>
+                ))}
+             </div>
+          </div>
+       </div>
+       
+       {/* ============================================================
+           SECTION 3: AS-IS - PAIN POINTS
+           ============================================================ */}
+       <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
+          <div className={classes.contentMaxWidth} style={{ padding: '80px 0', maxWidth: '1000px' }}>
+             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>AS-IS - PAIN POINTS</span>
+             <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
+               Where the current experience <span style={{ fontStyle: 'italic', color: '#ea580c' }}>breaks down</span>
+             </h2>
+             <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '60%', marginBottom: '40px' }}>
+               Journey mapping revealed critical failure modes that the portal must resolve.
+             </p>
 
-            {/* Placeholder Photo Row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginTop: '40px' }}>
-               {[
-                 { bg: '#fee2e2', text: 'Literacy & Numeracy', color: '#b91c1c' },
-                 { bg: '#fef08a', text: 'Technical & Vocational', color: '#a16207' },
-                 { bg: '#fed7aa', text: 'Gender, Disability & Poverty', color: '#c2410c' },
-                 { bg: '#e0f2fe', text: 'Digital Skills & Access', color: '#0369a1' },
-                 { bg: '#dcfce7', text: 'Early Childhood Development', color: '#15803d' },
-               ].map((img, i) => (
-                  <Squircle key={i} cornerRadius={12} style={{ aspectRatio: '16/10', background: img.bg, display: 'flex', alignItems: 'flex-end', padding: '16px', border: `1px solid ${img.color}30` }}>
-                     <span style={{ fontSize: '0.75rem', fontWeight: 600, color: img.color }}>{img.text}</span>
-                  </Squircle>
-               ))}
-            </div>
-         </div>
-      </div>
-
-      {/* ============================================================
-          SECTION 6: AI METHODOLOGY
-          ============================================================ */}
-      <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
-         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-            <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
-            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>04 - AI METHODOLOGY</span>
-         </div>
-         
-         <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
-           How I <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>actually</span> used AI<br/>to build this product.
-         </h2>
-         <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-           Using AI effectively for product design isn't about asking it to "make something beautiful." It's about giving it structured research context, specific user problems, clear constraints, and measurable acceptance criteria  and knowing when to iterate vs. when to change approach.
-         </p>
-
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '40px' }}>
-            {[
-              { icon: "📄", title: "Research-first prompting", desc: "Full research context injected at session start  personas, JTBD, constraints. Research quality directly determined AI output quality." },
-              { icon: "⚡", title: "Vibe vs. direct prompting  knowing which to use", desc: "Vibe prompting for visual/layout decisions. Direct prompting for accessibility, performance, and CMS architecture. Knowing which to use is the skill." },
-              { icon: "🎯", title: "Problem-framing, not solution-asking", desc: "Prompt the user job and expected behavior  not the implementation. The output quality difference is significant." },
-              { icon: "🧱", title: "Design system as AI context", desc: "Design system tokens became permanent prompt context  maintaining visual consistency across 15 templates built in multiple AI sessions." },
-              { icon: "🔄", title: "Structured iteration cycles", desc: "Defined 4-step iteration protocol per feature: build → refine → audit → integrate. Prevented prompt drift across 15+ screens." },
-              { icon: "🔍", title: "Testing as a prompt input", desc: "Each cycle ended with an AI self-audit against UAT acceptance criteria  significantly reducing manual testing cycles." }
-            ].map((card, i) => (
-               <Squircle key={i} cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                 <div style={{ fontSize: '1.5rem' }}>{card.icon}</div>
-                 <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: 0 }}>{card.title}</h3>
-                 <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
-                    {card.desc.split(/(The quality of research input directly determines the quality of AI output\.|Vibe prompting|Direct prompting|This is what maintained visual consistency across 15 screen templates built across multiple AI sessions\.|Output a list of specific changes required\.)/).map((part, index) => 
-                      ["The quality of research input directly determines the quality of AI output.", "Vibe prompting", "Direct prompting", "This is what maintained visual consistency across 15 screen templates built across multiple AI sessions.", "Output a list of specific changes required."].includes(part) ? <strong key={index} style={{ color: '#111' }}>{part}</strong> : part
-                    )}
-                 </p>
-               </Squircle>
-            ))}
-         </div>
-
-         {/* 4 Colored Context Prompts */}
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-            <Squircle cornerRadius={12} style={{ border: '1px solid #3b82f6', background: '#fff', padding: '24px' }}>
-               <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#3b82f6', letterSpacing: '0.05em', textTransform: 'uppercase' }}>SYSTEM / ARCHITECTURE</span>
-               <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Full-context build prompts</h4>
-               <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Injecting the entire research context document at session start. Used for initial screen builds and major architectural decisions.</p>
-               <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"Given this JTBD framework, persona set, constraint list, and tech stack, build the Compare page with the following features..."</div>
-            </Squircle>
-
-            <Squircle cornerRadius={12} style={{ border: '1px solid #a855f7', background: '#fff', padding: '24px' }}>
-               <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#a855f7', letterSpacing: '0.05em', textTransform: 'uppercase' }}>FEATURE / VIBE</span>
-               <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>User problem framing</h4>
-               <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Describing the user job and expected behavior without specifying the implementation. Used for new interaction patterns.</p>
-               <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"When a user clicks a country on the globe, they expect a data preview panel  not a page redirect. Design this interaction for a policymaker in a 3-minute briefing window."</div>
-            </Squircle>
-
-            <Squircle cornerRadius={12} style={{ border: '1px solid #f97316', background: '#fff', padding: '24px' }}>
-               <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#f97316', letterSpacing: '0.05em', textTransform: 'uppercase' }}>ITERATION / DIRECT</span>
-               <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Specific component refinement</h4>
-               <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Targeted changes to specific components after first-pass build. Precise, technical, with exact acceptance criteria.</p>
-               <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"The country tooltip panel must be dismissible with Escape key, focus trapped when open, and announce via aria-live to screen readers. Fix these 3 issues."</div>
-            </Squircle>
-
-            <Squircle cornerRadius={12} style={{ border: '1px solid #22c55e', background: '#fff', padding: '24px' }}>
-               <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#22c55e', letterSpacing: '0.05em', textTransform: 'uppercase' }}>AUDIT / TESTING</span>
-               <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Self-review against UAT</h4>
-               <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Prompting AI to audit its own output against defined acceptance criteria. Used at end of each iteration cycle.</p>
-               <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"Audit this Compare Heatmap against WCAG 2.0 AA. Output a list of contrast failures, keyboard navigation gaps, and missing ARIA attributes."</div>
-            </Squircle>
-         </div>
-
-      </div>
-
-      {/* ============================================================
-          SECTION 7: KEY FEATURES
-          ============================================================ */}
-      <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '100px 0' }}>
-         <div className={classes.contentMaxWidth} style={{ maxWidth: '1200px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
-               <div>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block' }}>05 - KEY FEATURES</span>
-                  <h2 style={{ fontSize: '3.5rem', fontWeight: 400, color: '#111', lineHeight: 1.1, letterSpacing: '-0.02em', margin: '16px 0' }}>
-                    8 features.<br/>
-                    5 problems <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>solved.</span>
-                  </h2>
-                  <div style={{ background: '#e0f2fe', padding: '24px', borderRadius: '12px', border: '1px solid #bae6fd', color: '#0f172a', fontWeight: 500, fontStyle: 'italic', fontSize: '1.2rem', lineHeight: 1.4, marginTop: '24px' }}>
-                    "Explore, compare, trust, cite, and publish learning data  all in one accessible public portal."
-                  </div>
-               </div>
-               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>
-                    These are the features that directly fix UNICEF's biggest problems: findability, trust, comparison, publishing speed, and global accessibility. Each delivers measurable user value and lasting client value.
-                  </p>
-                  <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '12px' }}>8 PORTFOLIO HEADLINE FEATURES</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                     {[
-                       { color: '#3b82f6', text: 'Unified Explore Hub' },
-                       { color: '#22c55e', text: 'Country Profiles' },
-                       { color: '#f97316', text: 'Compare Countries' },
-                       { color: '#eab308', text: 'Methodology + Citation' },
-                       { color: '#a855f7', text: 'No-Code Story Publishing' }
-                     ].map((tag, i) => (
-                        <span key={i} style={{ padding: '6px 14px', border: '1px solid #e2e8f0', background: '#fff', borderRadius: '100px', fontSize: '0.8rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: tag.color }} />
-                           {tag.text}
-                        </span>
-                     ))}
-                  </div>
-               </div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
                {[
                  { 
-                   id: '01', icon: '🔍', title: 'Unified Data Discovery', solves: 'Findability', impact: 'Highest',
-                   bg: '#eff6ff', border: '#bfdbfe', pillBg: '#dbeafe', color: '#2563eb',
-                   desc: "One portal for countries, indicators, datasets, stories, and methodology  instead of jumping between PDFs and microsites."
+                   icon: "🔍",
+                   title: "Researcher trying to answer a policy question", 
+                   persona: "Persona P1 · Academic Researcher",
+                   points: [
+                     "PDF from 2021. No filtering.",
+                     "4 CSVs with inconsistent column names",
+                     "2+ hours in Excel for a 5-minute task",
+                     "Emails UNICEF. Waits 5 days."
+                   ]
                  },
                  { 
-                   id: '02', icon: '🌍', title: 'Country Profile Pages', solves: 'Findability + Trust', impact: 'Policymaker',
-                   bg: '#f0fdf4', border: '#bbf7d0', pillBg: '#dcfce7', color: '#16a34a',
-                   desc: "Dynamic pages with headline indicators, trend charts, downloads, and a comparison entry point  country-first navigation."
+                   icon: "📊",
+                   title: "Policymaker building a cross-country brief", 
+                   persona: "Persona P2 · Government Analyst",
+                   points: [
+                     "No multi-country comparison tool",
+                     "Static PNG maps. No interactivity.",
+                     "Data placeholders until the night before",
+                     "Screenshots that go stale immediately"
+                   ]
                  },
                  { 
-                   id: '03', icon: '📋', title: 'Indicator Trust Layer', solves: 'Trust', impact: 'Researcher',
-                   bg: '#fefce8', border: '#fef08a', pillBg: '#fef9c3', color: '#ca8a04',
-                   desc: "Every indicator backed by definition, methodology, source, coverage notes, and related indicators."
+                   icon: "🤝",
+                   title: "Partner finding data for a funding proposal", 
+                   persona: "Persona P3 · Development Partner",
+                   points: [
+                     "3 separate portals for related indicators",
+                     "Manual stitching across systems",
+                     "No provenance. Is this even current?",
+                     "Manual citation → error risk"
+                   ]
                  },
                  { 
-                   id: '04', icon: '⚖️', title: 'Comparison Tool', solves: 'Comparison', impact: 'P2 + P3',
-                   bg: '#fff7ed', border: '#fed7aa', pillBg: '#ffedd5', color: '#ea580c',
-                   desc: "Side-by-side country comparison with URL state preservation. Heatmap, scatter, and percentile views."
-                 },
-                 { 
-                   id: '05', icon: '📥', title: 'Download + Citation', solves: 'Trust', impact: 'Differentiator',
-                   bg: '#faf5ff', border: '#e9d5ff', pillBg: '#f3e8ff', color: '#9333ea',
-                   desc: "CSVs with full metadata and a pre-formatted citation string  turns the portal into a research-grade citable tool."
-                 },
-                 { 
-                   id: '06', icon: '📈', title: 'Interactive Stories with Live Data', solves: 'Publishing', impact: 'Editor',
-                   bg: '#fff1f2', border: '#fecdd3', pillBg: '#ffe4e6', color: '#e11d48',
-                   desc: "Editors publish analytical stories with embedded charts tied to live data  narrative and evidence permanently connected."
-                 },
-                 { 
-                   id: '07', icon: '⚡', title: 'No-Code CMS Publishing', solves: 'Publishing speed', impact: 'Highest (client)',
-                   bg: '#f0fdf2', border: '#bcf0da', pillBg: '#d1fae5', color: '#059669',
-                   desc: "Editors configure chart type, year, region, and annotations  zero developer involvement."
-                 },
-                 { 
-                   id: '08', icon: '♿', title: 'Accessibility & Compliance by Design', solves: 'Access + Risk', impact: 'Global audience',
-                   bg: '#f0f9ff', border: '#bae6fd', pillBg: '#e0f2fe', color: '#0284c7',
-                   desc: "WCAG AA, keyboard navigation, table fallbacks, mobile-responsive, and UN map compliance  baked in from day one."
+                   icon: "✏️",
+                   title: "Editor publishing a story with charts", 
+                   persona: "Persona P4 · UNICEF Content Editor",
+                   points: [
+                     "3-week queue to change a chart default",
+                     "Static charts go stale immediately",
+                     "Can't preview before production",
+                     "Non-compliant boundaries slip through"
+                   ]
                  }
                ].map((card, i) => (
-                  <Squircle key={i} cornerRadius={20} style={{ background: card.bg, border: `1px solid ${card.border}`, padding: '24px', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#94a3b8' }}>Feature {card.id}</span>
-                        <span style={{ fontSize: '0.6rem', fontWeight: 600, color: '#fff', background: card.color, padding: '2px 8px', borderRadius: '100px', letterSpacing: '0.05em' }}>★ HEADLINE</span>
+                  <Squircle key={i} cornerRadius={16} style={{ background: '#f8fafc', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                       <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                         {card.icon}
+                       </div>
+                       <div>
+                          <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: 0 }}>{card.title}</h3>
+                          <span style={{ fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic' }}>{card.persona}</span>
+                       </div>
+                    </div>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '8px' }}>
+                      {card.points.map((pt, j) => (
+                        <li key={j} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                          <span style={{ color: '#ea580c', fontSize: '1.2rem', lineHeight: '1rem', marginTop: '2px' }}>•</span>
+                          <span style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.5 }}>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Squircle>
+               ))}
+             </div>
+          </div>
+       </div>
+
+       {/* ============================================================
+           SECTION 4: RESEARCH & DISCOVERY
+           ============================================================ */}
+       <div className={classes.contentMaxWidth} style={{ padding: '80px 0', maxWidth: '1000px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>02 - RESEARCH & DISCOVERY</span>
+          </div>
+          
+          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
+            Understanding before <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>designing.</span>
+          </h2>
+          <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
+            Two weeks of research before any design. Every finding became an AI prompt input research quality determined output quality.
+          </p>
+
+          {/* 5-Step Process Timeline */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '80px', position: 'relative' }}>
+              {/* Background connecting line */}
+              <div style={{ position: 'absolute', top: '24px', left: '10%', right: '10%', height: '1px', background: '#e2e8f0', zIndex: 0 }} />
+              
+              {[
+                { id: "1", title: "EMPATHIZE", sum: "Understand users & context", list: "Analogous portal audit · Persona literature review · Stakeholder docs · UNICEF data landscape mapping" },
+                { id: "2", title: "DEFINE", sum: "Frame the real problem", list: "Pain synthesis · 5 personas · 8 JTBD statements · AS-IS journey maps · Constraint definition" },
+                { id: "3", title: "IDEATE", sum: "Generate solutions", list: "Feature prioritization · IA design · Tech stack selection · Prompt context document · North Star definition" },
+                { id: "4", title: "PROTOTYPE", sum: "AI-assisted build", list: "AI prompt cycles · 15 screen templates · Design system · Coded prototype · 13+ variation iterations" },
+                { id: "5", title: "TEST", sum: "Validate & refine", list: "UAT scenarios · WCAG audit · Keyboard-only testing · UN map compliance gate · Performance testing" }
+              ].map((st, i) => (
+                 <div key={i} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#fff', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9' }}>
+                      {st.id}
+                    </div>
+                    <div style={{ marginTop: '8px' }}>
+                       <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#16a34a', letterSpacing: '0.05em' }}>{st.title}</span>
+                       <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '4px 0 8px 0' }}>{st.sum}</h4>
+                       <p style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: 1.5 }}>{st.list}</p>
+                    </div>
+                 </div>
+              ))}
+          </div>
+
+          {/* Portals & Stats Split */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginBottom: '80px' }}>
+             <div>
+                <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Analogous Portal Benchmark</span>
+                <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#111', lineHeight: 1.2, margin: '12px 0 24px 0' }}>What 6 comparable portals <span style={{ fontStyle: 'italic' }}>taught us</span> about what not to do.</h3>
+                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>Before designing anything, I audited 6 analogous data portals to extract UX patterns, IA structures, and known failure modes. This wasn't about copying it was about understanding the design space and identifying where every existing portal fails its users.</p>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {[
+                    { name: "World Bank Open Data", desc: "Strong downloads. Zero discoverability. No country-first navigation." },
+                    { name: "Our World in Data", desc: "Best-in-class storytelling. Methodology buried 3 clicks deep." },
+                    { name: "OECD.Stat", desc: "Technically comprehensive. Overwhelming for non-experts. Everything shown at once." },
+                    { name: "WHO GHO", desc: "Good accessibility base. Comparison limited to 2 countries. No URL sharing." },
+                    { name: "ODI & UN Stats", desc: "Trusted by researchers. Requires academic familiarity. No entry point for policy." }
+                  ].map((portal, i) => (
+                     <div key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#111' }}>{portal.name}</span>
+                        <span style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5 }}>{portal.desc}</span>
                      </div>
-                     <div style={{ fontSize: '1.5rem', marginBottom: '12px' }}>{card.icon}</div>
-                     <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: '0 0 12px 0' }}>{card.title}</h4>
-                     <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0, flexGrow: 1 }}>{card.desc}</p>
-                     
-                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '24px' }}>
-                        <div style={{ background: card.pillBg, padding: '6px', borderRadius: '100px', textAlign: 'center', fontSize: '0.75rem', fontWeight: 600, color: card.color }}>
-                           Solves: {card.solves}
-                        </div>
-                        <div style={{ background: card.border, padding: '6px', borderRadius: '100px', textAlign: 'center', fontSize: '0.75rem', fontWeight: 600, color: card.color }}>
-                           Impact: {card.impact}
-                        </div>
+                  ))}
+                </div>
+             </div>
+             
+             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                   <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                      <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>6</span>
+                      <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Analogous portals benchmarked & audited</span>
+                   </Squircle>
+                   <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                      <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>5</span>
+                      <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Distinct user personas built from research</span>
+                   </Squircle>
+                   <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                      <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>8</span>
+                      <span style={{ fontSize: '0.8rem', color: '#64748b' }}>JTBD statements that drove every feature decision</span>
+                   </Squircle>
+                   <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                      <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>5</span>
+                      <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Non-negotiable constraints mapped before any design</span>
+                   </Squircle>
+                </div>
+                
+                <Squircle cornerRadius={12} style={{ border: '1px solid #e2e8f0', padding: '24px' }}>
+                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Research → Prompt Pipeline</span>
+                   <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, marginTop: '12px' }}>
+                     All outputs compiled into a structured Markdown context document the master input for every AI session. <strong style={{ color: '#111' }}>Research quality directly determined AI output quality.</strong>
+                   </p>
+                </Squircle>
+             </div>
+          </div>
+
+          {/* Key Insight */}
+          <Squircle cornerRadius={16} style={{ background: '#f0f9ff', border: '1px solid #bae6fd', padding: '32px', marginBottom: '80px' }}>
+             <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0284c7', letterSpacing: '0.1em', textTransform: 'uppercase' }}>KEY RESEARCH INSIGHT</span>
+             <p style={{ fontSize: '1.05rem', color: '#0f172a', lineHeight: 1.6, marginTop: '12px', fontWeight: 500 }}>
+               Every comparable portal serves one user type. None serve all three. <span style={{ color: '#0284c7' }}>Progressive disclosure wasn't a preference it was the only honest solution.</span>
+             </p>
+          </Squircle>
+
+          {/* Personas */}
+          <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '24px', display: 'block' }}>5 USER PERSONAS SYNTHESISED FROM RESEARCH</span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
+             {[
+               { icon: "🎓", id: "P1 · ACADEMIC", title: "The Researcher", pain: "45+ min triangulating indicator definitions across 6 PDFs before any analysis.", needs: "Needs methodology depth, data provenance, citable CSV" },
+               { icon: "🏛️", id: "P2 · GOVERNMENT", title: "The Policymaker", pain: "No cross-country benchmarking tool rebuilds comparisons in Excel from inconsistent files.", needs: "Needs defensible comparison exportable in <3 min" },
+               { icon: "🤝", id: "P3 · NGO / DONOR", title: "The Partner", pain: "Stitches 3 separate portal downloads together to compile one funding proposal appendix.", needs: "Needs provenance-labelled datasets in one place" },
+               { icon: "✍️", id: "P4 · EDITORIAL", title: "The Editor", pain: "3-week developer queue for 5-minute chart updates. Zero editorial autonomy.", needs: "Needs CMS viz blocks, zero-code publish flow" },
+               { icon: "🗺️", id: "P5 · GEOSPATIAL", title: "Data Steward", pain: "No systematic UN map compliance gate non-compliant boundaries can reach production.", needs: "Needs mandatory CMS review gate before publish" }
+             ].map((p, i) => (
+                <Squircle key={i} cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>{p.icon}</div>
+                  <div>
+                     <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.05em' }}>{p.id}</span>
+                     <h4 style={{ fontSize: '1rem', fontWeight: 600, color: '#111', margin: '4px 0 0 0' }}>{p.title}</h4>
+                  </div>
+                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, flexGrow: 1 }}>
+                    <strong style={{ color: '#e11d48' }}>Pain:</strong> {p.pain}
+                  </p>
+                  <p style={{ fontSize: '0.8rem', color: '#16a34a', lineHeight: 1.5, fontWeight: 500 }}>
+                    ↗ {p.needs}
+                  </p>
+                </Squircle>
+             ))}
+          </div>
+       </div>
+       
+       {/* ============================================================
+           SECTION 5: JOBS TO BE DONE
+           ============================================================ */}
+       <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '80px 0' }}>
+          <div className={classes.contentMaxWidth} style={{ maxWidth: '1000px' }}>
+             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>03 - JOBS TO BE DONE</span>
+             <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
+               What users <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>actually</span> need to accomplish
+             </h2>
+             <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '60%', marginBottom: '40px' }}>
+               Every feature in this product traces back to one of these five jobs. If it doesn't serve a real user outcome, it didn't get built.
+             </p>
+
+             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {[
+                  { icon: "🎓", role: "Researcher", jtbd: "Compare countries on the same indicator normalized, time-aligned without manual wrangling." },
+                  { icon: "🏛️", role: "Policy Analyst", jtbd: "Pull indicator data with methodology and citation defensible in peer review and committee." },
+                  { icon: "✍️", role: "UNICEF Editor", jtbd: "Embed live data visuals in a story without code publish at editorial speed, not developer speed." },
+                  { icon: "🌍", role: "Country Rep", jtbd: "One profile page with all learning indicators brief stakeholders without cross-referencing sources." },
+                  { icon: "👤", role: "General Public", jtbd: "Understand the global education picture instantly explore without knowing the indicator taxonomy." }
+                ].map((job, i) => (
+                   <Squircle key={i} cornerRadius={12} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '24px 32px', display: 'flex', alignItems: 'flex-start', gap: '32px' }}>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '180px' }}>
+                        <div style={{ fontSize: '1.2rem' }}>{job.icon}</div>
+                        <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111' }}>{job.role}</span>
+                     </div>
+                     <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, margin: 0, paddingLeft: '32px', borderLeft: '1px solid #e2e8f0' }}>
+                        {job.jtbd.split(/(I want to.*?)( so|$)/).map((part, index) => 
+                           part.startsWith("I want to") ? <strong key={index} style={{ color: '#111' }}>{part}</strong> : part
+                        )}
+                     </p>
+                   </Squircle>
+                ))}
+             </div>
+
+             {/* Thematic Data Areas with context */}
+             <div style={{ marginTop: '80px' }}>
+               <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#111', marginBottom: '16px', textAlign: 'center' }}>
+                 Structured by <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>thematic data areas</span>
+               </h3>
+               <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: 1.6, textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px auto' }}>
+                 To solve the discoverability failure, we organized the entire indicator taxonomy into five core thematic areas, allowing users to browse by subject rather than digging through raw datasets.
+               </p>
+               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
+                  {[
+                    { bg: '#fee2e2', text: 'Literacy & Numeracy', color: '#b91c1c' },
+                    { bg: '#fef08a', text: 'Technical & Vocational', color: '#a16207' },
+                    { bg: '#fed7aa', text: 'Gender, Disability & Poverty', color: '#c2410c' },
+                    { bg: '#e0f2fe', text: 'Digital Skills & Access', color: '#0369a1' },
+                    { bg: '#dcfce7', text: 'Early Childhood Development', color: '#15803d' },
+                  ].map((img, i) => (
+                     <Squircle key={i} cornerRadius={12} style={{ aspectRatio: '16/10', background: img.bg, display: 'flex', alignItems: 'flex-end', padding: '16px', border: `1.5px solid ${img.color}50`, overflow: 'hidden' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: img.color }}>{img.text}</span>
+                     </Squircle>
+                  ))}
+               </div>
+             </div>
+          </div>
+       </div>
+
+       {/* ============================================================
+           SECTION 6: AI METHODOLOGY
+           ============================================================ */}
+       <div className={classes.contentMaxWidth} style={{ padding: '80px 0', maxWidth: '1000px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
+             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>04 - AI METHODOLOGY</span>
+          </div>
+          
+          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
+            How I <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>actually</span> used AI<br/>to build this product.
+          </h2>
+          <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
+            Using AI effectively for product design isn't about asking it to "make something beautiful." It's about giving it structured research context, specific user problems, clear constraints, and measurable acceptance criteria and knowing when to iterate vs. when to change approach.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '40px' }}>
+             {[
+               { icon: "📄", title: "Research-first prompting", desc: "Full research context injected at session start personas, JTBD, constraints. Research quality directly determined AI output quality." },
+               { icon: "⚡", title: "Vibe vs. direct prompting knowing which to use", desc: "Vibe prompting for visual/layout decisions. Direct prompting for accessibility, performance, and CMS architecture. Knowing which to use is the skill." },
+               { icon: "🎯", title: "Problem-framing, not solution-asking", desc: "Prompt the user job and expected behavior not the implementation. The output quality difference is significant." },
+               { icon: "🧱", title: "Design system as AI context", desc: "Design system tokens became permanent prompt context maintaining visual consistency across 15 templates built in multiple AI sessions." },
+               { icon: "🔄", title: "Structured iteration cycles", desc: "Defined 4-step iteration protocol per feature: build → refine → audit → integrate. Prevented prompt drift across 15+ screens." },
+               { icon: "🔍", title: "Testing as a prompt input", desc: "Each cycle ended with an AI self-audit against UAT acceptance criteria significantly reducing manual testing cycles." }
+             ].map((card, i) => (
+                <Squircle key={i} cornerRadius={16} style={{ background: '#fff', border: '1.5px solid #e2e8f0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                  <div style={{ fontSize: '1.5rem' }}>{card.icon}</div>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: 0 }}>{card.title}</h3>
+                  <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                     {card.desc.split(/(The quality of research input directly determines the quality of AI output\.|Vibe prompting|Direct prompting|This is what maintained visual consistency across 15 screen templates built across multiple AI sessions\.|Output a list of specific changes required\.)/).map((part, index) => 
+                       ["The quality of research input directly determines the quality of AI output.", "Vibe prompting", "Direct prompting", "This is what maintained visual consistency across 15 screen templates built across multiple AI sessions.", "Output a list of specific changes required."].includes(part) ? <strong key={index} style={{ color: '#111' }}>{part}</strong> : part
+                     )}
+                  </p>
+                </Squircle>
+             ))}
+          </div>
+
+          {/* 4 Colored Context Prompts with improved strokes */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
+             <Squircle cornerRadius={12} style={{ border: '2px solid #3b82f6', background: '#fff', padding: '24px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#3b82f6', letterSpacing: '0.05em', textTransform: 'uppercase' }}>SYSTEM / ARCHITECTURE</span>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Full-context build prompts</h4>
+                <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Injecting the entire research context document at session start. Used for initial screen builds and major architectural decisions.</p>
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"Given this JTBD framework, persona set, constraint list, and tech stack, build the Compare page with the following features..."</div>
+             </Squircle>
+
+             <Squircle cornerRadius={12} style={{ border: '2px solid #a855f7', background: '#fff', padding: '24px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#a855f7', letterSpacing: '0.05em', textTransform: 'uppercase' }}>FEATURE / VIBE</span>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>User problem framing</h4>
+                <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Describing the user job and expected behavior without specifying the implementation. Used for new interaction patterns.</p>
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"When a user clicks a country on the globe, they expect a data preview panel not a page redirect. Design this interaction for a policymaker in a 3-minute briefing window."</div>
+             </Squircle>
+
+             <Squircle cornerRadius={12} style={{ border: '2px solid #f97316', background: '#fff', padding: '24px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#f97316', letterSpacing: '0.05em', textTransform: 'uppercase' }}>ITERATION / DIRECT</span>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Specific component refinement</h4>
+                <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Targeted changes to specific components after first-pass build. Precise, technical, with exact acceptance criteria.</p>
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"The country tooltip panel must be dismissible with Escape key, focus trapped when open, and announce via aria-live to screen readers. Fix these 3 issues."</div>
+             </Squircle>
+
+             <Squircle cornerRadius={12} style={{ border: '2px solid #22c55e', background: '#fff', padding: '24px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#22c55e', letterSpacing: '0.05em', textTransform: 'uppercase' }}>AUDIT / TESTING</span>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Self-review against UAT</h4>
+                <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>Prompting AI to audit its own output against defined acceptance criteria. Used at end of each iteration cycle.</p>
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', border: '1px solid #e2e8f0' }}>"Audit this Compare Heatmap against WCAG 2.0 AA. Output a list of contrast failures, keyboard navigation gaps, and missing ARIA attributes."</div>
+             </Squircle>
+          </div>
+
+       </div>
+
+       {/* ============================================================
+           SECTION 7: KEY FEATURES
+           ============================================================ */}
+       <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '80px 0' }}>
+          <div className={classes.contentMaxWidth} style={{ maxWidth: '1200px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
+                <div>
+                   <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block' }}>05 - KEY FEATURES</span>
+                   <h2 style={{ fontSize: '3.5rem', fontWeight: 400, color: '#111', lineHeight: 1.1, letterSpacing: '-0.02em', margin: '16px 0' }}>
+                     8 features.<br/>
+                     5 problems <span style={{ fontStyle: 'italic', color: '#0ea5e9' }}>solved.</span>
+                   </h2>
+                   <div style={{ background: '#e0f2fe', padding: '24px', borderRadius: '12px', border: '1.5px solid #bae6fd', color: '#0f172a', fontWeight: 500, fontStyle: 'italic', fontSize: '1.2rem', lineHeight: 1.4, marginTop: '24px' }}>
+                     "Explore, compare, trust, cite, and publish learning data all in one accessible public portal."
+                   </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                   <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>
+                     These are the features that directly fix UNICEF's biggest problems: findability, trust, comparison, publishing speed, and global accessibility. Each delivers measurable user value and lasting client value.
+                   </p>
+                   <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '12px' }}>8 PORTFOLIO HEADLINE FEATURES</span>
+                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                      {[
+                        { color: '#3b82f6', text: 'Unified Explore Hub' },
+                        { color: '#22c55e', text: 'Country Profiles' },
+                        { color: '#f97316', text: 'Compare Countries' },
+                        { color: '#eab308', text: 'Methodology + Citation' },
+                        { color: '#a855f7', text: 'No-Code Story Publishing' }
+                      ].map((tag, i) => (
+                         <span key={i} style={{ padding: '6px 14px', border: '1px solid #e2e8f0', background: '#fff', borderRadius: '100px', fontSize: '0.8rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: tag.color }} />
+                            {tag.text}
+                         </span>
+                      ))}
+                   </div>
+                </div>
+             </div>
+
+             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px' }}>
+                {[
+                  { 
+                    id: '01', icon: '🔍', title: 'Unified Data Discovery', solves: 'Findability', impact: 'Highest',
+                    bg: '#eff6ff', border: '#bfdbfe', pillBg: '#dbeafe', color: '#2563eb',
+                    desc: "One portal for countries, indicators, datasets, stories, and methodology instead of jumping between PDFs and microsites."
+                  },
+                  { 
+                    id: '02', icon: '🌍', title: 'Country Profile Pages', solves: 'Findability + Trust', impact: 'Policymaker',
+                    bg: '#f0fdf4', border: '#bbf7d0', pillBg: '#dcfce7', color: '#16a34a',
+                    desc: "Dynamic pages with headline indicators, trend charts, downloads, and a comparison entry point country-first navigation."
+                  },
+                  { 
+                    id: '03', icon: '📋', title: 'Indicator Trust Layer', solves: 'Trust', impact: 'Researcher',
+                    bg: '#fefce8', border: '#fef08a', pillBg: '#fef9c3', color: '#ca8a04',
+                    desc: "Every indicator backed by definition, methodology, source, coverage notes, and related indicators."
+                  },
+                  { 
+                    id: '04', icon: '⚖️', title: 'Comparison Tool', solves: 'Comparison', impact: 'P2 + P3',
+                    bg: '#fff7ed', border: '#fed7aa', pillBg: '#ffedd5', color: '#ea580c',
+                    desc: "Side-by-side country comparison with URL state preservation. Heatmap, scatter, and percentile views."
+                  },
+                  { 
+                    id: '05', icon: '📥', title: 'Download + Citation', solves: 'Trust', impact: 'Differentiator',
+                    bg: '#faf5ff', border: '#e9d5ff', pillBg: '#f3e8ff', color: '#9333ea',
+                    desc: "CSVs with full metadata and a pre-formatted citation string turns the portal into a research-grade citable tool."
+                  },
+                  { 
+                    id: '06', icon: '📈', title: 'Interactive Stories with Live Data', solves: 'Publishing', impact: 'Editor',
+                    bg: '#fff1f2', border: '#fecdd3', pillBg: '#ffe4e6', color: '#e11d48',
+                    desc: "Editors publish analytical stories with embedded charts tied to live data narrative and evidence permanently connected."
+                  },
+                  { 
+                    id: '07', icon: '⚡', title: 'No-Code CMS Publishing', solves: 'Publishing speed', impact: 'Highest (client)',
+                    bg: '#f0fdf2', border: '#bcf0da', pillBg: '#d1fae5', color: '#059669',
+                    desc: "Editors configure chart type, year, region, and annotations zero developer involvement."
+                  },
+                  { 
+                    id: '08', icon: '♿', title: 'Accessibility & Compliance by Design', solves: 'Access + Risk', impact: 'Global audience',
+                    bg: '#f0f9ff', border: '#bae6fd', pillBg: '#e0f2fe', color: '#0284c7',
+                    desc: "WCAG AA, keyboard navigation, table fallbacks, mobile-responsive, and UN map compliance baked in from day one."
+                  }
+                ].map((card, i) => (
+                   <Squircle key={i} cornerRadius={20} style={{ background: card.bg, border: `1.5px solid ${card.border}`, padding: '24px', display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                         <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#94a3b8' }}>Feature {card.id}</span>
+                         <span style={{ fontSize: '0.6rem', fontWeight: 600, color: '#fff', background: card.color, padding: '2px 8px', borderRadius: '100px', letterSpacing: '0.05em' }}>★ HEADLINE</span>
+                      </div>
+                      <div style={{ fontSize: '1.5rem', marginBottom: '12px' }}>{card.icon}</div>
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: '0 0 12px 0' }}>{card.title}</h4>
+                      <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0, flexGrow: 1 }}>{card.desc}</p>
+                      
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '24px' }}>
+                         <div style={{ background: card.pillBg, padding: '6px', borderRadius: '100px', textAlign: 'center', fontSize: '0.75rem', fontWeight: 600, color: card.color }}>
+                            Solves: {card.solves}
+                         </div>
+                         <div style={{ background: card.border, padding: '6px', borderRadius: '100px', textAlign: 'center', fontSize: '0.75rem', fontWeight: 600, color: card.color }}>
+                            Impact: {card.impact}
+                         </div>
+                      </div>
+                   </Squircle>
+                ))}
+             </div>
+          </div>
+       </div>      </div>
                      </div>
                   </Squircle>
                ))}
@@ -1103,22 +1125,18 @@ export default function UnicefCaseStudyTemplate() {
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '80px', textAlign: 'center' }}>
-               <div>
-                  <div style={{ fontSize: '3.5rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9', fontWeight: 300 }}>15</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Screen templates designed and built in Phase 1</div>
-               </div>
-               <div>
-                  <div style={{ fontSize: '3.5rem', fontFamily: 'Instrument Serif, serif', color: '#16a34a', fontWeight: 300 }}>6+</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Iteration cycles from first build to Phase 1 delivery</div>
-               </div>
-               <div>
-                  <div style={{ fontSize: '3.5rem', fontFamily: 'Instrument Serif, serif', color: '#9333ea', fontWeight: 300 }}>8</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Core features delivered including new map-to-compare flow</div>
-               </div>
-               <div>
-                  <div style={{ fontSize: '3.5rem', fontFamily: 'Instrument Serif, serif', color: '#eab308', fontWeight: 300 }}>Phase 2</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Client approved full engagement  design through engineering handoff</div>
-               </div>
+               {[
+                 { num: "15", label: "Screen templates", sub: "Designed and built in Phase 1", color: "#0ea5e9", bg: "#f0f9ff", border: "#bae6fd" },
+                 { num: "6+", label: "Iteration cycles", sub: "From first build to Phase 1 delivery", color: "#16a34a", bg: "#f0fdf4", border: "#bbf7d0" },
+                 { num: "8", label: "Core features", sub: "Delivered including new map-to-compare flow", color: "#9333ea", bg: "#faf5ff", border: "#e9d5ff" },
+                 { num: "Phase 2", label: "Client approved", sub: "Design through engineering handoff", color: "#eab308", bg: "#fffbeb", border: "#fef08a" }
+               ].map((item, i) => (
+                  <Squircle key={i} cornerRadius={16} style={{ background: item.bg, border: `1.5px solid ${item.border}`, padding: '32px 20px', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+                     <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: item.color, fontWeight: 300, lineHeight: 1 }}>{item.num}</div>
+                     <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#111', marginTop: '8px' }}>{item.label}</div>
+                     <div style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: 1.4 }}>{item.sub}</div>
+                  </Squircle>
+               ))}
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '80px' }}>
@@ -1149,66 +1167,89 @@ export default function UnicefCaseStudyTemplate() {
                   <span style={{ fontSize: '0.8rem', color: '#a16207', fontWeight: 600 }}>RFP stage  these are validation targets, not post-launch measurements</span>
                </div>
                
-               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-                  <Squircle cornerRadius={16} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '24px' }}>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                        <span style={{ fontSize: '1.2rem' }}>⚡</span>
+               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+                  <Squircle cornerRadius={20} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '32px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>⚡</div>
                         <div>
-                           <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#111' }}>Task success</div>
-                           <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Journey completion</div>
+                           <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#111' }}>Task success</div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Journey completion</div>
                         </div>
                      </div>
-                     <div style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '16px' }}>
-                        <div style={{ fontSize: '0.7rem', color: '#64748b' }}>Task success rate</div>
-                        <div style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9', margin: '4px 0' }}>&gt;80%</div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Moderated usability  Researcher, Policymaker, Partner flows</div>
-                     </div>
-                     <div>
-                        <div style={{ fontSize: '0.7rem', color: '#64748b' }}>Policymaker comparison flow</div>
-                        <div style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9', margin: '4px 0' }}>&lt;3 <span style={{ fontSize: '1rem' }}>min</span></div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Landing → Compare → Export, keyboard-only UAT-02</div>
+                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>OVERALL TASK SUCCESS RATE</div>
+                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                              <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9', fontWeight: 300 }}>&gt;80%</div>
+                              <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>of users</span>
+                           </div>
+                           <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.4, marginTop: '4px' }}>Target for moderated usability flows across Researcher & Policymaker personas</div>
+                        </div>
+                        <div style={{ width: '100%', height: '1px', background: '#f1f5f9' }} />
+                        <div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>POLICYMAKER COMPARISON SPEED</div>
+                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                              <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: '#0ea5e9', fontWeight: 300 }}>&lt;3 <span style={{ fontSize: '1.2rem' }}>min</span></div>
+                           </div>
+                           <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.4, marginTop: '4px' }}>Total time from Landing → Compare → Export (keyboard-only UAT scenario)</div>
+                        </div>
                      </div>
                   </Squircle>
 
-                  <Squircle cornerRadius={16} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '24px' }}>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                        <span style={{ fontSize: '1.2rem' }}>🔒</span>
+                  <Squircle cornerRadius={20} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '32px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>🔒</div>
                         <div>
-                           <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#111' }}>Trust</div>
-                           <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Data confidence</div>
+                           <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#111' }}>Trust</div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Data confidence</div>
                         </div>
                      </div>
-                     <div style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '16px' }}>
-                        <div style={{ fontSize: '0.7rem', color: '#64748b' }}>Post-task confidence score</div>
-                        <div style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#16a34a', margin: '4px 0' }}>&gt;4<span style={{ fontSize: '1rem', color: '#94a3b8' }}>/5</span></div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>"Confident enough to cite this data"  exit survey</div>
-                     </div>
-                     <div>
-                        <div style={{ fontSize: '0.7rem', color: '#64748b' }}>Citation feature usage</div>
-                        <div style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#16a34a', margin: '4px 0' }}>15%</div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Sessions using citation string or permalink copy</div>
+                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>CONFIDENCE SCORE (OUT OF 5)</div>
+                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                              <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: '#16a34a', fontWeight: 300 }}>&gt;4</div>
+                              <span style={{ fontSize: '1.2rem', color: '#94a3b8' }}>/5</span>
+                           </div>
+                           <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.4, marginTop: '4px' }}>"Confident enough to cite this data" target in post-task exit survey</div>
+                        </div>
+                        <div style={{ width: '100%', height: '1px', background: '#f1f5f9' }} />
+                        <div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>CITATION FEATURE UPTAKE</div>
+                           <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: '#16a34a', fontWeight: 300 }}>15%</div>
+                           <div style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.4, marginTop: '4px' }}>Target percentage of sessions using the citation string or permalink copy feature</div>
+                        </div>
                      </div>
                   </Squircle>
 
-                  <Squircle cornerRadius={16} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '24px' }}>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                        <span style={{ fontSize: '1.2rem' }}>✏️</span>
+                  <Squircle cornerRadius={20} style={{ border: '1px solid #e2e8f0', background: '#fff', padding: '32px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#fff7ed', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>✏️</div>
                         <div>
-                           <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#111' }}>Editorial</div>
-                           <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Publishing velocity</div>
+                           <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#111' }}>Editorial</div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Publishing velocity</div>
                         </div>
                      </div>
-                     <div style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '16px' }}>
-                        <div style={{ fontSize: '0.7rem', color: '#64748b' }}>Dev tickets for content updates</div>
-                        <div style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111', margin: '4px 0' }}>Zero</div>
-                        <div style={{ height: '4px', background: '#e2e8f0', width: '100%', borderRadius: '2px', overflow: 'hidden', marginTop: '8px' }}><div style={{ width: '100%', height: '100%', background: '#10b981' }} /></div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '8px' }}>All chart defaults + stories in CMS, no code required</div>
-                     </div>
-                     <div>
-                        <div style={{ fontSize: '0.7rem', color: '#64748b' }}>LCP on 4G</div>
-                        <div style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111', margin: '4px 0' }}>&lt;2.5<span style={{ fontSize: '1rem', color: '#94a3b8' }}>s</span></div>
-                        <div style={{ height: '4px', background: '#e2e8f0', width: '100%', borderRadius: '2px', overflow: 'hidden', marginTop: '8px' }}><div style={{ width: '60%', height: '100%', background: '#f59e0b' }} /></div>
-                        <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '8px' }}>Lighthouse CI, simulated 4G  equity performance target</div>
+                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>DEV TICKETS FOR CONTENT UPDATES</div>
+                           <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: '#111', fontWeight: 300, margin: '4px 0' }}>Zero</div>
+                           <div style={{ height: '6px', background: '#f1f5f9', width: '100%', borderRadius: '3px', overflow: 'hidden', marginTop: '8px' }}>
+                              <div style={{ width: '100%', height: '100%', background: '#10b981' }} />
+                           </div>
+                           <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '12px', lineHeight: 1.4 }}>Goal: All chart defaults + stories manageable in CMS with no code required</div>
+                        </div>
+                        <div style={{ width: '100%', height: '1px', background: '#f1f5f9' }} />
+                        <div>
+                           <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>LCP ON SIMULATED 4G</div>
+                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                              <div style={{ fontSize: '3rem', fontFamily: 'Instrument Serif, serif', color: '#111', fontWeight: 300 }}>&lt;2.5<span style={{ fontSize: '1.2rem' }}>s</span></div>
+                           </div>
+                           <div style={{ height: '6px', background: '#f1f5f9', width: '100%', borderRadius: '3px', overflow: 'hidden', marginTop: '8px' }}>
+                              <div style={{ width: '60%', height: '100%', background: '#f59e0b' }} />
+                           </div>
+                           <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '12px', lineHeight: 1.4 }}>Lighthouse CI target for global equity performance (simulated 4G)</div>
+                        </div>
                      </div>
                   </Squircle>
                </div>
