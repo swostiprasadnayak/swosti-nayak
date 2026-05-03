@@ -210,7 +210,7 @@ const IntroOverlay: React.FC = () => {
           style={{ cursor: "pointer" }}
         >
           <div className={classes.scene}>
-            <audio ref={audioRef} src="/audio/intro-voice.mp3" preload="auto" />
+            <audio ref={audioRef} src="/audio/intro-voice-ishan.mp3" preload="auto" />
             
             {/* Avatar container */}
             <motion.div
