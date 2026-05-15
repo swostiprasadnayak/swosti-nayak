@@ -7,6 +7,10 @@
     color: var(--text-primary);
 }
 
+:global([data-theme="dark"]) .pageWrapper {
+    background: #1e1e1e;
+}
+
 .contentMaxWidth {
     max-width: 900px;
     margin: 0 auto;
