@@ -36,20 +36,6 @@ export default function GCDentalCaseStudyTemplate() {
              <img src="/images/gc-banner.png" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px', marginBottom: '100px' }}>
-             <div>
-                <h4 style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px' }}>SCOPE</h4>
-                <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.6 }}>The user experience spans product discovery, navigation, purchase, and post-purchase.</p>
-             </div>
-             <div>
-                <h4 style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px' }}>EVALUATION</h4>
-                <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.6 }}>Checks usability principles like consistency, feedback, error prevention, and efficiency.</p>
-             </div>
-             <div>
-                <h4 style={{ fontSize: '0.75rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px' }}>GOAL</h4>
-                <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.6 }}>Identify issues that block conversions, lower satisfaction, or cause friction.</p>
-             </div>
-          </div>
        </div>
 
 
