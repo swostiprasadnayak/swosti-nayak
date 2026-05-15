@@ -186,10 +186,10 @@ export default function BlinkitCaseStudyTemplate() {
                     onVoiceModeClick={openModal}
                 />
 
-                {/* ── HERO BANNER ───────────────────────────────────────────── */}
-                <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 20px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.06)" }}>
+                {/* ── HERO BANNER - Edge to Edge ───────────────────────────────────── */}
+                <div style={{ width: "calc(100% + 80px)", marginLeft: "-40px", marginBottom: 72 }}>
                     <img
-                        src="/images/blinkit/blinkit-hero-banner.png"
+                        src="/images/blinkit-banner.png"
                         alt="Making Grocery Shopping Effortless with AI"
                         style={{ width: "100%", height: "auto", display: "block" }}
                     />
