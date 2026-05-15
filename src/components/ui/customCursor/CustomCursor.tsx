@@ -77,7 +77,7 @@ export default function CustomCursor() {
         backdropFilter: (isHovering || isClicked) ? "blur(1px)" : "none",
       }}
       animate={{
-        scale: isClicked ? 1.1 : (isHovering ? 1.35 : 0.6),
+        scale: (isHovering || isClicked) ? 1.35 : 0.6,
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     />
