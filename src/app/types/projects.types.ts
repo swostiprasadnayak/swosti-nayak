@@ -38,7 +38,8 @@ export const PROJECTS: ProjectContent[] = [
         description: "Designing a Multi-sensory IoT ecosystem for adaptive home environments based on emotional, activity-based feedback and a Smell Vocabulary of base Odorants.",
         tags: ["UX", "AI", "XR", "Flutter", "Next.js"],
         video: "/videos/syne-iot.mp4",
-        demoPoster: "/images/project-1.jpg"
+        demoPoster: "/images/project-1.jpg",
+        disabled: true
     },
     {
         name: "Dynamic Map",

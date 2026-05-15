@@ -432,35 +432,35 @@ export default function GCDentalCaseStudyTemplate() {
           </Squircle>
 
           {/* AI Search (Bonus) */}
-          <div style={{ padding: '64px 48px', background: '#0f172a', borderRadius: '24px', position: 'relative', overflow: 'hidden' }}>
-             <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(0,180,148,0.15) 0%, transparent 70%)' }} />
-             <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>→ FORWARD THINKING</span>
-             <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#fff', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>The search problem, solved with AI.</h2>
-             <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.6, maxWidth: '80%', marginBottom: '40px' }}>
+          <div style={{ padding: '64px 48px', background: '#f0fdfa', borderRadius: '24px', position: 'relative', overflow: 'hidden', border: '1.5px solid #99f6e4' }}>
+             <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(0,180,148,0.1) 0%, transparent 70%)' }} />
+             <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#0d9488', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>→ FORWARD THINKING</span>
+             <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>The search problem, solved with AI.</h2>
+             <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '40px' }}>
                Research showed users come with a specific product in mind. But when they search, results are too broad. I designed an AI-powered search layer that goes from keyword to clinical recommendation in 2 steps.
              </p>
              
              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-                <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '24px' }}>
+                <div style={{ background: '#fff', border: '1px solid #ccfbf1', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 20px rgba(0,180,148,0.05)' }}>
                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                       <Zap size={20} color="#eab308" />
-                      <div style={{ fontSize: '1rem', fontWeight: 600, color: '#fff' }}>AI Assistant Flow</div>
+                      <div style={{ fontSize: '1rem', fontWeight: 600, color: '#111' }}>AI Assistant Flow</div>
                    </div>
                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      <li style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> User types "adhesive" → AI shows specialty-specific suggestions</li>
-                      <li style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Conversational recommendation via chat interface</li>
-                      <li style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Smart scoring: 95% Products · 80% Events · 0% Careers</li>
+                      <li style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> User types "adhesive" → AI shows specialty-specific suggestions</li>
+                      <li style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Conversational recommendation via chat interface</li>
+                      <li style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Smart scoring: 95% Products · 80% Events · 0% Careers</li>
                    </ul>
                 </div>
-                <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '24px' }}>
+                <div style={{ background: '#fff', border: '1px solid #ccfbf1', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 20px rgba(0,180,148,0.05)' }}>
                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                       <Search size={20} color="#0ea5e9" />
-                      <div style={{ fontSize: '1rem', fontWeight: 600, color: '#fff' }}>Smart Search States</div>
+                      <div style={{ fontSize: '1rem', fontWeight: 600, color: '#111' }}>Smart Search States</div>
                    </div>
                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      <li style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Recent searches surface last 3 sessions (returning users)</li>
-                      <li style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Suggested searches: Aadva IOS / Preferred Milling Partners</li>
-                      <li style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Tab filters: All / Products / Events / Education / News</li>
+                      <li style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Recent searches surface last 3 sessions (returning users)</li>
+                      <li style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Suggested searches: Aadva IOS / Preferred Milling Partners</li>
+                      <li style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'flex', gap: '8px' }}><Check size={16} color="#00B494" style={{ flexShrink: 0, marginTop: '2px' }}/> Tab filters: All / Products / Events / Education / News</li>
                    </ul>
                 </div>
              </div>
@@ -575,21 +575,21 @@ export default function GCDentalCaseStudyTemplate() {
           </div>
 
           {/* 90 Second Interview Story */}
-          <Squircle cornerRadius={24} style={{ background: '#0f172a', padding: '48px', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+          <Squircle cornerRadius={24} style={{ background: '#f0fdfa', padding: '48px', color: '#111', position: 'relative', overflow: 'hidden', border: '1.5px solid #99f6e4' }}>
              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#00B494' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#00B494', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px', display: 'block' }}>The 90-Second Interview Story</span>
-             <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#fff', margin: '0 0 32px 0', fontFamily: 'Playfair Display, serif' }}>If you ask me "tell me about this project" in an interview, here's exactly what I'll say:</h3>
+             <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#111', margin: '0 0 32px 0', fontFamily: 'Playfair Display, serif' }}>If you ask me "tell me about this project" in an interview, here's exactly what I'll say:</h3>
              
              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                {[
-                 <>I worked on a B2B healthcare website redesign where the core problem wasn't what the client thought — <span style={{ color: '#00B494' }}>4 of 5 dental professionals arrived late in their research journey, looking to verify a decision, not explore the brand.</span></>,
-                 <>I ran heuristic evaluation and usability testing and found <span style={{ color: '#00B494' }}>two critical blockers: IFU was buried, and the product page hero didn't communicate which product you were on</span> — both causing silent abandonment.</>,
-                 <>I solved them with two research-backed components: a <span style={{ color: '#00B494' }}>redesigned Documents & Manuals grid (one-click from anywhere) and two PDP templates (Simple and Detailed)</span> with a sticky product cart that follows you through 11 sections.</>,
-                 <>Then I scaled this into a <span style={{ color: '#00B494' }}>30+ component design system across 2 breakpoints and 30+ regions</span> — so the team ships faster, stays consistent, and never designs the same component twice.</>
+                 <>I worked on a B2B healthcare website redesign where the core problem wasn't what the client thought — <span style={{ color: '#0d9488', fontWeight: 600 }}>4 of 5 dental professionals arrived late in their research journey, looking to verify a decision, not explore the brand.</span></>,
+                 <>I ran heuristic evaluation and usability testing and found <span style={{ color: '#0d9488', fontWeight: 600 }}>two critical blockers: IFU was buried, and the product page hero didn't communicate which product you were on</span> — both causing silent abandonment.</>,
+                 <>I solved them with two research-backed components: a <span style={{ color: '#0d9488', fontWeight: 600 }}>redesigned Documents & Manuals grid (one-click from anywhere) and two PDP templates (Simple and Detailed)</span> with a sticky product cart that follows you through 11 sections.</>,
+                 <>Then I scaled this into a <span style={{ color: '#0d9488', fontWeight: 600 }}>30+ component design system across 2 breakpoints and 30+ regions</span> — so the team ships faster, stays consistent, and never designs the same component twice.</>
                ].map((text, i) => (
-                 <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: '24px', borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
+                 <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: '24px', borderBottom: i < 3 ? '1px solid rgba(0,180,148,0.1)' : 'none' }}>
                     <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#00B494', opacity: 0.6 }}>{i+1}</div>
-                    <div style={{ fontSize: '1rem', fontWeight: 300, color: '#cbd5e1', lineHeight: 1.6 }}>{text}</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 400, color: '#475569', lineHeight: 1.6 }}>{text}</div>
                  </div>
                ))}
              </div>

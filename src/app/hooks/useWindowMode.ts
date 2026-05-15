@@ -10,8 +10,8 @@ export type WindowModeAPI = {
 
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Open Surrounding (syne), Unicef and Blinkit on startup
-    const [openWindows, setOpenWindows] = useState<string[]>(["syne", "unicef", "blinkit"]);
-    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ syne: 1, unicef: 2, blinkit: 3 });
+    const [openWindows, setOpenWindows] = useState<string[]>(["unicef", "blinkit", "gc-dental"]);
+    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, unicef: 2, blinkit: 3 });
     const [topZ, setTopZ] = useState(3);
 
     const bringToFront = useCallback((slug: string) => {
@@ -41,6 +41,7 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
                 blinkit:   { x: -380, y: 350 },
                 aristotle: { x:   50, y: 350 },
                 "pid-tool":{ x: -165, y: 350 },
+                "gc-dental":{ x:  -380, y: -20 },
             };
             return gridPositions[slug] || { x: 0, y: 0 };
         }
@@ -52,6 +53,7 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
             blinkit:   { x:  160, y:  60 },
             aristotle: { x:    0, y:   0 },
             "pid-tool":{ x:   80, y:  20 },
+            "gc-dental":{ x: -160, y: -60 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, [viewMode]);
