@@ -6,16 +6,16 @@ import classes from "./voiceModal.module.css";
 
 const SCRIPT = [
     { text: "", delay: 0 },
-    { text: "Hey there, I'm Swosti. I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.", delay: 500 },
-    { text: "Over the past 2+ years, I’ve worked across B2B and B2C products  from internal platforms to customer-facing solutions.", delay: 8500 },
-    { text: "My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.", delay: 15500 },
-    { text: "I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements.", delay: 24500 },
-    { text: "Always focusing on clarity, usability, and measurable impact.", delay: 31000 },
-    { text: "What drives me? Designing systems that scale. Creating experiences that reduce friction.", delay: 35000 },
-    { text: "Building products that users actually enjoy using.", delay: 41000 },
-    { text: "Currently exploring opportunities where I can contribute to high-impact product teams.", delay: 44000 },
-    { text: "Let’s build something meaningful.", delay: 49500 },
-    { text: "", delay: 52000 }
+    { text: "Hey there, I'm Swosti. I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.", delay: 700 },
+    { text: "Over the past 2+ years, I’ve worked across B2B and B2C products  from internal platforms to customer-facing solutions.", delay: 11700 },
+    { text: "My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.", delay: 21300 },
+    { text: "I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements.", delay: 33700 },
+    { text: "Always focusing on clarity, usability, and measurable impact.", delay: 42600 },
+    { text: "What drives me? Designing systems that scale. Creating experiences that reduce friction.", delay: 48100 },
+    { text: "Building products that users actually enjoy using.", delay: 56400 },
+    { text: "Currently exploring opportunities where I can contribute to high-impact product teams.", delay: 60500 },
+    { text: "Let’s build something meaningful.", delay: 68100 },
+    { text: "", delay: 71500 }
 ];
 
 export default function VoiceModal() {

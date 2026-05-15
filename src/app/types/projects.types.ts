@@ -26,6 +26,13 @@ export const PROJECTS: ProjectContent[] = [
         demoPoster: "/images/unicef-portal.png"
     },
     {
+        name: "GC Dental",
+        slug: "gc-dental",
+        description: "B2B Healthcare Web Redesign. Discovery → Design System → Dev Handoff.",
+        tags: ["B2B", "Healthcare", "Web"],
+        demoPoster: "/images/unicef-portal.png" // Using unicef poster as placeholder until asset is available
+    },
+    {
         name: "Surrounding",
         slug: "syne",
         description: "Designing a Multi-sensory IoT ecosystem for adaptive home environments based on emotional, activity-based feedback and a Smell Vocabulary of base Odorants.",
