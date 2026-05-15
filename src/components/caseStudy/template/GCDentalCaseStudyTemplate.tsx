@@ -33,7 +33,7 @@ export default function GCDentalCaseStudyTemplate() {
 
          {/* Hero Image */}
          <Squircle cornerRadius={24} style={{ width: '100%', overflow: 'hidden', marginBottom: '100px', border: '1px solid rgba(0,0,0,0.05)' }}>
-            <img src="/unicef-hero-container.png" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block' }} onError={(e) => e.currentTarget.style.display = 'none'} />
+            <img src="/images/gc-banner.png" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'contain' }} />
          </Squircle>
       </div>
 

@@ -30,7 +30,8 @@ export const PROJECTS: ProjectContent[] = [
         slug: "gc-dental",
         description: "B2B Healthcare Web Redesign. Discovery → Design System → Dev Handoff.",
         tags: ["B2B", "Healthcare", "Web"],
-        demoPoster: "/images/unicef-portal.png" // Using unicef poster as placeholder until asset is available
+        video: "/videos/gc-dental.mov",
+        demoPoster: "/images/gc-banner.png"
     },
     {
         name: "Surrounding",
