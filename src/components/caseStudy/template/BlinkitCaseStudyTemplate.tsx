@@ -11,14 +11,14 @@ const ACCENT = "#F5C518";
 const sCard: React.CSSProperties = {
     background: "var(--bg-card)",
     border: "1px solid rgba(0,0,0,0.07)",
-    borderRadius: 16,
-    boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+    borderRadius: 12,
+    boxShadow: "0 4px 15px rgba(0,0,0,0.05)",
     padding: "24px",
 };
 const sSubtle: React.CSSProperties = {
     background: "rgba(0,0,0,0.025)",
     border: "1px solid rgba(0,0,0,0.06)",
-    borderRadius: 16,
+    borderRadius: 12,
     padding: "24px",
 };
 const bigNum: React.CSSProperties = {

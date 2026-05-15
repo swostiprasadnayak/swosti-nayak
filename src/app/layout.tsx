@@ -2,6 +2,7 @@ import { AboutModalProvider } from "./contexts/AboutModalContext";
 import { ViewportProvider } from "./contexts/ViewportContext";
 import { VoiceModalProvider } from "./contexts/VoiceModalContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import CustomCursor from "@/components/ui/customCursor/CustomCursor";
 import "./globals.css";
 
 export const metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
+        <CustomCursor />
         <ThemeProvider>
           <ViewportProvider>
             <AboutModalProvider>

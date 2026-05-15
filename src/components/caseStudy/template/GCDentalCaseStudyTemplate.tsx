@@ -48,8 +48,8 @@ export default function GCDentalCaseStudyTemplate() {
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>01 - PROBLEM STATEMENT & RESEARCH</span>
           </div>
           
-          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
-            Users come to <span style={{ fontStyle: 'italic', color: '#00B494' }}>verify,</span><br/>
+          <h2 className={classes.htmlH2}>
+            Users come to <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>verify,</span><br/>
             not discover.
           </h2>
           
@@ -58,7 +58,7 @@ export default function GCDentalCaseStudyTemplate() {
           </p>
 
           {/* Core Problem Block */}
-          <Squircle cornerRadius={16} style={{ background: '#f0fdfa', padding: '48px', boxShadow: 'inset 0 0 0 1.5px #99f6e4', marginBottom: '60px' }}>
+          <div className={classes.htmlSectionCard}>
              <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0d9488', letterSpacing: '0.1em' }}>NORTH STAR INSIGHT</span>
              <p style={{ fontSize: '1.4rem', color: '#0f172a', fontStyle: 'italic', fontWeight: 400, lineHeight: 1.5, marginTop: '16px', fontFamily: 'Instrument Serif, serif' }}>
                "I just need the information — fast."
@@ -79,7 +79,7 @@ export default function GCDentalCaseStudyTemplate() {
                   <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>would <strong>abandon if IFU wasn't one-click</strong> from the product page — the most critical failure we found.</div>
                </div>
              </div>
-          </Squircle>
+          </div>
 
           {/* User Journey Map */}
           <div style={{ display: 'flex', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', marginBottom: '80px', background: '#fff' }}>
@@ -102,11 +102,11 @@ export default function GCDentalCaseStudyTemplate() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginBottom: '100px' }}>
             
             {/* Heuristic Evaluation */}
-            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div className={classes.htmlSectionCard} style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
               <div style={{ padding: '24px', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '16px' }}>
                  <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1 }}>01</div>
                  <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#111', margin: '0 0 8px 0' }}>Heuristic Evaluation</h3>
+                    <h3 className={classes.htmlH3} style={{ marginTop: 0 }}>Heuristic Evaluation</h3>
                     <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Systematic review of existing homepage against Nielsen's 10 usability heuristics. Benchmarked against 3 competitors.</p>
                  </div>
               </div>
@@ -124,14 +124,14 @@ export default function GCDentalCaseStudyTemplate() {
                    </div>
                  ))}
               </div>
-            </Squircle>
+            </div>
 
             {/* Usability Testing */}
-            <Squircle cornerRadius={16} style={{ background: '#fff', border: '1px solid #e2e8f0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div className={classes.htmlSectionCard} style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
               <div style={{ padding: '24px', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '16px' }}>
                  <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1 }}>02</div>
-                 <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#111', margin: '0 0 8px 0' }}>Usability Testing</h3>
+                  <div>
+                    <h3 className={classes.htmlH3} style={{ marginTop: 0 }}>Usability Testing</h3>
                     <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>5 participants. Remote moderated. 45-min sessions. Task-based testing of 13 hypotheses across Europe & Australia.</p>
                  </div>
               </div>
@@ -149,7 +149,7 @@ export default function GCDentalCaseStudyTemplate() {
                    </div>
                  ))}
               </div>
-            </Squircle>
+            </div>
           </div>
 
        </div>
@@ -160,62 +160,69 @@ export default function GCDentalCaseStudyTemplate() {
        <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
           <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>02 - 4 BEHAVIORAL ARCHETYPES</span>
-             <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
-               Not demographics. <span style={{ fontStyle: 'italic', color: '#00B494' }}>Behaviors.</span>
+             <h2 className={classes.htmlH2}>
+               Not demographics. <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>Behaviors.</span>
              </h2>
              <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '60%', marginBottom: '40px' }}>
                Each persona maps to specific heuristic failures and drove real component decisions.
              </p>
 
+             {/* Persona Cards */}
              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '100px' }}>
                {[
                  { 
                    icon: <Stethoscope size={20} color="#00B494" />,
+                   label: "\"PROVE IT TO ME\"",
                    title: "General Dentist", 
-                   persona: "\"Prove it to me\"",
                    quote: "As a busy dentist, I need to quickly compare products, access clinical resources, and manage orders between patients.",
-                   implication: "Clinical evidence visible on PDP hero. Side-by-side product comparison."
+                   decision: "Clinical evidence visible on PDP hero. Side-by-side product comparison."
                  },
                  { 
                    icon: <Settings size={20} color="#00B494" />,
+                   label: "\"JUST GIVE ME THE DOCS\"",
                    title: "Procurement Officer", 
-                   persona: "\"Just give me the docs\"",
                    quote: "I need bulk orders, volume pricing, invoice history — the current system is slow and lacks repeat-order tools.",
-                   implication: "SKU grid (3-column, paginated) with tabbed filters. Volume pricing visible."
+                   decision: "SKU grid (3-column, paginated) with tabbed filters. Volume pricing visible."
                  },
                  { 
                    icon: <Microscope size={20} color="#00B494" />,
+                   label: "\"SHOW ME THE EVIDENCE\"",
                    title: "Dental Specialist", 
-                   persona: "\"Show me the evidence\"",
                    quote: "I need specialty-specific products, comparative studies, and the ability to bookmark clinical content for later.",
-                   implication: "Specialty taxonomy in navigation. Documents section with tab filters."
+                   decision: "Specialty taxonomy in navigation. Documents section with tab filters."
                  },
                  { 
                    icon: <ClipboardList size={20} color="#00B494" />,
+                   label: "\"TELL ME FAST\"",
                    title: "Practice Manager", 
-                   persona: "\"Tell me fast\"",
                    quote: "Managing multiple clinics — I need team permissions, spending breakdowns, and workflow accountability tools.",
-                   implication: "Jump-to navigation (11 sections). IFU one-click above fold. No cognitive overhead."
+                   decision: "Jump-to navigation (11 sections). IFU one-click above fold. No cognitive overhead."
                  }
                ].map((card, i) => (
-                  <Squircle key={i} cornerRadius={16} style={{ background: '#fff', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                  <div key={i} className={classes.htmlCard} style={{ padding: '24px', background: '#fff', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f0fdfa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       {card.icon}
                     </div>
                     <div>
-                       <span style={{ fontSize: '0.65rem', color: '#00B494', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{card.persona}</span>
-                       <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: '4px 0 0 0' }}>{card.title}</h3>
+                       <div style={{ fontSize: '0.65rem', color: '#1e293b', fontWeight: 800, letterSpacing: '0.05em' }}>{card.label}</div>
+                       <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1e293b', margin: '4px 0 0 0' }}>{card.title}</h3>
                     </div>
-                    <p style={{ fontSize: '0.85rem', color: '#64748b', lineHeight: 1.5, fontStyle: 'italic', borderLeft: '2px solid #e2e8f0', paddingLeft: '12px', margin: 0 }}>"{card.quote}"</p>
-                    <div style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, marginTop: 'auto' }}><strong style={{ color: '#0d9488', fontSize: '0.7rem', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>→ Design Decision</strong>{card.implication}</div>
-                  </Squircle>
+                    <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, fontStyle: 'italic', margin: 0 }}>"{card.quote}"</p>
+                    <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
+                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                          <ArrowRight size={14} color="#1e293b" />
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#1e293b', textTransform: 'uppercase' }}>Design Decision</span>
+                       </div>
+                       <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>{card.decision}</div>
+                    </div>
+                  </div>
                ))}
              </div>
 
              {/* Competitive Benchmarking Table */}
              <div style={{ marginTop: '40px' }}>
                <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>COMPETITIVE BENCHMARKING</span>
-               <h2 style={{ fontSize: '2rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>GC vs. the field</h2>
+               <h2 className={classes.htmlH2}>GC vs. the field</h2>
                
                <div style={{ overflowX: 'auto', background: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', textAlign: 'left' }}>
@@ -260,9 +267,9 @@ export default function GCDentalCaseStudyTemplate() {
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#e11d48', letterSpacing: '0.1em' }}>03 - SHOWSTOPPER 01 OF 02</span>
           </div>
           
-          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
+          <h2 className={classes.htmlH2}>
             "Instructions for Use"<br/>
-            were <span style={{ fontStyle: 'italic', color: '#e11d48' }}>nowhere to be found.</span>
+            were <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>nowhere to be found.</span>
           </h2>
           <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
             4 of 5 users came to GC Dental specifically to find IFU or clinical documentation. 3 of 5 would leave the site entirely if they couldn't find it in 2 clicks. It was buried under an unclear label, 3+ scrolls below the fold.
@@ -270,9 +277,9 @@ export default function GCDentalCaseStudyTemplate() {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '64px' }}>
              {/* Before */}
-             <Squircle cornerRadius={16} style={{ background: '#fff', boxShadow: 'inset 0 0 0 1.5px #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
-                <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#e11d48', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#fff1f2', borderRadius: '100px', alignSelf: 'flex-start' }}>BEFORE</span>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: 0 }}>Resources & IFU — Buried, mislabeled</h3>
+             <div className={classes.htmlCard} style={{ background: '#fff', border: '1.5px solid #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#e11d48', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#fff1f2', borderRadius: '4px', alignSelf: 'flex-start' }}>BEFORE</span>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Resources & IFU — Buried, mislabeled</h3>
                 
                 <div style={{ height: '200px', background: '#f8fafc', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px dashed #cbd5e1', marginBottom: '16px' }}>
                    <Database size={32} color="#94a3b8" style={{ marginBottom: '12px' }} />
@@ -287,17 +294,17 @@ export default function GCDentalCaseStudyTemplate() {
                      "No checkbox for bulk download"
                    ].map((pt, j) => (
                      <li key={j} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                       <XCircle size={16} color="#e11d48" style={{ marginTop: '2px', flexShrink: 0 }} />
-                       <span style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.5 }}>{pt}</span>
+                       <XCircle size={18} color="#e11d48" style={{ marginTop: '2px', flexShrink: 0 }} />
+                       <span style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.5 }}>{pt}</span>
                      </li>
                    ))}
                 </ul>
-             </Squircle>
+             </div>
              
              {/* After */}
-             <Squircle cornerRadius={16} style={{ background: '#fff', boxShadow: 'inset 0 0 0 1.5px #bbf7d0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
-                <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#16a34a', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#f0fdf4', borderRadius: '100px', alignSelf: 'flex-start' }}>AFTER</span>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: 0 }}>Documents & Manuals — One click, filterable</h3>
+             <div className={classes.htmlCard} style={{ background: '#fff', border: '1.5px solid #bbf7d0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#16a34a', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#f0fdf4', borderRadius: '4px', alignSelf: 'flex-start' }}>AFTER</span>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Documents & Manuals — One click, filterable</h3>
                 
                 <div style={{ height: '200px', background: '#f0fdf4', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #bbf7d0', marginBottom: '16px' }}>
                    <CheckCircle size={32} color="#16a34a" style={{ marginBottom: '12px' }} />
@@ -312,16 +319,16 @@ export default function GCDentalCaseStudyTemplate() {
                      "Bulk checkbox + download — 9 cards per grid"
                    ].map((pt, j) => (
                      <li key={j} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                       <CheckCircle2 size={16} color="#16a34a" style={{ marginTop: '2px', flexShrink: 0 }} />
-                       <span style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.5 }}>{pt}</span>
+                       <CheckCircle2 size={18} color="#16a34a" style={{ marginTop: '2px', flexShrink: 0 }} />
+                       <span style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.5 }}>{pt}</span>
                      </li>
                    ))}
                 </ul>
-             </Squircle>
+             </div>
           </div>
 
           {/* Decision Chain Table */}
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Research → Decision Chain</h3>
+          <h3 className={classes.htmlH3}>Research → Decision Chain</h3>
           <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', marginBottom: '64px' }}>
              {[
                { label: "Research Insight", val1: "4/5 users need IFU or clinical docs first. 3/5 abandon if not found.", val2: "Users scan the PDP hero expecting a 'Documents' link, not 4 sections below." },
@@ -338,13 +345,11 @@ export default function GCDentalCaseStudyTemplate() {
           </div>
 
           {/* Component Deep Dive: IFU Card */}
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Component Deep Dive: IFU Card (4 States)</h3>
-          <Squircle cornerRadius={16} style={{ border: '1px solid #e2e8f0', background: '#fff', overflow: 'hidden', marginBottom: '100px' }}>
-            <div style={{ padding: '24px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-               <div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#0f172a' }}>IFU Document Card</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '4px' }}>Used in: Documents & Manuals section · Desktop (410px) & Mobile (350px)</div>
-               </div>
+          <h3 className={classes.htmlH3}>Component Deep Dive: IFU Card (4 States)</h3>
+          <div className={classes.htmlSectionCard} style={{ padding: 0, overflow: 'hidden', marginBottom: '100px', background: '#fff' }}>
+            <div style={{ padding: '32px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>IFU Document Card</h3>
+               <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>Used in: Documents & Manuals section · Desktop (410px) & Mobile (350px)</div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderBottom: '1px solid #e2e8f0' }}>
                {[
@@ -353,28 +358,37 @@ export default function GCDentalCaseStudyTemplate() {
                  { state: "Selected", name: "Bulk Download", desc: "Checkbox checked, card background tints teal." },
                  { state: "Focus", name: "Keyboard Nav", desc: "2px focus ring appears for keyboard accessibility (WCAG 2.1 AA)." }
                ].map((st, i) => (
-                 <div key={i} style={{ padding: '24px', borderRight: i < 3 ? '1px solid #e2e8f0' : 'none' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#475569', letterSpacing: '0.05em', padding: '4px 8px', background: '#f1f5f9', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>{st.state}</span>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a', marginBottom: '8px' }}>{st.name}</div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.5 }}>{st.desc}</div>
+                 <div key={i} style={{ padding: '32px', borderRight: i < 3 ? '1px solid #e2e8f0' : 'none' }}>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#475569', letterSpacing: '0.05em', padding: '4px 8px', background: '#f1f5f9', borderRadius: '4px', marginBottom: '16px', display: 'inline-block' }}>{st.state}</span>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>{st.name}</div>
+                    <div style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6 }}>{st.desc}</div>
                  </div>
                ))}
             </div>
-            <div style={{ padding: '24px', background: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
-               <div><span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600, display: 'block', marginBottom: '4px' }}>DOCUMENT TYPE</span><code style={{ fontSize: '0.8rem', color: '#00B494', background: '#f0fdfa', padding: '2px 6px', borderRadius: '4px' }}>"IFU" | "Manual" | "Safety"</code></div>
-               <div><span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600, display: 'block', marginBottom: '4px' }}>LANGUAGES</span><code style={{ fontSize: '0.8rem', color: '#00B494', background: '#f0fdfa', padding: '2px 6px', borderRadius: '4px' }}>["EN", "DE", "FR"]</code></div>
-               <div><span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600, display: 'block', marginBottom: '4px' }}>IS ARCHIVED</span><code style={{ fontSize: '0.8rem', color: '#00B494', background: '#f0fdfa', padding: '2px 6px', borderRadius: '4px' }}>Boolean (Disables CTA)</code></div>
+            <div style={{ padding: '32px', background: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px' }}>
+               <div>
+                  <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 700, display: 'block', marginBottom: '8px', letterSpacing: '0.05em' }}>DOCUMENT TYPE</span>
+                  <span style={{ fontSize: '1rem', color: '#00B494', background: '#f0fdfa', padding: '4px 8px', borderRadius: '4px', fontWeight: 500 }}>"IFU" | "Manual" | "Safety"</span>
+               </div>
+               <div>
+                  <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 700, display: 'block', marginBottom: '8px', letterSpacing: '0.05em' }}>LANGUAGES</span>
+                  <span style={{ fontSize: '1rem', color: '#00B494', background: '#f0fdfa', padding: '4px 8px', borderRadius: '4px', fontWeight: 500 }}>["EN", "DE", "FR"]</span>
+               </div>
+               <div>
+                  <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 700, display: 'block', marginBottom: '8px', letterSpacing: '0.05em' }}>IS ARCHIVED</span>
+                  <span style={{ fontSize: '1rem', color: '#00B494', background: '#f0fdfa', padding: '4px 8px', borderRadius: '4px', fontWeight: 500 }}>Boolean (Disables CTA)</span>
+               </div>
             </div>
-          </Squircle>
+          </div>
 
           {/* Showstopper 2 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
              <div style={{ width: '24px', height: '2px', background: '#e11d48' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#e11d48', letterSpacing: '0.1em' }}>04 - SHOWSTOPPER 02 OF 02</span>
           </div>
-          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
+          <h2 className={classes.htmlH2}>
             The product page didn't know<br/>
-            which product <span style={{ fontStyle: 'italic', color: '#00B494' }}>it was showing.</span>
+            which product <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>it was showing.</span>
           </h2>
           <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
             All 5 users scanned the PDP hero first. 3 of 5 paused mid-task and asked "What product is this?" — before reading a single line. A corporate hero image was the first impression instead of a product name.
@@ -382,7 +396,7 @@ export default function GCDentalCaseStudyTemplate() {
 
           {/* Two Templates */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '64px' }}>
-            <Squircle cornerRadius={16} style={{ background: '#f8fafc', boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '32px' }}>
+            <div className={classes.htmlCard} style={{ background: '#f8fafc', padding: '32px' }}>
               <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#00B494', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>TEMPLATE A: PDP DETAILED</span>
               <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
                 For complex equipment like Aadva IOS Scanner or G-ænial Injectable. Includes full clinical imagery, video, Sticky Cart, Jump-to Nav (11 sections), Indications, Advantages, SKU Grid (paginated), Documents & Manuals.
@@ -394,8 +408,8 @@ export default function GCDentalCaseStudyTemplate() {
                   </li>
                 ))}
               </ul>
-            </Squircle>
-            <Squircle cornerRadius={16} style={{ background: '#f8fafc', boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '32px' }}>
+            </div>
+            <div className={classes.htmlCard} style={{ background: '#f8fafc', padding: '32px' }}>
               <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#00B494', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>TEMPLATE B: PDP SIMPLE</span>
               <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
                 For preventive materials like Fuji Triage. Simpler content block with Hero Image + Text, Sticky Cart, Jump-to Nav. No SKU grid, as the product is simpler. Documents & Manuals grid remains the same.
@@ -408,12 +422,12 @@ export default function GCDentalCaseStudyTemplate() {
                   </li>
                 ))}
               </ul>
-            </Squircle>
+            </div>
           </div>
 
           {/* Component Deep Dive: Sticky Cart */}
           <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Key Component: PDP Top Sticky Cart</h3>
-          <Squircle cornerRadius={16} style={{ border: '1px solid #e2e8f0', background: '#fff', overflow: 'hidden', marginBottom: '100px' }}>
+          <div className={classes.htmlSectionCard} style={{ padding: 0, overflow: 'hidden', marginBottom: '100px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
                {[
                  { state: "Expanded", name: "On Scroll Up", desc: "297px height. Full product card: name, image, description, SKU, award badges, CTAs. User looking for context." },
@@ -430,19 +444,19 @@ export default function GCDentalCaseStudyTemplate() {
             <div style={{ padding: '20px 24px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '0.85rem', color: '#475569' }}>
                <strong style={{ color: '#0f172a' }}>The "So What":</strong> Product name and image are always visible. Users never lose context of which product they're reading about. Especially critical on long PDPs with 11+ sections.
             </div>
-          </Squircle>
+          </div>
 
           {/* AI Search (Bonus) */}
           <div style={{ padding: '64px 48px', background: '#f0fdfa', borderRadius: '24px', position: 'relative', overflow: 'hidden', border: '1.5px solid #99f6e4' }}>
              <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(0,180,148,0.1) 0%, transparent 70%)' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#0d9488', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>→ FORWARD THINKING</span>
-             <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>The search problem, solved with AI.</h2>
+             <h2 className={classes.htmlH2}>The search problem, solved with AI.</h2>
              <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '40px' }}>
                Research showed users come with a specific product in mind. But when they search, results are too broad. I designed an AI-powered search layer that goes from keyword to clinical recommendation in 2 steps.
              </p>
              
              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-                <div style={{ background: '#fff', border: '1px solid #ccfbf1', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 20px rgba(0,180,148,0.05)' }}>
+                <div className={classes.htmlCard} style={{ padding: '24px', border: '1px solid #ccfbf1' }}>
                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                       <Zap size={20} color="#eab308" />
                       <div style={{ fontSize: '1rem', fontWeight: 600, color: '#111' }}>AI Assistant Flow</div>
@@ -476,9 +490,9 @@ export default function GCDentalCaseStudyTemplate() {
              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
                 <div>
                    <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', display: 'block' }}>04 - DESIGN SYSTEM</span>
-                   <h2 style={{ fontSize: '3.5rem', fontWeight: 400, color: '#111', lineHeight: 1.1, letterSpacing: '-0.02em', margin: '16px 0' }}>
+                   <h2 className={classes.htmlH2}>
                      From pages to rules.<br/>
-                     From rules <span style={{ fontStyle: 'italic', color: '#00B494' }}>to scale.</span>
+                     From rules <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>to scale.</span>
                    </h2>
                    <div style={{ background: '#f0fdfa', padding: '24px', borderRadius: '12px', border: '1.5px solid #99f6e4', color: '#0f172a', fontWeight: 500, fontStyle: 'italic', fontSize: '1.2rem', lineHeight: 1.4, marginTop: '24px' }}>
                      "1 template → 100+ product pages. No redesign needed."
@@ -540,30 +554,30 @@ export default function GCDentalCaseStudyTemplate() {
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>05 - REFLECTION</span>
           </div>
           
-          <h2 style={{ fontSize: '3rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 24px 0' }}>
+          <h2 className={classes.htmlH2}>
             What designing for experts<br/>
-            <span style={{ fontStyle: 'italic', color: '#00B494' }}>taught me.</span>
+            <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>taught me.</span>
           </h2>
           <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
             B2C design teaches you to hide complexity. B2B healthcare taught me that expert users want control, not simplicity — and that the difference between the two is everything.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginBottom: '64px' }}>
-             <Squircle cornerRadius={20} style={{ background: '#fff', boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '32px' }}>
+             <div className={classes.htmlCard} style={{ background: '#fff', padding: '32px' }}>
                 <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1, marginBottom: '16px' }}>01</div>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: '0 0 12px 0' }}>Research changes how you prioritize.</h4>
+                <h4 className={classes.htmlH3} style={{ margin: '0 0 12px 0' }}>Research changes how you prioritize.</h4>
                 <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
                    Before usability testing, I thought the problem was "users don't understand the navigation." After testing, the real problem was "users arrive late in their journey and need verification tools, not discovery tools." That single reframe shifted everything: PDP focus over homepage storytelling, IFU prominence over marketing visuals, search over browse.
                 </p>
-             </Squircle>
+             </div>
              
-             <Squircle cornerRadius={20} style={{ background: '#fff', boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '32px' }}>
+             <div className={classes.htmlCard} style={{ background: '#fff', padding: '32px' }}>
                 <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1, marginBottom: '16px' }}>02</div>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111', margin: '0 0 12px 0' }}>Systems thinking is a multiplier, not a constraint.</h4>
+                <h4 className={classes.htmlH3} style={{ margin: '0 0 12px 0' }}>Systems thinking is a multiplier, not a constraint.</h4>
                 <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
                    My first instinct was to redesign every page with full control. My team pushed back: "Build a system first." I resisted — I wanted to pixel-polish. But building the system meant iterating faster, scaling to 30+ regions without multiplying work, and responding to stakeholder feedback by changing one component, not 30 pages.
                 </p>
-             </Squircle>
+             </div>
           </div>
 
           {/* If I could do it again */}
@@ -576,27 +590,27 @@ export default function GCDentalCaseStudyTemplate() {
           </div>
 
           {/* 90 Second Interview Story */}
-          <Squircle cornerRadius={24} style={{ background: '#f0fdfa', padding: '48px', color: '#111', position: 'relative', overflow: 'hidden', border: '1.5px solid #99f6e4' }}>
-             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#00B494' }} />
-             <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#00B494', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px', display: 'block' }}>The 90-Second Interview Story</span>
-             <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#111', margin: '0 0 32px 0', fontFamily: 'Playfair Display, serif' }}>If you ask me "tell me about this project" in an interview, here's exactly what I'll say:</h3>
+          <div className={classes.htmlSectionCard} style={{ padding: '48px', position: 'relative', overflow: 'hidden' }}>
+             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'var(--primary-color)' }} />
+             <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--primary-color)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px', display: 'block' }}>The 90-Second Interview Story</span>
+             <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: 'var(--text-primary)', margin: '0 0 32px 0', fontFamily: 'Playfair Display, serif' }}>If you ask me "tell me about this project" in an interview, here's exactly what I'll say:</h3>
              
              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                {[
-                 <>I worked on a B2B healthcare website redesign where the core problem wasn't what the client thought — <span style={{ color: '#0d9488', fontWeight: 600 }}>4 of 5 dental professionals arrived late in their research journey, looking to verify a decision, not explore the brand.</span></>,
-                 <>I ran heuristic evaluation and usability testing and found <span style={{ color: '#0d9488', fontWeight: 600 }}>two critical blockers: IFU was buried, and the product page hero didn't communicate which product you were on</span> — both causing silent abandonment.</>,
-                 <>I solved them with two research-backed components: a <span style={{ color: '#0d9488', fontWeight: 600 }}>redesigned Documents & Manuals grid (one-click from anywhere) and two PDP templates (Simple and Detailed)</span> with a sticky product cart that follows you through 11 sections.</>,
-                 <>Then I scaled this into a <span style={{ color: '#0d9488', fontWeight: 600 }}>30+ component design system across 2 breakpoints and 30+ regions</span> — so the team ships faster, stays consistent, and never designs the same component twice.</>
+                 <>I worked on a B2B healthcare website redesign where the core problem wasn't what the client thought — <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>4 of 5 dental professionals arrived late in their research journey, looking to verify a decision, not explore the brand.</span></>,
+                 <>I ran heuristic evaluation and usability testing and found <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>two critical blockers: IFU was buried, and the product page hero didn't communicate which product you were on</span> — both causing silent abandonment.</>,
+                 <>I solved them with two research-backed components: a <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>redesigned Documents & Manuals grid (one-click from anywhere) and two PDP templates (Simple and Detailed)</span> with a sticky product cart that follows you through 11 sections.</>,
+                 <>Then I scaled this into a <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>30+ component design system across 2 breakpoints and 30+ regions</span> — so the team ships faster, stays consistent, and never designs the same component twice.</>
                ].map((text, i) => (
                  <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: '24px', borderBottom: i < 3 ? '1px solid rgba(0,180,148,0.1)' : 'none' }}>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#00B494', opacity: 0.6 }}>{i+1}</div>
-                    <div style={{ fontSize: '1rem', fontWeight: 400, color: '#475569', lineHeight: 1.6 }}>{text}</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary-color)', opacity: 0.6 }}>{i+1}</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{text}</div>
                  </div>
                ))}
              </div>
              
-             <div style={{ marginTop: '24px', fontSize: '0.75rem', color: '#64748b', fontStyle: 'italic' }}>Practice saying this out loud. Time it. It should take 90–120 seconds. Land the pauses. Own it.</div>
-          </Squircle>
+             <div style={{ marginTop: '24px', fontSize: '0.75rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>Practice saying this out loud. Time it. It should take 90–120 seconds. Land the pauses. Own it.</div>
+          </div>
 
        </div>
 

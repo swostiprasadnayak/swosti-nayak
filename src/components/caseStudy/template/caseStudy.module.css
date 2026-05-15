@@ -290,6 +290,48 @@
     border: 1px solid var(--border-subtle);
     display: flex;
     align-items: center;
-    justify-content: center;
     padding: 60px;
+}
+
+/* HTML Reference Styles */
+.htmlSectionCard {
+    background: var(--bg-card);
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.htmlCard {
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="dark"]) .htmlSectionCard,
+:global([data-theme="dark"]) .htmlCard {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.htmlH2 {
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-subtle);
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.htmlH3 {
+    color: var(--text-secondary);
+    margin-top: 25px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.htmlStatCard {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
 }
