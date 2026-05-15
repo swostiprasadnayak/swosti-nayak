@@ -25,8 +25,7 @@ export default function TrafficLights({ onClose, onExpand, visible }: any) {
                 title="Close"
             >
                 <svg width="6" height="6" viewBox="0 0 6 6" fill="none">
-                    <line x1="1" y1="1" x2="5" y2="5" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" strokeLinecap="round"/>
-                    <line x1="5" y1="1" x2="1" y2="5" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" strokeLinecap="round"/>
+                    <path d="M1.2 1.2L4.8 4.8M4.8 1.2L1.2 4.8" stroke="rgba(0,0,0,0.55)" strokeWidth="1.4" strokeLinecap="round"/>
                 </svg>
             </button>
 
@@ -36,14 +35,14 @@ export default function TrafficLights({ onClose, onExpand, visible }: any) {
                 title="Minimise"
             />
 
-            {/* Expand — green with ✓ */}
+            {/* Expand — green with diagonal triangles */}
             <button
                 onClick={(e) => { e.stopPropagation(); onExpand?.(); }}
                 style={{ ...btnBase, background: "#28C840" }}
                 title="Full screen"
             >
-                <svg width="7" height="6" viewBox="0 0 7 6" fill="none">
-                    <polyline points="1,3 2.8,5 6,1" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <svg width="6" height="6" viewBox="0 0 6 6" fill="none">
+                    <path d="M1 2.5V1H2.5M3.5 5H5V3.5" stroke="rgba(0,0,0,0.55)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </button>
         </div>
