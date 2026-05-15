@@ -32,9 +32,9 @@ export default function GCDentalCaseStudyTemplate() {
          />
 
          {/* Hero Image */}
-          <Squircle cornerRadius={24} style={{ width: '100%', overflow: 'hidden', marginBottom: '100px', border: '1px solid rgba(0,0,0,0.05)', background: '#f8fafc' }}>
-             <img src="/images/gc-banner.png" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'contain' }} />
-          </Squircle>
+          <div style={{ width: '100%', marginBottom: '100px' }}>
+             <img src="/images/gc-banner.png" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px', marginBottom: '100px' }}>
              <div>
