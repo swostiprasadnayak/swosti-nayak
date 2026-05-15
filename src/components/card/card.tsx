@@ -99,7 +99,6 @@ const Card: React.FC<CardProps> = ({
                         style={{ width, height, position: "relative" }}
                         whileHover={{
                             scale: isDisabled ? 1.01 : 1.04,
-                            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.25)",
                             transition: { type: "spring", bounce: 0, duration: 0.25 },
                         }}
                     >
