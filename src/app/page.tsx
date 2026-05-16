@@ -219,20 +219,9 @@ function HomeContent() {
                   {/* macOS Title bar */}
                   <div style={{ height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #f2f2f2', background: '#F0F0F0', flexShrink: 0 }}>
                     <div style={{ position: 'absolute', left: '16px', display: 'flex', gap: '8px' }}>
-                      <div 
-                        onClick={() => setIsPostsOpen(false)} 
-                        style={{ width: 14, height: 14, borderRadius: 7, background: '#ff5f56', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                      >
-                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 1L9 9M9 1L1 9" stroke="#4c0000" strokeWidth="1.5" strokeLinecap="round"/>
-                        </svg>
-                      </div>
-                      <div style={{ width: 14, height: 14, borderRadius: 7, background: '#D9D9D9' }} />
-                      <div style={{ width: 14, height: 14, borderRadius: 7, background: '#27c93f', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7 1H9V3M3 9H1V7M9 1L1 9" stroke="#004c00" strokeWidth="1.5" strokeLinecap="round"/>
-                        </svg>
-                      </div>
+                      <div onClick={() => setIsPostsOpen(false)} style={{ width: 12, height: 12, borderRadius: 6, background: '#ff5f56', cursor: 'pointer' }} />
+                      <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ffbd2e' }} />
+                      <div style={{ width: 12, height: 12, borderRadius: 6, background: '#27c93f' }} />
                     </div>
                     <div style={{ fontSize: '14px', fontWeight: 600, color: '#111' }}>Posts</div>
                   </div>
