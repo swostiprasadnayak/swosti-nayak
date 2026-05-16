@@ -131,10 +131,11 @@ const Card: React.FC<CardProps> = ({
                                                 ref={videoRef}
                                                 src={video}
                                                 autoPlay={shouldPlay}
-                                                preload="auto"
+                                                preload="metadata"
                                                 loop
                                                 muted
                                                 playsInline
+                                                poster={demoPoster || undefined}
                                                 style={videoStyle}
                                             />
                                         ) : demoPoster ? (
