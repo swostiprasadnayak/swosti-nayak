@@ -20,6 +20,8 @@ const POSTS = [
       <p>You can generate a design system using AI, build a complex dashboard and then realize nobody really needs it anymore. AI ate its own tail when it comes to generative user interfaces.</p>
       <h3>The End of the Static Grid</h3>
       <p>We're moving towards a world where interfaces are as fluid as the data they represent. No more fixed layouts, just intent-driven generation.</p>
+      <p>Imagine a future where the interface is generated in real-time based on your specific context. Not just the data, but the very controls and layouts themselves. This is the goal of the Antigravity project.</p>
+      <p>By leveraging large multimodal models, we can translate user intent directly into functional UI patterns. This reduces the friction between thought and action, allowing for a more creative and productive experience.</p>
     `
   },
   {
@@ -175,34 +177,40 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* Centering Container */}
+            {/* SCROLLABLE WRAPPER: Now the whole card scrolls with its content */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
               left: "-12%", 
               width: "82vw", 
-              height: "100vh", // FULL HEIGHT
+              height: "100vh", 
               zIndex: 101, 
               display: "flex", 
-              alignItems: "flex-start", // START FROM TOP TO PREVENT CUTOFF
-              justifyContent: "center", 
-              paddingTop: "10vh", // GIVES SPACE AT THE TOP
-              pointerEvents: "none"
-            }}>
+              flexDirection: "column",
+              alignItems: "center", 
+              overflowY: "auto", // SCROLLING HAPPENS HERE
+              paddingTop: "10vh",
+              paddingBottom: "10vh",
+              pointerEvents: "auto",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none"
+            }}
+            onClick={(e) => {
+               if(e.target === e.currentTarget) setExpandedId(null);
+            }}
+            >
               <Squircle 
                 cornerRadius={32} 
                 style={{ 
                   background: "#FBFBFB", 
                   width: "95%", 
                   maxWidth: "850px", 
-                  maxHeight: "85vh", // MAX HEIGHT INSTEAD OF FIXED
+                  height: "auto", // CARD GROWS WITH CONTENT
                   padding: "40px", 
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(50px, 0)", // RESET VERTICAL TRANSLATE TO PREVENT CUTOFF
-                  overflowY: "auto", 
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none"
+                  transform: "translate(50px, 0)",
+                  marginBottom: "40px"
                 }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
