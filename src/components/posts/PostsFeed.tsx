@@ -170,7 +170,7 @@ export default function PostsFeed() {
               pointerEvents: "none", 
               padding: "32px",
               paddingLeft: "calc(32px + 2%)", // Keep right shift
-              paddingBottom: "100px" // Increased bottom padding to push card further top
+              paddingBottom: "160px" // Shifted even further top
             }}>
               <Squircle 
                 cornerRadius={32} 
