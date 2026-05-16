@@ -138,16 +138,17 @@ export default function PostsFeed() {
       <AnimatePresence>
         {expandedId && (
           <>
+            {/* Backdrop: Covering the entire window by negating the 12% padding */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
               exit={{ opacity: 0 }} 
               style={{ 
                 position: "absolute", 
-                top: 0, 
-                left: 0, // Starts from padding boundary (12% left)
-                width: "100%", // Covers the grey box width
-                height: "100%", 
+                top: "-5vh", // Negating parent padding
+                left: "-12%", // Negating parent padding
+                width: "113.7vw", // Spanning the whole window width
+                height: "100vh", 
                 background: "rgba(240, 240, 240, 0.95)", 
                 zIndex: 100, 
                 backdropFilter: "blur(10px)" 
@@ -155,12 +156,13 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
+            {/* Centering Container: Explicitly centered to the WHOLE window for vertical title alignment */}
             <div style={{ 
               position: "absolute", 
-              top: 0, 
-              left: 0, 
-              width: "100%", 
-              height: "100%", 
+              top: "-5vh", 
+              left: "-12%", 
+              width: "82vw", // Matches parent window width exactly
+              height: "88vh", // Matches parent window height exactly
               zIndex: 101, 
               display: "flex", 
               alignItems: "center", 
