@@ -62,8 +62,15 @@ export default function PostsFeed() {
           boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.03)"
         }}
       >
-        {/* INNER CONTAINER: Explicitly centered within the grey box */}
-        <div style={{ width: "100%", padding: "40px 0", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        {/* INNER CONTAINER: Shifted 60px left as requested */}
+        <div style={{ 
+          width: "100%", 
+          padding: "40px 0", 
+          display: "flex", 
+          flexDirection: "column", 
+          alignItems: "center",
+          transform: "translateX(-60px)" // SHIFTING THE SCROLLER LEFT
+        }}>
           <div style={{ width: "90%", maxWidth: "580px", display: "flex", flexDirection: "column", gap: "32px" }}>
             {POSTS.map((post) => (
               <Squircle 
@@ -178,7 +185,7 @@ export default function PostsFeed() {
                   padding: "40px", 
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(50px, 10px)" // Moved 10px further right (from 40px to 50px)
+                  transform: "translate(50px, 10px)" 
                 }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
