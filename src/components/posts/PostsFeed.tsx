@@ -101,26 +101,26 @@ export default function PostsFeed() {
         }}
       >
         {/* INNER CONTAINER: Shifted 70px left */}
-        <div style={{ 
-          width: "100%", 
-          padding: "40px 0", 
-          display: "flex", 
-          flexDirection: "column", 
+        <div style={{
+          width: "100%",
+          padding: "24px 0",
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           transform: "translateX(-70px)"
         }}>
-          <div style={{ width: "90%", maxWidth: "580px", display: "flex", flexDirection: "column", gap: "32px" }}>
+          <div style={{ width: "90%", maxWidth: "680px", display: "flex", flexDirection: "column", gap: "24px" }}>
             {POSTS.map((post) => (
-              <Squircle 
-                key={post.id} 
-                cornerRadius={24} 
-                style={{ background: "#FBFBFB", padding: "32px 28px 28px", boxShadow: "0 4px 20px rgba(0,0,0,0.03)", cursor: "pointer" }}
+              <Squircle
+                key={post.id}
+                cornerRadius={24}
+                style={{ background: "#FBFBFB", padding: "20px 20px 20px", boxShadow: "0 4px 20px rgba(0,0,0,0.03)", cursor: "pointer" }}
                 onClick={() => setExpandedId(post.id)}
               >
                 <motion.div layoutId={`post-container-${post.id}`}>
                   
                   {/* Post Header */}
-                  <motion.div layoutId={`post-header-${post.id}`} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+                  <motion.div layoutId={`post-header-${post.id}`} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
                     <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#ccc", overflow: "hidden" }}>
                        <img src={post.avatar} alt={post.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
@@ -135,7 +135,7 @@ export default function PostsFeed() {
                   </motion.div>
 
                   {/* Post Media: 4/3 aspect ratio */}
-                  <motion.div layoutId={`post-media-${post.id}`} style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", marginBottom: "20px", background: "#f0f0f0" }}>
+                  <motion.div layoutId={`post-media-${post.id}`} style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", marginBottom: "14px", background: "#f0f0f0" }}>
                     <img src={post.mediaUrl} alt="Post media" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     <div style={{ 
                       position: "absolute", 
@@ -157,7 +157,7 @@ export default function PostsFeed() {
 
                   {/* Post Actions & Content */}
                   <motion.div layoutId={`post-footer-${post.id}`}>
-                    <div style={{ display: "flex", gap: "20px", marginBottom: "16px" }}>
+                    <div style={{ display: "flex", gap: "20px", marginBottom: "12px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#1c2b33" }}>
                         <img src="/icons/Vector.png" alt="like" style={{ width: 22, height: 22 }} /> 119 likes
                       </div>
