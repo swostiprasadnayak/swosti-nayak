@@ -16,25 +16,20 @@ const POSTS = [
       <h2>The Evolution of Generative Interfaces</h2>
       <p>Design systems were built to scale manual interface creation. They're now content fodder for AI. The perfect worker for parsing components, outlining specs, and shuffling identical boxes around. One that doesn't complain about the boring parts of it all.</p>
       
-      <img src="/jckkcfj.webp" alt="Interface concept 1" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <img src="/images/posts/post-2.jpg" alt="Analog Intentions" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
       
       <p>Now it's starting to kill them off. Imagine building yet another form that looks like all the other forms. This is as refreshing as competitive clicking accept on cookie banners.</p>
+      
+      <img src="/images/posts/post-3.jpg" alt="Spatial Gadget Prototype" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      
       <p>You can generate a design system using AI, build a complex dashboard and then realize nobody really needs it anymore. AI ate its own tail when it comes to generative user interfaces.</p>
       
       <h3>The End of the Static Grid</h3>
       <p>We're moving towards a world where interfaces are as fluid as the data they represent. No more fixed layouts, just intent-driven generation.</p>
-      <p>Imagine a future where the interface is generated in real-time based on your specific context. Not just the data, but the very controls and layouts themselves. This is the goal of the Antigravity project.</p>
       
-      <img src="/jckkcfj.webp" alt="Interface concept 2" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <img src="/images/posts/post-4.jpg" alt="Design System Breakdown" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
       
       <p>By leveraging large multimodal models, we can translate user intent directly into functional UI patterns. This reduces the friction between thought and action, allowing for a more creative and productive experience.</p>
-      <p>The transition from "tools" to "agents" is the most significant shift in computing history. We're no longer just clicking buttons; we're collaborating with a system that understands our goals.</p>
-      
-      <h3>Bridging Thought and Action</h3>
-      <p>In our latest prototype, we've integrated voice-to-interface logic that allows designers to "speak" a layout into existence. "Add a centered hero section with a frosted glass effect and a vibrant call-to-action button" — the system handles the heavy lifting, letting the human focus on the soul of the design.</p>
-      
-      <p>This is not just about speed; it's about accessibility. It's about democratizing the ability to create high-quality digital experiences.</p>
-      
       <div style="height: 60px;"></div>
     `
   },
@@ -45,14 +40,8 @@ const POSTS = [
     location: "New Delhi, India",
     time: "3 w",
     content: "Exploring the beauty of physical tactile interactions. How can we bring the satisfying 'click' of an analog calendar into the digital realm?",
-    mediaUrl: "/images/posts/post-2.jpg",
-    detailedContent: `
-      <h2>Tactile Analogies in Digital Space</h2>
-      <p>There is a specific joy in physical objects—the weight, the resistance, and the definitive state of a mechanical switch. As we move deeper into glass-slab interfaces, we risk losing this grounding connection.</p>
-      <img src="/images/posts/post-2.jpg" alt="Analog Calendar" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
-      <p>Our research focuses on haptic feedback loops that simulate these physical constraints. When you scroll through a list in Antigravity, the friction is modeled after real-world physics, making the digital feel tangible.</p>
-      <p>The goal is to create 'digital heirlooms'—interfaces that feel as deliberate and well-crafted as a wooden desk clock.</p>
-    `
+    mediaUrl: "/jckkcfj.webp",
+    detailedContent: `<h3>Tactile Analogies</h3><p>Researching haptic feedback loops that simulate physical constraints.</p>`
   },
   {
     id: "3",
@@ -61,14 +50,8 @@ const POSTS = [
     location: "New Delhi, India",
     time: "4 w",
     content: "Latest hardware prototype for our spatial computing agent. A dedicated physical node for ambient intelligence.",
-    mediaUrl: "/images/posts/post-3.jpg",
-    detailedContent: `
-      <h2>Ambient Intelligence: Beyond the Screen</h2>
-      <p>The screen shouldn't be the only way we interact with AI. This prototype explores a dedicated physical form for our design agent—a device that lives on your desk and communicates through light, sound, and subtle motion.</p>
-      <img src="/images/posts/post-3.jpg" alt="Spatial Gadget" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
-      <p>This 'spatial node' acts as a bridge between your physical environment and your digital workspace. It can sense your presence, adjust your lighting, and even 'whisper' design suggestions as you work.</p>
-      <p>We believe the future of AI is not just software—it's an integrated part of our physical reality.</p>
-    `
+    mediaUrl: "/jckkcfj.webp",
+    detailedContent: `<h3>Spatial Nodes</h3><p>Dedicated physical forms for AI agents in home environments.</p>`
   },
   {
     id: "4",
@@ -77,14 +60,8 @@ const POSTS = [
     location: "New Delhi, India",
     time: "5 w",
     content: "Breaking down the mechanics of our new design system. Every component is now a living entity with its own behavioral logic.",
-    mediaUrl: "/images/posts/post-4.jpg",
-    detailedContent: `
-      <h2>Deconstructing the Design System</h2>
-      <p>Traditional design systems are static libraries of assets. Our new approach treats components as living organisms. They don't just have styles; they have behaviors, states, and contextual awareness.</p>
-      <img src="/images/posts/post-4.jpg" alt="System Breakdown" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
-      <p>By breaking down the DNA of a component—its material properties, transparency, and interaction logic—we can generate infinite variations that remain consistent with the core brand identity.</p>
-      <p>This is the blueprint for a truly generative design language.</p>
-    `
+    mediaUrl: "/jckkcfj.webp",
+    detailedContent: `<h3>System Blueprint</h3><p>Deconstructing component DNA for generative design languages.</p>`
   }
 ];
 
