@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
         await resend.emails.send({
             from: "Portfolio Feedback <onboarding@resend.dev>",
-            to: process.env.FEEDBACK_TO_EMAIL ?? "swosti.nayak@example.com",
+            to: process.env.FEEDBACK_TO_EMAIL ?? "swostiprasadnayak15@gmail.com",
             subject: `Portfolio Feedback — ${ratingEmoji[rating] ?? ""} ${rating}`,
             html: `
                 <div style="font-family: sans-serif; max-width: 480px; padding: 32px; background: #f6f6f6; border-radius: 12px;">

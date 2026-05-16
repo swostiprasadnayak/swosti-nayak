@@ -151,24 +151,12 @@
     padding: 32px;
     flex: 1;
     min-height: 420px;
-    background:
-        radial-gradient(ellipse at 35% 25%, rgba(255, 170, 140, 0.55) 0%, transparent 55%),
-        radial-gradient(ellipse at 70% 70%, rgba(200, 0, 60, 0.4) 0%, transparent 50%),
-        linear-gradient(155deg, #F04E6A 0%, #E0194A 35%, #B80035 70%, #8C0028 100%);
+    background: url(/feedback-gradient.jpg);
+    background-size: cover;
+    background-position: center;
     border-radius: 8px;
     flex-shrink: 0;
     overflow: hidden;
-}
-
-/* Grain overlay */
-.leftPanel::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-    opacity: 0.35;
-    pointer-events: none;
 }
 
 /* Figma: gradient overlay for text legibility */
