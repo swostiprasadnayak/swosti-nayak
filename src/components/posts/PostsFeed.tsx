@@ -44,9 +44,15 @@ const POSTS = [
     avatar: "/avatar.jpg",
     location: "New Delhi, India",
     time: "3 w",
-    content: "When designing the new interaction models, we focused heavily on reducing cognitive load. The result is an interface that anticipates your needs.",
-    mediaUrl: "/jckkcfj.webp",
-    detailedContent: "<h3>Focusing on Cognitive Load</h3><p>Detailed analysis of how users perceive complex data visualizations in real-time environments.</p>"
+    content: "Exploring the beauty of physical tactile interactions. How can we bring the satisfying 'click' of an analog calendar into the digital realm?",
+    mediaUrl: "/images/posts/post-2.jpg",
+    detailedContent: `
+      <h2>Tactile Analogies in Digital Space</h2>
+      <p>There is a specific joy in physical objects—the weight, the resistance, and the definitive state of a mechanical switch. As we move deeper into glass-slab interfaces, we risk losing this grounding connection.</p>
+      <img src="/images/posts/post-2.jpg" alt="Analog Calendar" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <p>Our research focuses on haptic feedback loops that simulate these physical constraints. When you scroll through a list in Antigravity, the friction is modeled after real-world physics, making the digital feel tangible.</p>
+      <p>The goal is to create 'digital heirlooms'—interfaces that feel as deliberate and well-crafted as a wooden desk clock.</p>
+    `
   },
   {
     id: "3",
@@ -54,9 +60,15 @@ const POSTS = [
     avatar: "/avatar.jpg",
     location: "New Delhi, India",
     time: "4 w",
-    content: "Exploring the intersection of spatial computing and generative AI. How can we make these complex tools feel as natural as drawing on paper?",
-    mediaUrl: "/jckkcfj.webp",
-    detailedContent: "<h3>Spatial Computing & AI</h3><p>Bridging the gap between 2D interfaces and 3D immersive workspaces.</p>"
+    content: "Latest hardware prototype for our spatial computing agent. A dedicated physical node for ambient intelligence.",
+    mediaUrl: "/images/posts/post-3.jpg",
+    detailedContent: `
+      <h2>Ambient Intelligence: Beyond the Screen</h2>
+      <p>The screen shouldn't be the only way we interact with AI. This prototype explores a dedicated physical form for our design agent—a device that lives on your desk and communicates through light, sound, and subtle motion.</p>
+      <img src="/images/posts/post-3.jpg" alt="Spatial Gadget" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <p>This 'spatial node' acts as a bridge between your physical environment and your digital workspace. It can sense your presence, adjust your lighting, and even 'whisper' design suggestions as you work.</p>
+      <p>We believe the future of AI is not just software—it's an integrated part of our physical reality.</p>
+    `
   },
   {
     id: "4",
@@ -64,9 +76,15 @@ const POSTS = [
     avatar: "/avatar.jpg",
     location: "New Delhi, India",
     time: "5 w",
-    content: "The future of interfaces is not just about looking good, it's about behaving intelligently. Proud to share some progress on the Antigravity project.",
-    mediaUrl: "/jckkcfj.webp",
-    detailedContent: "<h3>Intelligent Behavior</h3><p>Moving beyond aesthetic polish to functional intelligence in UI components.</p>"
+    content: "Breaking down the mechanics of our new design system. Every component is now a living entity with its own behavioral logic.",
+    mediaUrl: "/images/posts/post-4.jpg",
+    detailedContent: `
+      <h2>Deconstructing the Design System</h2>
+      <p>Traditional design systems are static libraries of assets. Our new approach treats components as living organisms. They don't just have styles; they have behaviors, states, and contextual awareness.</p>
+      <img src="/images/posts/post-4.jpg" alt="System Breakdown" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <p>By breaking down the DNA of a component—its material properties, transparency, and interaction logic—we can generate infinite variations that remain consistent with the core brand identity.</p>
+      <p>This is the blueprint for a truly generative design language.</p>
+    `
   }
 ];
 
@@ -204,7 +222,7 @@ export default function PostsFeed() {
               alignItems: "center", 
               overflowY: "auto", 
               paddingTop: "10vh",
-              paddingBottom: "150px", // GENEROUS BOTTOM PADDING
+              paddingBottom: "150px",
               pointerEvents: "auto",
               scrollbarWidth: "none",
               msOverflowStyle: "none"
