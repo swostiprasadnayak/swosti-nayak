@@ -34,8 +34,6 @@ const POSTS = [
       <p>In our latest prototype, we've integrated voice-to-interface logic that allows designers to "speak" a layout into existence. "Add a centered hero section with a frosted glass effect and a vibrant call-to-action button" — the system handles the heavy lifting, letting the human focus on the soul of the design.</p>
       
       <p>This is not just about speed; it's about accessibility. It's about democratizing the ability to create high-quality digital experiences.</p>
-      
-      <div style="height: 60px;"></div>
     `
   },
   {
@@ -204,7 +202,7 @@ export default function PostsFeed() {
               alignItems: "center", 
               overflowY: "auto", 
               paddingTop: "10vh",
-              paddingBottom: "150px", // GENEROUS BOTTOM PADDING
+              paddingBottom: "10vh", // SCROLLER PADDING
               pointerEvents: "auto",
               scrollbarWidth: "none",
               msOverflowStyle: "none"
@@ -220,11 +218,12 @@ export default function PostsFeed() {
                   width: "95%", 
                   maxWidth: "850px", 
                   height: "auto", 
-                  padding: "40px", 
+                  padding: "40px 40px 100px", // ADDED 100px BOTTOM PADDING INSIDE THE CARD
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
                   transform: "translate(50px, 0)",
-                  marginBottom: "40px"
+                  marginBottom: "40px",
+                  overflow: "hidden" // ENSURE CONTENT DOESN'T SPILL OUT
                 }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
