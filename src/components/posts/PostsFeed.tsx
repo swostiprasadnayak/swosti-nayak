@@ -156,7 +156,7 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* Centering Container: Spans the whole window area */}
+            {/* Centering Container */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
@@ -178,7 +178,7 @@ export default function PostsFeed() {
                   padding: "40px", 
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(1.5%, -100px)" // DIRECT TRANSFORM: Most reliable way to shift regardless of flex/padding
+                  transform: "translate(0, -20px)" // Updated to -20 vertical and 0 horizontal
                 }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
