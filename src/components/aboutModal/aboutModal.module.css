@@ -29,8 +29,8 @@
         drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06))
         drop-shadow(0 12px 32px rgba(0, 0, 0, 0.14))
         drop-shadow(0 40px 80px rgba(0, 0, 0, 0.18));
-    /* Figma: 1728 viewport - 315px×2 sides = ~1098px minus sidebar ~200px ≈ 800px modal */
-    width: 800px;
+    /* Figma: exact width calculation 32 + 287.46 + 48 + 255.46 + 48 = ~671px */
+    width: 671px;
     max-width: calc(100vw - 48px);
 }
 
@@ -115,10 +115,10 @@
 .body {
     display: flex;
     flex-direction: row;
-    /* Figma: thin white border around the panels */
-    padding: 20px;
-    /* Figma: 12px gap between left card and right panel */
-    gap: 12px;
+    /* Figma: 32px top/bottom, 32px left, 48px right */
+    padding: 32px 48px 32px 32px;
+    /* Figma: 48px gap between left card and right text */
+    gap: 48px;
     background: #ffffff;
 }
 
@@ -128,12 +128,14 @@
 ──────────────────────────────────────── */
 .leftPanel {
     position: relative;
-    width: 40%;
+    /* Figma exact width */
+    width: 287.46px;
     flex-shrink: 0;
     min-height: 400px;
     overflow: hidden;
     background: #142333;
     display: block;
+    border-radius: 12px;
 }
 
 .gradientBg {
@@ -219,8 +221,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    /* Figma: spacing from left card edge to text start */
-    padding: 8px 12px 8px 24px;
+    /* Figma: spacing from left card edge to text start handled by body gap */
+    padding: 0;
     background: #ffffff;
 }
 
