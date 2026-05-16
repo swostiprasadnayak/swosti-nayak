@@ -56,9 +56,10 @@
 
 .content {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
     background: #ffffff;
     position: relative;
+    scrollbar-gutter: stable;
 }
 
 /* Dark mode overrides */
