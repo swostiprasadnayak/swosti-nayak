@@ -114,22 +114,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 180px;
+    padding: 48px 180px;
     gap: 10px;
     background: #f6f6f6;
-    flex: 1;
 }
 
-/* Inner container with scrolling */
+/* Inner container */
 .contentWrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 94px 0;
     gap: 10px;
     width: 738.91px;
-    height: 776px;
-    overflow-y: auto;
 }
 
 /* Mask group — white container */

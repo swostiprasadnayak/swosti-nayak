@@ -136,22 +136,24 @@ const AboutModal: React.FC = () => {
                                                     </svg>
                                                 </div>
 
-                                                {/* Bio paragraphs */}
-                                                <p className={classes.bioParagraph}>
-                                                    I&apos;m a Product Designer with 2+ years crafting clear, scalable digital experiences.
-                                                </p>
-                                                <p className={classes.bioParagraph}>
-                                                    I blend UX research, design, and strategy to solve complex problems and build enjoyable products.
-                                                </p>
-                                                <p className={classes.bioParagraph}>
-                                                    Passionate about reducing friction and creating impact, I&apos;m eager to join teams shaping thoughtful, high-impact digital journeys.
-                                                </p>
+                                                {/* Bio container — paragraphs + CTA */}
+                                                <div className={classes.bioContainer}>
+                                                    <p className={classes.bioParagraph}>
+                                                        I&apos;m a Product Designer with 2+ years crafting clear, scalable digital experiences.
+                                                    </p>
+                                                    <p className={classes.bioParagraph}>
+                                                        I blend UX research, design, and strategy to solve complex problems and build enjoyable products.
+                                                    </p>
+                                                    <p className={classes.bioParagraph}>
+                                                        Passionate about reducing friction and creating impact, I&apos;m eager to join teams shaping thoughtful, high-impact digital journeys.
+                                                    </p>
 
-                                                {/* CTA */}
-                                                <p className={classes.cta}>
-                                                    Let&apos;s create something meaningful together.{" "}
-                                                    <span role="img" aria-label="grinning face">😄</span>
-                                                </p>
+                                                    {/* CTA */}
+                                                    <p className={classes.cta}>
+                                                        Let&apos;s create something meaningful together.{" "}
+                                                        <span role="img" aria-label="grinning face">😄</span>
+                                                    </p>
+                                                </div>
                                             </div>
 
                                         </div>
