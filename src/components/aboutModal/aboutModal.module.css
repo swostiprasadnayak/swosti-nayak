@@ -1,116 +1,306 @@
-/* AboutModal.module.css */
+/* aboutModal.module.css — Exact Figma spec */
 
+/* ── Backdrop ── */
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(var(--text-primary-rgb), 0.15);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     z-index: 60;
 }
 
+/* ── Centering wrapper ── */
 .modalContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 61;
     pointer-events: none;
+    /* Figma: 65px viewport top/bottom, 315px horizontal (auto from centering) */
+    padding: 65px 24px;
 }
 
 .modalWrapper {
     pointer-events: auto;
-    overflow: hidden;
-    width: 34rem;
+    filter:
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06))
+        drop-shadow(0 12px 32px rgba(0, 0, 0, 0.14))
+        drop-shadow(0 40px 80px rgba(0, 0, 0, 0.18));
+    width: 700px;
     max-width: calc(100vw - 48px);
 }
 
+/* ── Outer window shell ── */
 .modal {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-card);
+    /* Figma: #f6f6f6 */
+    background: #f6f6f6;
     overflow: hidden;
 }
 
-.windowHeader {
+/* ════════════════════════════════════════
+   TITLE BAR — macOS window chrome
+   Figma: 62px from top of viewport to title bar content
+════════════════════════════════════════ */
+.titleBar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    padding: 0.6rem 0;
-    background: var(--bg-secondary);
-    position: relative;
+    height: 44px;
+    padding: 0 16px;
+    background: #f6f6f6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     flex-shrink: 0;
+    position: relative;
 }
 
 .trafficLights {
     display: flex;
-    padding: 0 0.8rem;
-    gap: 0.4rem;
     align-items: center;
+    gap: 8px;
     z-index: 1;
 }
 
-.trafficLight {
-    width: 0.8rem;
-    height: 0.8rem;
+.dot {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     border: none;
+    cursor: pointer;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    padding: 0;
+    background: none;
 }
 
-.trafficLight svg {
+.dot svg {
+    width: 8px;
+    height: 8px;
     opacity: 0;
+    transition: opacity 0.15s;
 }
 
-.modalWrapper:hover .trafficLight svg {
+.modalWrapper:hover .dot svg {
     opacity: 0.7;
 }
 
-.windowTitle {
+/* Centred window title — Figma: rgba(20,35,51,0.5) */
+.titleBarLabel {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.75rem;
+    font-size: 13px;
     font-weight: 500;
-    color: rgba(var(--text-primary-rgb), 0.5);
-    letter-spacing: 0.01em;
+    color: rgba(20, 35, 51, 0.5);
+    letter-spacing: 0;
+    pointer-events: none;
 }
 
-.trafficLightsPlaceholder {
-    width: 4rem;
+.titleBarSpacer {
+    width: 52px;
 }
 
-.contentArea {
+/* ════════════════════════════════════════
+   BODY — two-panel layout
+   Figma: 94px from title bar bottom to card bottom
+════════════════════════════════════════ */
+.body {
+    display: flex;
+    flex-direction: row;
+    /* Figma: 32px padding top (from title bar area), body white fill */
+    padding: 32px;
+    /* Figma: 12px gap between left card and right panel */
+    gap: 12px;
+    background: #ffffff;
+}
+
+/* ────────────────────────────────────────
+   LEFT PANEL — gradient card
+   Figma: background #142333, 287.46 Fill × content
+──────────────────────────────────────── */
+.leftPanel {
+    position: relative;
+    width: 44%;
+    flex-shrink: 0;
+    min-height: 380px;
+    overflow: hidden;
+    background: #142333;
+    display: block;
+}
+
+.gradientBg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Figma: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 100%) */
+.leftOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.0) 35%,
+        rgba(0, 0, 0, 0.35) 100%
+    );
+}
+
+/* ── "About" label ──
+   Figma: Geist SemiBold 24px, line-height 22.4px, white
+   Position: 32px top, 32px left */
+.aboutLabel {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 22.4px;
+    letter-spacing: 0;
+    z-index: 2;
+}
+
+/* ── Teaser block ──
+   Figma: 32px bottom, 32px left/right */
+.teaserBlock {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    right: 32px;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    padding: 48px 36px 56px;
+    /* Figma: 12px between eyebrow bottom and title, 8px gap in teaser */
+    gap: 8px;
 }
 
-.paragraph {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: rgba(var(--text-primary-rgb), 0.7);
-    margin: 0 0 16px 0;
-    letter-spacing: -0.01em;
-}
-
-.paragraph:last-child {
-    margin-bottom: 0;
-}
-
-.bold {
+/* ── "What if..." eyebrow ──
+   Figma: Geist Medium 14px, line-height 32px, white 80% */
+.teaserEyebrow {
+    font-size: 14px;
     font-weight: 500;
-    color: rgba(var(--text-primary-rgb), 1);
+    color: rgba(255, 255, 255, 0.80);
+    line-height: 32px;
+    letter-spacing: 0;
+}
+
+/* ── Title heading ──
+   Figma: Geist SemiBold 24px, line-height 1.33 (31.92px), white */
+.teaserTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.33;
+    letter-spacing: 0;
+    margin: 0;
+}
+
+/* ────────────────────────────────────────
+   RIGHT PANEL — bio content
+   Figma: 255.46 Fill × 359 Hug, white fill
+   Padding: 48px left, 48px right
+──────────────────────────────────────── */
+.rightPanel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* Figma: 48px left padding (from panel edge to text), content hugs */
+    padding: 0 0 0 48px;
+    background: #ffffff;
+}
+
+/* ── "Swosti" name + verified ──
+   Figma: Geist SemiBold 16px, line-height 22.4px, #142333
+   53 Hug × 23 Hug, gap to bio = 39px (Y offset) */
+.nameRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #142333;
+    line-height: 22.4px;
+    letter-spacing: 0;
+}
+
+.verifiedBadge {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* ── Bio paragraphs ──
+   Figma: Geist Regular 16px, line-height 22.4px (1.4), #142333
+   Content block: 255.46 Fill × 359 Hug */
+.bioParagraph {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    color: #142333;
+    margin: 0 0 22.4px 0;
+    letter-spacing: 0;
+}
+
+/* ── CTA ──
+   Figma: Geist SemiBold 16px, line-height 22.4px, #788A62
+   48px gap above (from last paragraph) */
+.cta {
+    font-size: 16px;
+    font-weight: 600;
+    color: #788A62;
+    line-height: 22.4px;
+    margin: 0;
+    letter-spacing: 0;
+}
+
+/* ── Dark mode overrides ── */
+:global([data-theme="dark"]) .modal {
+    background: #1e1e1e;
+}
+
+:global([data-theme="dark"]) .titleBar {
+    background: #252525;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .titleBarLabel {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .body {
+    background: #1a1a1a;
+}
+
+:global([data-theme="dark"]) .rightPanel {
+    background: #1a1a1a;
+}
+
+:global([data-theme="dark"]) .name {
+    color: #f0f0f0;
+}
+
+:global([data-theme="dark"]) .bioParagraph {
+    color: rgba(240, 240, 240, 0.72);
+}
+
+:global([data-theme="dark"]) .cta {
+    color: #8db868;
 }

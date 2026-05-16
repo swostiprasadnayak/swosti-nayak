@@ -1,9 +1,10 @@
 /**
-* AboutModal.tsx
-*
-* Modal that displays personal information about the portfolio owner.
-* Triggered via the "About" nav item in the sidebar.
-*/
+ * AboutModal.tsx
+ *
+ * Modal that displays personal information about the portfolio owner.
+ * Triggered via the "About" nav item in the sidebar.
+ * Layout: macOS window chrome → two-panel body (gradient left / bio right)
+ */
 
 "use client";
 
@@ -32,6 +33,7 @@ const AboutModal: React.FC = () => {
         <AnimatePresence>
             {isOpen && (
                 <>
+                    {/* Backdrop */}
                     <motion.div
                         className={classes.overlay}
                         initial={{ opacity: 0 }}
@@ -41,64 +43,111 @@ const AboutModal: React.FC = () => {
                         onClick={closeModal}
                     />
 
+                    {/* Modal Container */}
                     <div className={classes.modalContainer}>
                         <motion.div
                             className={classes.modalWrapper}
-                            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                            initial={{ opacity: 0, scale: 0.96, y: 12 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                            exit={{ opacity: 0, scale: 0.96, y: 12 }}
                             transition={{ duration: 0.35, ease: EASE_OUT_QUART }}
                         >
-                            <Squircle className={classes.modal} cornerRadius={16}>
-                                <div className={classes.windowHeader}>
+                            <Squircle className={classes.modal} cornerRadius={20}>
+
+                                {/* ── macOS Window Title Bar ── */}
+                                <div className={classes.titleBar}>
                                     <div className={classes.trafficLights}>
+                                        {/* Red – close */}
                                         <button
-                                            className={classes.trafficLight}
-                                            style={{ background: "#FE5F57" }}
+                                            className={classes.dot}
+                                            style={{ background: "#FF5F56" }}
                                             onClick={closeModal}
                                             aria-label="Close"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                            <svg viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M1.5 1.5L6.5 6.5M6.5 1.5L1.5 6.5" stroke="#4A0002" strokeWidth="1.25" strokeLinecap="round" />
                                             </svg>
                                         </button>
-                                        <span className={classes.trafficLight} style={{ background: "#DFDFE2" }} />
-                                        <span className={classes.trafficLight} style={{ background: "#DFDFE2" }} />
+                                        {/* Yellow – minimise (inert) */}
+                                        <span className={classes.dot} style={{ background: "#FFBD2E" }} />
+                                        {/* Green – maximise (inert) */}
+                                        <span className={classes.dot} style={{ background: "#27C93F" }} />
                                     </div>
-                                    <span className={classes.windowTitle}>About</span>
-                                    <div className={classes.trafficLightsPlaceholder} />
+
+                                    {/* Centred window title */}
+                                    <span className={classes.titleBarLabel}>About</span>
+
+                                    {/* Right spacer to keep title centred */}
+                                    <div className={classes.titleBarSpacer} />
                                 </div>
 
-                                <div className={classes.contentArea}>
-                                    <p className={classes.paragraph}>
-                                        I’m a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.
-                                    </p>
-                                    <p className={classes.paragraph}>
-                                        Over the past 2+ years, I’ve worked across B2B and B2C products  from internal platforms to customer-facing solutions  leading UX from research to high-fidelity execution. My approach combines systems thinking, user psychology, and business strategy to design products that don’t just look good, but perform.
-                                    </p>
-                                    <p className={classes.paragraph}>
-                                        <span className={classes.bold}>I specialize in:</span><br/>
-                                        • UX Research & Discovery<br/>
-                                        • Information Architecture & Experience Strategy<br/>
-                                        • Interaction & Visual Design<br/>
-                                        • Design Systems & Scalable Components<br/>
-                                        • Cross-functional collaboration with Product & Engineering
-                                    </p>
-                                    <p className={classes.paragraph}>
-                                        I’ve worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements  always focusing on clarity, usability, and measurable impact.
-                                    </p>
-                                    <p className={classes.paragraph}>
-                                        <span className={classes.bold}>What drives me?</span><br/>
-                                        Designing systems that scale.<br/>
-                                        Creating experiences that reduce friction.<br/>
-                                        Building products that users actually enjoy using.
-                                    </p>
-                                    <p className={classes.paragraph}>
-                                        Currently exploring opportunities where I can contribute to high-impact product teams building thoughtful, well-crafted digital experiences.
-                                    </p>
-                                    <p className={classes.paragraph}>
-                                        <span className={classes.bold}>Let’s build something meaningful.</span>
-                                    </p>
+                                {/* ── Two-panel body ── */}
+                                <div className={classes.body}>
+
+                                    {/* LEFT PANEL — gradient image + article teaser */}
+                                    <Squircle className={classes.leftPanel} cornerRadius={12}>
+                                        <img
+                                            src="/about-gradient.jpg"
+                                            alt="Abstract green gradient"
+                                            className={classes.gradientBg}
+                                            draggable={false}
+                                        />
+                                        {/* Bottom scrim for text legibility */}
+                                        <div className={classes.leftOverlay} />
+
+                                        {/* "About" label — top left */}
+                                        <span className={classes.aboutLabel}>About</span>
+
+                                        {/* Article teaser — bottom */}
+                                        <div className={classes.teaserBlock}>
+                                            <span className={classes.teaserEyebrow}>What if...</span>
+                                            <p className={classes.teaserTitle}>
+                                                I thought I knew Product Design. Then I joined an AI Team
+                                            </p>
+                                        </div>
+                                    </Squircle>
+
+                                    {/* RIGHT PANEL — bio */}
+                                    <div className={classes.rightPanel}>
+                                        {/* Name + verified badge */}
+                                        <div className={classes.nameRow}>
+                                            <span className={classes.name}>Swosti</span>
+                                            <svg
+                                                className={classes.verifiedBadge}
+                                                viewBox="0 0 20 20"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                aria-label="Verified"
+                                            >
+                                                <circle cx="10" cy="10" r="10" fill="#1D9BF0" />
+                                                <path
+                                                    d="M5.5 10.5L8.5 13.5L14.5 7.5"
+                                                    stroke="white"
+                                                    strokeWidth="1.75"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+
+                                        {/* Bio paragraphs */}
+                                        <p className={classes.bioParagraph}>
+                                            I&apos;m a Product Designer with 2+ years crafting clear, scalable digital experiences.
+                                        </p>
+                                        <p className={classes.bioParagraph}>
+                                            I blend UX research, design, and strategy to solve complex problems and build enjoyable products.
+                                        </p>
+                                        <p className={classes.bioParagraph}>
+                                            Passionate about reducing friction and creating impact, I&apos;m eager to join teams shaping thoughtful, high-impact digital journeys.
+                                        </p>
+
+                                        {/* CTA */}
+                                        <p className={classes.cta}>
+                                            Let&apos;s create something meaningful together.{" "}
+                                            <span role="img" aria-label="grinning face">😄</span>
+                                        </p>
+                                    </div>
+
                                 </div>
                             </Squircle>
                         </motion.div>

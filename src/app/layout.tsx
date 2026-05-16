@@ -3,7 +3,10 @@ import { ViewportProvider } from "./contexts/ViewportContext";
 import { VoiceModalProvider } from "./contexts/VoiceModalContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import CustomCursor from "@/components/ui/customCursor/CustomCursor";
+import { Geist } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 export const metadata = {
   title: "Swosti - Portfolio",
@@ -23,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
+      <body className={geist.className} style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
         <CustomCursor />
         <ThemeProvider>
           <ViewportProvider>
