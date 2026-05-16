@@ -62,14 +62,14 @@ export default function PostsFeed() {
           boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.03)"
         }}
       >
-        {/* INNER CONTAINER: Shifted 60px left as requested */}
+        {/* INNER CONTAINER: Shifted 70px left (added 10px more) */}
         <div style={{ 
           width: "100%", 
           padding: "40px 0", 
           display: "flex", 
           flexDirection: "column", 
           alignItems: "center",
-          transform: "translateX(-60px)" // SHIFTING THE SCROLLER LEFT
+          transform: "translateX(-70px)" // TOTAL 70px LEFT SHIFT
         }}>
           <div style={{ width: "90%", maxWidth: "580px", display: "flex", flexDirection: "column", gap: "32px" }}>
             {POSTS.map((post) => (
