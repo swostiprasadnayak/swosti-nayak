@@ -178,7 +178,7 @@ export default function PostsFeed() {
                   padding: "40px", 
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(40px, 40px)" // Updated to 40px right and 40px down
+                  transform: "translate(20px, -20px)" // Updated to 20px right and 20px up
                 }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
