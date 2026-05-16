@@ -1,4 +1,4 @@
-/* aboutModal.module.css — Exact Figma spec */
+/* aboutModal.module.css — Figma exact spec */
 
 /* ── Backdrop ── */
 .overlay {
@@ -19,7 +19,6 @@
     justify-content: center;
     z-index: 61;
     pointer-events: none;
-    /* Figma: 65px viewport top/bottom, 315px horizontal (auto from centering) */
     padding: 65px 24px;
 }
 
@@ -29,8 +28,7 @@
         drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06))
         drop-shadow(0 12px 32px rgba(0, 0, 0, 0.14))
         drop-shadow(0 40px 80px rgba(0, 0, 0, 0.18));
-    /* Figma: exact width calculation 32 + 287.46 + 48 + 255.46 + 48 = ~671px */
-    width: 671px;
+    width: 1099px;
     max-width: calc(100vw - 48px);
 }
 
@@ -39,14 +37,13 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* Figma: #f6f6f6 */
-    background: #f6f6f6;
+    background: #ffffff;
     overflow: hidden;
+    border-radius: 12px;
 }
 
 /* ════════════════════════════════════════
    TITLE BAR — macOS window chrome
-   Figma: 62px from top of viewport to title bar content
 ════════════════════════════════════════ */
 .titleBar {
     display: flex;
@@ -54,10 +51,11 @@
     justify-content: space-between;
     height: 44px;
     padding: 0 16px;
-    background: #f6f6f6;
+    background: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     flex-shrink: 0;
     position: relative;
+    border-radius: 15.32px 15.32px 0 0;
 }
 
 .trafficLights {
@@ -92,7 +90,7 @@
     opacity: 0.7;
 }
 
-/* Centred window title — Figma: rgba(20,35,51,0.5) */
+/* Centred window title */
 .titleBarLabel {
     position: absolute;
     left: 50%;
@@ -109,48 +107,70 @@
 }
 
 /* ════════════════════════════════════════
-   BODY — two-panel layout
-   Figma: 94px from title bar bottom to card bottom
+   BODY — main container
 ════════════════════════════════════════ */
 .body {
     display: flex;
-    flex-direction: row;
-    /* Figma: 32px top/bottom, 32px left, 48px right */
-    padding: 32px 48px 32px 32px;
-    /* Figma: 48px gap between left card and right text */
-    gap: 48px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 180px;
+    gap: 10px;
     background: #f6f6f6;
+    flex: 1;
+}
+
+/* Inner container with scrolling */
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 94px 0;
+    gap: 10px;
+    width: 738.91px;
+    height: 776px;
+    overflow-y: auto;
+}
+
+/* Mask group — white container */
+.maskGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
+    width: 738.91px;
+    height: 588px;
+    background: #ffffff;
+    border-radius: 12px;
 }
 
 /* ────────────────────────────────────────
    LEFT PANEL — gradient card
-   Figma: background #142333, 287.46 Fill × content
-──────────────────────────────────────── */
+────────────────────────────────────────── */
 .leftPanel {
     position: relative;
-    /* Figma exact width */
-    width: 287.46px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 32px;
+    gap: 314px;
+    width: 351.46px;
+    height: 564px;
+    background: url(/about-gradient.jpg);
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
     flex-shrink: 0;
-    flex: 1;
     overflow: hidden;
-    background: #142333;
-    display: block;
-    border-radius: 12px;
 }
 
 .gradientBg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    user-select: none;
-    pointer-events: none;
+    display: none;
 }
 
-/* Figma: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 100%) */
+/* Figma: gradient overlay */
 .leftOverlay {
     position: absolute;
     inset: 0;
@@ -160,116 +180,129 @@
         rgba(0, 0, 0, 0.0) 35%,
         rgba(0, 0, 0, 0.35) 100%
     );
+    pointer-events: none;
 }
 
-/* ── "About" label ──
-   Figma: Geist SemiBold 24px, line-height 22.4px, white
-   Position: 32px top, 32px left */
+/* ── "About" label ── */
 .aboutLabel {
-    position: absolute;
-    top: 32px;
-    left: 32px;
+    position: relative;
+    z-index: 2;
     font-size: 24px;
     font-weight: 600;
     color: #ffffff;
-    line-height: 22.4px;
+    line-height: 22px;
     letter-spacing: 0;
-    z-index: 2;
+    margin: 0;
 }
 
-/* ── Teaser block ──
-   Figma: 32px bottom, 32px left/right */
+/* ── Teaser block ── */
 .teaserBlock {
-    position: absolute;
-    bottom: 32px;
-    left: 32px;
-    right: 32px;
+    position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    /* Figma: 12px between eyebrow bottom and title, 8px gap in teaser */
+    align-items: flex-start;
+    padding: 0;
     gap: 8px;
+    width: 287.46px;
+    height: 136px;
 }
 
-/* ── "What if..." eyebrow ──
-   Figma: Geist Medium 14px, line-height 32px, white 80% */
+/* ── "What if..." eyebrow ── */
 .teaserEyebrow {
     font-size: 14px;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.80);
     line-height: 32px;
     letter-spacing: 0;
+    margin: 0;
 }
 
-/* ── Title heading ──
-   Figma: Geist SemiBold 24px, line-height 1.33 (31.92px), white */
+/* ── Title heading ── */
 .teaserTitle {
     font-size: 24px;
     font-weight: 600;
     color: #ffffff;
-    line-height: 1.33;
+    line-height: 32px;
     letter-spacing: 0;
     margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 /* ────────────────────────────────────────
    RIGHT PANEL — bio content
-   Figma: 255.46 Fill × 359 Hug, white fill
-   Padding: 48px left, 48px right
-──────────────────────────────────────── */
+────────────────────────────────────────── */
 .rightPanel {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    /* Figma: spacing from left card edge to text start handled by body gap */
-    padding: 0;
-    background: #f6f6f6;
+    align-items: flex-start;
+    padding: 36px 48px;
+    gap: 8px;
+    width: 351.46px;
+    height: 564px;
+    background: transparent;
 }
 
-/* ── "Swosti" name + verified ──
-   Figma: Geist SemiBold 16px, line-height 22.4px, #142333
-   53 Hug × 23 Hug, gap to bio = 39px (Y offset) */
+/* ── "Swosti" name + verified ── */
 .nameRow {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 20px;
+    padding: 0;
+    gap: 1.99px;
+    width: 72.99px;
+    height: 23px;
+    margin-bottom: 0;
 }
 
 .name {
     font-size: 16px;
     font-weight: 600;
     color: #142333;
-    line-height: 22.4px;
+    line-height: 22px;
     letter-spacing: 0;
+    width: 53px;
+    height: 23px;
+    display: flex;
+    align-items: center;
+    margin: 0;
 }
 
 .verifiedBadge {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
 }
 
-/* ── Bio paragraphs ──
-   Figma: Geist Regular 16px, line-height 22.4px (1.4), #142333
-   Content block: 255.46 Fill × 359 Hug */
+/* ── Bio container ── */
+.bioContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 16px;
+    width: 255.46px;
+    height: 398px;
+}
+
+/* ── Bio paragraphs ── */
 .bioParagraph {
     font-size: 16px;
     font-weight: 400;
-    line-height: 22.4px;
+    line-height: 22px;
     color: #142333;
-    margin: 0 0 22.4px 0;
+    margin: 0;
     letter-spacing: 0;
+    width: 255.46px;
 }
 
-/* ── CTA ──
-   Figma: Geist SemiBold 16px, line-height 22.4px, #788A62
-   48px gap above (from last paragraph) */
+/* ── CTA ── */
 .cta {
     font-size: 16px;
     font-weight: 600;
     color: #788A62;
-    line-height: 22.4px;
+    line-height: 22px;
     margin: 0;
     letter-spacing: 0;
 }
@@ -292,8 +325,12 @@
     background: #1a1a1a;
 }
 
+:global([data-theme="dark"]) .maskGroup {
+    background: #1e1e1e;
+}
+
 :global([data-theme="dark"]) .rightPanel {
-    background: #1a1a1a;
+    background: transparent;
 }
 
 :global([data-theme="dark"]) .name {
