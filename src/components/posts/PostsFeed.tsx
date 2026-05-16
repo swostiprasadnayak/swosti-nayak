@@ -16,7 +16,7 @@ const POSTS = [
       <h2>The Evolution of Generative Interfaces</h2>
       <p>Design systems were built to scale manual interface creation. They're now content fodder for AI. The perfect worker for parsing components, outlining specs, and shuffling identical boxes around. One that doesn't complain about the boring parts of it all.</p>
       
-      <img src="/jckkcfj.webp" alt="Interface concept 1" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <img src="/images/design_system.png" alt="Interface concept 1" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
       
       <p>Now it's starting to kill them off. Imagine building yet another form that looks like all the other forms. This is as refreshing as competitive clicking accept on cookie banners.</p>
       <p>You can generate a design system using AI, build a complex dashboard and then realize nobody really needs it anymore. AI ate its own tail when it comes to generative user interfaces.</p>
@@ -25,7 +25,7 @@ const POSTS = [
       <p>We're moving towards a world where interfaces are as fluid as the data they represent. No more fixed layouts, just intent-driven generation.</p>
       <p>Imagine a future where the interface is generated in real-time based on your specific context. Not just the data, but the very controls and layouts themselves. This is the goal of the Antigravity project.</p>
       
-      <img src="/jckkcfj.webp" alt="Interface concept 2" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <img src="/images/spatial_computing.png" alt="Interface concept 2" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
       
       <p>By leveraging large multimodal models, we can translate user intent directly into functional UI patterns. This reduces the friction between thought and action, allowing for a more creative and productive experience.</p>
       <p>The transition from "tools" to "agents" is the most significant shift in computing history. We're no longer just clicking buttons; we're collaborating with a system that understands our goals.</p>
@@ -180,7 +180,7 @@ export default function PostsFeed() {
                 position: "absolute", 
                 top: "-5vh", 
                 left: "-12%", 
-                width: "113.7vw", 
+                width: "100vw", // MATCH WINDOW WIDTH
                 height: "100vh", 
                 background: "rgba(240, 240, 240, 0.95)", 
                 zIndex: 100, 
@@ -194,7 +194,7 @@ export default function PostsFeed() {
               position: "absolute", 
               top: "-5vh", 
               left: "-12%", 
-              width: "82vw", 
+              width: "100vw", // FULL WIDTH OF THE WINDOW
               height: "100vh", 
               zIndex: 101, 
               display: "flex", 
@@ -202,8 +202,8 @@ export default function PostsFeed() {
               alignItems: "center", 
               overflowY: "auto", 
               paddingTop: "10vh",
-              paddingBottom: "10vh", // SCROLLER PADDING
-              pointerEvents: "auto",
+              paddingBottom: "10vh",
+              pointerEvents: "auto", // ENSURE POINTER EVENTS ARE ENABLED
               scrollbarWidth: "none",
               msOverflowStyle: "none"
             }}
@@ -215,15 +215,15 @@ export default function PostsFeed() {
                 cornerRadius={32} 
                 style={{ 
                   background: "#FBFBFB", 
-                  width: "95%", 
+                  width: "90%", 
                   maxWidth: "850px", 
                   height: "auto", 
-                  padding: "40px 40px 100px", // ADDED 100px BOTTOM PADDING INSIDE THE CARD
+                  padding: "40px 40px 100px",
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(50px, 0)",
+                  transform: "translateX(0)", // CENTER IT RELATIVE TO WRAPPER
                   marginBottom: "40px",
-                  overflow: "hidden" // ENSURE CONTENT DOESN'T SPILL OUT
+                  overflow: "hidden"
                 }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
