@@ -181,11 +181,12 @@ export default function PostsFeed() {
               top: "-5vh", 
               left: "-12%", 
               width: "82vw", 
-              height: "88vh", 
+              height: "100vh", // FULL HEIGHT
               zIndex: 101, 
               display: "flex", 
-              alignItems: "center", 
+              alignItems: "flex-start", // START FROM TOP TO PREVENT CUTOFF
               justifyContent: "center", 
+              paddingTop: "10vh", // GIVES SPACE AT THE TOP
               pointerEvents: "none"
             }}>
               <Squircle 
@@ -194,12 +195,12 @@ export default function PostsFeed() {
                   background: "#FBFBFB", 
                   width: "95%", 
                   maxWidth: "850px", 
-                  height: "85vh", // FIXED HEIGHT TO ENABLE SCROLLING
+                  maxHeight: "85vh", // MAX HEIGHT INSTEAD OF FIXED
                   padding: "40px", 
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(50px, 10px)",
-                  overflowY: "auto", // ENABLE SCROLLING
+                  transform: "translate(50px, 0)", // RESET VERTICAL TRANSLATE TO PREVENT CUTOFF
+                  overflowY: "auto", 
                   scrollbarWidth: "none",
                   msOverflowStyle: "none"
                 }}
