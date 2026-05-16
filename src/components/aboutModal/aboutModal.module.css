@@ -131,7 +131,7 @@
     /* Figma exact width */
     width: 287.46px;
     flex-shrink: 0;
-    min-height: 400px;
+    flex: 1;
     overflow: hidden;
     background: #142333;
     display: block;
