@@ -138,7 +138,7 @@ export default function PostsFeed() {
       <AnimatePresence>
         {expandedId && (
           <>
-            {/* Backdrop: Covering the entire window by negating the 12% padding */}
+            {/* Backdrop: Covering the entire window */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
@@ -156,7 +156,7 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* Centering Container: Calibrated to balance top/bottom gaps based on your 55/33 measurement */}
+            {/* Centering Container: Spans the whole window area */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
@@ -167,14 +167,19 @@ export default function PostsFeed() {
               display: "flex", 
               alignItems: "center", 
               justifyContent: "center", 
-              pointerEvents: "none", 
-              padding: "32px",
-              paddingLeft: "calc(32px + 2%)", 
-              paddingBottom: "220px" // Adjusted to move card significantly upward to balance gaps
+              pointerEvents: "none"
             }}>
               <Squircle 
                 cornerRadius={32} 
-                style={{ background: "#FBFBFB", width: "95%", maxWidth: "850px", padding: "40px", pointerEvents: "auto", boxShadow: "0 24px 48px rgba(0,0,0,0.1)" }}
+                style={{ 
+                  background: "#FBFBFB", 
+                  width: "95%", 
+                  maxWidth: "850px", 
+                  padding: "40px", 
+                  pointerEvents: "auto", 
+                  boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
+                  transform: "translate(1.5%, -100px)" // DIRECT TRANSFORM: Most reliable way to shift regardless of flex/padding
+                }}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
                   <motion.div key="expanded" layoutId={`post-container-${post.id}`}>
