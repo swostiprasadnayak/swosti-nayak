@@ -10,6 +10,7 @@ type DesktopSidebarProps = {
     isProjectExpanded?: boolean;
     activePage?: string;
     onCollapseProject?: () => void;
+    onShowPosts?: () => void;
 };
 
 const mainNavigationItems = ["Work", "About", "Post", "Resume"];
@@ -34,7 +35,8 @@ const useCursorElement = (opts: any) => ({ ref: useRef(null) });
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     isProjectExpanded,
     activePage = "Work",
-    onCollapseProject
+    onCollapseProject,
+    onShowPosts
 }) => {
     const nameRef = useRef<HTMLAnchorElement>(null);
     const { openModal: openAboutModal } = useAboutModal();
@@ -74,9 +76,11 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                                 onClick={
                                     section === "About"
                                         ? openAboutModal
-                                        : section === "Work" && onCollapseProject
-                                            ? onCollapseProject
-                                            : undefined
+                                        : section === "Post"
+                                            ? onShowPosts
+                                            : section === "Work" && onCollapseProject
+                                                ? onCollapseProject
+                                                : undefined
                                 }
                             />
                         ))}

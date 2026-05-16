@@ -7,10 +7,13 @@ import html2canvas from "html2canvas";
 import DesktopSidebar from "@/components/desktopSidebar/desktopSidebar";
 import CardStackContainer from "@/components/homePage/cardStackContainer/cardStackContainer";
 import ExpandedProject from "@/components/homePage/expandedProject/ExpandedProject";
+import PostsFeed from "@/components/posts/PostsFeed";
 import Dock from "@/components/dock/dock";
 import GradientBlur from "@/components/gradientBlur/gradientBlur";
 import AboutModal from "@/components/aboutModal/AboutModal";
 import VoiceModal from "@/components/voiceModal/VoiceModal";
+import { AnimatePresence, motion } from "framer-motion";
+import { Squircle } from "corner-smoothing";
 import FilterButton from "@/components/homePage/projectControls/filterButton/filterButton";
 import ControlsRow from "@/components/homePage/projectControls/controlsRow/controlsRow";
 import ControlPanel from "@/components/homePage/projectControls/controlPanel/controlPanel";
@@ -43,6 +46,7 @@ function HomeContent() {
 
   // Project Expansion State
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [isPostsOpen, setIsPostsOpen] = useState(false);
   const getProjectLayoutId = useCallback((slug: string) => `project-card-${slug}`, []);
 
   const searchParams = useSearchParams();
@@ -62,6 +66,7 @@ function HomeContent() {
   // 2. Sync State -> URL on change
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    
     if (expandedProject) {
       const project = PROJECTS.find(p => p.name === expandedProject);
       if (project) {
@@ -70,9 +75,10 @@ function HomeContent() {
     } else {
       params.delete("project");
     }
+
     const newPathname = window.location.pathname + (params.toString() ? `?${params.toString()}` : "");
     router.replace(newPathname, { scroll: false });
-  }, [expandedProject, router]);
+  }, [expandedProject, isPostsOpen, router]);
 
   // The function that takes the picture
   const handleScreenshot = useCallback(async () => {
@@ -111,7 +117,11 @@ function HomeContent() {
 
       {/* 1. The Left Sidebar Navigation */}
       <div style={{ zIndex: 10, position: 'relative' }}>
-        <DesktopSidebar />
+        <DesktopSidebar 
+          onShowPosts={() => setIsPostsOpen(true)}
+          onCollapseProject={() => { setExpandedProject(null); setIsPostsOpen(false); }}
+          activePage={isPostsOpen ? "Post" : (expandedProject ? undefined : "Work")}
+        />
       </div>
 
       {/* 2. The Main Desktop Area */}
@@ -178,6 +188,53 @@ function HomeContent() {
           onClose={() => setExpandedProject(null)}
           layoutId={expandedProject ? getProjectLayoutId(expandedProject.toLowerCase()) : ""}
         />
+
+        {/* Posts Overlay Window */}
+        <AnimatePresence>
+          {isPostsOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              {/* Backdrop */}
+              <div 
+                onClick={() => setIsPostsOpen(false)}
+                style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.1)', backdropFilter: 'blur(10px)' }} 
+              />
+              
+              {/* The Window */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                style={{ position: 'relative', width: '82vw', maxWidth: '1200px', height: '88vh', pointerEvents: 'none' }}
+              >
+                <Squircle
+                  cornerRadius={24}
+                  style={{ width: '100%', height: '100%', background: '#fff', boxShadow: '0 24px 64px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden', pointerEvents: 'auto' }}
+                >
+                  {/* macOS Title bar */}
+                  <div style={{ height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #f2f2f2', background: '#fff', flexShrink: 0 }}>
+                    <div style={{ position: 'absolute', left: '16px', display: 'flex', gap: '8px' }}>
+                      <div onClick={() => setIsPostsOpen(false)} style={{ width: 12, height: 12, borderRadius: 6, background: '#ff5f56', cursor: 'pointer' }} />
+                      <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ffbd2e' }} />
+                      <div style={{ width: 12, height: 12, borderRadius: 6, background: '#27c93f' }} />
+                    </div>
+                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#111' }}>Posts</div>
+                  </div>
+
+                  {/* Content area */}
+                  <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                    <PostsFeed />
+                  </div>
+                </Squircle>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <GradientBlur direction="bottom" />
 
