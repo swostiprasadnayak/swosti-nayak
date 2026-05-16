@@ -84,68 +84,78 @@ const AboutModal: React.FC = () => {
                                 {/* ── Two-panel body ── */}
                                 <div className={classes.body}>
 
-                                    {/* LEFT PANEL — gradient image + article teaser */}
-                                    <Squircle className={classes.leftPanel} cornerRadius={12}>
-                                        <img
-                                            src="/about-gradient.jpg"
-                                            alt="Abstract green gradient"
-                                            className={classes.gradientBg}
-                                            draggable={false}
-                                        />
-                                        {/* Bottom scrim for text legibility */}
-                                        <div className={classes.leftOverlay} />
+                                    {/* Content wrapper for scrolling */}
+                                    <div className={classes.contentWrapper}>
 
-                                        {/* "About" label — top left */}
-                                        <span className={classes.aboutLabel}>About</span>
+                                        {/* Mask group — horizontal container for left & right panels */}
+                                        <div className={classes.maskGroup}>
 
-                                        {/* Article teaser — bottom */}
-                                        <div className={classes.teaserBlock}>
-                                            <span className={classes.teaserEyebrow}>What if...</span>
-                                            <p className={classes.teaserTitle}>
-                                                I thought I knew Product Design. Then I joined an AI Team
-                                            </p>
-                                        </div>
-                                    </Squircle>
-
-                                    {/* RIGHT PANEL — bio */}
-                                    <div className={classes.rightPanel}>
-                                        {/* Name + verified badge */}
-                                        <div className={classes.nameRow}>
-                                            <span className={classes.name}>Swosti</span>
-                                            <svg
-                                                className={classes.verifiedBadge}
-                                                viewBox="0 0 20 20"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                aria-label="Verified"
-                                            >
-                                                <circle cx="10" cy="10" r="10" fill="#1D9BF0" />
-                                                <path
-                                                    d="M5.5 10.5L8.5 13.5L14.5 7.5"
-                                                    stroke="white"
-                                                    strokeWidth="1.75"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
+                                            {/* LEFT PANEL — gradient image + article teaser */}
+                                            <Squircle className={classes.leftPanel} cornerRadius={12}>
+                                                <img
+                                                    src="/about-gradient.jpg"
+                                                    alt="Abstract green gradient"
+                                                    className={classes.gradientBg}
+                                                    draggable={false}
                                                 />
-                                            </svg>
+                                                {/* Bottom scrim for text legibility */}
+                                                <div className={classes.leftOverlay} />
+
+                                                {/* "About" label — top left */}
+                                                <span className={classes.aboutLabel}>About</span>
+
+                                                {/* Article teaser — bottom */}
+                                                <div className={classes.teaserBlock}>
+                                                    <span className={classes.teaserEyebrow}>What if...</span>
+                                                    <p className={classes.teaserTitle}>
+                                                        I thought I knew Product Design. Then I joined an AI Team
+                                                    </p>
+                                                </div>
+                                            </Squircle>
+
+                                            {/* RIGHT PANEL — bio */}
+                                            <div className={classes.rightPanel}>
+                                                {/* Name + verified badge */}
+                                                <div className={classes.nameRow}>
+                                                    <span className={classes.name}>Swosti</span>
+                                                    <svg
+                                                        className={classes.verifiedBadge}
+                                                        viewBox="0 0 20 20"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        aria-label="Verified"
+                                                    >
+                                                        <circle cx="10" cy="10" r="10" fill="#1D9BF0" />
+                                                        <path
+                                                            d="M5.5 10.5L8.5 13.5L14.5 7.5"
+                                                            stroke="white"
+                                                            strokeWidth="1.75"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                        />
+                                                    </svg>
+                                                </div>
+
+                                                {/* Bio paragraphs */}
+                                                <p className={classes.bioParagraph}>
+                                                    I&apos;m a Product Designer with 2+ years crafting clear, scalable digital experiences.
+                                                </p>
+                                                <p className={classes.bioParagraph}>
+                                                    I blend UX research, design, and strategy to solve complex problems and build enjoyable products.
+                                                </p>
+                                                <p className={classes.bioParagraph}>
+                                                    Passionate about reducing friction and creating impact, I&apos;m eager to join teams shaping thoughtful, high-impact digital journeys.
+                                                </p>
+
+                                                {/* CTA */}
+                                                <p className={classes.cta}>
+                                                    Let&apos;s create something meaningful together.{" "}
+                                                    <span role="img" aria-label="grinning face">😄</span>
+                                                </p>
+                                            </div>
+
                                         </div>
 
-                                        {/* Bio paragraphs */}
-                                        <p className={classes.bioParagraph}>
-                                            I&apos;m a Product Designer with 2+ years crafting clear, scalable digital experiences.
-                                        </p>
-                                        <p className={classes.bioParagraph}>
-                                            I blend UX research, design, and strategy to solve complex problems and build enjoyable products.
-                                        </p>
-                                        <p className={classes.bioParagraph}>
-                                            Passionate about reducing friction and creating impact, I&apos;m eager to join teams shaping thoughtful, high-impact digital journeys.
-                                        </p>
-
-                                        {/* CTA */}
-                                        <p className={classes.cta}>
-                                            Let&apos;s create something meaningful together.{" "}
-                                            <span role="img" aria-label="grinning face">😄</span>
-                                        </p>
                                     </div>
 
                                 </div>
