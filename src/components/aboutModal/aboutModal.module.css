@@ -114,7 +114,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 48px 180px;
+    padding: 48px;
     gap: 10px;
     background: #f6f6f6;
 }
@@ -125,18 +125,18 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    width: 738.91px;
+    width: 100%;
+    max-width: 739px;
 }
 
 /* Mask group — white container */
 .maskGroup {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     padding: 12px;
     gap: 12px;
-    width: 738.91px;
-    height: 588px;
+    width: 100%;
     background: #ffffff;
     border-radius: 12px;
 }
@@ -151,9 +151,8 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 32px;
-    gap: 314px;
-    width: 351.46px;
-    height: 564px;
+    flex: 1;
+    min-height: 420px;
     background: url(/about-gradient.jpg);
     background-size: cover;
     background-position: center;
@@ -200,8 +199,7 @@
     align-items: flex-start;
     padding: 0;
     gap: 8px;
-    width: 287.46px;
-    height: 136px;
+    width: 100%;
 }
 
 /* ── "What if..." eyebrow ── */
@@ -222,8 +220,6 @@
     line-height: 32px;
     letter-spacing: 0;
     margin: 0;
-    display: flex;
-    align-items: center;
 }
 
 /* ────────────────────────────────────────
@@ -233,10 +229,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 36px 48px;
+    padding: 36px 36px;
     gap: 8px;
-    width: 351.46px;
-    height: 564px;
+    flex: 1;
     background: transparent;
 }
 
@@ -246,9 +241,7 @@
     flex-direction: row;
     align-items: center;
     padding: 0;
-    gap: 1.99px;
-    width: 72.99px;
-    height: 23px;
+    gap: 4px;
     margin-bottom: 0;
 }
 
@@ -258,8 +251,6 @@
     color: #142333;
     line-height: 22px;
     letter-spacing: 0;
-    width: 53px;
-    height: 23px;
     display: flex;
     align-items: center;
     margin: 0;
@@ -278,29 +269,71 @@
     align-items: flex-start;
     padding: 0;
     gap: 16px;
-    width: 255.46px;
-    height: 398px;
+    width: 100%;
 }
 
 /* ── Bio paragraphs ── */
 .bioParagraph {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 22px;
     color: #142333;
     margin: 0;
     letter-spacing: 0;
-    width: 255.46px;
+    width: 100%;
 }
 
 /* ── CTA ── */
 .cta {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: #788A62;
     line-height: 22px;
     margin: 0;
     letter-spacing: 0;
+}
+
+/* ════════════════════════════════════════
+   MOBILE — stacked layout
+════════════════════════════════════════ */
+@media (max-width: 640px) {
+    .modalContainer {
+        padding: 16px;
+        align-items: flex-end;
+    }
+
+    .modalWrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .body {
+        padding: 16px;
+    }
+
+    .contentWrapper {
+        max-width: 100%;
+    }
+
+    .maskGroup {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .leftPanel {
+        width: 100%;
+        min-height: 260px;
+        flex-shrink: unset;
+    }
+
+    .rightPanel {
+        width: 100%;
+        padding: 24px 20px;
+    }
+
+    .teaserBlock {
+        width: 100%;
+    }
 }
 
 /* ── Dark mode overrides ── */
