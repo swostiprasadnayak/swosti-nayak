@@ -156,7 +156,7 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* Centering Container: Explicitly shifted further top */}
+            {/* Centering Container: Calibrated to balance top/bottom gaps based on your 55/33 measurement */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
@@ -169,8 +169,8 @@ export default function PostsFeed() {
               justifyContent: "center", 
               pointerEvents: "none", 
               padding: "32px",
-              paddingLeft: "calc(32px + 2%)", // Keep right shift
-              paddingBottom: "160px" // Shifted even further top
+              paddingLeft: "calc(32px + 2%)", 
+              paddingBottom: "220px" // Adjusted to move card significantly upward to balance gaps
             }}>
               <Squircle 
                 cornerRadius={32} 
