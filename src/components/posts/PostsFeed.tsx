@@ -40,8 +40,13 @@ const POSTS = [
     location: "New Delhi, India",
     time: "3 w",
     content: "Exploring the beauty of physical tactile interactions. How can we bring the satisfying 'click' of an analog calendar into the digital realm?",
-    mediaUrl: "/jckkcfj.webp",
-    detailedContent: `<h3>Tactile Analogies</h3><p>Researching haptic feedback loops that simulate physical constraints.</p>`
+    mediaUrl: "/images/posts/post-2.jpg",
+    detailedContent: `
+      <h2>Tactile Analogies in Digital Space</h2>
+      <p>There is a specific joy in physical objects—the weight, the resistance, and the definitive state of a mechanical switch. As we move deeper into glass-slab interfaces, we risk losing this grounding connection.</p>
+      <img src="/images/posts/post-2.jpg" alt="Analog Calendar" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <p>Our research focuses on haptic feedback loops that simulate these physical constraints. When you scroll through a list in Antigravity, the friction is modeled after real-world physics, making the digital feel tangible.</p>
+    `
   },
   {
     id: "3",
@@ -50,8 +55,13 @@ const POSTS = [
     location: "New Delhi, India",
     time: "4 w",
     content: "Latest hardware prototype for our spatial computing agent. A dedicated physical node for ambient intelligence.",
-    mediaUrl: "/jckkcfj.webp",
-    detailedContent: `<h3>Spatial Nodes</h3><p>Dedicated physical forms for AI agents in home environments.</p>`
+    mediaUrl: "/images/posts/post-3.jpg",
+    detailedContent: `
+      <h2>Ambient Intelligence: Beyond the Screen</h2>
+      <p>The screen shouldn't be the only way we interact with AI. This prototype explores a dedicated physical form for our design agent—a device that lives on your desk and communicates through light, sound, and subtle motion.</p>
+      <img src="/images/posts/post-3.jpg" alt="Spatial Gadget" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <p>This 'spatial node' acts as a bridge between your physical environment and your digital workspace. It can sense your presence, adjust your lighting, and even 'whisper' design suggestions as you work.</p>
+    `
   },
   {
     id: "4",
@@ -60,8 +70,13 @@ const POSTS = [
     location: "New Delhi, India",
     time: "5 w",
     content: "Breaking down the mechanics of our new design system. Every component is now a living entity with its own behavioral logic.",
-    mediaUrl: "/jckkcfj.webp",
-    detailedContent: `<h3>System Blueprint</h3><p>Deconstructing component DNA for generative design languages.</p>`
+    mediaUrl: "/images/posts/post-4.jpg",
+    detailedContent: `
+      <h2>Deconstructing the Design System</h2>
+      <p>Traditional design systems are static libraries of assets. Our new approach treats components as living organisms. They don't just have styles; they have behaviors, states, and contextual awareness.</p>
+      <img src="/images/posts/post-4.jpg" alt="System Breakdown" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      <p>By breaking down the DNA of a component—its material properties, transparency, and interaction logic—we can generate infinite variations that remain consistent with the core brand identity.</p>
+    `
   }
 ];
 
