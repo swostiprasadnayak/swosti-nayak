@@ -15,13 +15,27 @@ const POSTS = [
     detailedContent: `
       <h2>The Evolution of Generative Interfaces</h2>
       <p>Design systems were built to scale manual interface creation. They're now content fodder for AI. The perfect worker for parsing components, outlining specs, and shuffling identical boxes around. One that doesn't complain about the boring parts of it all.</p>
-      <img src="/jckkcfj.webp" alt="Interface concept" style="width: 100%; border-radius: 12px; margin: 24px 0;" />
+      
+      <img src="/jckkcfj.webp" alt="Interface concept 1" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      
       <p>Now it's starting to kill them off. Imagine building yet another form that looks like all the other forms. This is as refreshing as competitive clicking accept on cookie banners.</p>
       <p>You can generate a design system using AI, build a complex dashboard and then realize nobody really needs it anymore. AI ate its own tail when it comes to generative user interfaces.</p>
+      
       <h3>The End of the Static Grid</h3>
       <p>We're moving towards a world where interfaces are as fluid as the data they represent. No more fixed layouts, just intent-driven generation.</p>
       <p>Imagine a future where the interface is generated in real-time based on your specific context. Not just the data, but the very controls and layouts themselves. This is the goal of the Antigravity project.</p>
+      
+      <img src="/jckkcfj.webp" alt="Interface concept 2" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
+      
       <p>By leveraging large multimodal models, we can translate user intent directly into functional UI patterns. This reduces the friction between thought and action, allowing for a more creative and productive experience.</p>
+      <p>The transition from "tools" to "agents" is the most significant shift in computing history. We're no longer just clicking buttons; we're collaborating with a system that understands our goals.</p>
+      
+      <h3>Bridging Thought and Action</h3>
+      <p>In our latest prototype, we've integrated voice-to-interface logic that allows designers to "speak" a layout into existence. "Add a centered hero section with a frosted glass effect and a vibrant call-to-action button" — the system handles the heavy lifting, letting the human focus on the soul of the design.</p>
+      
+      <p>This is not just about speed; it's about accessibility. It's about democratizing the ability to create high-quality digital experiences.</p>
+      
+      <div style="height: 60px;"></div>
     `
   },
   {
@@ -177,7 +191,7 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* SCROLLABLE WRAPPER: Now the whole card scrolls with its content */}
+            {/* SCROLLABLE WRAPPER */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
@@ -188,9 +202,9 @@ export default function PostsFeed() {
               display: "flex", 
               flexDirection: "column",
               alignItems: "center", 
-              overflowY: "auto", // SCROLLING HAPPENS HERE
+              overflowY: "auto", 
               paddingTop: "10vh",
-              paddingBottom: "10vh",
+              paddingBottom: "150px", // GENEROUS BOTTOM PADDING
               pointerEvents: "auto",
               scrollbarWidth: "none",
               msOverflowStyle: "none"
@@ -205,7 +219,7 @@ export default function PostsFeed() {
                   background: "#FBFBFB", 
                   width: "95%", 
                   maxWidth: "850px", 
-                  height: "auto", // CARD GROWS WITH CONTENT
+                  height: "auto", 
                   padding: "40px", 
                   pointerEvents: "auto", 
                   boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
