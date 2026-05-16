@@ -145,9 +145,9 @@ export default function PostsFeed() {
               exit={{ opacity: 0 }} 
               style={{ 
                 position: "absolute", 
-                top: "-5vh", // Negating parent padding
-                left: "-12%", // Negating parent padding
-                width: "113.7vw", // Spanning the whole window width
+                top: "-5vh", 
+                left: "-12%", 
+                width: "113.7vw", 
                 height: "100vh", 
                 background: "rgba(240, 240, 240, 0.95)", 
                 zIndex: 100, 
@@ -156,19 +156,21 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* Centering Container: Explicitly centered to the WHOLE window for vertical title alignment */}
+            {/* Centering Container: Adjusted to move slightly right and top */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
               left: "-12%", 
-              width: "82vw", // Matches parent window width exactly
-              height: "88vh", // Matches parent window height exactly
+              width: "82vw", 
+              height: "88vh", 
               zIndex: 101, 
               display: "flex", 
               alignItems: "center", 
               justifyContent: "center", 
               pointerEvents: "none", 
-              padding: "32px" 
+              padding: "32px",
+              paddingLeft: "calc(32px + 2%)", // Shift right
+              paddingBottom: "40px" // Shift top (by adding bottom padding)
             }}>
               <Squircle 
                 cornerRadius={32} 
