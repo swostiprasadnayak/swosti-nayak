@@ -156,7 +156,7 @@ export default function PostsFeed() {
               onClick={() => setExpandedId(null)}
             />
             
-            {/* Centering Container: Adjusted to move slightly right and top */}
+            {/* Centering Container: Explicitly shifted further top */}
             <div style={{ 
               position: "absolute", 
               top: "-5vh", 
@@ -169,8 +169,8 @@ export default function PostsFeed() {
               justifyContent: "center", 
               pointerEvents: "none", 
               padding: "32px",
-              paddingLeft: "calc(32px + 2%)", // Shift right
-              paddingBottom: "40px" // Shift top (by adding bottom padding)
+              paddingLeft: "calc(32px + 2%)", // Keep right shift
+              paddingBottom: "100px" // Increased bottom padding to push card further top
             }}>
               <Squircle 
                 cornerRadius={32} 
