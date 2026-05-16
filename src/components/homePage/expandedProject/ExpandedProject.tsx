@@ -13,11 +13,17 @@ interface ExpandedProjectProps {
     layoutId: string;
 }
 export default function ExpandedProject({ projectName, onClose, layoutId }: ExpandedProjectProps) {
-    // Close on escape key
+    // Close on escape key + lock body scroll when modal is open
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-        if (projectName) window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
+        if (projectName) {
+            window.addEventListener("keydown", handleKeyDown);
+            document.body.style.overflow = "hidden";
+        }
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            document.body.style.overflow = "auto";
+        };
     }, [projectName, onClose]);
     return (
         <AnimatePresence>
