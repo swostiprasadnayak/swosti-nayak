@@ -1,8 +1,10 @@
 import { AboutModalProvider } from "./contexts/AboutModalContext";
+import { FeedbackModalProvider } from "./contexts/FeedbackModalContext";
 import { ViewportProvider } from "./contexts/ViewportContext";
 import { VoiceModalProvider } from "./contexts/VoiceModalContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import CustomCursor from "@/components/ui/customCursor/CustomCursor";
+import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -31,9 +33,12 @@ export default function RootLayout({
         <ThemeProvider>
           <ViewportProvider>
             <AboutModalProvider>
-              <VoiceModalProvider>
-                {children}
-              </VoiceModalProvider>
+              <FeedbackModalProvider>
+                <VoiceModalProvider>
+                  {children}
+                  <FeedbackModal />
+                </VoiceModalProvider>
+              </FeedbackModalProvider>
             </AboutModalProvider>
           </ViewportProvider>
         </ThemeProvider>

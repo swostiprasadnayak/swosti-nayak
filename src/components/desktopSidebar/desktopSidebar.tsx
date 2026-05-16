@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import classes from "./desktopSidebar.module.css";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
+import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
 
 type DesktopSidebarProps = {
     isProjectExpanded?: boolean;
@@ -40,6 +41,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
 }) => {
     const nameRef = useRef<HTMLAnchorElement>(null);
     const { openModal: openAboutModal } = useAboutModal();
+    const { openModal: openFeedbackModal } = useFeedbackModal();
 
     return (
         <div className={`${classes.sidebar} ${isProjectExpanded ? classes.sidebarOpaque : ""}`}>
@@ -99,7 +101,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                                 navProps={getNavigationProps(section)}
                                 onClick={
                                     section === "Feedback"
-                                        ? () => console.log("Open Feedback Form") // Placeholder
+                                        ? openFeedbackModal
                                         : undefined
                                 }
                             />

@@ -1,0 +1,489 @@
+/* feedbackModal.module.css — mirrors About modal structure */
+
+/* ── Backdrop ── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    z-index: 60;
+}
+
+/* ── Centering wrapper ── */
+.modalContainer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 61;
+    pointer-events: none;
+    padding: 65px 24px;
+}
+
+.modalWrapper {
+    pointer-events: auto;
+    filter:
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06))
+        drop-shadow(0 12px 32px rgba(0, 0, 0, 0.14))
+        drop-shadow(0 40px 80px rgba(0, 0, 0, 0.18));
+    width: 1099px;
+    max-width: calc(100vw - 48px);
+}
+
+/* ── Outer window shell ── */
+.modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* ════════════════════════════════════════
+   TITLE BAR — macOS window chrome
+════════════════════════════════════════ */
+.titleBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    padding: 0 16px;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 15.32px 15.32px 0 0;
+}
+
+.trafficLights {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+}
+
+.dot svg {
+    width: 8px;
+    height: 8px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.modalWrapper:hover .dot svg {
+    opacity: 0.7;
+}
+
+.titleBarLabel {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(20, 35, 51, 0.5);
+    letter-spacing: 0;
+    pointer-events: none;
+}
+
+.titleBarSpacer {
+    width: 52px;
+}
+
+/* ════════════════════════════════════════
+   BODY — main container
+════════════════════════════════════════ */
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px;
+    gap: 10px;
+    background: #f6f6f6;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 739px;
+}
+
+/* Mask group — white container */
+.maskGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 12px;
+    gap: 12px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+/* ────────────────────────────────────────
+   LEFT PANEL — red/pink gradient card
+────────────────────────────────────────── */
+.leftPanel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 32px;
+    flex: 1;
+    min-height: 420px;
+    background:
+        radial-gradient(ellipse at 35% 25%, rgba(255, 170, 140, 0.55) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 70%, rgba(200, 0, 60, 0.4) 0%, transparent 50%),
+        linear-gradient(155deg, #F04E6A 0%, #E0194A 35%, #B80035 70%, #8C0028 100%);
+    border-radius: 8px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/* Grain overlay */
+.leftPanel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Figma: gradient overlay for text legibility */
+.leftOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.08) 0%,
+        rgba(0, 0, 0, 0.0) 35%,
+        rgba(0, 0, 0, 0.30) 100%
+    );
+    pointer-events: none;
+}
+
+/* ── "Feedback" label ── */
+.feedbackLabel {
+    position: relative;
+    z-index: 2;
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 22px;
+    margin: 0;
+}
+
+/* ── Teaser block ── */
+.teaserBlock {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.teaserEyebrow {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.80);
+    line-height: 32px;
+    margin: 0;
+}
+
+.teaserTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 32px;
+    margin: 0;
+}
+
+/* ────────────────────────────────────────
+   RIGHT PANEL — form content
+────────────────────────────────────────── */
+.rightPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 36px 36px;
+    gap: 20px;
+    flex: 1;
+    background: transparent;
+    justify-content: center;
+}
+
+/* ── Rating section ── */
+.ratingLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: #142333;
+    margin: 0;
+    line-height: 22px;
+}
+
+.ratingButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+
+.ratingBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 16px;
+    flex: 1;
+    background: #ffffff;
+    border: 1.5px solid rgba(0, 0, 0, 0.10);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: inherit;
+}
+
+.ratingBtn:hover {
+    border-color: rgba(0, 0, 0, 0.22);
+    background: #fafafa;
+}
+
+.ratingBtn.selected {
+    border: 2px solid #142333;
+    background: #ffffff;
+}
+
+.ratingEmoji {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.ratingText {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(20, 35, 51, 0.6);
+    letter-spacing: 0;
+}
+
+.ratingBtn.selected .ratingText {
+    color: #142333;
+    font-weight: 600;
+}
+
+/* ── Textarea ── */
+.textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px 14px;
+    background: #ffffff;
+    border: 1.5px solid rgba(0, 0, 0, 0.10);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    color: #142333;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+}
+
+.textarea::placeholder {
+    color: rgba(20, 35, 51, 0.35);
+}
+
+.textarea:focus {
+    border-color: rgba(20, 35, 51, 0.35);
+}
+
+/* ── Submit button ── */
+.submitBtn {
+    width: 100%;
+    padding: 13px 20px;
+    background: #1F3A1C;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.submitBtn:hover {
+    background: #162C14;
+}
+
+.submitBtn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ════════════════════════════════════════
+   SUCCESS STATE
+════════════════════════════════════════ */
+.successPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 36px 36px;
+    gap: 12px;
+    flex: 1;
+}
+
+.successTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #142333;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.successBody {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(20, 35, 51, 0.65);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ════════════════════════════════════════
+   DARK MODE
+════════════════════════════════════════ */
+:global([data-theme="dark"]) .modal {
+    background: #1e1e1e;
+}
+
+:global([data-theme="dark"]) .titleBar {
+    background: #252525;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .titleBarLabel {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .body {
+    background: #1a1a1a;
+}
+
+:global([data-theme="dark"]) .maskGroup {
+    background: #1e1e1e;
+}
+
+:global([data-theme="dark"]) .ratingLabel {
+    color: #f0f0f0;
+}
+
+:global([data-theme="dark"]) .ratingBtn {
+    background: #2a2a2a;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+:global([data-theme="dark"]) .ratingBtn:hover {
+    background: #333;
+    border-color: rgba(255, 255, 255, 0.22);
+}
+
+:global([data-theme="dark"]) .ratingBtn.selected {
+    border-color: #f0f0f0;
+    background: #2a2a2a;
+}
+
+:global([data-theme="dark"]) .ratingText {
+    color: rgba(240, 240, 240, 0.55);
+}
+
+:global([data-theme="dark"]) .ratingBtn.selected .ratingText {
+    color: #f0f0f0;
+}
+
+:global([data-theme="dark"]) .textarea {
+    background: #2a2a2a;
+    border-color: rgba(255, 255, 255, 0.10);
+    color: #f0f0f0;
+}
+
+:global([data-theme="dark"]) .textarea::placeholder {
+    color: rgba(240, 240, 240, 0.30);
+}
+
+:global([data-theme="dark"]) .textarea:focus {
+    border-color: rgba(240, 240, 240, 0.35);
+}
+
+:global([data-theme="dark"]) .successTitle {
+    color: #f0f0f0;
+}
+
+:global([data-theme="dark"]) .successBody {
+    color: rgba(240, 240, 240, 0.60);
+}
+
+/* ════════════════════════════════════════
+   MOBILE — stacked layout
+════════════════════════════════════════ */
+@media (max-width: 640px) {
+    .modalContainer {
+        padding: 16px;
+        align-items: flex-end;
+    }
+
+    .modalWrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .body {
+        padding: 16px;
+    }
+
+    .contentWrapper {
+        max-width: 100%;
+    }
+
+    .maskGroup {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .leftPanel {
+        width: 100%;
+        min-height: 220px;
+        flex-shrink: unset;
+    }
+
+    .rightPanel {
+        width: 100%;
+        padding: 24px 20px;
+    }
+}
