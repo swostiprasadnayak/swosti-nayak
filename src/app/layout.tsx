@@ -7,6 +7,8 @@ import CustomCursor from "@/components/ui/customCursor/CustomCursor";
 import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
 import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
 import WelcomeOverlay from "@/components/welcomeOverlay/WelcomeOverlay";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -46,6 +48,8 @@ export default function RootLayout({
             </AboutModalProvider>
           </ViewportProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
