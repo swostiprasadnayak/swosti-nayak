@@ -5,8 +5,8 @@
   height: 100vh;
   z-index: 9999;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,10 +17,11 @@
   position: relative;
   width: 100%;
   max-width: 503px; /* Frame 1932992879 width */
+  min-height: 320px; /* Prevents box from expanding during typing */
   padding: 32px 64px; /* x=64, y=32 */
-  background: rgba(255, 255, 255, 0.05); /* very subtle frosted look */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.25); /* Darker frosted look for readability */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: 12px;
   /* White dashed border as seen in design */
   border: 1px dashed rgba(255, 255, 255, 0.7);
