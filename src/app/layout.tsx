@@ -5,6 +5,7 @@ import { VoiceModalProvider } from "./contexts/VoiceModalContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import CustomCursor from "@/components/ui/customCursor/CustomCursor";
 import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
+import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
                 <VoiceModalProvider>
                   {children}
                   <FeedbackModal />
+                  <FeedbackPopup />
                 </VoiceModalProvider>
               </FeedbackModalProvider>
             </AboutModalProvider>

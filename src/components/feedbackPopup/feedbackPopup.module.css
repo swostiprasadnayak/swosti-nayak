@@ -1,0 +1,109 @@
+.popupContainer {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 280px;
+    background: url(/feedback-gradient.jpg);
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    overflow: hidden;
+    /* Adding the white border seen in the screenshot */
+    border: 3px solid #ffffff;
+}
+
+/* Optional overlay for text legibility like the modal left panel */
+.backgroundOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.08) 0%,
+        rgba(0, 0, 0, 0.0) 35%,
+        rgba(0, 0, 0, 0.30) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.2s ease;
+    opacity: 0;
+}
+
+.popupContainer:hover .closeBtn {
+    opacity: 1;
+}
+
+.closeBtn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.4;
+    opacity: 0.95;
+    margin-bottom: 8px;
+}
+
+.actionBtn {
+    width: 100%;
+    padding: 10px 0;
+    background: #ffffff;
+    color: #142333;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.actionBtn:hover {
+    background: #f0f0f0;
+}
+
+.actionBtn:active {
+    transform: scale(0.98);
+}
+
+/* Dark mode overrides (optional, since it's an image bg, but just in case) */
+:global([data-theme="dark"]) .popupContainer {
+    border-color: #2a2a2a;
+}
