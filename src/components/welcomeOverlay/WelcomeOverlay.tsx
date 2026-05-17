@@ -119,9 +119,10 @@ export default function WelcomeOverlay() {
 
           <motion.div
             className={classes.container}
-            initial={{ scale: 0.95, y: 10 }}
-            animate={{ scale: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            initial={{ opacity: 0, y: -24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
           >
             <button className={classes.closeBtn} onClick={handleClose} aria-label="Close">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

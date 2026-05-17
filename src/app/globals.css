@@ -12,7 +12,7 @@
   transition: filter 0.4s ease;
 }
 #page-content.welcome-blurred {
-  filter: blur(20px);
+  filter: blur(10px);
   pointer-events: none;
 }
 
