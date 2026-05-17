@@ -37,10 +37,10 @@
   width: 100%;
   max-width: 474px;
   padding: 32px 64px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
   border-radius: 15px;
-  border: 1.5px dashed rgba(255, 255, 255, 0.55);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  border: 1.5px dashed rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   overflow: visible;
   z-index: 1;
 }
