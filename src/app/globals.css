@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ════════════════════════════════════════
+   WELCOME OVERLAY BLUR
+   filter: blur() applied directly to page content is bulletproof —
+   no compositing-layer issues like backdrop-filter has.
+   The overlay sits outside #page-content so it stays sharp.
+════════════════════════════════════════ */
+#page-content {
+  transition: filter 0.4s ease;
+}
+#page-content.welcome-blurred {
+  filter: blur(20px);
+  pointer-events: none;
+}
+
 :root {
   /* Global Foreground */
   --text-primary: #111827;

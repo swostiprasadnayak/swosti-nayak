@@ -34,20 +34,27 @@ export default function RootLayout({
     <html lang="en">
       <body className={geist.className} style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
         <CustomCursor />
-        <ThemeProvider>
-          <ViewportProvider>
-            <AboutModalProvider>
-              <FeedbackModalProvider>
-                <VoiceModalProvider>
-                  {children}
-                  <FeedbackModal />
-                  <FeedbackPopup />
-                  <WelcomeOverlay />
-                </VoiceModalProvider>
-              </FeedbackModalProvider>
-            </AboutModalProvider>
-          </ViewportProvider>
-        </ThemeProvider>
+        {/* page-content wraps everything that should be blurred when the
+            welcome overlay is visible. WelcomeOverlay toggles a class on
+            this div to apply filter: blur() — much more reliable than
+            backdrop-filter, which fights with framer-motion's will-change. */}
+        <div id="page-content">
+          <ThemeProvider>
+            <ViewportProvider>
+              <AboutModalProvider>
+                <FeedbackModalProvider>
+                  <VoiceModalProvider>
+                    {children}
+                    <FeedbackModal />
+                    <FeedbackPopup />
+                  </VoiceModalProvider>
+                </FeedbackModalProvider>
+              </AboutModalProvider>
+            </ViewportProvider>
+          </ThemeProvider>
+        </div>
+        {/* Overlay sits OUTSIDE the blurred wrapper so it stays sharp */}
+        <WelcomeOverlay />
         <Analytics />
         <SpeedInsights />
       </body>

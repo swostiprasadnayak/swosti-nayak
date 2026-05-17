@@ -2,23 +2,13 @@
    WELCOME OVERLAY — First Visit Splash
    Figma Frame 1932992885
 
-   Architecture: backdrop-filter MUST be on a plain <div>,
-   never inside a framer-motion <motion.div>. Framer-motion's
-   will-change creates a compositing layer that prevents
-   backdrop-filter from blurring content in layers beneath it.
+   Architecture:
+   - Page content is blurred via filter: blur() on #page-content
+     (toggled by adding .welcome-blurred class — see globals.css).
+   - This overlay sits OUTSIDE #page-content so it stays sharp.
+   - No backdrop-filter is used anywhere — it's unreliable with
+     framer-motion's will-change.
 ════════════════════════════════════════ */
-
-/* ── Full-screen blur backdrop ──
-   This is a plain <div>, NOT inside any <motion.div>.
-   backdrop-filter works because no will-change is applied. */
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  background: rgba(0, 0, 0, 0.43);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-}
 
 /* ── Wrapper: positioning + centering (animated by framer-motion) ── */
 .wrapper {
@@ -29,13 +19,19 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  /* No background, no backdrop-filter here — just layout */
+}
+
+/* ── Dim layer: darkens the (already-blurred) page behind the card ── */
+.dimLayer {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.30);
 }
 
 /* ── Card ──
    Figma: 474w, padding 32/64, dashed border.
-   Uses semi-transparent bg over the already-blurred backdrop
-   to create the frosted glass look. No backdrop-filter needed. */
+   The page behind is blurred via filter on #page-content,
+   so a semi-transparent bg here looks frosted. */
 .container {
   position: relative;
   width: 100%;
@@ -44,8 +40,9 @@
   background: rgba(255, 255, 255, 0.12);
   border-radius: 15px;
   border: 1.5px dashed rgba(255, 255, 255, 0.55);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   overflow: visible;
+  z-index: 1;
 }
 
 /* ── Close button — corner-positioned, overlapping outside ── */
