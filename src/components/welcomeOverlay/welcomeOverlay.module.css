@@ -1,16 +1,13 @@
 /* ════════════════════════════════════════
-   WELCOME OVERLAY — First Visit Splash
-   Figma Frame 1932992885
-
-   Architecture:
-   - Light page blur via filter: blur(8px) on #page-content
-   - Card has its OWN heavier frosted glass via a .blurBg child
-     that uses backdrop-filter: blur(80px) — this works because
-     the blurBg is a plain div (not animated by framer-motion)
-   - Two-layer blur: light bg + heavy card = readable text
+   WELCOME OVERLAY — Figma Frame 1932992885
+   Exact specs:
+   - Width: 474px, min-height: 320px
+   - Padding: 32px vertical, 64px horizontal
+   - Border: 1.5px dashed white, radius 15px
+   - Fill: rgba(0, 0, 0, 0.43)  ← BLACK 43% per Figma
+   - Text gap: 24px
 ════════════════════════════════════════ */
 
-/* ── Wrapper: positioning + centering (animated by framer-motion) ── */
 .wrapper {
   position: fixed;
   inset: 0;
@@ -21,42 +18,38 @@
   padding: 24px;
 }
 
-/* ── Dim layer: slight darkening over the blurred page ── */
+/* Subtle darkening over the (already-blurred) page */
 .dimLayer {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.08);
 }
 
-/* ── Card — transparent shell, the .blurBg child handles the frost ── */
+/* ── Card ──
+   Direct dark fill so white text is always readable.
+   Combined with heavy page blur (#page-content filter:blur),
+   the card area appears more blurred than the surroundings.
+   min-height: 320 prevents the box from growing during typing
+   — the top stays fixed because content fits within the fixed
+   height. */
 .container {
   position: relative;
-  width: 100%;
-  max-width: 474px;
+  width: 474px;
+  max-width: 100%;
+  min-height: 320px;
   padding: 32px 64px;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.43);
   border-radius: 15px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   overflow: visible;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-/* ── Frosted glass layer inside the card ──
-   This is a plain <div>, NOT a <motion.div>. It sits behind
-   the text (z-index: -1) and applies heavy blur to the
-   already-lightly-blurred page content showing through. */
-.blurBg {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(80px);
-  -webkit-backdrop-filter: blur(80px);
-  border-radius: 15px;
-  border: 1.5px dashed rgba(255, 255, 255, 0.55);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  z-index: -1;
-}
-
-/* ── Close button — corner-positioned, overlapping outside ── */
+/* ── Close button — circle at top-right corner overlapping ── */
 .closeBtn {
   position: absolute;
   top: 0;
@@ -65,12 +58,12 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.30);
+  border: 1.5px solid rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.85);
+  color: #ffffff;
   cursor: pointer;
   z-index: 10;
   transition: background 0.15s ease;
@@ -78,40 +71,39 @@
 }
 
 .closeBtn:hover {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.50);
 }
 
 .closeBtn:active {
   transform: translate(50%, -50%) scale(0.93);
 }
 
-/* ── Text content — 24px gap between blocks per Figma ── */
+/* ── Text — 24px gap, top-aligned so content fills downward ── */
 .textContent {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  position: relative;
-  z-index: 1;
 }
 
-/* ── Heading — Figma: Helvetica 28px, weight 400, white ── */
+/* ── Heading — Figma: 32px, weight 500, white ── */
 .heading {
   font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 32px;
+  font-weight: 500;
   color: #ffffff;
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
-/* ── Body — Figma: Helvetica 18px, weight 400, white ── */
+/* ── Body — Figma: 18px, weight 400, white ── */
 .paragraph {
   font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.88);
+  color: #ffffff;
   margin: 0;
-  line-height: 1.55;
+  line-height: 1.5;
 }
 
 /* ════════════════════════════════════════
@@ -124,16 +116,18 @@
   }
 
   .container {
-    padding: 24px 24px;
+    width: 100%;
     max-width: 100%;
+    padding: 24px 24px;
+    min-height: 280px;
   }
 
   .heading {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .paragraph {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .closeBtn {
