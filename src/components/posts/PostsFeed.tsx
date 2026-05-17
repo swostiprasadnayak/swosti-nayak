@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Squircle } from "corner-smoothing";
+import classes from "./postsFeed.module.css";
 
 const POSTS = [
   {
@@ -84,90 +85,59 @@ export default function PostsFeed() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    // ROOT: Padded to push the grey box from top and left
-    <div style={{ position: "relative", width: "100%", height: "100%", padding: "5vh 0 0 12%", overflow: "hidden" }}>
+    <div className={classes.root}>
       
       {/* THE GREY BOX (Island) */}
-      <Squircle 
-        cornerRadius={48} 
-        style={{ 
-          width: "100%", 
-          height: "100%", 
-          background: "#F0F0F0", 
-          overflowY: "auto", 
-          scrollbarWidth: "none", 
-          msOverflowStyle: "none",
-          boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.03)"
-        }}
-      >
-        {/* INNER CONTAINER: Shifted 70px left */}
-        <div style={{
-          width: "100%",
-          padding: "24px 0",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          transform: "translateX(-70px)"
-        }}>
-          <div style={{ width: "90%", maxWidth: "680px", display: "flex", flexDirection: "column", gap: "24px" }}>
+      <Squircle cornerRadius={48} className={classes.island}>
+        
+        {/* INNER CONTAINER: Centered feed without manual translation */}
+        <div className={classes.feedContainer}>
+          <div className={classes.postList}>
             {POSTS.map((post) => (
               <Squircle
                 key={post.id}
                 cornerRadius={24}
-                style={{ background: "#FBFBFB", padding: "20px 20px 20px", boxShadow: "0 4px 20px rgba(0,0,0,0.03)", cursor: "pointer" }}
+                className={classes.postCard}
                 onClick={() => setExpandedId(post.id)}
               >
                 <motion.div layoutId={`post-container-${post.id}`}>
                   
                   {/* Post Header */}
-                  <motion.div layoutId={`post-header-${post.id}`} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#ccc", overflow: "hidden" }}>
-                       <img src={post.avatar} alt={post.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <motion.div layoutId={`post-header-${post.id}`} className={classes.postHeader}>
+                    <div className={classes.avatar}>
+                       <img src={post.avatar} alt={post.author} />
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
-                      <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "4px" }}>
+                    <div className={classes.authorInfo}>
+                      <div className={classes.authorName}>
                         {post.author} 
-                        <img src="/icons/SVG.png" alt="verified" style={{ width: 14, height: 14, objectFit: "contain" }} /> 
-                        <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: "0.8rem" }}>• {post.time}</span>
+                        <img src="/icons/SVG.png" alt="verified" className={classes.verifiedIcon} /> 
+                        <span className={classes.postTime}>• {post.time}</span>
                       </div>
-                      <div style={{ fontSize: "0.75rem", color: "#8e8e93", fontWeight: 500 }}>{post.location}</div>
+                      <div className={classes.postLocation}>{post.location}</div>
                     </div>
                   </motion.div>
 
                   {/* Post Media: 4/3 aspect ratio */}
-                  <motion.div layoutId={`post-media-${post.id}`} style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", marginBottom: "14px", background: "#f0f0f0" }}>
-                    <img src={post.mediaUrl} alt="Post media" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    <div style={{ 
-                      position: "absolute", 
-                      bottom: "12px", 
-                      right: "12px", 
-                      background: "rgba(231, 231, 231, 0.7)", 
-                      width: "42.39px",
-                      height: "42.39px",
-                      borderRadius: "7.95px", 
-                      display: "flex", 
-                      alignItems: "center", 
-                      justifyContent: "center", 
-                      backdropFilter: "blur(5.3px)",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
-                    }}>
-                      <img src="/icons/Frame 1932992809.png" alt="expand" style={{ width: 20, height: 20 }} />
+                  <motion.div layoutId={`post-media-${post.id}`} className={classes.postMedia}>
+                    <img src={post.mediaUrl} alt="Post media" />
+                    <div className={classes.expandBtn}>
+                      <img src="/icons/Frame 1932992809.png" alt="expand" />
                     </div>
                   </motion.div>
 
                   {/* Post Actions & Content */}
                   <motion.div layoutId={`post-footer-${post.id}`}>
-                    <div style={{ display: "flex", gap: "20px", marginBottom: "12px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#1c2b33" }}>
-                        <img src="/icons/Vector.png" alt="like" style={{ width: 22, height: 22 }} /> 119 likes
+                    <div className={classes.postActions}>
+                      <div className={`${classes.actionItem} ${classes.like}`}>
+                        <img src="/icons/Vector.png" alt="like" className={classes.actionIcon} /> 119 likes
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#5c6770" }}>
-                        <img src="/icons/Container.png" alt="share" style={{ width: 22, height: 22 }} /> Share
+                      <div className={`${classes.actionItem} ${classes.share}`}>
+                        <img src="/icons/Container.png" alt="share" className={classes.actionIcon} /> Share
                       </div>
                     </div>
-                    <p style={{ fontSize: "0.85rem", color: "#1c2b33", lineHeight: 1.6, margin: 0 }}>
-                      <span style={{ fontWeight: 600 }}>{post.author}</span> 
-                      <img src="/icons/SVG.png" alt="verified" style={{ width: 12, height: 12, margin: "0 6px", display: "inline-block" }} />
+                    <p className={classes.postText}>
+                      <span>{post.author}</span> 
+                      <img src="/icons/SVG.png" alt="verified" className={classes.verifiedIcon} style={{ margin: "0 6px", display: "inline-block" }} />
                       {post.content}
                     </p>
                   </motion.div>
@@ -188,114 +158,66 @@ export default function PostsFeed() {
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
               exit={{ opacity: 0 }} 
-              style={{ 
-                position: "absolute", 
-                top: "-5vh", 
-                left: "-12%", 
-                width: "113.7vw", 
-                height: "100vh", 
-                background: "rgba(240, 240, 240, 0.95)", 
-                zIndex: 100, 
-                backdropFilter: "blur(10px)" 
-              }}
+              className={classes.expandedBackdrop}
               onClick={() => setExpandedId(null)}
             />
             
             {/* SCROLLABLE WRAPPER */}
-            <div style={{ 
-              position: "absolute", 
-              top: "-5vh", 
-              left: "-12%", 
-              width: "82vw", 
-              height: "100vh", 
-              zIndex: 101, 
-              display: "flex", 
-              flexDirection: "column",
-              alignItems: "center", 
-              overflowY: "auto", 
-              paddingTop: "10vh",
-              paddingBottom: "150px",
-              pointerEvents: "auto",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none"
-            }}
-            onClick={(e) => {
-               if(e.target === e.currentTarget) setExpandedId(null);
-            }}
+            <div 
+              className={classes.expandedScrollWrapper}
+              onClick={(e) => {
+                 if(e.target === e.currentTarget) setExpandedId(null);
+              }}
             >
               <Squircle 
                 cornerRadius={32} 
-                style={{ 
-                  background: "#FBFBFB", 
-                  width: "95%", 
-                  maxWidth: "850px", 
-                  height: "auto", 
-                  padding: "40px", 
-                  pointerEvents: "auto", 
-                  boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(50px, 0)",
-                  marginBottom: "40px"
-                }}
+                className={classes.expandedCard}
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
                   <motion.div key="expanded" layoutId={`post-container-${post.id}`}>
                     
                     {/* Header */}
-                    <motion.div layoutId={`post-header-${post.id}`} style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "24px" }}>
-                      <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "#ccc", overflow: "hidden" }}>
-                        <img src={post.avatar} alt={post.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <motion.div layoutId={`post-header-${post.id}`} className={classes.postHeader} style={{ marginBottom: "24px" }}>
+                      <div className={classes.avatar} style={{ width: 48, height: 48 }}>
+                        <img src={post.avatar} alt={post.author} />
                       </div>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                        <div style={{ fontWeight: 700, fontSize: "1.05rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "6px" }}>
+                      <div className={classes.authorInfo}>
+                        <div className={classes.authorName} style={{ fontSize: "1.05rem" }}>
                           {post.author} 
-                          <img src="/icons/SVG.png" alt="verified" style={{ width: 16, height: 16, objectFit: "contain" }} />
-                          <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: "0.9rem" }}>• {post.time}</span>
+                          <img src="/icons/SVG.png" alt="verified" className={classes.verifiedIcon} style={{ width: 16, height: 16 }} />
+                          <span className={classes.postTime} style={{ fontSize: "0.9rem" }}>• {post.time}</span>
                         </div>
-                        <div style={{ fontSize: "0.9rem", color: "#8e8e93", fontWeight: 500 }}>{post.location}</div>
+                        <div className={classes.postLocation} style={{ fontSize: "0.9rem" }}>{post.location}</div>
                       </div>
                     </motion.div>
 
                     {/* Media */}
                     <motion.div 
                       layoutId={`post-media-${post.id}`} 
-                      style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "16px", overflow: "hidden", marginBottom: "24px", background: "#f0f0f0" }}
+                      className={classes.expandedMedia}
                     >
-                      <img src={post.mediaUrl} alt="Post media" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <img src={post.mediaUrl} alt="Post media" />
                       <button 
                         onClick={() => setExpandedId(null)}
-                        style={{ 
-                          position: "absolute", 
-                          bottom: "16px", 
-                          right: "16px", 
-                          background: "rgba(231, 231, 231, 0.7)", 
-                          border: "none", 
-                          padding: "12px", 
-                          borderRadius: "12px", 
-                          color: "#1c2b33", 
-                          display: "flex", 
-                          alignItems: "center", 
-                          justifyContent: "center", 
-                          cursor: "pointer",
-                          backdropFilter: "blur(5.3px)"
-                        }}
+                        className={classes.minimizeBtn}
                       >
-                        <img src="/icons/Frame 1932992809.png" alt="minimize" style={{ width: 24, height: 24, transform: "scale(-1, -1)" }} />
+                        <img src="/icons/Frame 1932992809.png" alt="minimize" />
                       </button>
                     </motion.div>
 
                     {/* Actions */}
                     <motion.div layoutId={`post-footer-${post.id}`}>
-                      <div style={{ display: "flex", gap: "24px", marginBottom: "20px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 600, color: "#1c2b33" }}>
-                          <img src="/icons/Vector.png" alt="like" style={{ width: 24, height: 24 }} /> 119 likes
+                      <div className={classes.postActions} style={{ marginBottom: "20px" }}>
+                        <div className={`${classes.actionItem} ${classes.like}`} style={{ fontSize: "1rem" }}>
+                          <img src="/icons/Vector.png" alt="like" className={classes.actionIcon} style={{ width: 24, height: 24 }} /> 119 likes
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 500, color: "#5c6770" }}>
-                          <img src="/icons/Container.png" alt="share" style={{ width: 24, height: 24 }} /> Share
+                        <div className={`${classes.actionItem} ${classes.share}`} style={{ fontSize: "1rem" }}>
+                          <img src="/icons/Container.png" alt="share" className={classes.actionIcon} style={{ width: 24, height: 24 }} /> Share
                         </div>
                       </div>
-                      <p style={{ fontSize: "1.1rem", color: "#1c2b33", lineHeight: 1.7, marginBottom: "40px" }}>
+                      <p className={classes.postText} style={{ fontSize: "1.1rem", lineHeight: 1.7, marginBottom: "40px" }}>
                         <span style={{ fontWeight: 700 }}>{post.author}</span> 
-                        <img src="/icons/SVG.png" alt="verified" style={{ width: 14, height: 14, margin: "0 8px", display: "inline-block" }} />
+                        <img src="/icons/SVG.png" alt="verified" className={classes.verifiedIcon} style={{ margin: "0 8px", display: "inline-block" }} />
                         {post.content}
                       </p>
                     </motion.div>
