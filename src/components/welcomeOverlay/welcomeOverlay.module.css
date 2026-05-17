@@ -11,11 +11,9 @@
   inset: 0;
   z-index: 9999;
   display: flex;
-  align-items: flex-start; /* Expand downwards */
+  align-items: center;
   justify-content: center;
-  padding-top: calc(50vh - 160px); /* Center based on 320px min-height */
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 24px;
 }
 
 /* Backdrop: separate element so backdrop-filter isn't broken by
@@ -23,9 +21,9 @@
 .backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.43); /* From Figma: 43% opacity */
-  backdrop-filter: blur(14px); /* From Figma: 14 blur */
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 }
 
 /* Card — Figma: 474w, padding 32top 64left, border dashed */
@@ -33,13 +31,12 @@
   position: relative;
   width: 100%;
   max-width: 474px;
-  min-height: 320px; /* Prevent shrinking/expanding while typing */
   padding: 32px 64px;
-  background: rgba(255, 255, 255, 0.10); /* From Figma: 10% opacity */
-  backdrop-filter: blur(54px); /* From Figma: 54 blur */
-  -webkit-backdrop-filter: blur(54px);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(27px);
+  -webkit-backdrop-filter: blur(27px);
   border-radius: 15px;
-  border: 1px dashed rgba(255, 255, 255, 1); /* From Figma: 100% opacity */
+  border: 1.5px dashed rgba(255, 255, 255, 0.55);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   overflow: visible;
   z-index: 1;
