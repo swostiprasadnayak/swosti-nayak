@@ -3,16 +3,90 @@
     bottom: 24px;
     right: 24px;
     width: 280px;
-    background: url(/feedback-gradient.jpg);
-    background-size: cover;
-    background-position: center;
+    background: #ffffff;
     border-radius: 12px;
-    padding: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 50;
     overflow: hidden;
     /* Adding the white border seen in the screenshot */
     border: 3px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ════════════════════════════════════════
+   TITLE BAR — macOS window chrome
+════════════════════════════════════════ */
+.titleBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    padding: 0 12px;
+    background: #ffffff;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.trafficLights {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 1;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+}
+
+.dot svg {
+    width: 6px;
+    height: 6px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.popupContainer:hover .dot svg {
+    opacity: 0.7;
+}
+
+.titleBarLabel {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(20, 35, 51, 0.5);
+    letter-spacing: 0;
+    pointer-events: none;
+}
+
+.titleBarSpacer {
+    width: 42px;
+}
+
+/* ════════════════════════════════════════
+   BODY
+════════════════════════════════════════ */
+.body {
+    position: relative;
+    padding: 24px;
+    background: url(/feedback-gradient.jpg);
+    background-size: cover;
+    background-position: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Optional overlay for text legibility like the modal left panel */
@@ -29,33 +103,6 @@
     z-index: 0;
 }
 
-.closeBtn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    cursor: pointer;
-    z-index: 2;
-    transition: background 0.2s ease;
-    opacity: 0;
-}
-
-.popupContainer:hover .closeBtn {
-    opacity: 1;
-}
-
-.closeBtn:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
 .content {
     position: relative;
     z-index: 1;
@@ -65,7 +112,7 @@
 }
 
 .title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #ffffff;
     margin: 0;
@@ -74,7 +121,7 @@
 
 .description {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     color: #ffffff;
     margin: 0;
     line-height: 1.4;
@@ -87,8 +134,8 @@
     padding: 10px 0;
     background: #ffffff;
     color: #142333;
-    font-size: 13px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 600;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -103,7 +150,16 @@
     transform: scale(0.98);
 }
 
-/* Dark mode overrides (optional, since it's an image bg, but just in case) */
+/* Dark mode overrides */
 :global([data-theme="dark"]) .popupContainer {
     border-color: #2a2a2a;
+    background: #2a2a2a;
+}
+
+:global([data-theme="dark"]) .titleBar {
+    background: #2a2a2a;
+}
+
+:global([data-theme="dark"]) .titleBarLabel {
+    color: rgba(255, 255, 255, 0.4);
 }

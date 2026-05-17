@@ -52,23 +52,40 @@ const FeedbackPopup: React.FC = () => {
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.5, ease: EASE_OUT_QUART }}
                 >
-                    <div className={classes.backgroundOverlay} />
-                    
-                    {/* Close Button */}
-                    <button className={classes.closeBtn} onClick={handleClose} aria-label="Dismiss">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        </svg>
-                    </button>
+                    {/* macOS Title Bar */}
+                    <div className={classes.titleBar}>
+                        <div className={classes.trafficLights}>
+                            {/* Red – close */}
+                            <button
+                                className={classes.dot}
+                                style={{ background: "#FF5F56" }}
+                                onClick={handleClose}
+                                aria-label="Close"
+                            >
+                                <svg viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.5 1.5L6.5 6.5M6.5 1.5L1.5 6.5" stroke="#4A0002" strokeWidth="1.25" strokeLinecap="round" />
+                                </svg>
+                            </button>
+                            {/* Yellow – inert */}
+                            <span className={classes.dot} style={{ background: "#FFBD2E" }} />
+                            {/* Green – inert */}
+                            <span className={classes.dot} style={{ background: "#27C93F" }} />
+                        </div>
+                        <span className={classes.titleBarLabel}>Feedback</span>
+                        <div className={classes.titleBarSpacer} />
+                    </div>
 
-                    <div className={classes.content}>
-                        <h4 className={classes.title}>Feedback</h4>
-                        <p className={classes.description}>
-                            One honest sentence from you reshaped the next version.
-                        </p>
-                        <button className={classes.actionBtn} onClick={handleOpenFeedback}>
-                            Enjoying Experience?
-                        </button>
+                    <div className={classes.body}>
+                        <div className={classes.backgroundOverlay} />
+                        <div className={classes.content}>
+                            <h4 className={classes.title}>Feedback</h4>
+                            <p className={classes.description}>
+                                One honest sentence from you reshaped the next version.
+                            </p>
+                            <button className={classes.actionBtn} onClick={handleOpenFeedback}>
+                                Enjoying Experience?
+                            </button>
+                        </div>
                     </div>
                 </motion.div>
             )}
