@@ -8,6 +8,7 @@ import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
 import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
 import WelcomeOverlay from "@/components/welcomeOverlay/WelcomeOverlay";
 import { Geist } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
@@ -46,6 +47,7 @@ export default function RootLayout({
             </AboutModalProvider>
           </ViewportProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
