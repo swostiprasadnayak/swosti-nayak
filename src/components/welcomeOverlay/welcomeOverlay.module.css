@@ -1,0 +1,80 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 503px; /* Frame 1932992879 width */
+  padding: 32px 64px; /* x=64, y=32 */
+  background: rgba(255, 255, 255, 0.05); /* very subtle frosted look */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  /* White dashed border as seen in design */
+  border: 1px dashed rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  width: 36px; /* Frame 1932992880 width */
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(50%, -50%) scale(1.05);
+}
+
+.closeBtn:active {
+  transform: translate(50%, -50%) scale(0.95);
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Gap between paragraphs based on Figma */
+}
+
+.heading {
+  font-size: 24px; /* Scaled up for larger block */
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.paragraph {
+  font-size: 16px; /* Scaled up for larger block */
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  line-height: 1.6;
+}

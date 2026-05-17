@@ -6,6 +6,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import CustomCursor from "@/components/ui/customCursor/CustomCursor";
 import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
 import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
+import WelcomeOverlay from "@/components/welcomeOverlay/WelcomeOverlay";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
                   {children}
                   <FeedbackModal />
                   <FeedbackPopup />
+                  <WelcomeOverlay />
                 </VoiceModalProvider>
               </FeedbackModalProvider>
             </AboutModalProvider>
