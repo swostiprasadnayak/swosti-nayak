@@ -1,12 +1,16 @@
+/* ════════════════════════════════════════
+   WELCOME OVERLAY — First Visit Splash
+════════════════════════════════════════ */
+
 .overlay {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,66 +20,90 @@
 .container {
   position: relative;
   width: 100%;
-  max-width: 503px; /* Frame 1932992879 width */
-  min-height: 320px; /* Prevents box from expanding during typing */
-  padding: 32px 64px; /* x=64, y=32 */
-  background: rgba(0, 0, 0, 0.25); /* Darker frosted look for readability */
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 12px;
-  /* White dashed border as seen in design */
-  border: 1px dashed rgba(255, 255, 255, 0.7);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-width: 503px;
+  min-height: 300px;
+  padding: 52px 52px 48px 52px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(48px) saturate(160%);
+  -webkit-backdrop-filter: blur(48px) saturate(160%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .closeBtn {
   position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(50%, -50%);
-  width: 36px; /* Frame 1932992880 width */
-  height: 36px;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(180, 180, 180, 0.25);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   z-index: 10;
-  transition: background 0.15s ease, transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .closeBtn:hover {
-  background: rgba(255, 255, 255, 0.4);
-  transform: translate(50%, -50%) scale(1.05);
+  background: rgba(200, 200, 200, 0.4);
+  transform: scale(1.08);
 }
 
 .closeBtn:active {
-  transform: translate(50%, -50%) scale(0.95);
+  transform: scale(0.94);
 }
 
 .textContent {
   display: flex;
   flex-direction: column;
-  gap: 24px; /* Gap between paragraphs based on Figma */
+  gap: 20px;
 }
 
 .heading {
-  font-size: 24px; /* Scaled up for larger block */
+  font-size: 22px;
   font-weight: 500;
   color: #ffffff;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 .paragraph {
-  font-size: 16px; /* Scaled up for larger block */
+  font-size: 15px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.88);
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+/* ════════════════════════════════════════
+   MOBILE RESPONSIVE
+════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .overlay {
+    padding: 20px;
+  }
+
+  .container {
+    padding: 40px 32px 36px 32px;
+    border-radius: 16px;
+  }
+
+  .heading {
+    font-size: 19px;
+  }
+
+  .paragraph {
+    font-size: 14px;
+  }
 }
