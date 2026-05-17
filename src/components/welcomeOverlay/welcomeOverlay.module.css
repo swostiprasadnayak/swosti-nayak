@@ -3,11 +3,11 @@
    Figma Frame 1932992885
 
    Architecture:
-   - Page content is blurred via filter: blur() on #page-content
-     (toggled by adding .welcome-blurred class — see globals.css).
-   - This overlay sits OUTSIDE #page-content so it stays sharp.
-   - No backdrop-filter is used anywhere — it's unreliable with
-     framer-motion's will-change.
+   - Light page blur via filter: blur(8px) on #page-content
+   - Card has its OWN heavier frosted glass via a .blurBg child
+     that uses backdrop-filter: blur(80px) — this works because
+     the blurBg is a plain div (not animated by framer-motion)
+   - Two-layer blur: light bg + heavy card = readable text
 ════════════════════════════════════════ */
 
 /* ── Wrapper: positioning + centering (animated by framer-motion) ── */
@@ -21,28 +21,39 @@
   padding: 24px;
 }
 
-/* ── Dim layer: darkens the (already-blurred) page behind the card ── */
+/* ── Dim layer: slight darkening over the blurred page ── */
 .dimLayer {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.30);
+  background: rgba(0, 0, 0, 0.15);
 }
 
-/* ── Card ──
-   Figma: 474w, padding 32/64, dashed border.
-   The page behind is blurred via filter on #page-content,
-   so a semi-transparent bg here looks frosted. */
+/* ── Card — transparent shell, the .blurBg child handles the frost ── */
 .container {
   position: relative;
   width: 100%;
   max-width: 474px;
   padding: 32px 64px;
-  background: rgba(0, 0, 0, 0.35);
+  background: transparent;
   border-radius: 15px;
-  border: 1.5px dashed rgba(255, 255, 255, 0.45);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   overflow: visible;
   z-index: 1;
+}
+
+/* ── Frosted glass layer inside the card ──
+   This is a plain <div>, NOT a <motion.div>. It sits behind
+   the text (z-index: -1) and applies heavy blur to the
+   already-lightly-blurred page content showing through. */
+.blurBg {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
+  border-radius: 15px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  z-index: -1;
 }
 
 /* ── Close button — corner-positioned, overlapping outside ── */
@@ -79,6 +90,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Heading — Figma: Helvetica 28px, weight 400, white ── */
@@ -96,7 +109,7 @@
   font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.88);
   margin: 0;
   line-height: 1.55;
 }

@@ -124,6 +124,9 @@ export default function WelcomeOverlay() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
           >
+            {/* Frosted glass background — plain div, not animated,
+                so backdrop-filter works even inside motion.div parent */}
+            <div className={classes.blurBg} />
             <button className={classes.closeBtn} onClick={handleClose} aria-label="Close">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
