@@ -65,12 +65,23 @@
   gap: 24px;
   box-sizing: border-box;
   border-radius: 15px;
+  background: transparent;
+  flex-shrink: 0;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* ── Blur background — separated from animated bubble to prevent
+   framer-motion's will-change from disabling backdrop-filter ── */
+.blurBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
   border: 1px dashed #FFF;
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(80px);
   -webkit-backdrop-filter: blur(80px);
-  flex-shrink: 0;
-  overflow: visible;
+  z-index: -1;
 }
 
 /* ── Close Button  outside the bubble overflow, positioned on top ── */

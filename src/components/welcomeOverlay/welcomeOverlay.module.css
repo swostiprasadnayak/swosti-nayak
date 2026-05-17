@@ -32,14 +32,24 @@
   width: 100%;
   max-width: 474px;
   padding: 32px 64px;
+  background: transparent;
+  border-radius: 15px;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Blur background — separated from animated container to prevent
+   framer-motion's will-change from disabling backdrop-filter */
+.blurBg {
+  position: absolute;
+  inset: 0;
   background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(54px);
-  -webkit-backdrop-filter: blur(54px);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
   border-radius: 15px;
   border: 1.5px dashed rgba(255, 255, 255, 0.55);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  overflow: visible;
-  z-index: 1;
+  z-index: -1;
 }
 
 /* Close button — positioned at top-right corner, overlapping outside */
