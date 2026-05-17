@@ -243,7 +243,6 @@ const IntroOverlay: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
                 >
-                  <div className={classes.blurBg} />
                   <button
                     className={classes.closeButton}
                     onClick={(e) => { e.stopPropagation(); handleClose(); }}

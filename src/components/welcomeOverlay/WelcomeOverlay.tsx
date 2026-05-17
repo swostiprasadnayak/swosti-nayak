@@ -88,43 +88,54 @@ export default function WelcomeOverlay() {
   const blocks = displayedText.split('\n\n');
 
   return (
-    <AnimatePresence>
+    <>
+      {/* ═══ BACKDROP BLUR ═══
+          Rendered OUTSIDE any <motion.div> so backdrop-filter works.
+          Framer-motion's will-change creates a new compositing layer,
+          which prevents backdrop-filter on any child from blurring
+          content in layers beneath it. This div is a plain <div>,
+          no will-change, so the browser can blur the page behind it. */}
       {isVisible && (
-        <motion.div
-          key="welcome-wrapper"
-          className={classes.wrapper}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Separate backdrop div — NOT animated by framer-motion,
-              so backdrop-filter works without will-change interference */}
-          <div className={classes.backdrop} onClick={handleClose} />
-
-          {/* Card */}
-          <motion.div
-            className={classes.container}
-            initial={{ scale: 0.95, y: 10 }}
-            animate={{ scale: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-          >
-            <div className={classes.blurBg} />
-            <button className={classes.closeBtn} onClick={handleClose} aria-label="Close">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
-
-            <div className={classes.textContent}>
-              {blocks.map((block, i) => {
-                if (i === 0) return <h3 className={classes.heading} key={i}>{block}</h3>;
-                return <p className={classes.paragraph} key={i}>{block}</p>;
-              })}
-            </div>
-          </motion.div>
-        </motion.div>
+        <div className={classes.backdrop} onClick={handleClose} />
       )}
-    </AnimatePresence>
+
+      {/* ═══ CARD ═══
+          Animated by framer-motion. The card uses a semi-transparent
+          background — it looks frosted because the backdrop behind it
+          is already blurred by the div above. No backdrop-filter needed
+          on the card itself. */}
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            key="welcome-wrapper"
+            className={classes.wrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              className={classes.container}
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <button className={classes.closeBtn} onClick={handleClose} aria-label="Close">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </button>
+
+              <div className={classes.textContent}>
+                {blocks.map((block, i) => {
+                  if (i === 0) return <h3 className={classes.heading} key={i}>{block}</h3>;
+                  return <p className={classes.paragraph} key={i}>{block}</p>;
+                })}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
