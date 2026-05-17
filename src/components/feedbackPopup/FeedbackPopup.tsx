@@ -12,13 +12,13 @@ const FeedbackPopup: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [hasDismissed, setHasDismissed] = useState(false);
 
-    // Show popup after 3 minutes (180,000 ms)
+    // Show popup after 1 minute (60,000 ms)
     useEffect(() => {
         const timer = setTimeout(() => {
             if (!hasDismissed && !isOpen) {
                 setIsVisible(true);
             }
-        }, 180000); // 3 minutes
+        }, 60000); // 1 minute
 
         return () => clearTimeout(timer);
     }, [hasDismissed, isOpen]);
