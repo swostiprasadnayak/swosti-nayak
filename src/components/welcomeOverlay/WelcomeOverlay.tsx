@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import classes from "./welcomeOverlay.module.css";
 
 const FULL_TEXT = `Welcome to my digital workspace..
@@ -13,58 +12,56 @@ This entire portfolio is built with AI and is still evolving.
 Dive in, interact with the sliders and case studies, and help shape it by sharing your feedback.`;
 
 export default function WelcomeOverlay() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);   // DOM presence
+  const [visible, setVisible] = useState(false);   // CSS transition class
   const [displayedText, setDisplayedText] = useState("");
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hideTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const hide = () => {
+    // Trigger exit CSS transition, then unmount
+    setVisible(false);
+    hideTimerRef.current = setTimeout(() => {
+      setMounted(false);
+      // Remove page blur
+      document.getElementById("page-content")?.classList.remove("welcome-blurred");
+    }, 500);
+  };
 
   useEffect(() => {
     const hasSeen = localStorage.getItem("hasSeenWelcome");
     if (!hasSeen) {
-      setIsVisible(true);
       localStorage.setItem("hasSeenWelcome", "true");
-    }
-  }, []);
-
-  // Toggle blur on the page-content wrapper.
-  // Using filter: blur() directly on the content is far more reliable
-  // than backdrop-filter, which fights with framer-motion's will-change.
-  useEffect(() => {
-    const pageContent = document.getElementById("page-content");
-    if (!pageContent) return;
-    if (isVisible) {
-      pageContent.classList.add("welcome-blurred");
-    } else {
-      pageContent.classList.remove("welcome-blurred");
+      setMounted(true);
+      // Blur page content
+      document.getElementById("page-content")?.classList.add("welcome-blurred");
+      // Double rAF so CSS transition triggers after mount
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => setVisible(true))
+      );
     }
     return () => {
-      pageContent.classList.remove("welcome-blurred");
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     };
-  }, [isVisible]);
+  }, []);
 
   // Preload images in background
   useEffect(() => {
-    if (!isVisible) return;
+    if (!mounted) return;
     const imagePaths = [
-      '/bg.jpg',
-      '/wallpapers/pexels-sergei-31959340.jpg',
-      '/wallpapers/bg1.jpg',
-      '/wallpapers/bg2.jpg',
-      '/wallpapers/bg3.jpg',
-      '/wallpapers/bg4.jpg',
-      '/feedback-gradient.jpg',
-      '/icon.png',
+      '/bg.jpg', '/wallpapers/pexels-sergei-31959340.jpg',
+      '/wallpapers/bg1.jpg', '/wallpapers/bg2.jpg',
+      '/wallpapers/bg3.jpg', '/wallpapers/bg4.jpg',
+      '/feedback-gradient.jpg', '/icon.png',
     ];
-    imagePaths.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, [isVisible]);
+    imagePaths.forEach((src) => { const img = new Image(); img.src = src; });
+  }, [mounted]);
 
   const playTick = () => {
     try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
+      const AC = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AC) return;
+      const ctx = new AC();
       if (ctx.state === "suspended") return;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -77,13 +74,11 @@ export default function WelcomeOverlay() {
       gain.connect(ctx.destination);
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.02);
-    } catch (e) {
-      // Ignore audio errors
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!mounted) return;
     let index = 0;
     typingIntervalRef.current = setInterval(() => {
       if (index < FULL_TEXT.length) {
@@ -92,53 +87,40 @@ export default function WelcomeOverlay() {
         index++;
       } else {
         if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
-        setTimeout(() => setIsVisible(false), 5000);
+        setTimeout(() => hide(), 5000);
       }
     }, 45);
     return () => {
       if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
     };
-  }, [isVisible]);
+  }, [mounted]);
 
-  const handleClose = () => setIsVisible(false);
+  if (!mounted) return null;
+
   const blocks = displayedText.split('\n\n');
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          key="welcome-wrapper"
-          className={classes.wrapper}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Dim layer for contrast — sits directly under the card */}
-          <div className={classes.dimLayer} onClick={handleClose} />
+    // Plain divs — NO framer-motion, NO will-change → backdrop-filter works!
+    <div className={`${classes.wrapper} ${visible ? classes.wrapperVisible : ''}`}>
+      {/* Full-screen overlay: black 43% + blur 14 */}
+      <div className={classes.bgOverlay} onClick={hide} />
 
-          <motion.div
-            className={classes.container}
-            initial={{ opacity: 0, y: -24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-          >
-            <button className={classes.closeBtn} onClick={handleClose} aria-label="Close">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2L10 10M10 2L2 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
+      {/* Card: white 10% + blur 54, slides from top */}
+      <div className={`${classes.container} ${visible ? classes.containerVisible : ''}`}>
+        {/* Close button: white 40% + blur 27.38 */}
+        <button className={classes.closeBtn} onClick={hide} aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+            <path d="M2 2L10 10M10 2L2 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
 
-            <div className={classes.textContent}>
-              {blocks.map((block, i) => {
-                if (i === 0) return <h3 className={classes.heading} key={i}>{block}</h3>;
-                return <p className={classes.paragraph} key={i}>{block}</p>;
-              })}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <div className={classes.textContent}>
+          {blocks.map((block, i) => {
+            if (i === 0) return <h3 className={classes.heading} key={i}>{block}</h3>;
+            return <p className={classes.paragraph} key={i}>{block}</p>;
+          })}
+        </div>
+      </div>
+    </div>
   );
 }

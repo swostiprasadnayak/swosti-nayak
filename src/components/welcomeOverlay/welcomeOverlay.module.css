@@ -1,13 +1,13 @@
 /* ════════════════════════════════════════
-   WELCOME OVERLAY — Figma Frame 1932992885
-   Exact specs:
-   - Width: 474px, min-height: 320px
-   - Padding: 32px vertical, 64px horizontal
-   - Border: 1.5px dashed white, radius 15px
-   - Fill: rgba(0, 0, 0, 0.43)  ← BLACK 43% per Figma
-   - Text gap: 24px
+   WELCOME OVERLAY — Exact Figma specs
+   No framer-motion → no will-change → backdrop-filter works!
+
+   Full overlay rect: #000000 43%, blur 14
+   Card frame:        #FFFFFF 10%, blur 54, border-radius 15
+   Close button:      #FFFFFF 40%, blur 27.38, border-radius 17.75
 ════════════════════════════════════════ */
 
+/* ── Wrapper: fixed cover, fades in/out ── */
 .wrapper {
   position: fixed;
   inset: 0;
@@ -16,54 +16,70 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
-/* Subtle darkening over the (already-blurred) page */
-.dimLayer {
+.wrapperVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Full-screen overlay: Figma black 43% + blur 14 ── */
+.bgOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.43);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-/* ── Card ──
-   Direct dark fill so white text is always readable.
-   Combined with heavy page blur (#page-content filter:blur),
-   the card area appears more blurred than the surroundings.
-   min-height: 320 prevents the box from growing during typing
-   — the top stays fixed because content fits within the fixed
-   height. */
+/* ── Card: Figma white 10% + blur 54, slides from top ── */
 .container {
   position: relative;
   width: 474px;
   max-width: 100%;
   min-height: 320px;
   padding: 32px 64px;
-  background: rgba(0, 0, 0, 0.43);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(54px);
+  -webkit-backdrop-filter: blur(54px);
   border-radius: 15px;
-  border: 1.5px dashed rgba(255, 255, 255, 0.85);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-style: dashed;
   overflow: visible;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  /* Enter from top */
+  opacity: 0;
+  transform: translateY(-28px);
+  transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
 }
 
-/* ── Close button — circle at top-right corner overlapping ── */
+.containerVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Close button: Figma white 40% + blur 27.38 ── */
 .closeBtn {
   position: absolute;
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 1);
-  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.40);
+  backdrop-filter: blur(27px);
+  -webkit-backdrop-filter: blur(27px);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
   cursor: pointer;
   z-index: 10;
   transition: background 0.15s ease;
@@ -71,39 +87,36 @@
 }
 
 .closeBtn:hover {
-  background: rgba(255, 255, 255, 0.50);
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .closeBtn:active {
   transform: translate(50%, -50%) scale(0.93);
 }
 
-/* ── Text — 24px gap, top-aligned so content fills downward ── */
+/* ── Text: 24px gap, Figma sizes ── */
 .textContent {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* ── Heading — Figma: 32px, weight 500, white ── */
 .heading {
   font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 32px;
-  font-weight: 500;
+  font-size: 28px;
+  font-weight: 400;
   color: #ffffff;
   margin: 0;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
-/* ── Body — Figma: 18px, weight 400, white ── */
 .paragraph {
   font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* ════════════════════════════════════════
@@ -111,27 +124,16 @@
 ════════════════════════════════════════ */
 
 @media (max-width: 540px) {
-  .wrapper {
-    padding: 16px;
-  }
+  .wrapper { padding: 16px; }
 
   .container {
     width: 100%;
     max-width: 100%;
-    padding: 24px 24px;
-    min-height: 280px;
+    padding: 24px;
+    min-height: 260px;
   }
 
-  .heading {
-    font-size: 24px;
-  }
-
-  .paragraph {
-    font-size: 16px;
-  }
-
-  .closeBtn {
-    width: 34px;
-    height: 34px;
-  }
+  .heading { font-size: 22px; }
+  .paragraph { font-size: 15px; }
+  .closeBtn { width: 32px; height: 32px; }
 }
