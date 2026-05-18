@@ -66,11 +66,11 @@ export default function MusicCard({ player }: any) {
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", gap: "36px", marginTop: "14px", alignItems: "center", color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.9)" }}>
-                <Rewind size={32} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer" }} onClick={prevTrack} />
+                <Rewind size={34} fill="currentColor" strokeWidth={2} style={{ cursor: "pointer" }} onClick={prevTrack} />
                 <div onClick={togglePlay} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                    {isPlaying ? <Pause size={34} fill="currentColor" strokeWidth={0} /> : <Play size={34} fill="currentColor" strokeWidth={0} />}
+                    {isPlaying ? <Pause size={38} fill="currentColor" strokeWidth={2} /> : <Play size={38} fill="currentColor" strokeWidth={2} />}
                 </div>
-                <FastForward size={32} fill="currentColor" strokeWidth={0} style={{ cursor: "pointer" }} onClick={nextTrack} />
+                <FastForward size={34} fill="currentColor" strokeWidth={2} style={{ cursor: "pointer" }} onClick={nextTrack} />
             </div>
         </Squircle>
     );
