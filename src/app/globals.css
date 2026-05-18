@@ -4,15 +4,15 @@
 
 /* ════════════════════════════════════════
    WELCOME OVERLAY BLUR
-   We no longer apply filter: blur() to page content because it
-   creates a stacking context that swallows the card's backdrop-filter,
-   making the card's heavy blur visually indistinguishable from the
-   background's light blur. With framer-motion removed from the
-   overlay, backdrop-filter alone handles all blur — the bgOverlay
-   provides the light background blur and the card provides the
-   heavy frosted-glass blur, creating the proper depth difference.
+   filter: blur() applied directly to page content is bulletproof —
+   no compositing-layer issues like backdrop-filter has.
+   The overlay sits outside #page-content so it stays sharp.
 ════════════════════════════════════════ */
+#page-content {
+  transition: filter 0.4s ease;
+}
 #page-content.welcome-blurred {
+  filter: blur(8px);
   pointer-events: none;
 }
 
