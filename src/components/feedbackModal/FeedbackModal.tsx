@@ -171,7 +171,15 @@ const FeedbackModal: React.FC = () => {
                                                                     onClick={() => {
                                                                         setRating(label as Rating);
                                                                         setTimeout(() => {
-                                                                            submitBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                                                                            const container = submitBtnRef.current?.closest(`.${classes.modal}`);
+                                                                            if (container) {
+                                                                                container.scrollTo({
+                                                                                    top: container.scrollHeight,
+                                                                                    behavior: "smooth"
+                                                                                });
+                                                                            } else {
+                                                                                submitBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+                                                                            }
                                                                         }, 80);
                                                                     }}
                                                                 >
