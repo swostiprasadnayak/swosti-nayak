@@ -86,7 +86,7 @@ export default function MusicCard({ player }: any) {
                         color: "inherit"
                     }}
                 >
-                    <Rewind size={22} style={{ width: "22px", height: "22px" }} />
+                    <Rewind size={26} fill="currentColor" stroke="none" style={{ width: "26px", height: "26px" }} />
                 </button>
                 
                 <button 
@@ -103,9 +103,9 @@ export default function MusicCard({ player }: any) {
                     }}
                 >
                     {isPlaying ? (
-                        <Pause size={26} fill="currentColor" style={{ width: "26px", height: "26px" }} />
+                        <Pause size={32} fill="currentColor" stroke="none" style={{ width: "32px", height: "32px" }} />
                     ) : (
-                        <Play size={26} fill="currentColor" style={{ width: "26px", height: "26px" }} />
+                        <Play size={32} fill="currentColor" stroke="none" style={{ width: "32px", height: "32px" }} />
                     )}
                 </button>
                 
@@ -122,7 +122,7 @@ export default function MusicCard({ player }: any) {
                         color: "inherit"
                     }}
                 >
-                    <FastForward size={22} style={{ width: "22px", height: "22px" }} />
+                    <FastForward size={26} fill="currentColor" stroke="none" style={{ width: "26px", height: "26px" }} />
                 </button>
             </div>
         </Squircle>
