@@ -60,7 +60,7 @@ const Card: React.FC<CardProps> = ({
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const shouldPlay = !isProjectExpanded;
-    useVideoPlayback(videoRef, shouldPlay);
+    useVideoPlayback(videoRef, shouldPlay && isActive);
 
     const videoStyle = useMemo(
         () => ({

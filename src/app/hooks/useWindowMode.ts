@@ -17,16 +17,14 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Initialize desktop open windows on mount
     useEffect(() => {
         if (typeof window !== "undefined" && window.innerWidth > 768) {
-            setOpenWindows(["unicef", "blinkit", "gc-dental"]);
+            setOpenWindows(["gc-dental", "unicef", "blinkit"]);
         }
     }, []);
 
     const bringToFront = useCallback((slug: string) => {
         setOpenWindows((prev) => {
-            if (!prev.includes(slug)) {
-                return [...prev, slug];
-            }
-            return prev;
+            const filtered = prev.filter((w) => w !== slug);
+            return [...filtered, slug];
         });
         setTopZ((prev) => {
             const nextZ = prev + 1;
