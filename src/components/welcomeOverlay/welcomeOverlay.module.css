@@ -48,8 +48,8 @@
   /* No height/min-height — hugs content, grows downward */
   padding: 32px 64px;
   background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(150px) saturate(200%);
-  -webkit-backdrop-filter: blur(150px) saturate(200%);
+  backdrop-filter: blur(180px) saturate(240%);
+  -webkit-backdrop-filter: blur(180px) saturate(240%);
   border-radius: 15px;
   /* Dashed border — dash 7, gap 7, white 100% */
   border: 1px dashed rgba(255, 255, 255, 1);
