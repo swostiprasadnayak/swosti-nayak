@@ -461,12 +461,20 @@
     
     .modal {
         max-height: 85vh;
-        overflow-y: auto;
-        /* Custom scrollbar for mobile if needed, though mobile usually hides it */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
     }
 
     .body {
         padding: 16px;
+        overflow-y: auto;
+        flex: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
     }
 
     .contentWrapper {

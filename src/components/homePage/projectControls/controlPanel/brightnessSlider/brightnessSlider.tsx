@@ -4,7 +4,7 @@ import { Sun } from "lucide-react";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import classes from "./brightnessSlider.module.css";
 
-export default function BrightnessSlider({ onBrightnessChange }: any) {
+export default function BrightnessSlider({ onBrightnessChange, labelColor }: any) {
   const [level, setLevel] = useState(100);
   const { isDark } = useTheme();
 
@@ -16,7 +16,7 @@ export default function BrightnessSlider({ onBrightnessChange }: any) {
 
   return (
     <div className={classes.container}>
-      <span className={classes.label}>Display</span>
+      <span className={classes.label} style={labelColor ? { color: labelColor } : undefined}>Display</span>
       <div className={classes.sliderOuter}>
         <div className={classes.sunIcon}>
           <Sun size={20} />

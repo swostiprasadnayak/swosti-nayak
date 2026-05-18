@@ -171,7 +171,7 @@ const FeedbackModal: React.FC = () => {
                                                                     onClick={() => {
                                                                         setRating(label as Rating);
                                                                         setTimeout(() => {
-                                                                            const container = submitBtnRef.current?.closest(`.${classes.modal}`);
+                                                                            const container = submitBtnRef.current?.closest(`.${classes.body}`);
                                                                             if (container) {
                                                                                 container.scrollTo({
                                                                                     top: container.scrollHeight,
