@@ -65,12 +65,65 @@ export default function MusicCard({ player }: any) {
                 </span>
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "36px", marginTop: "14px", alignItems: "center", color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.9)" }}>
-                <Rewind size={34} fill="currentColor" strokeWidth={2} style={{ cursor: "pointer" }} onClick={prevTrack} />
-                <div onClick={togglePlay} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                    {isPlaying ? <Pause size={38} fill="currentColor" strokeWidth={2} /> : <Play size={38} fill="currentColor" strokeWidth={2} />}
-                </div>
-                <FastForward size={34} fill="currentColor" strokeWidth={2} style={{ cursor: "pointer" }} onClick={nextTrack} />
+            <div style={{ 
+                display: "flex", 
+                justifyContent: "center", 
+                gap: "36px", 
+                marginTop: "16px", 
+                alignItems: "center", 
+                color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.85)" 
+            }}>
+                <button 
+                    onClick={prevTrack} 
+                    style={{ 
+                        background: "none", 
+                        border: "none", 
+                        padding: 0, 
+                        cursor: "pointer", 
+                        display: "flex", 
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        color: "inherit"
+                    }}
+                >
+                    <Rewind size={22} style={{ width: "22px", height: "22px" }} />
+                </button>
+                
+                <button 
+                    onClick={togglePlay} 
+                    style={{ 
+                        background: "none", 
+                        border: "none", 
+                        padding: 0, 
+                        cursor: "pointer", 
+                        display: "flex", 
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        color: "inherit"
+                    }}
+                >
+                    {isPlaying ? (
+                        <Pause size={26} fill="currentColor" style={{ width: "26px", height: "26px" }} />
+                    ) : (
+                        <Play size={26} fill="currentColor" style={{ width: "26px", height: "26px" }} />
+                    )}
+                </button>
+                
+                <button 
+                    onClick={nextTrack} 
+                    style={{ 
+                        background: "none", 
+                        border: "none", 
+                        padding: 0, 
+                        cursor: "pointer", 
+                        display: "flex", 
+                        alignItems: "center", 
+                        justifyContent: "center",
+                        color: "inherit"
+                    }}
+                >
+                    <FastForward size={22} style={{ width: "22px", height: "22px" }} />
+                </button>
             </div>
         </Squircle>
     );
