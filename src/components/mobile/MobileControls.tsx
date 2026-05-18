@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import classes from "./mobileControls.module.css";
-import { Menu, AudioLines, Image as ImageIcon, Camera, X } from "lucide-react";
+import { Settings, AudioLines, Image as ImageIcon, Camera, X } from "lucide-react";
 import ThemeToggle from "@/components/homePage/projectControls/themeToggle/themeToggle";
 import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealToggle/codeRevealToggle";
 import { AnimatePresence, motion } from "motion/react";
@@ -66,14 +66,29 @@ export default function MobileControls({
   return (
     <div className={classes.controlsWrapper}>
       <audio ref={player.audioRef} src={player.track?.src} preload="auto" />
-      {/* Menu button */}
+      {/* Settings button - Circular Glassmorphic floating above dock */}
       <div className={classes.menuContainer}>
         <button
           className={classes.menuButton}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          title="More"
+          title="Controls"
+          style={{
+            width: "48px",
+            height: "48px",
+            borderRadius: "50%",
+            background: "rgba(30, 30, 35, 0.75)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255, 255, 255, 0.18)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            boxShadow: "0 6px 16px rgba(0, 0, 0, 0.25)",
+            transition: "all 0.2s ease"
+          }}
         >
-          <Menu size={20} />
+          <Settings size={22} strokeWidth={2} />
         </button>
 
         {/* Full-screen iOS-like Control Center overlay */}
@@ -101,15 +116,14 @@ export default function MobileControls({
               {/* iOS Control Center Card */}
               <motion.div
                 className={classes.modalContent}
-                initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                initial={{ opacity: 0, scale: 0.9, x: "-50%", y: "calc(-50% + 30px)" }}
+                animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+                exit={{ opacity: 0, scale: 0.9, x: "-50%", y: "calc(-50% + 30px)" }}
                 transition={{ type: "spring", bounce: 0, duration: 0.35 }}
                 style={{
                   position: "fixed",
                   top: "50%",
                   left: "50%",
-                  transform: "translate(-50%, -50%)",
                   width: "90%",
                   maxWidth: "360px",
                   background: "rgba(255, 255, 255, 0.12)",

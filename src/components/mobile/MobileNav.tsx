@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import classes from "./mobileNav.module.css";
-import { ChevronDown, Share2, Heart, Mail, MessageSquare } from "lucide-react";
+import ThemeToggle from "@/components/homePage/projectControls/themeToggle/themeToggle";
+import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealToggle/codeRevealToggle";
+import { ChevronDown, Share2, Heart, Mail, MessageSquare, AudioLines } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
@@ -11,9 +13,10 @@ import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
 type MobileNavProps = {
   onShowPosts?: () => void;
   onWorkClick?: () => void;
+  onVoiceMode?: () => void;
 };
 
-export default function MobileNav({ onShowPosts, onWorkClick }: MobileNavProps) {
+export default function MobileNav({ onShowPosts, onWorkClick, onVoiceMode }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { openModal: openAboutModal } = useAboutModal();
   const { openModal: openFeedbackModal } = useFeedbackModal();
@@ -88,6 +91,37 @@ export default function MobileNav({ onShowPosts, onWorkClick }: MobileNavProps) 
                   {item.label}
                 </Link>
               ))}
+
+              {/* Divider */}
+              <div className={classes.divider} />
+
+              {/* System controls */}
+              <div style={{ display: "flex", gap: "10px", alignItems: "center", justifyContent: "space-between", padding: "4px 8px 12px 8px", width: "100%", boxSizing: "border-box" }}>
+                <div style={{ display: "flex", transform: "scale(0.9)" }}>
+                  <ThemeToggle />
+                </div>
+                <button
+                  onClick={() => { setIsOpen(false); onVoiceMode?.(); }}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.1)",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    borderRadius: "12px",
+                    width: "40px",
+                    height: "40px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    cursor: "pointer"
+                  }}
+                  title="Voice Mode"
+                >
+                  <AudioLines size={18} strokeWidth={2} />
+                </button>
+                <div style={{ display: "flex", transform: "scale(0.9)" }}>
+                  <CodeRevealToggle />
+                </div>
+              </div>
 
               {/* Divider */}
               <div className={classes.divider} />

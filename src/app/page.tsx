@@ -162,11 +162,12 @@ function HomeContent() {
           <MobileNav 
             onShowPosts={() => setIsPostsOpen(true)}
             onWorkClick={() => windowModeState.bringToFront("gc-dental")}
+            onVoiceMode={openVoiceModal}
           />
         </div>
 
-        {/* Mobile Controls - Top Right (horizontal, reusing desktop components) */}
-        <div style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-controls-only">
+        {/* Mobile Controls - Floating Settings button above dock on the right */}
+        <div style={{ position: 'fixed', bottom: 104, right: 24, zIndex: 100, pointerEvents: 'auto' }} className="mobile-controls-only">
           <MobileControls
             onVoiceMode={openVoiceModal}
             imageIndex={imageIndex + 1}
