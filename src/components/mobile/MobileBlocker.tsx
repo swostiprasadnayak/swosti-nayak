@@ -14,7 +14,7 @@ export default function MobileBlocker() {
             style={{
                 display: "none", // Overridden by CSS media query to 'flex'
                 position: "fixed",
-                bottom: 24,
+                top: 24,
                 left: 16,
                 right: 16,
                 zIndex: 9999,
