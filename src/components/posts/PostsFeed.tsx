@@ -181,54 +181,20 @@ export default function PostsFeed() {
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
               exit={{ opacity: 0 }} 
-              style={{ 
-                position: "absolute", 
-                top: "-5vh", 
-                left: "-12%", 
-                width: "113.7vw", 
-                height: "100vh", 
-                background: "rgba(240, 240, 240, 0.95)", 
-                zIndex: 100, 
-                backdropFilter: "blur(10px)" 
-              }}
+              className="posts-expanded-backdrop"
               onClick={() => setExpandedId(null)}
             />
             
             {/* SCROLLABLE WRAPPER */}
-            <div style={{ 
-              position: "absolute", 
-              top: "-5vh", 
-              left: "-12%", 
-              width: "82vw", 
-              height: "100vh", 
-              zIndex: 101, 
-              display: "flex", 
-              flexDirection: "column",
-              alignItems: "center", 
-              overflowY: "auto", 
-              paddingTop: "10vh",
-              paddingBottom: "150px",
-              pointerEvents: "auto",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none"
-            }}
-            onClick={(e) => {
-               if(e.target === e.currentTarget) setExpandedId(null);
-            }}
+            <div 
+              className="posts-expanded-wrapper"
+              onClick={(e) => {
+                 if(e.target === e.currentTarget) setExpandedId(null);
+              }}
             >
               <Squircle 
                 cornerRadius={32} 
-                style={{ 
-                  background: "#FBFBFB", 
-                  width: "95%", 
-                  maxWidth: "850px", 
-                  height: "auto", 
-                  padding: "40px", 
-                  pointerEvents: "auto", 
-                  boxShadow: "0 24px 48px rgba(0,0,0,0.1)",
-                  transform: "translate(50px, 0)",
-                  marginBottom: "40px"
-                }}
+                className="posts-expanded-card"
               >
                 {POSTS.filter(p => p.id === expandedId).map(post => (
                   <motion.div key="expanded" layoutId={`post-container-${post.id}`}>

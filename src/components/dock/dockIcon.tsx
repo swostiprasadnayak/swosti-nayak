@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useTransform, useSpring, MotionValue, AnimatePresence } from "motion/react";
 import classes from "./dock.module.css";
 import { PROJECTS } from "@/app/types/projects.types";
@@ -16,6 +16,14 @@ interface DockIconProps {
 export default function DockIcon({ slug, name, isActive, mouseX, onSelect }: DockIconProps) {
     const ref = useRef<HTMLButtonElement>(null);
     const [isHovered, setIsHovered] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     const project = PROJECTS.find((p) => p.slug === slug);
     const isDisabled = project?.disabled ?? false;
@@ -35,9 +43,9 @@ export default function DockIcon({ slug, name, isActive, mouseX, onSelect }: Doc
             ref={ref}
             className={classes.iconButton}
             onClick={() => !isDisabled && onSelect(slug)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            style={{ width: size, height: size, opacity: isDisabled ? 0.4 : 1, cursor: isDisabled ? "not-allowed" : "pointer" }}
+            onMouseEnter={() => !isMobile && setIsHovered(true)}
+            onMouseLeave={() => !isMobile && setIsHovered(false)}
+            style={{ width: isMobile ? 48 : size, height: isMobile ? 48 : size, opacity: isDisabled ? 0.4 : 1, cursor: isDisabled ? "not-allowed" : "pointer" }}
         >
             <div style={{
                 width: "100%", height: "100%", borderRadius: 12,
