@@ -22,6 +22,7 @@ const FeedbackModal: React.FC = () => {
     const [message, setMessage] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const submitBtnRef = React.useRef<HTMLButtonElement>(null);
 
     /* Reset state when modal closes */
     useEffect(() => {
@@ -118,7 +119,7 @@ const FeedbackModal: React.FC = () => {
                                     <div className={classes.contentWrapper}>
                                         <div className={classes.maskGroup}>
 
-                                            {/* LEFT PANEL — gradient */}
+                                             {/* LEFT PANEL — gradient */}
                                             <Squircle className={classes.leftPanel} cornerRadius={12}>
                                                 <div className={classes.leftOverlay} />
 
@@ -167,7 +168,12 @@ const FeedbackModal: React.FC = () => {
                                                                 <button
                                                                     key={label}
                                                                     className={`${classes.ratingBtn} ${rating === label ? classes.selected : ""}`}
-                                                                    onClick={() => setRating(label as Rating)}
+                                                                    onClick={() => {
+                                                                        setRating(label as Rating);
+                                                                        setTimeout(() => {
+                                                                            submitBtnRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                                                                        }, 80);
+                                                                    }}
                                                                 >
                                                                     <span className={classes.ratingEmoji}>{emoji}</span>
                                                                     <span className={classes.ratingText}>{label}</span>
@@ -184,6 +190,7 @@ const FeedbackModal: React.FC = () => {
                                                         />
 
                                                         <button
+                                                            ref={submitBtnRef}
                                                             className={classes.submitBtn}
                                                             onClick={handleSubmit}
                                                             disabled={!rating || submitting}
