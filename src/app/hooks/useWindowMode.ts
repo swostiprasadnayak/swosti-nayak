@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export type WindowModeAPI = {
     openWindows: string[];
@@ -9,10 +9,17 @@ export type WindowModeAPI = {
 };
 
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
-    // Open Surrounding (syne), Unicef and Blinkit on startup
-    const [openWindows, setOpenWindows] = useState<string[]>(["unicef", "blinkit", "gc-dental"]);
+    // Start empty for SSR safety and to keep mobile clear on startup
+    const [openWindows, setOpenWindows] = useState<string[]>([]);
     const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, unicef: 2, blinkit: 3 });
     const [topZ, setTopZ] = useState(3);
+
+    // Initialize desktop open windows on mount
+    useEffect(() => {
+        if (typeof window !== "undefined" && window.innerWidth > 768) {
+            setOpenWindows(["unicef", "blinkit", "gc-dental"]);
+        }
+    }, []);
 
     const bringToFront = useCallback((slug: string) => {
         setOpenWindows((prev) => {
@@ -33,6 +40,11 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     }, []);
 
     const getPosition = useCallback((slug: string) => {
+        const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+        if (isMobile) {
+            return { x: 0, y: 0 };
+        }
+
         if (viewMode === 'card') {
             // Grid layout positions
             const gridPositions: Record<string, { x: number, y: number }> = {

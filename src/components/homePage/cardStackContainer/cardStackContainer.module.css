@@ -38,3 +38,16 @@
     height: fit-content;
     will-change: transform, opacity;
 }
+
+@media (max-width: 768px) {
+    .windowCardOuter {
+        top: 50% !important;
+        left: 50% !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        transform: translate(-50%, -50%) !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

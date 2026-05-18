@@ -105,3 +105,16 @@
 :global([data-theme="dark"]) .videoContainer {
     background-color: #1e1e1e;
 }
+
+/* Responsive Sizer for Mobile Viewports */
+.responsiveSizer {
+    /* Desktop dimensions are set inline, so we don't need default styles here */
+}
+
+@media (max-width: 768px) {
+    .responsiveSizer {
+        width: 90vw !important;
+        max-width: 400px !important;
+        height: 65vh !important;
+    }
+}

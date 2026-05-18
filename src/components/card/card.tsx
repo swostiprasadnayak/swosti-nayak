@@ -96,6 +96,7 @@ const Card: React.FC<CardProps> = ({
                     exit={EXIT_ANIMATION}
                 >
                     <motion.div
+                        className={classes.responsiveSizer}
                         style={{ width, height, position: "relative" }}
                         whileHover={{
                             scale: isDisabled ? 1.01 : 1.04,
