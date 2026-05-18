@@ -36,8 +36,8 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.60);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* ── Card: more white + heavier blur so it looks clearly MORE frosted ── */
