@@ -140,3 +140,14 @@
 .actionButton:hover {
     background: var(--border-subtle);
 }
+
+/* ── Karaoke word highlight ── */
+.wordSpoken {
+    color: var(--text-primary);
+    transition: color 0.12s ease;
+}
+
+.wordPending {
+    color: rgba(var(--text-primary-rgb), 0.22);
+    transition: color 0.12s ease;
+}
