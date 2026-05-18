@@ -110,12 +110,12 @@ export default function WelcomeOverlay() {
         {/* SVG border: exact dash 7, gap 7 — CSS dashed can't control gap size */}
         <svg aria-hidden="true" style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',overflow:'visible'}}>
           <rect x="0.5" y="0.5" width="99%" height="99%" rx="14.5" ry="14.5"
-            fill="none" stroke="white" strokeWidth="1" strokeDasharray="7 7" />
+            fill="none" stroke="white" strokeWidth="1" strokeDasharray="12 7" />
         </svg>
         {/* Close button: white 40% + blur 27.38 */}
         <button className={classes.closeBtn} onClick={hide} aria-label="Close">
-          <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-            <path d="M2 2L10 10M10 2L2 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          <svg width="16" height="16" viewBox="0 0 12 12" fill="none">
+            <path d="M2 2L10 10M10 2L2 10" stroke="white" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
 
