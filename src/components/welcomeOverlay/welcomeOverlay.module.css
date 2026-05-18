@@ -46,7 +46,7 @@
   width: 350px;
   max-width: 100%;
   /* No height/min-height — hugs content, grows downward */
-  padding: 32px 24px;
+  padding: 32px 84px;
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(240px) saturate(240%);
   -webkit-backdrop-filter: blur(240px) saturate(240%);
