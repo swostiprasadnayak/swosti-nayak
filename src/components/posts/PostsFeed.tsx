@@ -85,7 +85,7 @@ export default function PostsFeed() {
 
   return (
     // ROOT: Padded to push the grey box from top and left
-    <div style={{ position: "relative", width: "100%", height: "100%", padding: "5vh 0 0 12%", overflow: "hidden" }}>
+    <div className="posts-feed-root" style={{ position: "relative", overflow: "hidden" }}>
       
       {/* THE GREY BOX (Island) */}
       <Squircle 

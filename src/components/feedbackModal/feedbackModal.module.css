@@ -440,7 +440,7 @@
 /* ════════════════════════════════════════
    MOBILE — stacked layout
 ════════════════════════════════════════ */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .modalContainer {
         padding: 16px;
         align-items: flex-end;

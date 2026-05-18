@@ -159,7 +159,10 @@ function HomeContent() {
 
         {/* Mobile Navigation - Top Left */}
         <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-nav-only">
-          <MobileNav />
+          <MobileNav 
+            onShowPosts={() => setIsPostsOpen(true)}
+            onWorkClick={() => windowModeState.bringToFront("gc-dental")}
+          />
         </div>
 
         {/* Mobile Controls - Top Right (horizontal, reusing desktop components) */}
@@ -209,7 +212,8 @@ function HomeContent() {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                style={{ position: 'relative', width: '82vw', maxWidth: '1200px', height: '88vh', pointerEvents: 'none' }}
+                className="posts-window-wrapper"
+                style={{ position: 'relative', pointerEvents: 'none' }}
               >
                 <Squircle
                   cornerRadius={24}

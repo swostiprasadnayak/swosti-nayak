@@ -2,19 +2,40 @@
 
 import React, { useState } from "react";
 import classes from "./mobileNav.module.css";
-import { ChevronDown, Share2, Heart, Mail } from "lucide-react";
+import { ChevronDown, Share2, Heart, Mail, MessageSquare } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useAboutModal } from "@/app/contexts/AboutModalContext";
+import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
 
-export default function MobileNav() {
+type MobileNavProps = {
+  onShowPosts?: () => void;
+  onWorkClick?: () => void;
+};
+
+export default function MobileNav({ onShowPosts, onWorkClick }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { openModal: openAboutModal } = useAboutModal();
+  const { openModal: openFeedbackModal } = useFeedbackModal();
 
   const navItems = [
-    { label: "Work", href: "/" },
-    { label: "About", href: "#about" },
-    { label: "Post", href: "#" },
+    { label: "Work", href: "#", isAction: true },
+    { label: "About", href: "#", isAction: true },
+    { label: "Post", href: "#", isAction: true },
     { label: "Resume", href: "https://drive.google.com/file/d/1Rajt_0Jg-7ywpB0bX3N1JPgLXnW3uPiF/view?usp=sharing" },
   ];
+
+  const handleNavClick = (e: React.MouseEvent, item: any) => {
+    if (item.isAction) {
+      e.preventDefault();
+      setIsOpen(false);
+      if (item.label === "Work" && onWorkClick) onWorkClick();
+      else if (item.label === "About") openAboutModal();
+      else if (item.label === "Post" && onShowPosts) onShowPosts();
+    } else {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className={classes.navWrapper}>
@@ -61,7 +82,7 @@ export default function MobileNav() {
                   key={item.label}
                   href={item.href}
                   className={classes.navItem}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, item)}
                   target={item.label === "Resume" ? "_blank" : undefined}
                 >
                   {item.label}
@@ -91,6 +112,14 @@ export default function MobileNav() {
                 >
                   <Heart size={18} />
                 </a>
+                <button
+                  onClick={() => { setIsOpen(false); openFeedbackModal(); }}
+                  className={classes.socialIcon}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                  title="Feedback"
+                >
+                  <MessageSquare size={18} />
+                </button>
                 <a
                   href="tel:7978659329"
                   className={classes.socialIcon}
