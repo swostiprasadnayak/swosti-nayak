@@ -2,20 +2,24 @@
    WELCOME OVERLAY — Exact Figma specs
    No framer-motion → no will-change → backdrop-filter works!
 
-   Full overlay rect: #000000 43%, blur 14
-   Card frame:        #FFFFFF 10%, blur 54, border-radius 15
-   Close button:      #FFFFFF 40%, blur 27.38, border-radius 17.75
+   Full overlay: #000000 43%, blur 8 (lighter bg)
+   Card:         #FFFFFF 10%, blur 80 (heavier box), radius 15
+                 Stroke: dashed, dash 7, gap 7, white 100%
+   Close btn:    #FFFFFF 40%, blur 27, radius 17.75
 ════════════════════════════════════════ */
 
-/* ── Wrapper: fixed cover, fades in/out ── */
+/* ── Wrapper: positions card with TOP fixed, grows downward ── */
 .wrapper {
   position: fixed;
   inset: 0;
   z-index: 9999;
   display: flex;
-  align-items: center;
+  align-items: flex-start;          /* TOP of card is fixed */
   justify-content: center;
-  padding: 24px;
+  padding-top: calc(50vh - 170px);  /* approx vertical center for 320px card */
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 24px;
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
@@ -26,36 +30,38 @@
   pointer-events: auto;
 }
 
-/* ── Full-screen overlay: Figma black 43% + blur 14 ── */
+/* ── Full-screen overlay: black 43% + blur 8 (lighter than box) ── */
 .bgOverlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.43);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* ── Card: Figma white 10% + blur 54, slides from top ── */
+/* ── Card: white 10% + blur 80, dashed border dash/gap 7 ──
+   No fixed height — grows downward as text types in.
+   Uses SVG border-image for exact dash=7 gap=7 pattern. */
 .container {
   position: relative;
   width: 474px;
   max-width: 100%;
-  min-height: 320px;
+  /* No height/min-height — hugs content, grows downward */
   padding: 32px 64px;
   background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(54px);
-  -webkit-backdrop-filter: blur(54px);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-style: dashed;
+  /* Dashed border — dash 7, gap 7, white */
+  border: 1px dashed rgba(255, 255, 255, 0.9);
   overflow: visible;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* Enter from top */
+  /* Slide from top */
   opacity: 0;
-  transform: translateY(-28px);
+  transform: translateY(-24px);
   transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
 }
 
@@ -64,7 +70,7 @@
   transform: translateY(0);
 }
 
-/* ── Close button: Figma white 40% + blur 27.38 ── */
+/* ── Close button: white 40% + blur 27, 36×36 ── */
 .closeBtn {
   position: absolute;
   top: 0;
@@ -86,13 +92,8 @@
   padding: 0;
 }
 
-.closeBtn:hover {
-  background: rgba(255, 255, 255, 0.55);
-}
-
-.closeBtn:active {
-  transform: translate(50%, -50%) scale(0.93);
-}
+.closeBtn:hover  { background: rgba(255, 255, 255, 0.55); }
+.closeBtn:active { transform: translate(50%, -50%) scale(0.93); }
 
 /* ── Text: 24px gap, Figma sizes ── */
 .textContent {
@@ -124,16 +125,19 @@
 ════════════════════════════════════════ */
 
 @media (max-width: 540px) {
-  .wrapper { padding: 16px; }
+  .wrapper {
+    padding-top: calc(50vh - 150px);
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 
   .container {
     width: 100%;
     max-width: 100%;
-    padding: 24px;
-    min-height: 260px;
+    padding: 24px 24px;
   }
 
-  .heading { font-size: 22px; }
+  .heading   { font-size: 22px; }
   .paragraph { font-size: 15px; }
-  .closeBtn { width: 32px; height: 32px; }
+  .closeBtn  { width: 32px; height: 32px; }
 }
