@@ -43,7 +43,7 @@
 /* ── Card: more white + heavier blur so it looks clearly MORE frosted ── */
 .container {
   position: relative;
-  width: 474px;
+  width: 380px;
   max-width: 100%;
   /* No height/min-height — hugs content, grows downward */
   padding: 32px 64px;
