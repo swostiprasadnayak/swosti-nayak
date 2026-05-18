@@ -4,32 +4,48 @@ import { motion, AnimatePresence } from "motion/react";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import classes from "./voiceModal.module.css";
 
+// Delay before audio starts — gives a breath before voice kicks in
+const AUDIO_PRE_ROLL = 400; // ms
+
 const SCRIPT = [
     { text: "", delay: 0 },
-    { text: "Hey there, I'm Swosti. I'm a Product Designer who loves turning complex problems into clear, scalable, and meaningful digital experiences.", delay: 700 },
-    { text: "Over the past 2+ years, I've worked across B2B and B2C products from internal platforms to customer-facing solutions.", delay: 11700 },
-    { text: "My approach combines systems thinking, user psychology, and business strategy to design products that don't just look good, but perform.", delay: 21300 },
-    { text: "I've worked on platform integrations, feature redesigns, experience audits, and end-to-end journey improvements.", delay: 33700 },
-    { text: "Always focusing on clarity, usability, and measurable impact.", delay: 42600 },
-    { text: "What drives me? Designing systems that scale. Creating experiences that reduce friction.", delay: 48100 },
-    { text: "Building products that users actually enjoy using.", delay: 56400 },
-    { text: "Currently exploring opportunities where I can contribute to high-impact product teams.", delay: 60500 },
-    { text: "Let's build something meaningful.", delay: 68100 },
-    { text: "", delay: 71500 }
+    { text: "Hey, I'm Swosti.", delay: 400 },
+    { text: "I'm an AI Product Designer turning complex models into intuitive, human-centric experiences.", delay: 2400 },
+    { text: "Over the past two years, I've designed scalable B2B and B2C systems that reduce friction and drive measurable impact.", delay: 8400 },
+    { text: "I'm currently exploring new opportunities. Let's build something meaningful.", delay: 15400 },
+    { text: "", delay: 19600 }
 ];
 
-// Pre-compute per-word timestamps by distributing segment duration evenly across words
+// ── Per-segment auto-calibrated timing ──
+// Each segment's pace is computed from its OWN duration (gap to next segment),
+// so words naturally match the voiceover even if pace varies across segments.
+// Within a segment, words are distributed by character count (long words take longer).
+
+// Fraction of the inter-segment gap that's actual speech (rest is breath/pause).
+// SCRIPT delays were tuned for segment-level fade and include long pauses,
+// so actual speech fills only ~70% of each gap.
+// Lower this if voice still ahead of text; raise if voice lags behind.
+const SPEECH_FILL = 0.7;
+
+// Global offset added to every word timing. POSITIVE = words appear later (if voice lags).
+// NEGATIVE = words appear earlier (if voice runs ahead). Start at 0, dial in 0.2s steps.
+const AUDIO_OFFSET = 0;
+
 const WORD_TIMING = SCRIPT.map((seg, segIdx) => {
     if (!seg.text) return [];
     const nextSeg = SCRIPT[segIdx + 1];
     const segStartSec = seg.delay / 1000;
     const segEndSec = nextSeg ? nextSeg.delay / 1000 : segStartSec + 3;
+    const speechDurSec = (segEndSec - segStartSec) * SPEECH_FILL;
+    const charsPerSec = seg.text.length / speechDurSec;
+
     const words = seg.text.split(/\s+/).filter(Boolean);
-    const secPerWord = (segEndSec - segStartSec) / words.length;
-    return words.map((word, i) => ({
-        word,
-        t: segStartSec + i * secPerWord,
-    }));
+    let charsConsumed = 0;
+    return words.map((word) => {
+        const t = segStartSec + (charsConsumed / charsPerSec) + AUDIO_OFFSET;
+        charsConsumed += word.length + 1; // +1 for the space after the word
+        return { word, t: Math.max(0, t) };
+    });
 });
 
 export default function VoiceModal() {
@@ -39,15 +55,16 @@ export default function VoiceModal() {
     const [audioTime, setAudioTime] = useState(0);
     const timersRef = useRef<NodeJS.Timeout[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const rafRef = useRef<number>(0);
 
     useEffect(() => {
-        audioRef.current = new Audio("/audio/voice-mode-ishan.mp3");
-        audioRef.current.onended = () => setIsPlaying(false);
-        // Drive word highlights from actual audio position
-        audioRef.current.ontimeupdate = () => {
-            setAudioTime(audioRef.current?.currentTime ?? 0);
+        audioRef.current = new Audio("/audio/voice-mode-ishan-new.mp3");
+        audioRef.current.onended = () => {
+            setIsPlaying(false);
+            cancelAnimationFrame(rafRef.current);
         };
         return () => {
+            cancelAnimationFrame(rafRef.current);
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current = null;
@@ -56,6 +73,7 @@ export default function VoiceModal() {
     }, []);
 
     const handleClose = useCallback(() => {
+        cancelAnimationFrame(rafRef.current);
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
@@ -79,21 +97,33 @@ export default function VoiceModal() {
         setIsPlaying(true);
         setAudioTime(0);
 
-        if (audioRef.current) {
+        // Pre-roll: short pause before voice starts, then play and drive time via RAF at 60fps
+        const audioStartTimer = setTimeout(() => {
+            if (!audioRef.current) return;
             audioRef.current.currentTime = 0;
             audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
-        }
 
+            const tick = () => {
+                if (audioRef.current && !audioRef.current.paused) {
+                    setAudioTime(audioRef.current.currentTime);
+                    rafRef.current = requestAnimationFrame(tick);
+                }
+            };
+            rafRef.current = requestAnimationFrame(tick);
+        }, AUDIO_PRE_ROLL);
+        timersRef.current.push(audioStartTimer);
+
+        // Text segment timers — offset by the same pre-roll so text stays in sync with audio
         SCRIPT.forEach((line, index) => {
             const timer = setTimeout(() => {
                 setCurrentTextIndex(index);
                 if (index === SCRIPT.length - 1) setIsPlaying(false);
-            }, line.delay);
+            }, line.delay + AUDIO_PRE_ROLL);
             timersRef.current.push(timer);
         });
     };
 
-    // Render words: spoken = dark (var(--text-primary)), pending = faded
+    // Render words: spoken = dark, pending = faded — class swap happens at 60fps
     const renderWords = (segIdx: number) => {
         const words = WORD_TIMING[segIdx];
         if (!words || words.length === 0) return null;

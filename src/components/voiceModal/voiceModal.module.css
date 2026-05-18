@@ -141,13 +141,26 @@
     background: var(--border-subtle);
 }
 
-/* ── Karaoke word highlight ── */
+/* ── Karaoke word highlight — ChatGPT-style blur-resolve materialize ──
+   Pending words sit soft and blurred. Spoken words snap sharp to full opacity.
+   Combining opacity + filter blur with Apple's cubic-bezier creates the
+   buttery materialize that opacity-alone can't achieve. */
 .wordSpoken {
     color: var(--text-primary);
-    transition: color 0.12s ease;
+    opacity: 1;
+    filter: blur(0);
+    transition:
+        opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, filter;
 }
 
 .wordPending {
-    color: rgba(var(--text-primary-rgb), 0.22);
-    transition: color 0.12s ease;
+    color: var(--text-primary);
+    opacity: 0.15;
+    filter: blur(3px);
+    transition:
+        opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, filter;
 }
