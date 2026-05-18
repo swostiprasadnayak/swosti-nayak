@@ -159,20 +159,18 @@ function HomeContent() {
 
         {/* Mobile Navigation - Top Left */}
         <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 50, pointerEvents: 'auto' }} className="mobile-nav-only">
-          <MobileNav 
-            onShowPosts={() => setIsPostsOpen(true)}
-            onWorkClick={() => windowModeState.bringToFront("gc-dental")}
-            onVoiceMode={openVoiceModal}
-          />
+          <MobileNav />
         </div>
 
-        {/* Mobile Controls - Floating Settings button above dock on the right */}
-        <div style={{ position: 'fixed', bottom: 104, right: 24, zIndex: 100, pointerEvents: 'auto' }} className="mobile-controls-only">
+        {/* Mobile Controls & Navigation Menu - Fixed non-blocking container */}
+        <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 100 }} className="mobile-controls-only">
           <MobileControls
             onVoiceMode={openVoiceModal}
             imageIndex={imageIndex + 1}
             onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
             onScreenshot={handleScreenshot}
+            onShowPosts={() => setIsPostsOpen(true)}
+            onWorkClick={() => windowModeState.bringToFront("gc-dental")}
           />
         </div>
 
