@@ -12,6 +12,7 @@ export type CardProps = {
     isProjectExpanded?: boolean;
     onCloseWindow?: () => void;
     demoPoster?: string;
+    isActive?: boolean;
 };
 
 export const CARD_STYLES = {

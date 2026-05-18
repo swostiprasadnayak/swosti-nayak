@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import classes from "./card.module.css";
 import { Squircle } from "corner-smoothing";
@@ -47,6 +48,7 @@ const Card: React.FC<CardProps> = ({
     isProjectExpanded = false,
     onCloseWindow,
     demoPoster,
+    isActive = true,
 }) => {
     const [isHovered, setIsHovered] = useState(false);
 
@@ -127,12 +129,12 @@ const Card: React.FC<CardProps> = ({
                                         cornerRadius={8}
                                         style={cardBg ? { background: cardBg } : undefined}
                                     >
-                                        {video ? (
+                                        {video && isActive ? (
                                             <video
                                                 ref={videoRef}
                                                 src={video}
                                                 autoPlay={shouldPlay}
-                                                preload="metadata"
+                                                preload="auto"
                                                 loop
                                                 muted
                                                 playsInline
@@ -140,12 +142,13 @@ const Card: React.FC<CardProps> = ({
                                                 style={videoStyle}
                                             />
                                         ) : demoPoster ? (
-                                            <img
+                                            <Image
                                                 src={demoPoster}
                                                 alt={projectName}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 400px"
+                                                priority={isActive}
                                                 style={{
-                                                    width: '100%',
-                                                    height: '100%',
                                                     objectFit: POSTER_CONTAIN[slug] ? 'contain' : 'cover',
                                                     padding: POSTER_CONTAIN[slug] ? '10px 8px' : 0,
                                                     boxSizing: 'border-box',

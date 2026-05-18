@@ -216,6 +216,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                 onExpandProject={handleExpandProject}
                                 isProjectExpanded={!!expandedProject}
                                 onCloseWindow={() => windowModeState.closeWindow(slug)}
+                                isActive={slug === activeSlug}
                                 layoutId={
                                     getProjectLayoutId
                                         ? getProjectLayoutId(project.name.toLowerCase())
@@ -292,6 +293,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                     onExpandProject={() => {}}
                                     isProjectExpanded={false}
                                     onCloseWindow={() => {}}
+                                    isActive={false}
                                 />
                             </motion.div>
                         )}
@@ -328,6 +330,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                 onExpandProject={handleExpandProject}
                                 isProjectExpanded={!!expandedProject}
                                 onCloseWindow={() => {}}
+                                isActive={true}
                                 layoutId={
                                     getProjectLayoutId
                                         ? getProjectLayoutId(project.name.toLowerCase())

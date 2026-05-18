@@ -189,7 +189,7 @@ export default function BlinkitCaseStudyTemplate() {
                 {/* ── HERO BANNER ───────────────────────────────────────────── */}
                 <div style={{ width: "100%", marginBottom: 72 }}>
                     <img
-                        src="/images/blinkit-banner.png"
+                        src="/images/blinkit-banner.webp"
                         alt="Making Grocery Shopping Effortless with AI"
                         style={{ width: "100%", height: "auto", display: "block" }}
                     />

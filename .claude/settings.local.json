@@ -66,7 +66,8 @@
       "Bash(mv \"Mock Phone Container-3.png\" \"screen-4-upload.png\")",
       "Bash(sips -s format jpeg /Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/images/unicef-portal.png --out /Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/images/unicef-portal.jpg)",
       "Bash(cp ~/Downloads/30412e4af495b14c58b1374b50aad1f1.jpg /Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/about-gradient.jpg && ls -lh /Users/swosti.nayak/Downloads/SVG/swosti_antigravity/public/about-gradient.jpg)",
-      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")"
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(npx next *)"
     ]
   }
 }

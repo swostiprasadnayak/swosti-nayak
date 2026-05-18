@@ -7,6 +7,14 @@
     z-index: 1000;
 }
 
+@media (max-width: 768px) {
+    .overlay {
+        background: rgba(17, 24, 39, 0.6);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
 .modalContainer {
     position: fixed;
     inset: 0;

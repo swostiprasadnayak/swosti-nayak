@@ -33,7 +33,7 @@ export default function GCDentalCaseStudyTemplate() {
 
          {/* Hero Image */}
           <div style={{ width: 'calc(100% + 80px)', marginLeft: '-40px', marginBottom: '100px' }}>
-             <img src="/images/gc-banner.png" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
+             <img src="/images/gc-banner.webp" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
 
        </div>

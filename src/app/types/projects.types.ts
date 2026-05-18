@@ -31,7 +31,7 @@ export const PROJECTS: ProjectContent[] = [
         description: "B2B Healthcare Web Redesign. Discovery → Design System → Dev Handoff.",
         tags: ["B2B", "Healthcare", "Web"],
         video: "/videos/gc-dental.mov",
-        demoPoster: "/images/gc-banner.png"
+        demoPoster: "/images/gc-banner.webp"
     },
     {
         name: "Surrounding",
