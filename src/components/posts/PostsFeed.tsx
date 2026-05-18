@@ -100,15 +100,8 @@ export default function PostsFeed() {
           boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.03)"
         }}
       >
-        {/* INNER CONTAINER: Shifted 70px left */}
-        <div style={{
-          width: "100%",
-          padding: "24px 0",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          transform: "translateX(-70px)"
-        }}>
+        {/* INNER CONTAINER: Shifted 70px left on desktop */}
+        <div className="posts-inner-container">
           <div style={{ width: "90%", maxWidth: "680px", display: "flex", flexDirection: "column", gap: "24px" }}>
             {POSTS.map((post) => (
               <Squircle

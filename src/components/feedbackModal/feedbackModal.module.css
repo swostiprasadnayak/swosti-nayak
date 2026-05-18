@@ -443,12 +443,18 @@
 @media (max-width: 768px) {
     .modalContainer {
         padding: 16px;
-        align-items: flex-end;
+        align-items: center;
     }
 
     .modalWrapper {
         width: 100%;
         max-width: 100%;
+    }
+    
+    .modal {
+        max-height: 85vh;
+        overflow-y: auto;
+        /* Custom scrollbar for mobile if needed, though mobile usually hides it */
     }
 
     .body {
@@ -473,5 +479,6 @@
     .rightPanel {
         width: 100%;
         padding: 24px 20px;
+        box-sizing: border-box;
     }
 }
