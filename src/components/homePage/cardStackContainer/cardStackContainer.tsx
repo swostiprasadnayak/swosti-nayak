@@ -44,6 +44,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
     const [expandingCard, setExpandingCard] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     // Unconditional motion value setup for hooks rules compliance
     const x = useMotionValue(0);
@@ -52,6 +53,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     const controls = useAnimation();
 
     useEffect(() => {
+        setIsMounted(true);
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
         handleResize();
         window.addEventListener("resize", handleResize);
@@ -171,8 +173,64 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
     };
 
-    // Mobile swipe rendering block
-    if (isMobile) {
+    const windowCards = useMemo(() => {
+        if (!windowModeState) return null;
+        const cardDimensions = viewMode === 'card' ? CARD_STYLES.grid : CARD_STYLES.window;
+
+        return windowModeState.openWindows
+            .map((slug) => {
+                const project = filteredProjects.find((p) => p.slug === slug);
+                if (!project) return null;
+
+                const pos = windowModeState.getPosition(slug);
+                const zIndex = windowModeState.getZIndex(slug);
+
+                return (
+                    <motion.div
+                        key={slug}
+                        className={classes.windowCardOuter}
+                        style={{ x: pos?.x, y: pos?.y, zIndex }}
+                        drag
+                        dragMomentum={false}
+                        dragElastic={0}
+                        onDragStart={(e, info) => handleWindowDragStart(e, info, slug)}
+                        onDragEnd={handleWindowDragEnd}
+                        onClick={() => handleWindowCardClick(slug)}
+                    >
+                        <motion.div
+                            className={classes.windowCardWrapper}
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={windowSpring}
+                        >
+                            <Card
+                                height={cardDimensions.height}
+                                width={cardDimensions.width}
+                                projectName={project.name}
+                                projectDescription={project.description}
+                                video={project.video}
+                                demoPoster={project.demoPoster}
+                                zIndex={zIndex}
+                                isExiting={isExiting}
+                                onExpandProject={handleExpandProject}
+                                isProjectExpanded={!!expandedProject}
+                                onCloseWindow={() => windowModeState.closeWindow(slug)}
+                                layoutId={
+                                    getProjectLayoutId
+                                        ? getProjectLayoutId(project.name.toLowerCase())
+                                        : getVideoModalLayoutId?.(project.name)
+                                }
+                            />
+                        </motion.div>
+                    </motion.div>
+                );
+            })
+            .filter(Boolean);
+    }, [windowModeState, filteredProjects, isExiting, expandedProject]);
+
+    // Mobile swipe rendering block (placed after all hook declarations)
+    if (isMounted && isMobile) {
         const project = filteredProjects.find((p) => p.slug === activeSlug) || filteredProjects[0];
         if (!project) return null;
 
@@ -282,62 +340,6 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             </div>
         );
     }
-
-    const windowCards = useMemo(() => {
-        if (!windowModeState) return null;
-        const cardDimensions = viewMode === 'card' ? CARD_STYLES.grid : CARD_STYLES.window;
-
-        return windowModeState.openWindows
-            .map((slug) => {
-                const project = filteredProjects.find((p) => p.slug === slug);
-                if (!project) return null;
-
-                const pos = windowModeState.getPosition(slug);
-                const zIndex = windowModeState.getZIndex(slug);
-
-                return (
-                    <motion.div
-                        key={slug}
-                        className={classes.windowCardOuter}
-                        style={{ x: pos?.x, y: pos?.y, zIndex }}
-                        drag
-                        dragMomentum={false}
-                        dragElastic={0}
-                        onDragStart={(e, info) => handleWindowDragStart(e, info, slug)}
-                        onDragEnd={handleWindowDragEnd}
-                        onClick={() => handleWindowCardClick(slug)}
-                    >
-                        <motion.div
-                            className={classes.windowCardWrapper}
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.9, opacity: 0 }}
-                            transition={windowSpring}
-                        >
-                            <Card
-                                height={cardDimensions.height}
-                                width={cardDimensions.width}
-                                projectName={project.name}
-                                projectDescription={project.description}
-                                video={project.video}
-                                demoPoster={project.demoPoster}
-                                zIndex={zIndex}
-                                isExiting={isExiting}
-                                onExpandProject={handleExpandProject}
-                                isProjectExpanded={!!expandedProject}
-                                onCloseWindow={() => windowModeState.closeWindow(slug)}
-                                layoutId={
-                                    getProjectLayoutId
-                                        ? getProjectLayoutId(project.name.toLowerCase())
-                                        : getVideoModalLayoutId?.(project.name)
-                                }
-                            />
-                        </motion.div>
-                    </motion.div>
-                );
-            })
-            .filter(Boolean);
-    }, [windowModeState, filteredProjects, isExiting, expandedProject]);
 
     return (
         <LayoutGroup>
