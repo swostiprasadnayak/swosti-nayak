@@ -83,19 +83,4 @@
     z-index: 100;
 }
 
-@media (max-width: 768px) {
-    .dockBgFill {
-        background: #ffffff !important;
-        -webkit-backdrop-filter: none !important;
-        backdrop-filter: none !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    }
-    :global([data-theme="dark"]) .dockBgFill {
-        background: #1e1e1e !important;
-    }
-    .dockTooltip {
-        -webkit-backdrop-filter: none !important;
-        backdrop-filter: none !important;
-        background: var(--bg-card) !important;
-    }
-}
+/* Desktop and mobile share the exact same beautiful glassmorphic dock style */

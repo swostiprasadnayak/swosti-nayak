@@ -22,7 +22,7 @@ export default function MusicCard({ player }: any) {
 
     return (
         <Squircle cornerRadius={24} style={{
-            flex: 1, padding: "20px 18px",
+            flex: 1, padding: "16px 18px 24px 18px",
             background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.7)",
             border: "none",
             display: "flex", flexDirection: "column", justifyContent: "space-between",
@@ -44,7 +44,7 @@ export default function MusicCard({ player }: any) {
                 </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "14px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "8px" }}>
                 <div style={{ position: "relative", flex: 1, height: 6, background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0,0,0,0.04)", borderRadius: 10 }}>
                     <div style={{ width: `${progress || 0}%`, height: "100%", background: isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(0,0,0,0.12)", borderRadius: 10 }} />
                     <input
@@ -69,7 +69,7 @@ export default function MusicCard({ player }: any) {
                 display: "flex", 
                 justifyContent: "center", 
                 gap: "36px", 
-                marginTop: "16px", 
+                marginTop: "8px", 
                 alignItems: "center", 
                 color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.85)" 
             }}>
