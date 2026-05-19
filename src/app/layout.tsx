@@ -9,6 +9,7 @@ import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
 import WelcomeOverlay from "@/components/welcomeOverlay/WelcomeOverlay";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -57,6 +58,7 @@ export default function RootLayout({
         <WelcomeOverlay />
         <Analytics />
         <SpeedInsights />
+        {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
       </body>
     </html>
   );
