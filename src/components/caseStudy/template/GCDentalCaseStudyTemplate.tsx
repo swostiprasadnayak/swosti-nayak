@@ -580,38 +580,6 @@ export default function GCDentalCaseStudyTemplate() {
              </div>
           </div>
 
-          {/* If I could do it again */}
-          <div style={{ background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '16px', padding: '40px', marginBottom: '80px' }}>
-             <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#b45309', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px', display: 'block' }}>If I could do it again</span>
-             <h4 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#92400e', margin: '0 0 16px 0' }}>I'd add competitive usability testing, not just heuristic benchmarking.</h4>
-             <p style={{ fontSize: '0.9rem', color: '#92400e', lineHeight: 1.6, margin: 0 }}>
-               We benchmarked Dentsply and Ivoclar visually and evaluated their heuristics. But we never tested our actual users on their sites to see what patterns they found intuitive. "What works for our users" is more valuable than "what's popular in dental design." That's a research gap, not a design gap — and it's fixable in week 2 of any future discovery sprint.
-             </p>
-          </div>
-
-          {/* 90 Second Interview Story */}
-          <div className={classes.htmlSectionCard} style={{ padding: '48px', position: 'relative', overflow: 'hidden' }}>
-             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'var(--primary-color)' }} />
-             <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--primary-color)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px', display: 'block' }}>The 90-Second Interview Story</span>
-             <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: 'var(--text-primary)', margin: '0 0 32px 0', fontFamily: 'Playfair Display, serif' }}>If you ask me "tell me about this project" in an interview, here's exactly what I'll say:</h3>
-             
-             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-               {[
-                 <>I worked on a B2B healthcare website redesign where the core problem wasn't what the client thought — <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>4 of 5 dental professionals arrived late in their research journey, looking to verify a decision, not explore the brand.</span></>,
-                 <>I ran heuristic evaluation and usability testing and found <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>two critical blockers: IFU was buried, and the product page hero didn't communicate which product you were on</span> — both causing silent abandonment.</>,
-                 <>I solved them with two research-backed components: a <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>redesigned Documents & Manuals grid (one-click from anywhere) and two PDP templates (Simple and Detailed)</span> with a sticky product cart that follows you through 11 sections.</>,
-                 <>Then I scaled this into a <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>30+ component design system across 2 breakpoints and 30+ regions</span> — so the team ships faster, stays consistent, and never designs the same component twice.</>
-               ].map((text, i) => (
-                 <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: '24px', borderBottom: i < 3 ? '1px solid rgba(0,180,148,0.1)' : 'none' }}>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary-color)', opacity: 0.6 }}>{i+1}</div>
-                    <div style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{text}</div>
-                 </div>
-               ))}
-             </div>
-             
-             <div style={{ marginTop: '24px', fontSize: '0.75rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>Practice saying this out loud. Time it. It should take 90–120 seconds. Land the pauses. Own it.</div>
-          </div>
-
        </div>
 
     </div>
