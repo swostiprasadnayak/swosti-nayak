@@ -22,7 +22,7 @@ export default function MusicCard({ player }: any) {
 
     return (
         <Squircle cornerRadius={24} style={{
-            flex: 1, padding: "16px 18px 24px 18px",
+            flex: 1, padding: "16px 14px 22px 14px",
             background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.7)",
             border: "none",
             display: "flex", flexDirection: "column", justifyContent: "space-between",
@@ -68,7 +68,7 @@ export default function MusicCard({ player }: any) {
             <div style={{ 
                 display: "flex", 
                 justifyContent: "center", 
-                gap: "36px", 
+                gap: "24px", 
                 marginTop: "8px", 
                 alignItems: "center", 
                 color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.85)" 
