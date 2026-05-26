@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Squircle } from "corner-smoothing";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import InteractivePortalWindow from "../blocks/InteractivePortalWindow";
@@ -31,7 +32,7 @@ export default function UnicefCaseStudyTemplate() {
 
          {/* Hero Image */}
          <Squircle cornerRadius={24} style={{ width: '100%', overflow: 'hidden', marginBottom: '100px', border: '1px solid rgba(0,0,0,0.05)' }}>
-            <img src="/unicef-hero-container.png" alt="Unicef Portal" style={{ width: '100%', height: 'auto', display: 'block' }} onError={(e) => e.currentTarget.style.display = 'none'} />
+            <Image src="/unicef-hero-container.png" alt="Unicef Portal" width={1920} height={1080} sizes="(max-width: 768px) 100vw, 90vw" priority style={{ width: '100%', height: 'auto', display: 'block' }} onError={(e) => e.currentTarget.style.display = 'none'} />
          </Squircle>
       </div>
 
@@ -784,14 +785,14 @@ export default function UnicefCaseStudyTemplate() {
               </p>
             </div>
             <div>
-              <img src="/unicef/globe-hero.png" alt="Homepage Globe hero & entry point" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <Image src="/unicef/globe-hero.png" alt="Homepage Globe hero & entry point" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             </div>
           </div>
 
           {/* Persona Entry */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
             <div>
-              <img src="/unicef/persona-entry.png" alt="Homepage persona-segmented entry band" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <Image src="/unicef/persona-entry.png" alt="Homepage persona-segmented entry band" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
@@ -843,11 +844,11 @@ export default function UnicefCaseStudyTemplate() {
           {/* Two map images side by side */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '48px' }}>
             <div>
-              <img src="/unicef/globe-3d.png" alt="3D Globe  drag, zoom, click for profile" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <Image src="/unicef/globe-3d.png" alt="3D Globe  drag, zoom, click for profile" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
               <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '12px', fontWeight: 500 }}>3D Globe  drag · zoom · click for profile</p>
             </div>
             <div>
-              <img src="/unicef/choropleth-2d.png" alt="2D Choropleth  UN-compliant + data table" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <Image src="/unicef/choropleth-2d.png" alt="2D Choropleth  UN-compliant + data table" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
               <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '12px', fontWeight: 500 }}>2D Choropleth  UN-compliant + data table</p>
             </div>
           </div>
@@ -879,7 +880,7 @@ export default function UnicefCaseStudyTemplate() {
         <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
             <div>
-              <img src="/unicef/map-to-compare.png" alt="Globe to Compare  map-to-comparison flow" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <Image src="/unicef/map-to-compare.png" alt="Globe to Compare  map-to-comparison flow" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
@@ -947,7 +948,7 @@ export default function UnicefCaseStudyTemplate() {
               </p>
             </div>
             <div>
-              <img src="/unicef/country-search-filter.png" alt="Compare  Country search filter within heatmap" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+              <Image src="/unicef/country-search-filter.png" alt="Compare  Country search filter within heatmap" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             </div>
           </div>
         </div>
@@ -972,9 +973,9 @@ export default function UnicefCaseStudyTemplate() {
 
           {/* Three comparison images */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '48px' }}>
-            <img src="/unicef/compare-threshold.png" alt="Compare  Threshold heatmap focused view" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
-            <img src="/unicef/compare-scatter.png" alt="Compare  Scatter plot view" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
-            <img src="/unicef/compare-normalized.png" alt="Compare  Normalized percentile view" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            <Image src="/unicef/compare-threshold.png" alt="Compare  Threshold heatmap focused view" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            <Image src="/unicef/compare-scatter.png" alt="Compare  Scatter plot view" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
+            <Image src="/unicef/compare-normalized.png" alt="Compare  Normalized percentile view" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
           </div>
 
           {/* Two callout columns */}

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Squircle } from "corner-smoothing";
 
@@ -114,8 +115,8 @@ export default function PostsFeed() {
                   
                   {/* Post Header */}
                   <motion.div layoutId={`post-header-${post.id}`} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#ccc", overflow: "hidden" }}>
-                       <img src={post.avatar} alt={post.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#ccc", overflow: "hidden", position: "relative" }}>
+                       <Image src={post.avatar} alt={post.author} fill sizes="36px" style={{ objectFit: "cover" }} />
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
                       <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "4px" }}>
@@ -129,7 +130,7 @@ export default function PostsFeed() {
 
                   {/* Post Media: 4/3 aspect ratio */}
                   <motion.div layoutId={`post-media-${post.id}`} style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", marginBottom: "14px", background: "#f0f0f0" }}>
-                    <img src={post.mediaUrl} alt="Post media" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <Image src={post.mediaUrl} alt="Post media" fill sizes="(max-width: 768px) 90vw, 400px" loading="lazy" style={{ objectFit: "cover" }} />
                     <div style={{ 
                       position: "absolute", 
                       bottom: "12px", 
@@ -201,8 +202,8 @@ export default function PostsFeed() {
                     
                     {/* Header */}
                     <motion.div layoutId={`post-header-${post.id}`} style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "24px" }}>
-                      <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "#ccc", overflow: "hidden" }}>
-                        <img src={post.avatar} alt={post.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "#ccc", overflow: "hidden", position: "relative" }}>
+                        <Image src={post.avatar} alt={post.author} fill sizes="48px" style={{ objectFit: "cover" }} />
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                         <div style={{ fontWeight: 700, fontSize: "1.05rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "6px" }}>
@@ -219,7 +220,7 @@ export default function PostsFeed() {
                       layoutId={`post-media-${post.id}`} 
                       style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "16px", overflow: "hidden", marginBottom: "24px", background: "#f0f0f0" }}
                     >
-                      <img src={post.mediaUrl} alt="Post media" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <Image src={post.mediaUrl} alt="Post media" fill sizes="(max-width: 768px) 90vw, 700px" loading="lazy" style={{ objectFit: "cover" }} />
                       <button 
                         onClick={() => setExpandedId(null)}
                         style={{ 

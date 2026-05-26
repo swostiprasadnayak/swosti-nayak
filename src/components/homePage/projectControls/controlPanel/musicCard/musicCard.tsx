@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Squircle } from "corner-smoothing";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import { Play, Pause, FastForward, Rewind } from "lucide-react";
@@ -31,9 +32,9 @@ export default function MusicCard({ player }: any) {
             transition: "all 0.2s ease"
         }}>
             <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
-                <Squircle cornerRadius={16} style={{ width: 60, height: 60, background: isDark ? "#333" : "#eee", flexShrink: 0, overflow: "hidden" }}>
+                <Squircle cornerRadius={16} style={{ width: 60, height: 60, background: isDark ? "#333" : "#eee", flexShrink: 0, overflow: "hidden", position: "relative" }}>
                     {track?.thumbnail ? (
-                        <img src={track.thumbnail} alt={track.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <Image src={track.thumbnail} alt={track.title} fill sizes="60px" style={{ objectFit: "cover" }} />
                     ) : (
                         <div style={{ width: "100%", height: "100%", background: isDark ? "linear-gradient(135deg, #444 0%, #333 100%)" : "linear-gradient(135deg, #eee 0%, #ddd 100%)" }} />
                     )}

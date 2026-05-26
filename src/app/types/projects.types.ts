@@ -30,7 +30,7 @@ export const PROJECTS: ProjectContent[] = [
         slug: "gc-dental",
         description: "B2B Healthcare Web Redesign. Discovery → Design System → Dev Handoff.",
         tags: ["B2B", "Healthcare", "Web"],
-        video: "/videos/gc-dental.mov",
+        video: "/videos/gc-dental.mp4",
         demoPoster: "/images/gc-banner.webp"
     },
     {

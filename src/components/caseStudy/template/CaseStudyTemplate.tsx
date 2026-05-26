@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Squircle } from "corner-smoothing";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import InteractiveNotes from "../blocks/InteractiveNotes";
@@ -21,7 +22,7 @@ export default function CaseStudyTemplate() {
                 />
                 {/* 2. Hero Media */}
                 <Squircle cornerRadius={24} className={classes.heroMedia}>
-                    <img src="/projectCardImages/syne/poster.jpg" alt="Syne Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <Image src="/projectCardImages/syne/poster.jpg" alt="Syne Hero" fill sizes="(max-width: 768px) 100vw, 90vw" priority style={{ objectFit: 'cover' }} />
                 </Squircle>
                 {/* 3. Text Intro */}
                 <div className={classes.textSection}>

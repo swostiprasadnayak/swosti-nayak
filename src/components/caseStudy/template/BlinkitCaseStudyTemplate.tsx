@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import classes from "./caseStudy.module.css";
@@ -188,9 +189,13 @@ export default function BlinkitCaseStudyTemplate() {
 
                 {/* ── HERO BANNER ───────────────────────────────────────────── */}
                 <div style={{ width: "100%", marginBottom: 72 }}>
-                    <img
+                    <Image
                         src="/images/blinkit-banner.webp"
                         alt="Making Grocery Shopping Effortless with AI"
+                        width={1920}
+                        height={1080}
+                        sizes="(max-width: 768px) 100vw, 90vw"
+                        priority
                         style={{ width: "100%", height: "auto", display: "block" }}
                     />
                 </div>
@@ -484,10 +489,13 @@ export default function BlinkitCaseStudyTemplate() {
                                             if (overlay) overlay.style.opacity = "0";
                                         }}
                                     >
-                                        <img
+                                        <Image
                                             src={s.src}
                                             alt={s.label}
-                                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }}
+                                            fill
+                                            sizes="(max-width: 768px) 50vw, 15vw"
+                                            loading="lazy"
+                                            style={{ objectFit: "cover", display: "block", pointerEvents: "none" }}
                                         />
                                         {/* Hover overlay */}
                                         <div className="hover-overlay" style={{
@@ -532,9 +540,12 @@ export default function BlinkitCaseStudyTemplate() {
                     >
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, maxHeight: "90vh", position: "relative" }}>
                             {/* Image */}
-                            <img
+                            <Image
                                 src={SCREENS[lightboxIndex].src}
                                 alt={SCREENS[lightboxIndex].label}
+                                width={390}
+                                height={844}
+                                sizes="(max-width: 768px) 90vw, 420px"
                                 style={{
                                     maxHeight: "80vh",
                                     maxWidth: "min(420px, 90vw)",
@@ -542,6 +553,8 @@ export default function BlinkitCaseStudyTemplate() {
                                     boxShadow: "0 32px 80px rgba(0,0,0,0.5)",
                                     display: "block",
                                     objectFit: "contain",
+                                    width: "auto",
+                                    height: "auto",
                                 }}
                             />
 

@@ -161,13 +161,15 @@ export default function VoiceModal() {
                             <div className={classes.contentArea}>
                                 <div className={`${classes.avatarContainer} ${isPlaying ? classes.avatarFloat : ""}`}>
                                     <video
-                                        src="/swosti-avatar.mp4"
+                                        poster="/swosti-avatar-poster.jpg"
                                         autoPlay
                                         loop
                                         muted
                                         playsInline
                                         className={classes.avatarVideo}
-                                    />
+                                    >
+                                        <source src="/swosti-avatar.mp4" type="video/mp4" />
+                                    </video>
                                     <div className={classes.avatarShadow} />
                                 </div>
 

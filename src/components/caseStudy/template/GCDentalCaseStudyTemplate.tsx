@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Squircle } from "corner-smoothing";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import classes from "./caseStudy.module.css";
@@ -33,7 +34,7 @@ export default function GCDentalCaseStudyTemplate() {
 
          {/* Hero Image */}
           <div style={{ width: 'calc(100% + 80px)', marginLeft: '-40px', marginBottom: '100px' }}>
-             <img src="/images/gc-banner.webp" alt="GC Dental Portal" style={{ width: '100%', height: 'auto', display: 'block' }} />
+             <Image src="/images/gc-banner.webp" alt="GC Dental Portal" width={1920} height={1080} sizes="(max-width: 768px) 100vw, 90vw" priority style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
 
        </div>
