@@ -11,13 +11,13 @@ export type WindowModeAPI = {
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Start empty for SSR safety and to keep mobile clear on startup
     const [openWindows, setOpenWindows] = useState<string[]>([]);
-    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, "insure-tech": 2, blinkit: 3 });
-    const [topZ, setTopZ] = useState(3);
+    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, unicef: 2, "insure-tech": 3, blinkit: 4 });
+    const [topZ, setTopZ] = useState(4);
 
     // Initialize desktop open windows on mount
     useEffect(() => {
         if (typeof window !== "undefined" && window.innerWidth > 768) {
-            setOpenWindows(["gc-dental", "insure-tech", "blinkit"]);
+            setOpenWindows(["gc-dental", "unicef", "insure-tech", "blinkit"]);
         }
     }, []);
 
@@ -51,6 +51,7 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
                 blinkit:      { x: -380, y: 350 },
                 aristotle:    { x:   50, y: 350 },
                 "gc-dental":  { x: -380, y: -20 },
+                unicef:       { x: -380, y: -20 },
             };
             return gridPositions[slug] || { x: 0, y: 0 };
         }
@@ -58,10 +59,11 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
         // Initial staggered positions so they stack nicely like a desktop
         const positions: Record<string, { x: number, y: number }> = {
             syne:         { x: -160, y: -60 },
+            "gc-dental":  { x: -160, y: -60 },
+            unicef:       { x: -80, y: -30 },
             "insure-tech":{ x:    0, y:   0 },
             blinkit:      { x:  160, y:  60 },
             aristotle:    { x:    0, y:   0 },
-            "gc-dental":  { x: -160, y: -60 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, [viewMode]);

@@ -27,6 +27,7 @@ const POSTER_CONTAIN: Record<string, boolean> = {
 const CARD_BG_COLORS: Record<string, string> = {
     blinkit: "#EAEAEA",
     "insure-tech": "#ffffff",
+    unicef: "#ffffff",
 };
 
 const EXIT_ANIMATION = {
@@ -63,7 +64,14 @@ const Card: React.FC<CardProps> = ({
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const shouldPlay = !isProjectExpanded;
-    useVideoPlayback(videoRef, shouldPlay && isActive);
+    useVideoPlayback(videoRef, shouldPlay);
+
+    useEffect(() => {
+        if (videoRef.current && videoRef.current.readyState >= 3) {
+            setVideoLoaded(true);
+            onVideoLoaded?.();
+        }
+    }, [videoRef.current?.readyState]);
 
     const videoStyle = useMemo(
         () => ({
@@ -130,9 +138,28 @@ const Card: React.FC<CardProps> = ({
                                     <Squircle
                                         className={classes.videoContainer}
                                         cornerRadius={8}
-                                        style={cardBg ? { background: cardBg } : undefined}
+                                        style={cardBg ? { background: cardBg, position: "relative" } : { position: "relative" }}
                                     >
-                                        {video && isActive ? (
+                                        {demoPoster && (
+                                            <Image
+                                                src={demoPoster}
+                                                alt={projectName}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 400px"
+                                                priority={isActive}
+                                                style={{
+                                                    objectFit: POSTER_CONTAIN[slug] ? "contain" : "cover",
+                                                    objectPosition: slug === "insure-tech" ? "center calc(50% - 40px)" : "center",
+                                                    padding: slug === "insure-tech" ? "0 16px 0 0" : "0",
+                                                    boxSizing: "border-box",
+                                                    opacity: video && videoLoaded ? 0 : 1,
+                                                    transition: "opacity 0.3s ease-in-out",
+                                                    position: "absolute",
+                                                    zIndex: 1,
+                                                }}
+                                            />
+                                        )}
+                                        {video && (
                                             <video
                                                 ref={videoRef}
                                                 src={video}
@@ -141,7 +168,7 @@ const Card: React.FC<CardProps> = ({
                                                 loop
                                                 muted
                                                 playsInline
-                                                onLoadedData={() => {
+                                                onCanPlay={() => {
                                                     setVideoLoaded(true);
                                                     onVideoLoaded?.();
                                                 }}
@@ -149,22 +176,12 @@ const Card: React.FC<CardProps> = ({
                                                     ...videoStyle,
                                                     opacity: videoLoaded ? 1 : 0,
                                                     transition: "opacity 0.3s ease-in-out",
+                                                    position: "relative",
+                                                    zIndex: 2,
                                                 }}
                                             />
-                                        ) : demoPoster ? (
-                                            <Image
-                                                src={demoPoster}
-                                                alt={projectName}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, 400px"
-                                                priority={isActive}
-                                                style={{
-                                                    objectFit: POSTER_CONTAIN[slug] ? 'contain' : 'cover',
-                                                    padding: POSTER_CONTAIN[slug] ? (slug === 'insure-tech' ? '12px' : '10px 8px') : 0,
-                                                    boxSizing: 'border-box',
-                                                }}
-                                            />
-                                        ) : (
+                                        )}
+                                        {!demoPoster && !video && (
                                             <div style={{ width: '100%', height: '100%', background: '#eaeaea' }} />
                                         )}
                                     </Squircle>
