@@ -31,11 +31,11 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 }) => {
     const filteredProjects = useMemo(() => {
         if (activeFilters.length === 0 || activeFilters.includes("All Works")) {
-            // All Works: Unicef, Blinkit, Surrounding only
-            return PROJECTS.filter((p) => ["unicef", "blinkit", "gc-dental"].includes(p.slug));
+            // All Works: Insure-Tech, Blinkit, GC Dental
+            return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental"].includes(p.slug));
         }
         if (activeFilters.includes("Featured")) {
-            return PROJECTS.filter((p) => p.slug === "unicef");
+            return PROJECTS.filter((p) => p.slug === "insure-tech");
         }
         return PROJECTS.filter((project) =>
             project.tags?.some((tag) => activeFilters.includes(tag))
@@ -61,7 +61,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     }, []);
 
     const activeSlug = useMemo(() => {
-        if (!windowModeState || windowModeState.openWindows.length === 0) return "unicef";
+        if (!windowModeState || windowModeState.openWindows.length === 0) return "insure-tech";
         // The last window in openWindows is the active/front-most one
         return windowModeState.openWindows[windowModeState.openWindows.length - 1];
     }, [windowModeState?.openWindows]);
@@ -81,7 +81,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     // Initialize with unicef if empty on mobile startup
     useEffect(() => {
         if (isMobile && windowModeState && windowModeState.openWindows.length === 0) {
-            windowModeState.bringToFront("unicef");
+            windowModeState.bringToFront("insure-tech");
         }
     }, [isMobile, windowModeState]);
 
