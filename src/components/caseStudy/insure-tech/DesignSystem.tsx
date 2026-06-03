@@ -4,6 +4,7 @@ import {
   CheckCircle2, AlertTriangle, AlertCircle, XCircle,
   ChevronDown, ChevronRight, Eye, EyeOff, Search, X,
 } from "lucide-react";
+import { useIsMobile } from "@/app/hooks/useIsMobile";
 
 // ─── Design tokens (mirrors Figma DS collections) ────────────────────────────
 const T = {
@@ -145,7 +146,7 @@ function TypographySection() {
       <SectionLabel n="02" label="Typography Scale" />
       <SectionH>Typography Scale</SectionH>
       <SectionSub>Inter is the sole typeface. 19 named styles. Font loaded via Google Fonts.</SectionSub>
-      <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden" }}>
+      <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", overflowX: "auto" }}>
         {TYPE_ROWS.map((row, i) => (
           <div key={row.style} style={{
             display: "grid", gridTemplateColumns: "200px 1fr",
@@ -293,9 +294,9 @@ function AtomsSection() {
       <SectionH>Form Controls</SectionH>
       <SectionSub>Checkbox · Radio · Toggle — each state shown. Focus ring uses brand/green-100 spread.</SectionSub>
 
-      <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", marginBottom: 40 }}>
+      <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", overflowX: "auto", marginBottom: 40 }}>
         {/* Header */}
-        <div style={{ display: "grid", gridTemplateColumns: "120px repeat(6, 1fr)", background: T.surf2, padding: "10px 16px", borderBottom: `1px solid ${T.border}` }}>
+        <div style={{ display: "grid", gridTemplateColumns: "120px repeat(6, 1fr)", background: T.surf2, padding: "10px 16px", borderBottom: `1px solid ${T.border}`, minWidth: 600 }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: T.text3 }}>Control</span>
           {CTRL_STATES.map(s => <span key={s} style={{ fontSize: 10, fontWeight: 600, color: T.text3, textAlign: "center" as const }}>{s}</span>)}
         </div>
@@ -305,6 +306,7 @@ function AtomsSection() {
             padding: "14px 16px", alignItems: "center",
             borderBottom: ti < 2 ? `1px solid ${T.border}` : "none",
             background: ti % 2 === 0 ? T.surf : T.surf2,
+            minWidth: 600,
           }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: T.ink, textTransform: "capitalize" as const }}>{type}</span>
             {CTRL_STATES.map(state => (
@@ -848,8 +850,8 @@ function AccessibilitySection() {
       <SectionLabel n="10" label="Accessibility" />
       <SectionH>Accessibility Audit</SectionH>
       <SectionSub>WCAG 2.1 AA. Body text requires 4.5:1, large text/icons 3:1. Failing pairs shown with corrected alternatives.</SectionSub>
-      <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", marginBottom: 32 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 80px 90px 1fr", gap: 0, padding: "10px 16px", background: T.surf2, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", overflowX: "auto", marginBottom: 32 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 80px 90px 1fr", gap: 0, padding: "10px 16px", background: T.surf2, borderBottom: `1px solid ${T.border}`, minWidth: 500 }}>
           {["Pair", "Ratio", "Result", "Note"].map(h => (
             <span key={h} style={{ fontSize: 11, fontWeight: 700, color: T.text3 }}>{h}</span>
           ))}
@@ -860,6 +862,7 @@ function AccessibilitySection() {
             padding: "12px 16px", alignItems: "center",
             borderBottom: i < rows.length - 1 ? `1px solid ${T.border}` : "none",
             background: i % 2 === 0 ? T.surf : T.surf2,
+            minWidth: 500,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <div style={{ width: 16, height: 16, borderRadius: 3, background: r.fg, border: `1px solid ${T.border}`, flexShrink: 0 }} />
@@ -879,13 +882,13 @@ function AccessibilitySection() {
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
         {[
           { icon: "⌨", label: "Keyboard Navigation", items: ["Tab / Shift+Tab — focus order", "Enter / Space — activate", "Esc — close drawer/modal", "← / → — walk parameters in Tree", "⌘B — toggle sidebar"] },
           { icon: "👁", label: "Focus Visibility", items: ["2px solid brand/green-700", "3px offset using box-shadow spread", "Applies only on :focus-visible", "Never on :focus (avoids click ring)", "Focus ring shows on all interactive atoms"] },
           { icon: "📏", label: "Touch Targets", items: ["Minimum 44×44px on mobile", "All buttons MD(40px)+ on desktop", "Icon-only buttons include padding area", "Form controls: 18×18px + 13px padding each side", "prefers-reduced-motion respected"] },
         ].map(card => (
-          <div key={card.label} style={{ padding: 20, borderRadius: 12, border: `1px solid ${T.border}`, background: T.surf }}>
+          <div key={card.label} style={{ flex: "1 1 240px", padding: 20, borderRadius: 12, border: `1px solid ${T.border}`, background: T.surf }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
               <div style={{ width: 36, height: 36, borderRadius: 9, background: T.brandTint, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>{card.icon}</div>
               <p style={{ fontSize: 14, fontWeight: 700, color: T.ink, margin: 0 }}>{card.label}</p>
@@ -959,60 +962,78 @@ const SECTIONS = [
 // ─── Main export ──────────────────────────────────────────────────────────────
 export default function DesignSystem() {
   const [activeSection, setActiveSection] = useState("variables");
+  const isMobile = useIsMobile();
 
   return (
-    <div style={{ display: "flex", height: "100%", overflow: "hidden", background: T.surf }}>
+    <div style={{ display: "flex", height: "100%", overflow: "hidden", background: T.surf, flexDirection: isMobile ? "column" : "row" }}>
 
       {/* Left nav */}
       <nav style={{
-        width: 180, flexShrink: 0,
-        borderRight: `1px solid ${T.border}`,
-        background: T.surf, overflowY: "auto",
-        padding: "24px 0",
+        width: isMobile ? "100%" : 180, flexShrink: 0,
+        borderRight: isMobile ? "none" : `1px solid ${T.border}`,
+        borderBottom: isMobile ? `1px solid ${T.border}` : "none",
+        background: T.surf, overflowY: isMobile ? "hidden" : "auto",
+        overflowX: isMobile ? "auto" : "hidden",
+        padding: isMobile ? "12px 0" : "24px 0",
+        display: isMobile ? "flex" : "block",
+        flexDirection: isMobile ? "row" : undefined,
+        flexWrap: isMobile ? "nowrap" : undefined,
       }}>
-        <div style={{ padding: "0 16px 16px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <div style={{ width: 20, height: 20, borderRadius: 5, background: T.brand, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: 9, fontWeight: 700, color: "#fff" }}>DS</span>
+        {!isMobile && (
+          <>
+            <div style={{ padding: "0 16px 16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                <div style={{ width: 20, height: 20, borderRadius: 5, background: T.brand, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "#fff" }}>DS</span>
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 700, color: T.ink }}>Design System</span>
+              </div>
+              <p style={{ fontSize: 10, color: T.text3, margin: 0 }}>v1.0 · Eicore OneBuzz</p>
             </div>
-            <span style={{ fontSize: 12, fontWeight: 700, color: T.ink }}>Design System</span>
-          </div>
-          <p style={{ fontSize: 10, color: T.text3, margin: 0 }}>v1.0 · Eicore OneBuzz</p>
-        </div>
-        <div style={{ height: 1, background: T.border, margin: "0 0 12px" }} />
+            <div style={{ height: 1, background: T.border, margin: "0 0 12px" }} />
+          </>
+        )}
         {SECTIONS.map(s => (
           <button key={s.id} onClick={() => {
             setActiveSection(s.id);
             document.getElementById(`ds-sec-${s.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
           }} style={{
-            width: "100%", display: "flex", alignItems: "center", gap: 8,
-            padding: "7px 16px", border: "none", background: "transparent",
+            display: "flex", alignItems: "center", gap: 8,
+            padding: isMobile ? "7px 12px" : "7px 16px",
+            border: "none", background: "transparent",
             cursor: "pointer", textAlign: "left" as const,
-            borderLeft: `2px solid ${activeSection === s.id ? T.brand : "transparent"}`,
+            borderLeft: isMobile ? "none" : `2px solid ${activeSection === s.id ? T.brand : "transparent"}`,
+            borderBottom: isMobile ? `2px solid ${activeSection === s.id ? T.brand : "transparent"}` : "none",
             fontSize: 12.5, fontWeight: activeSection === s.id ? 600 : 400,
             color: activeSection === s.id ? T.brand : T.text2,
+            flexShrink: 0,
+            whiteSpace: "nowrap" as const,
           }}>
             {s.label}
           </button>
         ))}
 
-        <div style={{ height: 1, background: T.border, margin: "12px 0" }} />
-        <div style={{ padding: "0 16px" }}>
-          <p style={{ fontSize: 10, color: T.text4, margin: "0 0 6px", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" as const }}>Figma file</p>
-          <a href="https://www.figma.com/design/Kvmh94Muy31SuAT8Ixs4Mr/Swosti_Portfolio_2026?node-id=1738-70145" target="_blank" rel="noreferrer"
-            style={{ fontSize: 11, color: T.brand, textDecoration: "none", fontWeight: 500 }}>
-            Open in Figma →
-          </a>
-        </div>
+        {!isMobile && (
+          <>
+            <div style={{ height: 1, background: T.border, margin: "12px 0" }} />
+            <div style={{ padding: "0 16px" }}>
+              <p style={{ fontSize: 10, color: T.text4, margin: "0 0 6px", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" as const }}>Figma file</p>
+              <a href="https://www.figma.com/design/Kvmh94Muy31SuAT8Ixs4Mr/Swosti_Portfolio_2026?node-id=1738-70145" target="_blank" rel="noreferrer"
+                style={{ fontSize: 11, color: T.brand, textDecoration: "none", fontWeight: 500 }}>
+                Open in Figma →
+              </a>
+            </div>
+          </>
+        )}
       </nav>
 
       {/* Content */}
       <main style={{ flex: 1, overflowY: "auto", background: T.surf2 }}>
         {/* Banner */}
-        <div style={{ background: T.brand, padding: "32px 60px", display: "flex", alignItems: "center", gap: 24 }}>
+        <div style={{ background: T.brand, padding: isMobile ? "20px 20px" : "32px 60px", display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" as const }}>
           <div style={{ flex: 1 }}>
             <p style={{ fontSize: 11, fontWeight: 700, color: "#a7f3d0", margin: "0 0 6px", letterSpacing: "0.1em", textTransform: "uppercase" as const }}>Design System</p>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.025em" }}>Eicore OneBuzz v1.0</h1>
+            <h1 style={{ fontSize: isMobile ? 20 : 28, fontWeight: 700, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.025em" }}>Eicore OneBuzz v1.0</h1>
             <p style={{ fontSize: 14, color: "#a7f3d0", margin: 0 }}>5 variable collections · 138 tokens · 19 text styles · 6 elevation levels · Inter</p>
           </div>
           <div style={{ display: "flex", gap: 10 }}>
@@ -1026,7 +1047,7 @@ export default function DesignSystem() {
         </div>
 
         {/* Sections */}
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "48px 60px 100px", display: "flex", flexDirection: "column" as const, gap: 80 }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "24px 16px 80px" : "48px 60px 100px", display: "flex", flexDirection: "column" as const, gap: isMobile ? 48 : 80 }}>
           <div id="ds-sec-variables">    <VariablesSection />   </div>
           <div style={{ height: 1, background: T.border }} />
           <div id="ds-sec-colours">     <ColourSection />      </div>

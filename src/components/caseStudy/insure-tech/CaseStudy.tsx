@@ -5,6 +5,7 @@ import {
   Zap, Target, Users, AlertTriangle, CheckCircle2, ArrowRight,
   Layers, Search, FileSearch, Activity, Sparkles,
 } from "lucide-react";
+import { useIsMobile } from "@/app/hooks/useIsMobile";
 import {
   MethodSelection, ExtractionPreview,
   PrePublishReview, StakeholderDashboard,
@@ -265,8 +266,8 @@ function SectionLabel({ n, label }: { n: string; label: string }) {
   );
 }
 
-function H2({ children }: { children: React.ReactNode }) {
-  return <h2 style={{ fontSize: 28, fontWeight: 700, color: INK, margin: "0 0 16px", letterSpacing: "-0.02em" }}>{children}</h2>;
+function H2({ children, isMobile }: { children: React.ReactNode; isMobile?: boolean }) {
+  return <h2 style={{ fontSize: isMobile ? 20 : 28, fontWeight: 700, color: INK, margin: "0 0 16px", letterSpacing: "-0.02em" }}>{children}</h2>;
 }
 
 // ─── Real-DOM screen thumbnail ────────────────────────────────────────────────
@@ -382,19 +383,20 @@ const ResolveIllustration = () => (
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?: number) => void }) {
+  const isMobile = useIsMobile();
   return (
     <div style={{ height: "100%", overflowY: "auto", background: "#ffffff" }}>
-      <div style={{ maxWidth: 920, margin: "0 auto", padding: "64px 40px 100px", display: "flex", flexDirection: "column", gap: 80 }}>
+      <div style={{ maxWidth: 920, margin: "0 auto", padding: isMobile ? "40px 20px 80px" : "64px 40px 100px", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
 
         {/* HERO */}
         <div>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: BRAND_TINT, color: BRAND, fontSize: 13, fontWeight: 600, marginBottom: 24 }}>
             <Zap size={13} /> UX Case Study
           </span>
-          <h1 style={{ fontSize: 48, lineHeight: 1.1, fontWeight: 700, letterSpacing: "-0.03em", color: INK, margin: "0 0 20px" }}>
+          <h1 style={{ fontSize: isMobile ? 28 : 48, lineHeight: 1.1, fontWeight: 700, letterSpacing: "-0.03em", color: INK, margin: "0 0 20px" }}>
             Eicore OneBuzz —<br />Product Plan Builder Redesign
           </h1>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: MUTED, maxWidth: 720, margin: "0 0 28px" }}>
+          <p style={{ fontSize: isMobile ? 15 : 18, lineHeight: 1.6, color: MUTED, maxWidth: 720, margin: "0 0 28px" }}>
             Redesigning an AI-powered insurance Product Plan Builder — compressing 3–5 days of manual configuration into hours of intelligent, trustworthy review.
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32 }}>
@@ -408,7 +410,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         </div>
 
         {/* ⭐ FINAL DESIGN SHOWCASE — positioned right after the hero for primary impact */}
-        <div style={{
+        <div style={isMobile ? { padding: "32px 0", background: "#ffffff" } : {
           marginLeft: -40, marginRight: -40,
           padding: "52px 40px",
           background: "#ffffff",
@@ -424,10 +426,10 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
               <Sparkles size={13} /> FINAL DESIGNS · HI-FI SHOWCASE
             </span>
             <h2 style={{
-              fontSize: 36, lineHeight: 1.15, fontWeight: 700,
+              fontSize: isMobile ? 24 : 36, lineHeight: 1.15, fontWeight: 700,
               color: INK, margin: "0 0 14px", letterSpacing: "-0.025em",
             }}>The high-fidelity designs.</h2>
-            <p style={{ fontSize: 16.5, lineHeight: 1.6, color: MUTED, maxWidth: 680, margin: 0 }}>
+            <p style={{ fontSize: isMobile ? 14 : 16.5, lineHeight: 1.6, color: MUTED, maxWidth: 680, margin: 0 }}>
               Five core surfaces across the unified workspace. Each component traces back to a specific friction point retired by the audit — extraction trust, source attribution, drill-down navigation, and dependency visibility.
             </p>
           </div>
@@ -443,7 +445,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
                 }}>
                   <img src={d.src} alt={d.title} style={{ width: "100%", display: "block" }} />
                 </div>
-                <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 28, alignItems: "start" }}>
+                <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr", gap: 28, alignItems: "start" }}>
                   <div>
                     <p style={{ fontSize: 11, color: BRAND, fontWeight: 700, letterSpacing: "0.08em", margin: "0 0 8px" }}>
                       0{i + 1} — {d.label.toUpperCase()}
@@ -473,11 +475,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 01 CHALLENGE */}
         <div>
           <SectionLabel n="01" label="THE CHALLENGE" />
-          <H2>A tool that knew too much — and told you nothing clearly.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 28px" }}>
+          <H2 isMobile={isMobile}>A tool that knew too much — and told you nothing clearly.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 28px" }}>
             OneBuzz uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings — compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
             {[
               { stat: "3–5 days", label: "Manual config time before AI", color: "#dc2626" },
               { stat: "155 fields", label: "AI-extracted across 8 categories", color: BRAND },
@@ -494,11 +496,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 02 USERS */}
         <div>
           <SectionLabel n="02" label="USER ANALYSIS" />
-          <H2>Domain experts who can't afford UI friction.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
+          <H2 isMobile={isMobile}>Domain experts who can't afford UI friction.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
             The system serves deep insurance domain experts — not developers. They configure several products a quarter, each across multiple sessions, where a single misread co-payment bracket can cost millions.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
             {PERSONAS.map((p, i) => (
               <div key={i} style={{ padding: 24, background: p.bg, border: `1px solid ${p.color}22`, borderRadius: 14 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
@@ -517,13 +519,13 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 03 8 UX FLAWS */}
         <div>
           <SectionLabel n="03" label="8 UX FLAWS → REDESIGN RESPONSES" />
-          <H2>An audit of the existing interface.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
+          <H2 isMobile={isMobile}>An audit of the existing interface.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
             Eight behaviors were undermining trust in the AI-extracted output. The redesign answers each with a specific, scoped affordance — no blanket rewrites.
           </p>
           <div style={{ border: `1px solid ${BORDER}`, borderRadius: 14, overflow: "hidden" }}>
             {PAIN_POINTS.map((p, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "34px 1fr 1fr", gap: 18, padding: "16px 20px", borderBottom: i < PAIN_POINTS.length - 1 ? `1px solid ${BORDER}` : "none", background: i % 2 === 0 ? "#fff" : "#fafafa", alignItems: "start" }}>
+              <div key={i} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "34px 1fr 1fr", gap: 18, padding: "16px 20px", borderBottom: i < PAIN_POINTS.length - 1 ? `1px solid ${BORDER}` : "none", background: i % 2 === 0 ? "#fff" : "#fafafa", alignItems: "start" }}>
                 <span style={{ width: 28, height: 28, borderRadius: "50%", background: BRAND_TINT, color: BRAND, fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{p.num}</span>
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
@@ -547,11 +549,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 04 PRINCIPLES */}
         <div>
           <SectionLabel n="04" label="DESIGN PRINCIPLES" />
-          <H2>Four ideas that shaped every decision.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
+          <H2 isMobile={isMobile}>Four ideas that shaped every decision.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
             Once the audit was clear, four principles became the rubric for every layout, control, and interaction in the rebuild.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
             {PRINCIPLES.map((d, i) => (
               <div key={i} style={{ padding: "24px", background: "#fff", border: `1px solid ${BORDER}`, borderRadius: 14 }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: BRAND_TINT, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>{d.icon}</div>
@@ -565,11 +567,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 05 FIVE SCREENS — real DOM thumbnails */}
         <div>
           <SectionLabel n="05" label="THE 5 REDESIGNED SCREENS" />
-          <H2>Walk the product, screen by screen.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
+          <H2 isMobile={isMobile}>Walk the product, screen by screen.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             Each thumbnail is a live render of the actual screen, scaled. Click any one to open it in the interactive prototype.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 28 }}>
             {SCREENS.map((s) => (
               <ScreenThumb
                 key={s.n}
@@ -586,11 +588,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 06 ANATOMY OF THE WORKSPACE */}
         <div>
           <SectionLabel n="06" label="ANATOMY OF THE WORKSPACE" />
-          <H2>Six patterns make the unified workspace work.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
+          <H2 isMobile={isMobile}>Six patterns make the unified workspace work.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             The principles materialised as six distinct UI patterns inside Screen 3. Each one retires a specific class of friction from the audit — and together they're the reason a 3–5 day workflow now takes hours.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: 16 }}>
             {PATTERNS.map((p, i) => (
               <div key={i} style={{ display: "flex", flexDirection: "column" }}>
                 <div style={{ height: 130, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden" }}>
@@ -608,11 +610,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 07 TRUST LOOP */}
         <div>
           <SectionLabel n="07" label="THE TRUST LOOP" />
-          <H2>Three clicks from suspicion to verified.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
+          <H2 isMobile={isMobile}>Three clicks from suspicion to verified.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             The interaction that ties the whole system together — <strong style={{ color: INK }}>Spot · Inspect · Resolve</strong>. The user never has to leave the canvas to trust an AI extraction.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14 }}>
             <LoopStep n={1} title="Spot" body="An amber 75% bead beside a field signals low confidence. The user scans — doesn't search." illustration={<SpotIllustration />} />
             <LoopStep n={2} title="Inspect" body="One click opens the source passage on the left, highlighted at Page 12 of the BRD. The user reads — doesn't hunt." illustration={<InspectIllustration />} />
             <LoopStep n={3} title="Resolve" body="Accept & Verify turns the bead green. The Auditor warning clears. Progress ticks 12/37 → 13/37." illustration={<ResolveIllustration />} />
@@ -622,11 +624,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 08 OUTCOMES */}
         <div>
           <SectionLabel n="08" label="OUTCOMES" />
-          <H2>What the redesign moves.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
+          <H2 isMobile={isMobile}>What the redesign moves.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             Each before / after pair retires a specific UX flaw from the audit.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14 }}>
             {OUTCOMES.map((o, i) => (
               <div key={i} style={{ padding: 22, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14 }}>
                 <p style={{ fontSize: 12, color: SUBTLE, margin: "0 0 14px", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600 }}>{o.label}</p>
@@ -647,11 +649,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 09 REFLECTION */}
         <div>
           <SectionLabel n="09" label="REFLECTION" />
-          <H2>What I'd carry forward.</H2>
-          <p style={{ fontSize: 16, lineHeight: 1.75, color: MUTED, margin: "0 0 24px" }}>
+          <H2 isMobile={isMobile}>What I'd carry forward.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.75, color: MUTED, margin: "0 0 24px" }}>
             The hardest decision wasn't visual — it was deciding how AI confidence should behave when it's wrong. The principle I'd carry forward: <strong style={{ color: INK }}>never make the user discover a problem at the end of a flow that the system could have surfaced at the start.</strong>
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14 }}>
             {REFLECTIONS.map((r, i) => (
               <div key={i} style={{ padding: 20, background: "#fff", border: `1px solid ${BORDER}`, borderRadius: 12 }}>
                 <p style={{ fontSize: 12, color: BRAND, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>{r.label}</p>

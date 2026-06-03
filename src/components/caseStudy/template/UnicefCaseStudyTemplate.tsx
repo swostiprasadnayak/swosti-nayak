@@ -6,14 +6,16 @@ import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import InteractivePortalWindow from "../blocks/InteractivePortalWindow";
 import classes from "./caseStudy.module.css";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
-import { 
-  Search, ShieldAlert, Clock, ArrowUpRight, CheckCircle2, 
+import { useIsMobile } from "@/app/hooks/useIsMobile";
+import {
+  Search, ShieldAlert, Clock, ArrowUpRight, CheckCircle2,
   Map, Fingerprint, Database, Copy, Briefcase, FileText, Globe, Key, LayoutGrid, Check, Info, FileSpreadsheet, Compass,
   Layers, AlertTriangle, ChevronDown
 } from "lucide-react";
 
 export default function UnicefCaseStudyTemplate() {
   const { openModal } = useVoiceModal();
+  const isMobile = useIsMobile();
 
   return (
     <div className={classes.pageWrapper}>
@@ -43,7 +45,7 @@ export default function UnicefCaseStudyTemplate() {
        {/* ============================================================
            SECTION 2: PROBLEM STATEMENT
            ============================================================ */}
-       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+       <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
              <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>01 - PROBLEM STATEMENT</span>
@@ -59,7 +61,7 @@ export default function UnicefCaseStudyTemplate() {
           </p>
 
           {/* 3 Pillar Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px' }}>
              {/* Card 1 */}
              <Squircle cornerRadius={16} style={{ background: '#fff', boxShadow: 'inset 0 0 0 1.5px #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                 <Search size={24} color="#e11d48" style={{ marginBottom: '8px' }} />
@@ -111,7 +113,7 @@ export default function UnicefCaseStudyTemplate() {
              <h3 style={{ fontSize: '1.8rem', fontWeight: 500, color: '#111', marginBottom: '40px', textAlign: 'center' }}>
                Education data remains <span style={{ fontStyle: 'italic', color: '#e11d48' }}>inaccessible</span> at a global scale.
              </h3>
-             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '24px' }}>
                 {[
                   { num: "617M", val: "Children who cannot read a simple text", color: "#e11d48", bg: "#fff1f2", border: "#fecdd3" },
                   { num: "57%", val: "Learning poverty rate in low & middle-income countries", color: "#ea580c", bg: "#fff7ed", border: "#fed7aa" },
@@ -131,7 +133,7 @@ export default function UnicefCaseStudyTemplate() {
            SECTION 3: AS-IS - PAIN POINTS
            ============================================================ */}
        <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
-          <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+          <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>AS-IS - PAIN POINTS</span>
              <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
                Where the current experience <span style={{ fontStyle: 'italic', color: '#ea580c' }}>breaks down</span>
@@ -140,7 +142,7 @@ export default function UnicefCaseStudyTemplate() {
                Journey mapping revealed critical failure modes that the portal must resolve.
              </p>
 
-             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '20px' }}>
                {[
                  { 
                    icon: "🔍",
@@ -214,7 +216,7 @@ export default function UnicefCaseStudyTemplate() {
        {/* ============================================================
            SECTION 4: RESEARCH & DISCOVERY
            ============================================================ */}
-       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+       <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
              <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>02 - RESEARCH & DISCOVERY</span>
@@ -228,7 +230,7 @@ export default function UnicefCaseStudyTemplate() {
           </p>
 
           {/* 5-Step Process Timeline */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '100px', position: 'relative' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)', gap: '16px', marginBottom: '100px', position: 'relative' }}>
               {/* Background connecting line */}
               <div style={{ position: 'absolute', top: '24px', left: '10%', right: '10%', height: '1px', background: '#e2e8f0', zIndex: 0 }} />
               
@@ -253,7 +255,7 @@ export default function UnicefCaseStudyTemplate() {
           </div>
 
           {/* Portals & Stats Split */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginBottom: '100px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '60px', marginBottom: '100px' }}>
              <div>
                 <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Analogous Portal Benchmark</span>
                 <h3 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#111', lineHeight: 1.2, margin: '12px 0 24px 0' }}>What 6 comparable portals <span style={{ fontStyle: 'italic' }}>taught us</span> about what not to do.</h3>
@@ -276,7 +278,7 @@ export default function UnicefCaseStudyTemplate() {
              </div>
              
              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '16px' }}>
                    <Squircle cornerRadius={12} style={{ boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
                       <span style={{ fontSize: '2.5rem', fontFamily: 'Instrument Serif, serif', color: '#111' }}>6</span>
                       <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Analogous portals benchmarked & audited</span>
@@ -314,7 +316,7 @@ export default function UnicefCaseStudyTemplate() {
 
           {/* Personas */}
           <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '24px', display: 'block' }}>5 USER PERSONAS SYNTHESISED FROM RESEARCH</span>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)', gap: '16px' }}>
              {[
                { icon: "🎓", id: "P1 · ACADEMIC", title: "The Researcher", pain: "45+ min triangulating indicator definitions across 6 PDFs before any analysis.", needs: "Needs methodology depth, data provenance, citable CSV" },
                { icon: "🏛️", id: "P2 · GOVERNMENT", title: "The Policymaker", pain: "No cross-country benchmarking tool rebuilds comparisons in Excel from inconsistent files.", needs: "Needs defensible comparison exportable in <3 min" },
@@ -342,7 +344,7 @@ export default function UnicefCaseStudyTemplate() {
        {/* ============================================================
            SECTION 5: JOBS TO BE DONE
            ============================================================ */}
-       <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '100px 0' }}>
+       <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: isMobile ? '60px 0' : '100px 0' }}>
           <div className={classes.contentMaxWidth} style={{ maxWidth: '1000px' }}>
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>03 - JOBS TO BE DONE</span>
              <h2 style={{ fontSize: '2.5rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0' }}>
@@ -382,7 +384,7 @@ export default function UnicefCaseStudyTemplate() {
                <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: 1.6, textAlign: 'center', maxWidth: '600px', margin: '0 auto 40px auto' }}>
                  To solve the discoverability failure, we organized the entire indicator taxonomy into five core thematic areas, allowing users to browse by subject rather than digging through raw datasets.
                </p>
-               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px' }}>
+               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)', gap: '16px' }}>
                   {[
                     { bg: '#fee2e2', text: 'Literacy & Numeracy', color: '#b91c1c' },
                     { bg: '#fef08a', text: 'Technical & Vocational', color: '#a16207' },
@@ -402,7 +404,7 @@ export default function UnicefCaseStudyTemplate() {
        {/* ============================================================
            SECTION 6: AI METHODOLOGY
            ============================================================ */}
-       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+       <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
              <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>04 - AI METHODOLOGY</span>
@@ -415,7 +417,7 @@ export default function UnicefCaseStudyTemplate() {
             Using AI effectively for product design isn't about asking it to "make something beautiful." It's about giving it structured research context, specific user problems, clear constraints, and measurable acceptance criteria and knowing when to iterate vs. when to change approach.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '40px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '20px', marginBottom: '40px' }}>
              {[
                { icon: "📄", title: "Research-first prompting", desc: "Full research context injected at session start personas, JTBD, constraints. Research quality directly determined AI output quality." },
                { icon: "⚡", title: "Vibe vs. direct prompting knowing which to use", desc: "Vibe prompting for visual/layout decisions. Direct prompting for accessibility, performance, and CMS architecture. Knowing which to use is the skill." },
@@ -437,7 +439,7 @@ export default function UnicefCaseStudyTemplate() {
           </div>
 
           {/* 4 Colored Context Prompts with improved strokes */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '24px' }}>
              <Squircle cornerRadius={12} style={{ boxShadow: 'inset 0 0 0 2px #3b82f6', background: '#fff', padding: '24px', overflow: 'hidden' }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#3b82f6', letterSpacing: '0.05em', textTransform: 'uppercase' }}>SYSTEM / ARCHITECTURE</span>
                 <h4 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111', margin: '8px 0' }}>Full-context build prompts</h4>
@@ -472,9 +474,9 @@ export default function UnicefCaseStudyTemplate() {
        {/* ============================================================
            SECTION 7: KEY FEATURES
            ============================================================ */}
-        <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '100px 0' }}>
+        <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: isMobile ? '60px 0' : '100px 0' }}>
           <div className={classes.contentMaxWidth} style={{ maxWidth: '1200px' }}>
-             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
                 <div>
                    <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block' }}>05 - KEY FEATURES</span>
                    <h2 style={{ fontSize: '3.5rem', fontWeight: 400, color: '#111', lineHeight: 1.1, letterSpacing: '-0.02em', margin: '16px 0' }}>
@@ -507,7 +509,7 @@ export default function UnicefCaseStudyTemplate() {
                 </div>
              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '40px' }}>
                 {[
                   { 
                     id: '01', icon: '🔍', title: 'Unified Data Discovery', solves: 'Findability', impact: 'Highest',
@@ -576,7 +578,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION 8: THE PROCESS (TIMELINE)
           ============================================================ */}
-      <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+      <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>06 - THE PROCESS</span>
@@ -753,7 +755,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION: UNIFIED DISCOVERY  HOMEPAGE
           ============================================================ */}
-      <div style={{ background: '#f8fafc', padding: '100px 0' }}>
+      <div style={{ background: '#f8fafc', padding: isMobile ? '60px 0' : '100px 0' }}>
         <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
@@ -761,7 +763,7 @@ export default function UnicefCaseStudyTemplate() {
           </div>
 
           {/* Globe Hero */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center', marginBottom: '100px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '64px', alignItems: 'center', marginBottom: '100px' }}>
             <div>
               <h2 style={{ fontSize: '2.6rem', fontWeight: 400, color: '#111', lineHeight: 1.2, letterSpacing: '-0.02em', margin: '0 0 20px 0' }}>
                 Globe hero {' '}
@@ -790,7 +792,7 @@ export default function UnicefCaseStudyTemplate() {
           </div>
 
           {/* Persona Entry */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '64px', alignItems: 'center' }}>
             <div>
               <Image src="/unicef/persona-entry.png" alt="Homepage persona-segmented entry band" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             </div>
@@ -827,7 +829,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION: ACCESSIBILITY & COMPLIANCE  GLOBAL MAP
           ============================================================ */}
-      <div style={{ padding: '100px 0' }}>
+      <div style={{ padding: isMobile ? '60px 0' : '100px 0' }}>
         <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
@@ -842,7 +844,7 @@ export default function UnicefCaseStudyTemplate() {
           </p>
 
           {/* Two map images side by side */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '48px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px', marginBottom: '48px' }}>
             <div>
               <Image src="/unicef/globe-3d.png" alt="3D Globe  drag, zoom, click for profile" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
               <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '12px', fontWeight: 500 }}>3D Globe  drag · zoom · click for profile</p>
@@ -854,7 +856,7 @@ export default function UnicefCaseStudyTemplate() {
           </div>
 
           {/* Two detail callouts */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
             <Squircle cornerRadius={16} style={{ background: '#f8fafc', boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '32px' }}>
               <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>3D GLOBE  CONTROLS ALWAYS VISIBLE</span>
               <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '16px' }}>
@@ -876,9 +878,9 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION: 3D GLOBE · MAP-TO-COMPARE FLOW
           ============================================================ */}
-      <div style={{ background: '#f8fafc', padding: '100px 0' }}>
+      <div style={{ background: '#f8fafc', padding: isMobile ? '60px 0' : '100px 0' }}>
         <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '64px', alignItems: 'center' }}>
             <div>
               <Image src="/unicef/map-to-compare.png" alt="Globe to Compare  map-to-comparison flow" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             </div>
@@ -918,9 +920,9 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION: COMPARE · COUNTRY SEARCH FILTER
           ============================================================ */}
-      <div style={{ padding: '100px 0' }}>
+      <div style={{ padding: isMobile ? '60px 0' : '100px 0' }}>
         <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '64px', alignItems: 'center' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                 <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
@@ -957,7 +959,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION: COMPARE · FOCUSED 3-COUNTRY VIEW
           ============================================================ */}
-      <div style={{ background: '#f8fafc', padding: '100px 0' }}>
+      <div style={{ background: '#f8fafc', padding: isMobile ? '60px 0' : '100px 0' }}>
         <div className={classes.contentMaxWidth} style={{ maxWidth: '1100px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
@@ -972,14 +974,14 @@ export default function UnicefCaseStudyTemplate() {
           </p>
 
           {/* Three comparison images */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '48px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: '20px', marginBottom: '48px' }}>
             <Image src="/unicef/compare-threshold.png" alt="Compare  Threshold heatmap focused view" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             <Image src="/unicef/compare-scatter.png" alt="Compare  Scatter plot view" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
             <Image src="/unicef/compare-normalized.png" alt="Compare  Normalized percentile view" width={1200} height={800} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} />
           </div>
 
           {/* Two callout columns */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
             <Squircle cornerRadius={16} style={{ background: '#fff', boxShadow: 'inset 0 0 0 1px #e2e8f0', padding: '32px' }}>
               <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#0ea5e9', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>THRESHOLD VIEW  ABSOLUTE STATUS</span>
               <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '16px' }}>
@@ -1001,7 +1003,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION 9: KEY DESIGN DECISIONS
           ============================================================ */}
-      <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+      <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>07 - KEY DESIGN DECISIONS</span>
@@ -1047,7 +1049,7 @@ export default function UnicefCaseStudyTemplate() {
                      <span style={{ padding: '6px 16px', background: '#f0f9ff', boxShadow: 'inset 0 0 0 1.5px #bae6fd', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 600, color: '#0ea5e9' }}>{dec.type.split(" ")[0]}</span>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '40px' }}>
                      <div>
                         <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#94a3b8', letterSpacing: '0.05em' }}>WHY IT MATTERED</span>
                         <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, marginTop: '12px' }}>{dec.whyItMattered}</p>
@@ -1105,7 +1107,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION 08: IMPACT & DELIVERABLES
           ============================================================ */}
-      <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '100px 0' }}>
+      <div style={{ background: '#fff', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: isMobile ? '60px 0' : '100px 0' }}>
          <div className={classes.contentMaxWidth} style={{ maxWidth: '1200px' }}>
          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
@@ -1119,7 +1121,7 @@ export default function UnicefCaseStudyTemplate() {
               The client's criterion for Phase 2 approval was a working prototype that addressed all 5 user personas with WCAG compliance and demonstrated the full feature set. This is what the AI-assisted approach produced.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '100px', textAlign: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '24px', marginBottom: '100px', textAlign: 'center' }}>
                {[
                  { num: "15", label: "Screen templates", sub: "Designed and built in Phase 1", color: "#0ea5e9", bg: "#f0f9ff", border: "#bae6fd" },
                  { num: "6+", label: "Iteration cycles", sub: "From first build to Phase 1 delivery", color: "#16a34a", bg: "#f0fdf4", border: "#bbf7d0" },
@@ -1134,7 +1136,7 @@ export default function UnicefCaseStudyTemplate() {
                ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '100px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '20px', marginBottom: '100px' }}>
                {[
                  { icon: "🎨", title: "Figma Design System", tags: ["Design tokens", "Components", "Viz patterns"], desc: "Token architecture, component library, WCAG-compliant color system, and visualization pattern rules." },
                  { icon: "🌐", title: "15 Screen Templates", tags: ["375 / 768 / 1440px", "WCAG AA"], desc: "Home, Explore, Country Profile, Compare (Heatmap + Scatter + Normalized), Global Map (2D + 3D), Insights, Downloads  all responsive." },
@@ -1162,7 +1164,7 @@ export default function UnicefCaseStudyTemplate() {
                   <span style={{ fontSize: '0.8rem', color: '#a16207', fontWeight: 600 }}>RFP stage  these are validation targets, not post-launch measurements</span>
                </div>
                
-               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '24px' }}>
                   <Squircle cornerRadius={20} style={{ boxShadow: 'inset 0 0 0 1.5px #e2e8f0', background: '#fff', padding: '32px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>⚡</div>
@@ -1263,7 +1265,7 @@ export default function UnicefCaseStudyTemplate() {
       {/* ============================================================
           SECTION 09: REFLECTION
           ============================================================ */}
-      <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+      <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
             <div style={{ width: '24px', height: '2px', background: '#0ea5e9' }} />
             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>10 - REFLECTION</span>
@@ -1276,7 +1278,7 @@ export default function UnicefCaseStudyTemplate() {
            This wasn't about using AI to skip the work  it was about using AI to do better work, faster. The research and judgment were still mine. The AI was the execution layer. Here's what that actually means in practice.
          </p>
 
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginBottom: '100px' }}>
+         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '24px', marginBottom: '100px' }}>
             {[
               { icon: "🧭", title: "Research quality determines AI output quality", desc: "The most important work happened before any prompt was written. The research document  personas, JTBD, constraints, tech decisions  was the real product design work. Every session that started with full context produced production-ready output. Every session without it required 3x more iteration cycles. AI amplifies your research quality." },
               { icon: "🔍", title: "Problem framing beats solution prescribing", desc: "The biggest leap in output quality came from switching from \"build X\" prompts to \"when a user needs Y, design the interaction that solves it.\" Describing the user problem and letting AI propose the implementation consistently produced more creative, more appropriate solutions. The country tooltip + Compare Selection panel was built this way in one session." },
@@ -1297,7 +1299,7 @@ export default function UnicefCaseStudyTemplate() {
 
          <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '60px' }}>
             <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0ea5e9', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px', display: 'block' }}> WHAT I'D DO DIFFERENTLY</span>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '20px' }}>
                {[
                  { icon: "🔗", title: "API contract earlier", desc: "Align on the data API schema with engineering in week 2, not week 6. The normalized percentile endpoint required a full iteration cycle when discovered late." },
                  { icon: "📱", title: "Mobile-first baseline", desc: "Start prompting at 375px, not 1440px. Retrofitting the Explore filter panel to mobile required significant re-architecture that wouldn't exist with a mobile-first prompt strategy." },

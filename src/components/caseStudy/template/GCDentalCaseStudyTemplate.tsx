@@ -5,6 +5,7 @@ import { Squircle } from "corner-smoothing";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import classes from "./caseStudy.module.css";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
+import { useIsMobile } from "@/app/hooks/useIsMobile";
 import { 
   Search, ShieldAlert, FileText,
   Stethoscope, Settings, Microscope, ClipboardList,
@@ -16,6 +17,7 @@ import {
 
 export default function GCDentalCaseStudyTemplate() {
   const { openModal } = useVoiceModal();
+  const isMobile = useIsMobile();
 
   return (
     <div className={classes.pageWrapper}>
@@ -33,7 +35,7 @@ export default function GCDentalCaseStudyTemplate() {
          />
 
          {/* Hero Image */}
-          <div style={{ width: 'calc(100% + 80px)', marginLeft: '-40px', marginBottom: '100px' }}>
+          <div style={{ width: isMobile ? '100%' : 'calc(100% + 80px)', marginLeft: isMobile ? 0 : '-40px', marginBottom: '100px' }}>
              <Image src="/images/gc-banner.webp" alt="GC Dental Portal" width={1920} height={1080} sizes="(max-width: 768px) 100vw, 90vw" priority style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
 
@@ -43,7 +45,7 @@ export default function GCDentalCaseStudyTemplate() {
       {/* ============================================================
           SECTION 2: PROBLEM STATEMENT & RESEARCH
           ============================================================ */}
-       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+       <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
              <div style={{ width: '24px', height: '2px', background: '#00B494' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>01 - PROBLEM STATEMENT & RESEARCH</span>
@@ -66,7 +68,7 @@ export default function GCDentalCaseStudyTemplate() {
              </p>
              <span style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '16px', display: 'block' }}>— General Dentist, on-site between patient appointments (Usability Session 3)</span>
              
-             <div style={{ marginTop: '32px', paddingTop: '32px', borderTop: '1px solid #ccfbf1', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+             <div style={{ marginTop: '32px', paddingTop: '32px', borderTop: '1px solid #ccfbf1', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '24px' }}>
                <div>
                   <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#00B494', marginBottom: '8px' }}>4/5</div>
                   <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}><strong>started with Google or peer recommendations</strong> — the GC site was their verification stop, not their discovery start.</div>
@@ -83,7 +85,7 @@ export default function GCDentalCaseStudyTemplate() {
           </div>
 
           {/* User Journey Map */}
-          <div style={{ display: 'flex', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', marginBottom: '80px', background: '#fff' }}>
+          <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', marginBottom: '80px', background: '#fff' }}>
             {[
               { icon: '🔍', title: 'Google / Peers', desc: 'Where discovery happens — 4/5 users start here' },
               { icon: '📄', title: 'Clinical Literature', desc: 'Specialists check evidence databases & journals' },
@@ -100,7 +102,7 @@ export default function GCDentalCaseStudyTemplate() {
           </div>
 
           {/* Research Methods Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginBottom: '100px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '24px', marginBottom: '100px' }}>
             
             {/* Heuristic Evaluation */}
             <div className={classes.htmlSectionCard} style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
@@ -111,7 +113,7 @@ export default function GCDentalCaseStudyTemplate() {
                     <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Systematic review of existing homepage against Nielsen's 10 usability heuristics. Benchmarked against 3 competitors.</p>
                  </div>
               </div>
-              <div style={{ padding: '24px', background: '#f8fafc', flexGrow: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ padding: '24px', background: '#f8fafc', flexGrow: 1, display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '16px' }}>
                  {[
                    { title: 'Visibility of System Status', desc: 'Carousel has no progress indicators. Card states missing.' },
                    { title: 'User Control + Freedom', desc: 'Education redirects without warning. Users expect in-place expansion.' },
@@ -159,7 +161,7 @@ export default function GCDentalCaseStudyTemplate() {
            SECTION 3: BEHAVIORAL ARCHETYPES & BENCHMARKING
            ============================================================ */}
        <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
-          <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+          <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', marginBottom: '16px', display: 'block' }}>02 - 4 BEHAVIORAL ARCHETYPES</span>
              <h2 className={classes.htmlH2}>
                Not demographics. <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>Behaviors.</span>
@@ -169,7 +171,7 @@ export default function GCDentalCaseStudyTemplate() {
              </p>
 
              {/* Persona Cards */}
-             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '100px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '16px', marginBottom: '100px' }}>
                {[
                  { 
                    icon: <Stethoscope size={20} color="#00B494" />,
@@ -262,7 +264,7 @@ export default function GCDentalCaseStudyTemplate() {
        {/* ============================================================
            SECTION 4: SHOWSTOPPERS & DESIGN DECISIONS
            ============================================================ */}
-       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+       <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
              <div style={{ width: '24px', height: '2px', background: '#e11d48' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#e11d48', letterSpacing: '0.1em' }}>03 - SHOWSTOPPER 01 OF 02</span>
@@ -276,7 +278,7 @@ export default function GCDentalCaseStudyTemplate() {
             4 of 5 users came to GC Dental specifically to find IFU or clinical documentation. 3 of 5 would leave the site entirely if they couldn't find it in 2 clicks. It was buried under an unclear label, 3+ scrolls below the fold.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '64px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px', marginBottom: '64px' }}>
              {/* Before */}
              <div className={classes.htmlCard} style={{ background: '#fff', border: '1.5px solid #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#e11d48', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#fff1f2', borderRadius: '4px', alignSelf: 'flex-start' }}>BEFORE</span>
@@ -337,7 +339,7 @@ export default function GCDentalCaseStudyTemplate() {
                { label: "Component", val1: "IFU Card: 3×3 grid, 4 states (Default, Hover, Selected, Focus).", val2: "Tab filter system: 5 tabs to narrow doc type without scrolling a list." },
                { label: "Outcome", val1: "Documents section is now 1-click from PDP hero via sticky nav.", val2: "Task success on finding IFU is a direct path. (Post-test validation)." }
              ].map((row, i) => (
-               <div key={i} style={{ display: 'grid', gridTemplateColumns: '180px 1fr 1fr', borderBottom: i < 3 ? '1px solid #e2e8f0' : 'none', background: i % 2 === 0 ? '#f8fafc' : '#fff' }}>
+               <div key={i} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '180px 1fr 1fr', borderBottom: i < 3 ? '1px solid #e2e8f0' : 'none', background: i % 2 === 0 ? '#f8fafc' : '#fff' }}>
                   <div style={{ padding: '20px', borderRight: '1px solid #e2e8f0', fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center' }}>{row.label}</div>
                   <div style={{ padding: '20px', borderRight: '1px solid #e2e8f0', fontSize: '0.9rem', color: '#334155', lineHeight: 1.6 }}>{row.val1}</div>
                   <div style={{ padding: '20px', fontSize: '0.9rem', color: '#334155', lineHeight: 1.6 }}>{row.val2}</div>
@@ -352,7 +354,7 @@ export default function GCDentalCaseStudyTemplate() {
                <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>IFU Document Card</h3>
                <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '8px' }}>Used in: Documents & Manuals section · Desktop (410px) & Mobile (350px)</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderBottom: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', borderBottom: '1px solid #e2e8f0' }}>
                {[
                  { state: "Default", name: "Resting State", desc: "Card visible, download CTA, document type tag, file info." },
                  { state: "Hover", name: "Interaction Hint", desc: "Subtle elevation shadow, CTA color shifts to primary." },
@@ -366,7 +368,7 @@ export default function GCDentalCaseStudyTemplate() {
                  </div>
                ))}
             </div>
-            <div style={{ padding: '32px', background: '#fff', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px' }}>
+            <div style={{ padding: '32px', background: '#fff', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '48px' }}>
                <div>
                   <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 700, display: 'block', marginBottom: '8px', letterSpacing: '0.05em' }}>DOCUMENT TYPE</span>
                   <span style={{ fontSize: '1rem', color: '#00B494', background: '#f0fdfa', padding: '4px 8px', borderRadius: '4px', fontWeight: 500 }}>"IFU" | "Manual" | "Safety"</span>
@@ -396,7 +398,7 @@ export default function GCDentalCaseStudyTemplate() {
           </p>
 
           {/* Two Templates */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '64px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px', marginBottom: '64px' }}>
             <div className={classes.htmlCard} style={{ background: '#f8fafc', padding: '32px' }}>
               <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#00B494', letterSpacing: '0.1em', display: 'block', marginBottom: '16px' }}>TEMPLATE A: PDP DETAILED</span>
               <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
@@ -429,7 +431,7 @@ export default function GCDentalCaseStudyTemplate() {
           {/* Component Deep Dive: Sticky Cart */}
           <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#111', marginBottom: '16px' }}>Key Component: PDP Top Sticky Cart</h3>
           <div className={classes.htmlSectionCard} style={{ padding: 0, overflow: 'hidden', marginBottom: '100px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                {[
                  { state: "Expanded", name: "On Scroll Up", desc: "297px height. Full product card: name, image, description, SKU, award badges, CTAs. User looking for context." },
                  { state: "Collapsed", name: "On Scroll Down", desc: "98px height. Minimal: product name + small image + primary CTA. User reading content — stay out of the way." },
@@ -456,7 +458,7 @@ export default function GCDentalCaseStudyTemplate() {
                Research showed users come with a specific product in mind. But when they search, results are too broad. I designed an AI-powered search layer that goes from keyword to clinical recommendation in 2 steps.
              </p>
              
-             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
                 <div className={classes.htmlCard} style={{ padding: '24px', border: '1px solid #ccfbf1' }}>
                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                       <Zap size={20} color="#eab308" />
@@ -486,9 +488,9 @@ export default function GCDentalCaseStudyTemplate() {
        {/* ============================================================
            SECTION 5: SYSTEM AND SCALE
            ============================================================ */}
-        <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '100px 0' }}>
+        <div style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: isMobile ? '60px 0' : '100px 0' }}>
           <div className={classes.contentMaxWidth} style={{ maxWidth: '1200px' }}>
-             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
+             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(300px, 1fr) 2fr', gap: '60px', marginBottom: '60px' }}>
                 <div>
                    <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00B494', letterSpacing: '0.1em', display: 'block' }}>04 - DESIGN SYSTEM</span>
                    <h2 className={classes.htmlH2}>
@@ -549,7 +551,7 @@ export default function GCDentalCaseStudyTemplate() {
        {/* ============================================================
            SECTION 6: REFLECTION
            ============================================================ */}
-       <div className={classes.contentMaxWidth} style={{ padding: '100px 0', maxWidth: '1000px' }}>
+       <div className={classes.contentMaxWidth} style={{ padding: isMobile ? '60px 0' : '100px 0', maxWidth: '1000px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
              <div style={{ width: '24px', height: '2px', background: '#00B494' }} />
              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em' }}>05 - REFLECTION</span>
@@ -563,7 +565,7 @@ export default function GCDentalCaseStudyTemplate() {
             B2C design teaches you to hide complexity. B2B healthcare taught me that expert users want control, not simplicity — and that the difference between the two is everything.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginBottom: '64px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '24px', marginBottom: '64px' }}>
              <div className={classes.htmlCard} style={{ background: '#fff', padding: '32px' }}>
                 <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1, marginBottom: '16px' }}>01</div>
                 <h4 className={classes.htmlH3} style={{ margin: '0 0 12px 0' }}>Research changes how you prioritize.</h4>

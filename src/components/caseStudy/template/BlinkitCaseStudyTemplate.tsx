@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
+import { useIsMobile } from "@/app/hooks/useIsMobile";
 import classes from "./caseStudy.module.css";
 import { ExternalLink } from "lucide-react";
 
@@ -153,6 +154,7 @@ const SCREENS = [
 
 export default function BlinkitCaseStudyTemplate() {
     const { openModal } = useVoiceModal();
+    const isMobile = useIsMobile();
     const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null);
 
     // Handle keyboard navigation
@@ -208,7 +210,7 @@ export default function BlinkitCaseStudyTemplate() {
                         Blinkit delivers groceries in 10 minutes  a genuine engineering achievement. But the pre-order experience is broken. The average user spends <strong style={{ color: "var(--text-primary)" }}>20–30 minutes</strong> browsing, comparing, and deciding what to buy  before the cart is even built. That's the bottleneck the brand promise sits in front of.
                     </p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
                         {/* AS-IS */}
                         <div style={sSubtle}>
                             <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>AS-IS  Current Experience</div>
@@ -250,7 +252,7 @@ export default function BlinkitCaseStudyTemplate() {
                         I examined the 10-minute promise and discovered <strong style={{ color: "var(--text-primary)" }}>3 structural friction points</strong>  each independent, each solvable with one AI pipeline.
                     </p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
                         {[
                             { n: "10 min", l: "What Blinkit promises  India's fastest grocery delivery, a genuine technical achievement." },
                             { n: "4:12",   l: "What users actually experience  a 20-tap gauntlet that contradicts the brand promise." },
@@ -277,7 +279,7 @@ export default function BlinkitCaseStudyTemplate() {
                 <Section>
                     <SectionHeader num="03" label="My Role & Research" />
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
                         <div style={sCard}>
                             <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>My Role</div>
                             <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7 }}>
@@ -315,7 +317,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <SectionHeader num="04" label="User Insights & Personas" />
 
                     {/* 3 personas */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
                         {[
                             { emoji: "👩‍💼", name: "Priya, 32", role: "Primary · Mumbai · 2–3× orders/day", tier: "Primary", tierBg: ACCENT, points: ["Forgets items, places multiple orders daily", "Handwritten list the app can't read", "Brand selection fatigue on every staple"], quote: "I just want to say 'stuff for pasta' and have it figure it out." },
                             { emoji: "👨‍💻", name: "Rajan, 27", role: "Secondary · Bangalore · Voice-first",    tier: "Secondary", tierBg: "#e5e7eb", points: ["Mid-cook emergencies need instant ordering", "Instagram recipe → can't translate to cart", "Wants zero-touch while hands are busy"],      quote: "I want to place an order without looking at my phone." },
@@ -339,7 +341,7 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
 
                     {/* Research stats */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 16 }}>
                         {[
                             { n: "41%", t: "Sessions end with 0 add-to-cart", d: "Mental models ≠ SKU taxonomy. Users said 'chai ingredients,' 'party snacks'  intent-driven language search engines fail completely." },
                             { n: "72%", t: "Users with an external list open", d: "Physical list is universal across age, city, and tech comfort. Users self-invented the workaround. The app simply didn't see it." },
@@ -398,7 +400,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <SectionHeader num="06" label="Solution: F1  Scan & Build Cart" />
 
                     {/* Two-column: text LEFT · design logic RIGHT */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "flex-start" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 48, alignItems: "flex-start" }}>
 
                         {/* ── Text column ── */}
                         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -463,7 +465,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 8 }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)" }}>Screen Flow  All 6 Screens</div>
                         {/* 6-col grid */}
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
+                        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(3, 1fr)" : "repeat(6, 1fr)", gap: 16 }}>
                             {SCREENS.map((s, i) => (
                                 <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                     {/* Clickable phone frame */}
@@ -621,7 +623,7 @@ export default function BlinkitCaseStudyTemplate() {
                     <SectionHeader num="07" label="Solution: F2  Voice Quick Order" />
 
                     {/* Two-column: prototype LEFT · text RIGHT  (alternating) */}
-                    <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: 56, alignItems: "flex-start" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "auto 1fr", gap: 56, alignItems: "flex-start" }}>
 
                         {/* ── Prototype column ── */}
                         <ProtoEmbed href="/prototypes/blinkit-voice.html" title="F2  Voice Quick Order" />
@@ -663,7 +665,7 @@ export default function BlinkitCaseStudyTemplate() {
                             </div>
 
                             {/* Design logic cards */}
-                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 4 }}>
+                            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginTop: 4 }}>
                                 <div style={sSubtle}>
                                     <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 8 }}>Design Logic 1</div>
                                     <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 5 }}>Transcript, not a spinner</div>
@@ -700,7 +702,7 @@ export default function BlinkitCaseStudyTemplate() {
                 <Section>
                     <SectionHeader num="08" label="Secondary Features" />
                     <p style={{ ...bodyText, maxWidth: 680 }}>Three supporting features that close the full ordering loop  from prediction to post-order recovery.</p>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
                         {[
                             { tag: "F3", t: "Pantry Intelligence",    sub: "Predict before they forget",        pain: "Users place 2–3 orders/day due to forgetting. The app has 6 months of data and uses none of it proactively.", sol: "Post-order setup → 'Time to Reorder?' home strip. Users set duration; the app predicts run-out." },
                             { tag: "F4", t: "2-Minute Edit Window",   sub: "Catch the 'I forgot' moment",       pain: "After placing an order, users realise they forgot items. The only option is cancelling everything.", sol: "2-minute countdown after confirmation. AI suggests forgotten items as quick-add chips. Add or remove before the picker starts." },
@@ -756,7 +758,7 @@ export default function BlinkitCaseStudyTemplate() {
                 {/* ── 10  ARCHITECTURE ────────────────────────────────────── */}
                 <Section>
                     <SectionHeader num="10" label="Architecture  One Pipeline, Three Entry Points" />
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(5, 1fr)", gap: 12 }}>
                         {[
                             { n: "1", t: "Input Layer",        d: "Camera · Voice · Text  3 modalities, 1 entry UX." },
                             { n: "2", t: "NLP / NLU Engine",   d: "Gemini Vision + Whisper + semantic parser." },
@@ -783,7 +785,7 @@ export default function BlinkitCaseStudyTemplate() {
                 <Section>
                     <SectionHeader num="11" label="Results & Impact" />
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
                         <div style={sSubtle}>
                             <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>Before</div>
                             <ol style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.7 }}>
@@ -807,7 +809,7 @@ export default function BlinkitCaseStudyTemplate() {
                     </div>
 
                     {/* Metrics */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(5, 1fr)", gap: 12 }}>
                         {[
                             { metric: "Pre-order time", before: "20–30 min", after: "<2 min" },
                             { metric: "Avg order value", before: "",      after: "+₹290" },
@@ -826,7 +828,7 @@ export default function BlinkitCaseStudyTemplate() {
                     {/* Metric honesty */}
                     <div style={{ background: "rgba(245,197,24,0.08)", border: "1px solid rgba(245,197,24,0.3)", borderLeft: `3px solid ${ACCENT}`, borderRadius: 16, padding: "20px 24px" }}>
                         <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.35)", marginBottom: 12 }}>Metric Honesty  Validated vs Projected</div>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
                             <div>
                                 <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>✓ Validated</div>
                                 <ul style={{ margin: 0, paddingLeft: 18, color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: 1.6 }}>
@@ -851,7 +853,7 @@ export default function BlinkitCaseStudyTemplate() {
                 <Section>
                     <SectionHeader num="12" label="Roadmap & What I Learned" />
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
                         {[
                             { phase: "Phase 1", time: "0–3 months", t: "F1 Scan & Build Cart + F2 Voice Quick Order", d: "Highest ROI, shared pipeline, immediate user impact." },
                             { phase: "Phase 2", time: "3–6 months", t: "F3 Pantry Intelligence + F4 2-Minute Edit Window", d: "Requires back-end coordination with dark-store ops." },

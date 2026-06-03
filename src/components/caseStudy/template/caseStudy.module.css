@@ -336,3 +336,25 @@
     border-radius: 8px;
     text-align: center;
 }
+
+/* ─── Responsive grid utilities (used by GC Dental / Unicef / Blinkit templates) ─── */
+.rGrid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.rGrid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.rGrid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+@media (max-width: 768px) {
+  .pageWrapper { padding: 32px 20px 64px; }
+  .contentMaxWidth { gap: 36px; }
+  .title { font-size: 1.9rem; }
+  .htmlH2 { font-size: 1.3rem; }
+  .htmlH3 { font-size: 1.05rem; }
+  .htmlSectionCard { padding: 20px; }
+  .notesSection { grid-template-columns: 1fr; }
+  .ideasGrid { grid-template-columns: repeat(2, 1fr); }
+  .chatGrid { grid-template-columns: 1fr; }
+  .fullWidthAsset { padding: 24px; }
+  .highlightCard { padding: 20px; height: 240px; }
+  .rGrid2 { grid-template-columns: 1fr; }
+  .rGrid3 { grid-template-columns: 1fr; }
+  .rGrid4 { grid-template-columns: repeat(2, 1fr); }
+}
