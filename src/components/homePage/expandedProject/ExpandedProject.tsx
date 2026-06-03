@@ -6,6 +6,7 @@ import CaseStudyTemplate from "@/components/caseStudy/template/CaseStudyTemplate
 import UnicefCaseStudyTemplate from "@/components/caseStudy/template/UnicefCaseStudyTemplate";
 import BlinkitCaseStudyTemplate from "@/components/caseStudy/template/BlinkitCaseStudyTemplate";
 import GCDentalCaseStudyTemplate from "@/components/caseStudy/template/GCDentalCaseStudyTemplate";
+import InsureTechCaseStudyTemplate from "@/components/caseStudy/template/InsureTechCaseStudyTemplate";
 import classes from "./expandedProject.module.css";
 interface ExpandedProjectProps {
     projectName: string | null;
@@ -51,8 +52,9 @@ export default function ExpandedProject({ projectName, onClose, layoutId }: Expa
                             {projectName?.toLowerCase() === 'unicef' && <UnicefCaseStudyTemplate />}
                             {projectName?.toLowerCase() === 'blinkit' && <BlinkitCaseStudyTemplate />}
                             {(projectName?.toLowerCase() === 'gc dental' || projectName?.toLowerCase() === 'gc-dental') && <GCDentalCaseStudyTemplate />}
+                            {(projectName?.toLowerCase() === 'insure-tech') && <InsureTechCaseStudyTemplate />}
                             {/* Fallback for other projects temporarily */}
-                            {projectName && projectName.toLowerCase() !== 'syne' && projectName.toLowerCase() !== 'surrounding' && projectName.toLowerCase() !== 'unicef' && projectName.toLowerCase() !== 'blinkit' && projectName.toLowerCase() !== 'gc dental' && projectName.toLowerCase() !== 'gc-dental' && (
+                            {projectName && projectName.toLowerCase() !== 'syne' && projectName.toLowerCase() !== 'surrounding' && projectName.toLowerCase() !== 'unicef' && projectName.toLowerCase() !== 'blinkit' && projectName.toLowerCase() !== 'gc dental' && projectName.toLowerCase() !== 'gc-dental' && projectName.toLowerCase() !== 'insure-tech' && (
                                 <div style={{ padding: "60px", textAlign: "center", color: "rgba(0,0,0,0.5)" }}>
                                     Case study for {projectName} is currently under construction.
                                 </div>

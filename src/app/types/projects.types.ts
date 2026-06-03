@@ -11,6 +11,13 @@ export type ProjectContent = {
 
 export const PROJECTS: ProjectContent[] = [
     {
+        name: "Insure-Tech",
+        slug: "insure-tech",
+        description: "AI-powered insurance product configuration — from document upload to stakeholder-ready plans in minutes.",
+        tags: ["AI", "Enterprise", "B2B"],
+        demoPoster: "/images/project-5.jpg"
+    },
+    {
         name: "Blinkit",
         slug: "blinkit",
         description: "AI-powered grocery delivery experience redesign.",
@@ -48,14 +55,6 @@ export const PROJECTS: ProjectContent[] = [
         description: "Interactive dynamic mapping platform.",
         tags: ["AI", "Interaction"],
         demoPoster: "/images/project-3.jpg",
-        disabled: true
-    },
-    {
-        name: "Adversal AI Model",
-        slug: "pid-tool",
-        description: "Adversarial AI model research and design.",
-        tags: ["Enterprise", "App"],
-        demoPoster: "/images/project-5.jpg",
         disabled: true
     }
 ];
