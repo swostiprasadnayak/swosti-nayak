@@ -15,7 +15,7 @@ export const PROJECTS: ProjectContent[] = [
         slug: "insure-tech",
         description: "AI-powered insurance product configuration — from document upload to stakeholder-ready plans in minutes.",
         tags: ["AI", "Enterprise", "B2B"],
-        demoPoster: "/images/project-5.jpg"
+        demoPoster: "/images/insure-tech-poster.webp"
     },
     {
         name: "Blinkit",
