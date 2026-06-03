@@ -53,6 +53,7 @@ const Card: React.FC<CardProps> = ({
     isActive = true,
 }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
 
     const project = useMemo(() => PROJECTS.find((p) => p.name === projectName), [projectName]);
     const projectTags = project?.tags;
@@ -140,8 +141,15 @@ const Card: React.FC<CardProps> = ({
                                                 loop
                                                 muted
                                                 playsInline
-                                                poster={demoPoster || undefined}
-                                                style={videoStyle}
+                                                onLoadedData={() => {
+                                                    setVideoLoaded(true);
+                                                    onVideoLoaded?.();
+                                                }}
+                                                style={{
+                                                    ...videoStyle,
+                                                    opacity: videoLoaded ? 1 : 0,
+                                                    transition: "opacity 0.3s ease-in-out",
+                                                }}
                                             />
                                         ) : demoPoster ? (
                                             <Image
@@ -152,7 +160,7 @@ const Card: React.FC<CardProps> = ({
                                                 priority={isActive}
                                                 style={{
                                                     objectFit: POSTER_CONTAIN[slug] ? 'contain' : 'cover',
-                                                    padding: POSTER_CONTAIN[slug] ? (slug === 'insure-tech' ? '12px 20px 12px 4px' : '10px 8px') : 0,
+                                                    padding: POSTER_CONTAIN[slug] ? (slug === 'insure-tech' ? '12px' : '10px 8px') : 0,
                                                     boxSizing: 'border-box',
                                                 }}
                                             />
