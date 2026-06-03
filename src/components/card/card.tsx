@@ -66,13 +66,6 @@ const Card: React.FC<CardProps> = ({
     const shouldPlay = !isProjectExpanded;
     useVideoPlayback(videoRef, shouldPlay);
 
-    useEffect(() => {
-        if (videoRef.current && videoRef.current.readyState >= 3) {
-            setVideoLoaded(true);
-            onVideoLoaded?.();
-        }
-    }, [videoRef.current?.readyState]);
-
     const videoStyle = useMemo(
         () => ({
             width: "100%",
@@ -140,26 +133,8 @@ const Card: React.FC<CardProps> = ({
                                         cornerRadius={8}
                                         style={cardBg ? { background: cardBg, position: "relative" } : { position: "relative" }}
                                     >
-                                        {demoPoster && (
-                                            <Image
-                                                src={demoPoster}
-                                                alt={projectName}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, 400px"
-                                                priority={isActive}
-                                                style={{
-                                                    objectFit: POSTER_CONTAIN[slug] ? "contain" : "cover",
-                                                    objectPosition: slug === "insure-tech" ? "center calc(50% - 40px)" : "center",
-                                                    padding: slug === "insure-tech" ? "0 16px 0 0" : "0",
-                                                    boxSizing: "border-box",
-                                                    opacity: video && videoLoaded ? 0 : 1,
-                                                    transition: "opacity 0.3s ease-in-out",
-                                                    position: "absolute",
-                                                    zIndex: 1,
-                                                }}
-                                            />
-                                        )}
-                                        {video && (
+                                        {/* Video card: fade in once ready, no poster shown */}
+                                        {video ? (
                                             <video
                                                 ref={videoRef}
                                                 src={video}
@@ -175,13 +150,25 @@ const Card: React.FC<CardProps> = ({
                                                 style={{
                                                     ...videoStyle,
                                                     opacity: videoLoaded ? 1 : 0,
-                                                    transition: "opacity 0.3s ease-in-out",
-                                                    position: "relative",
-                                                    zIndex: 2,
+                                                    transition: "opacity 0.4s ease-in-out",
                                                 }}
                                             />
-                                        )}
-                                        {!demoPoster && !video && (
+                                        ) : demoPoster ? (
+                                            /* Non-video card: show poster */
+                                            <Image
+                                                src={demoPoster}
+                                                alt={projectName}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 400px"
+                                                priority={isActive}
+                                                style={{
+                                                    objectFit: POSTER_CONTAIN[slug] ? "contain" : "cover",
+                                                    objectPosition: slug === "insure-tech" ? "center calc(50% - 40px)" : "center",
+                                                    padding: slug === "insure-tech" ? "0 16px 0 0" : "0",
+                                                    boxSizing: "border-box",
+                                                }}
+                                            />
+                                        ) : (
                                             <div style={{ width: '100%', height: '100%', background: '#eaeaea' }} />
                                         )}
                                     </Squircle>
