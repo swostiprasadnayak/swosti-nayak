@@ -21,10 +21,12 @@ const VIDEO_FIT: Record<string, "cover" | "contain"> = {
 
 // Slugs where demoPoster should be contained with padding instead of cropped
 const POSTER_CONTAIN: Record<string, boolean> = {
+    "insure-tech": true,
 };
 
 const CARD_BG_COLORS: Record<string, string> = {
     blinkit: "#EAEAEA",
+    "insure-tech": "#ffffff",
 };
 
 const EXIT_ANIMATION = {
@@ -150,7 +152,7 @@ const Card: React.FC<CardProps> = ({
                                                 priority={isActive}
                                                 style={{
                                                     objectFit: POSTER_CONTAIN[slug] ? 'contain' : 'cover',
-                                                    padding: POSTER_CONTAIN[slug] ? '10px 8px' : 0,
+                                                    padding: POSTER_CONTAIN[slug] ? (slug === 'insure-tech' ? '12px 20px 12px 4px' : '10px 8px') : 0,
                                                     boxSizing: 'border-box',
                                                 }}
                                             />
