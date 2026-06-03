@@ -213,7 +213,6 @@ const FILES = [
   { name: "BRD_DIY_Health_Ver0.11.docx", size: "5.4 MB", kind: "docx" },
   { name: "D.I.Y Health policy wording.docx", size: "587.9 KB", kind: "docx" },
   { name: "DIY Rates.xlsx", size: "28.0 KB", kind: "xlsx" },
-  { name: "Pranjal_policy.docx", size: "2.1 MB", kind: "docx" },
 ];
 
 export function MethodSelection({ onNext }: { onNext: () => void }) {
