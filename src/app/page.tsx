@@ -246,7 +246,17 @@ function HomeContent() {
           isVisible={true}
           openWindows={windowModeState.openWindows}
           onIconClick={(slug) => {
-            windowModeState.bringToFront(slug);
+            // Projects visible as floating cards get the normal bring-to-front treatment.
+            // Projects NOT in the visible card stack open their case study overlay directly.
+            const CARD_STACK_SLUGS = ["insure-tech", "blinkit", "gc-dental"];
+            if (CARD_STACK_SLUGS.includes(slug)) {
+              windowModeState.bringToFront(slug);
+            } else {
+              const project = PROJECTS.find(p => p.slug === slug);
+              if (project && !project.disabled) {
+                setExpandedProject(project.name);
+              }
+            }
           }}
         />
       </div>
