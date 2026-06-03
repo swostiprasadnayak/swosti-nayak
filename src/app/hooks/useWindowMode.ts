@@ -57,14 +57,14 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
             return gridPositions[slug] || { x: 0, y: 0 };
         }
 
-        // Initial staggered positions so they stack nicely like a desktop
+        // Initial staggered positions — spread so all 3 cards are clearly visible
         const positions: Record<string, { x: number, y: number }> = {
-            syne:         { x: -160, y: -60 },
-            "gc-dental":  { x: -160, y: -60 },
-            unicef:       { x: -80, y: -30 },
-            "insure-tech":{ x:    0, y:   0 },
-            blinkit:      { x:  160, y:  60 },
-            aristotle:    { x:    0, y:   0 },
+            syne:         { x: -260, y: -60 },
+            "gc-dental":  { x: -260, y: -60 },
+            unicef:       { x: -260, y: -60 },
+            "insure-tech":{ x:  -70, y:  -15 },
+            blinkit:      { x:  150, y:   55 },
+            aristotle:    { x:    0, y:    0 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, [viewMode]);
