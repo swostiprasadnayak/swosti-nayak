@@ -11,13 +11,14 @@ export type WindowModeAPI = {
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Start empty for SSR safety and to keep mobile clear on startup
     const [openWindows, setOpenWindows] = useState<string[]>([]);
-    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, unicef: 2, "insure-tech": 3, blinkit: 4 });
-    const [topZ, setTopZ] = useState(4);
+    // insure-tech has highest z (frontmost), blinkit middle, gc-dental back
+    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, blinkit: 2, "insure-tech": 3 });
+    const [topZ, setTopZ] = useState(3);
 
-    // Initialize desktop open windows on mount
+    // Initialize desktop open windows on mount — insure-tech last = frontmost
     useEffect(() => {
         if (typeof window !== "undefined" && window.innerWidth > 768) {
-            setOpenWindows(["gc-dental", "unicef", "insure-tech", "blinkit"]);
+            setOpenWindows(["gc-dental", "blinkit", "insure-tech"]);
         }
     }, []);
 
