@@ -1,0 +1,162 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Insure-Tech / Eicore prototype styles
+   Scoped under .insure-tech-root to avoid polluting the portfolio global CSS.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.insure-tech-root {
+  --it-bg-primary:   #FFFFFF;
+  --it-bg-secondary: #FFFFFF;
+  --it-bg-tertiary:  #F9FAFB;
+  --it-bg-shell:     #E5E7EB;
+  --it-text-primary: #111827;
+  --it-text-secondary: #4B5563;
+  --it-text-tertiary:  #9CA3AF;
+  --it-brand:        #047857;
+  --it-brand2:       #059669;
+  --it-success:      #10B981;
+  --it-warning:      #F59E0B;
+  --it-error:        #EF4444;
+  --it-border:       #E5E7EB;
+  --it-border-strong:#D1D5DB;
+  --it-shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --it-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --it-r-sm: 6px;
+  --it-r-md: 8px;
+  --it-r-lg: 12px;
+  --it-r-full: 9999px;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--it-text-primary);
+  box-sizing: border-box;
+}
+
+.insure-tech-root *, .insure-tech-root *::before, .insure-tech-root *::after {
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.insure-tech-root button {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.insure-tech-root input,
+.insure-tech-root textarea,
+.insure-tech-root select {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Scrollbar */
+.insure-tech-root ::-webkit-scrollbar { width: 6px; height: 6px; }
+.insure-tech-root ::-webkit-scrollbar-track { background: transparent; }
+.insure-tech-root ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 9999px; }
+.insure-tech-root ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+/* Fade-in animation */
+@keyframes itFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.insure-tech-root .animate-fade-in {
+  animation: itFadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.insure-tech-root .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--it-r-md);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.insure-tech-root .btn-lg {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.insure-tech-root .btn-sm {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.insure-tech-root .btn-brand {
+  background: var(--it-brand);
+  color: #fff;
+}
+.insure-tech-root .btn-brand:hover {
+  background: var(--it-brand2);
+  box-shadow: var(--it-shadow-md);
+  transform: translateY(-1px);
+  filter: none;
+}
+
+.insure-tech-root .btn-primary {
+  background: var(--it-text-primary);
+  color: #fff;
+}
+.insure-tech-root .btn-primary:hover {
+  background: #374151;
+  box-shadow: var(--it-shadow-md);
+  transform: translateY(-1px);
+  filter: none;
+}
+
+.insure-tech-root .btn-secondary {
+  background: var(--it-bg-primary);
+  color: var(--it-text-primary);
+  border: 1px solid var(--it-border-strong);
+}
+.insure-tech-root .btn-secondary:hover {
+  background: var(--it-bg-tertiary);
+  border-color: var(--it-text-secondary);
+  box-shadow: var(--it-shadow-sm);
+  filter: none;
+}
+
+.insure-tech-root .btn-ghost {
+  background: transparent;
+  color: var(--it-text-secondary);
+}
+.insure-tech-root .btn-ghost:hover {
+  background: rgba(0,0,0,0.04);
+  color: var(--it-text-primary);
+  filter: none;
+}
+
+/* Neuter the portfolio's global button:hover filter inside the app */
+.insure-tech-root button:hover {
+  filter: none;
+}
+.insure-tech-root button:active {
+  filter: none;
+}
+
+/* ── Interactive hovers ──────────────────────────────────────────────────── */
+.insure-tech-root .sidebar-step-card:hover {
+  background: var(--it-bg-tertiary) !important;
+  border-color: var(--it-border) !important;
+}
+
+.insure-tech-root .upload-zone:hover {
+  border-color: var(--it-brand) !important;
+  background: rgba(4, 120, 87, 0.03) !important;
+}
+
+.insure-tech-root .nav-tab:hover {
+  background: var(--it-bg-secondary) !important;
+  color: var(--it-text-primary) !important;
+}

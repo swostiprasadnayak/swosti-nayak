@@ -47,7 +47,12 @@ export default function ExpandedProject({ projectName, onClose, layoutId }: Expa
                             <span className={classes.windowTitle}>{projectName}</span>
                             <div className={classes.trafficLightsPlaceholder} />
                         </div>
-                        <div className={classes.content}>
+                        <div
+                            className={classes.content}
+                            style={projectName?.toLowerCase() === 'insure-tech'
+                                ? { overflow: 'hidden', position: 'relative' }
+                                : undefined}
+                        >
                             {(projectName?.toLowerCase() === 'syne' || projectName?.toLowerCase() === 'surrounding') && <CaseStudyTemplate />}
                             {projectName?.toLowerCase() === 'unicef' && <UnicefCaseStudyTemplate />}
                             {projectName?.toLowerCase() === 'blinkit' && <BlinkitCaseStudyTemplate />}
