@@ -107,11 +107,7 @@ export default function WelcomeOverlay() {
 
       {/* Card: white 10% + blur 54, slides from top */}
       <div className={`${classes.container} ${visible ? classes.containerVisible : ''}`}>
-        {/* SVG border: exact dash 7, gap 7 — CSS dashed can't control gap size */}
-        <svg aria-hidden="true" style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',overflow:'visible'}}>
-          <rect x="0.5" y="0.5" width="99%" height="99%" rx="14.5" ry="14.5"
-            fill="none" stroke="white" strokeWidth="1" strokeDasharray="12 7" />
-        </svg>
+        {/* Dashed SVG border removed for cleaner look */}
         {/* Close button: white 40% + blur 27.38 */}
         <button className={classes.closeBtn} onClick={hide} aria-label="Close">
           <svg width="16" height="16" viewBox="0 0 12 12" fill="none">
