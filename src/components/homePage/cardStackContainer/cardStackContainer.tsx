@@ -400,6 +400,8 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             width: "100%",
                                             background: cardBg,
                                             overflow: "hidden",
+                                            // soft inner shadow so light/white media reads as inset
+                                            boxShadow: "inset 0 1px 3px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(0,0,0,0.03)",
                                         }}
                                     >
                                         {project.video ? (
