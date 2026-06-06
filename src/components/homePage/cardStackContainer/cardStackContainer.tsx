@@ -1,12 +1,30 @@
 "use client";
 
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
+import Image from "next/image";
 import { motion, LayoutGroup, AnimatePresence, useMotionValue, useTransform, useAnimation } from "motion/react";
+import { Squircle } from "corner-smoothing";
 import type { WindowModeAPI } from "@/app/hooks/useWindowMode";
 import classes from "./cardStackContainer.module.css";
 import Card from "../../card/card";
 import { PROJECTS } from "@/app/types/projects.types";
 import { CARD_STYLES } from "@/app/types/cards.types";
+
+// Background colors per project (matches desktop Card)
+const MOBILE_CARD_BG: Record<string, string> = {
+    blinkit: "#EAEAEA",
+    "insure-tech": "#ffffff",
+    "gc-dental": "#f5f5f5",
+    unicef: "#ffffff",
+};
+
+// Per-project image fit overrides for the mobile stack
+const MOBILE_POSTER_FIT: Record<string, "cover" | "contain"> = {
+    "insure-tech": "contain",
+};
+const MOBILE_VIDEO_FIT: Record<string, "cover" | "contain"> = {
+    blinkit: "contain",
+};
 
 type CardStackContainerProps = {
     isExiting: boolean;
@@ -231,19 +249,19 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     }, [windowModeState, filteredProjects, isExiting, expandedProject]);
 
     // ── Framer-style swipeable card stack (mobile) ──────────────────────────
-    // Uses `layout` prop for smooth spring-based reorder transitions.
-    // Front card is draggable in any direction; on swipe it moves to back.
+    // Custom card layout: no traffic lights, no window header.
+    // Image/video fills top, description + tags at bottom.
     if (isMounted && isMobile) {
         if (!mobileCards.length) return null;
 
-        const mobileWidth = "min(300px, calc(100vw - 64px))";
-        const mobileHeight = "min(370px, calc(100vh - 320px))";
+        const mobileWidth = "min(320px, calc(100vw - 56px))";
+        const mobileHeight = "min(440px, calc(100vh - 280px))";
 
         return (
             <LayoutGroup>
                 <div style={{
                     position: "absolute",
-                    top: 90,
+                    top: 80,
                     bottom: 110,
                     left: 0,
                     right: 0,
@@ -262,6 +280,10 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                         const xOffset = index * 20;       // 0px, 20px, 40px
                         const yOffset = index * 10;       // 0px, 10px, 20px
                         const cardOpacity = 1 - index * 0.15;
+
+                        const cardBg = MOBILE_CARD_BG[project.slug] ?? "#ffffff";
+                        const posterFit = MOBILE_POSTER_FIT[project.slug] ?? "cover";
+                        const videoFit = MOBILE_VIDEO_FIT[project.slug] ?? "cover";
 
                         return (
                             <motion.div
@@ -285,36 +307,124 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                 dragElastic={0.8}
                                 onDragEnd={isTop ? handleSwipeDragEnd : undefined}
                                 whileDrag={{ cursor: "grabbing", scale: 1.02 }}
+                                onClick={() => isTop && handleExpandProject(project.name)}
                                 style={{
                                     position: "absolute",
                                     width: mobileWidth,
                                     height: mobileHeight,
-                                    overflow: "hidden",
-                                    borderRadius: 16,
                                     cursor: isTop ? "grab" : "auto",
                                     touchAction: "none",
                                     pointerEvents: isTop ? "auto" : "none",
                                 }}
                             >
-                                <Card
-                                    height={mobileHeight}
-                                    width={mobileWidth}
-                                    projectName={project.name}
-                                    projectDescription={project.description}
-                                    video={project.video}
-                                    demoPoster={project.demoPoster}
-                                    zIndex={mobileCards.length - index}
-                                    isExiting={isExiting}
-                                    onExpandProject={handleExpandProject}
-                                    isProjectExpanded={!!expandedProject}
-                                    onCloseWindow={() => {}}
-                                    isActive={isTop}
-                                    layoutId={
-                                        getProjectLayoutId
-                                            ? getProjectLayoutId(project.name.toLowerCase())
-                                            : getVideoModalLayoutId?.(project.name)
-                                    }
-                                />
+                                <Squircle
+                                    cornerRadius={20}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        background: "#ffffff",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        overflow: "hidden",
+                                        boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08)",
+                                    }}
+                                >
+                                    {/* Image / Video area (~62%) */}
+                                    <div style={{
+                                        position: "relative",
+                                        flex: "0 0 62%",
+                                        background: cardBg,
+                                        overflow: "hidden",
+                                    }}>
+                                        {project.video ? (
+                                            <video
+                                                src={project.video}
+                                                autoPlay={isTop}
+                                                preload="metadata"
+                                                loop
+                                                muted
+                                                playsInline
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: videoFit,
+                                                    display: "block",
+                                                }}
+                                            />
+                                        ) : project.demoPoster ? (
+                                            <Image
+                                                src={project.demoPoster}
+                                                alt={project.name}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 320px"
+                                                priority={isTop}
+                                                style={{
+                                                    objectFit: posterFit,
+                                                    objectPosition: "center",
+                                                    padding: posterFit === "contain" ? "12px" : "0",
+                                                    boxSizing: "border-box",
+                                                }}
+                                            />
+                                        ) : null}
+                                    </div>
+
+                                    {/* Description panel (~38%) */}
+                                    <div style={{
+                                        flex: 1,
+                                        padding: "16px 18px",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: 8,
+                                        background: "#ffffff",
+                                        borderTop: "1px solid rgba(0,0,0,0.06)",
+                                        overflow: "hidden",
+                                    }}>
+                                        <h3 style={{
+                                            fontSize: 16,
+                                            fontWeight: 600,
+                                            color: "#111",
+                                            margin: 0,
+                                            letterSpacing: "-0.01em",
+                                        }}>
+                                            {project.name}
+                                        </h3>
+                                        <p style={{
+                                            fontSize: 12.5,
+                                            lineHeight: 1.45,
+                                            color: "#555",
+                                            margin: 0,
+                                            display: "-webkit-box",
+                                            WebkitLineClamp: 3,
+                                            WebkitBoxOrient: "vertical",
+                                            overflow: "hidden",
+                                        }}>
+                                            {project.description}
+                                        </p>
+                                        {project.tags && project.tags.length > 0 && (
+                                            <div style={{
+                                                display: "flex",
+                                                gap: 6,
+                                                flexWrap: "wrap",
+                                                marginTop: 2,
+                                            }}>
+                                                {project.tags.slice(0, 3).map(tag => (
+                                                    <span key={tag} style={{
+                                                        fontSize: 10,
+                                                        padding: "3px 8px",
+                                                        background: "#f4f4f4",
+                                                        border: "1px solid #e5e5e5",
+                                                        borderRadius: 100,
+                                                        color: "#555",
+                                                        fontWeight: 500,
+                                                        whiteSpace: "nowrap",
+                                                    }}>
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </Squircle>
                             </motion.div>
                         );
                     })}
