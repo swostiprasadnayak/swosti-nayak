@@ -10,10 +10,10 @@ import Card from "../../card/card";
 import { PROJECTS } from "@/app/types/projects.types";
 import { CARD_STYLES } from "@/app/types/cards.types";
 
-// Background colors per project (matches desktop Card)
+// Background colors per project (matches each poster's own background)
 const MOBILE_CARD_BG: Record<string, string> = {
     blinkit: "#EAEAEA",
-    "insure-tech": "#ffffff",
+    "insure-tech": "#F9F9F9",
     "gc-dental": "#f5f5f5",
     unicef: "#ffffff",
 };
