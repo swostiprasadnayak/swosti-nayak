@@ -51,11 +51,24 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     const y = useMotionValue(0);
     const rotate = useTransform(x, [-200, 200], [-12, 12]);
     const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0.6, 1, 1, 1, 0.6]);
-    const mobileOpacity = useTransform(y, [-200, -80, 0, 80, 200], [0.3, 0.8, 1, 0.8, 0.3]);
-    const mobileScale = useTransform(y, [-200, 0, 200], [0.92, 1, 0.92]);
     const controls = useAnimation();
-    const [mobileDirection, setMobileDirection] = useState<"up" | "down" | null>(null);
-    const hasMobileSwiped = useRef(false);
+
+    // Framer-style card stack state: tracks the order of cards by index
+    const [cardOrder, setCardOrder] = useState<number[]>([]);
+    const [isDragging, setIsDragging] = useState(false);
+    // Motion values for the front card's drag position
+    const dragX = useMotionValue(0);
+    const dragY = useMotionValue(0);
+    // 3D tilt rotation based on drag position (max 15°)
+    const rotateX = useTransform(dragY, [-200, 0, 200], [15, 0, -15]);
+    const rotateY = useTransform(dragX, [-200, 0, 200], [-15, 0, 15]);
+    // Scale down slightly while dragging
+    const dragScale = useTransform(
+        dragX,
+        [-300, -100, 0, 100, 300],
+        [0.95, 0.98, 1, 0.98, 0.95]
+    );
+    const isAnimatingRef = useRef(false);
 
     useEffect(() => {
         setIsMounted(true);
@@ -83,12 +96,26 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
     }, [isMobile, windowModeState?.openWindows, filteredProjects, windowModeState]);
 
-    // Initialize with unicef if empty on mobile startup
+    // Initialize with insure-tech if empty on mobile startup
     useEffect(() => {
         if (isMobile && windowModeState && windowModeState.openWindows.length === 0) {
             windowModeState.bringToFront("insure-tech");
         }
     }, [isMobile, windowModeState]);
+
+    // Initialize card order for Framer-style stack (insure-tech first)
+    useEffect(() => {
+        if (isMobile && filteredProjects.length > 0 && cardOrder.length === 0) {
+            // Put insure-tech at position 0 (front of the stack)
+            const insureIdx = filteredProjects.findIndex(p => p.slug === "insure-tech");
+            const order = filteredProjects.map((_, i) => i);
+            if (insureIdx > 0) {
+                order.splice(order.indexOf(insureIdx), 1);
+                order.unshift(insureIdx);
+            }
+            setCardOrder(order);
+        }
+    }, [isMobile, filteredProjects, cardOrder.length]);
 
     const setActiveMobileProject = useCallback((slug: string) => {
         if (!windowModeState) return;
@@ -143,46 +170,70 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         []
     );
 
-    const handleMobileDragEnd = async (event: any, info: any) => {
-        const swipeThreshold = 60;
-        const swipe = info.offset.y;
-        const velocity = info.velocity.y;
+    // Framer-style card stack: swipe in any direction to send front card to back
+    const handleStackDragEnd = async (_event: any, info: any) => {
+        if (isAnimatingRef.current) return;
 
-        if (filteredProjects.length <= 1) {
-            controls.start({ y: 0, scale: 1, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 25 } });
-            return;
-        }
+        const swipeDistance = 100; // matches Framer's Swipe Distance
+        const swipeVelocity = 500; // matches Framer's Swipe Velocity
+        const offsetX = info.offset.x;
+        const offsetY = info.offset.y;
+        const velocityX = info.velocity.x;
+        const velocityY = info.velocity.y;
 
-        // Swipe up or strong upward velocity → next project
-        if (swipe < -swipeThreshold || velocity < -400) {
-            hasMobileSwiped.current = true;
-            setMobileDirection("up");
-            await controls.start({ y: -600, opacity: 0, scale: 0.9, transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } });
-            let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
-            if (currentIndex === -1) currentIndex = 0;
-            const nextIndex = (currentIndex + 1) % filteredProjects.length;
-            setActiveMobileProject(filteredProjects[nextIndex].slug);
-            // Reset position — new card will enter via AnimatePresence
-            y.set(0);
-            controls.set({ y: 0, opacity: 1, scale: 1 });
-            setMobileDirection(null);
-        }
-        // Swipe down or strong downward velocity → previous project
-        else if (swipe > swipeThreshold || velocity > 400) {
-            hasMobileSwiped.current = true;
-            setMobileDirection("down");
-            await controls.start({ y: 600, opacity: 0, scale: 0.9, transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } });
-            let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
-            if (currentIndex === -1) currentIndex = 0;
-            const prevIndex = (currentIndex - 1 + filteredProjects.length) % filteredProjects.length;
-            setActiveMobileProject(filteredProjects[prevIndex].slug);
-            y.set(0);
-            controls.set({ y: 0, opacity: 1, scale: 1 });
-            setMobileDirection(null);
-        }
-        // Snap back
-        else {
-            controls.start({ y: 0, scale: 1, opacity: 1, transition: { type: "spring", stiffness: 400, damping: 30 } });
+        const distanceMoved = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
+        const velocityMagnitude = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+
+        const shouldSwipe = distanceMoved > swipeDistance || velocityMagnitude > swipeVelocity;
+
+        if (shouldSwipe && filteredProjects.length > 1) {
+            isAnimatingRef.current = true;
+            setIsDragging(false);
+
+            // Determine the direction to fly off (use velocity if strong, else offset)
+            const angle = Math.atan2(
+                velocityMagnitude > swipeVelocity ? velocityY : offsetY,
+                velocityMagnitude > swipeVelocity ? velocityX : offsetX
+            );
+            const flyDistance = 800;
+            const targetX = Math.cos(angle) * flyDistance;
+            const targetY = Math.sin(angle) * flyDistance;
+
+            // Animate the front card flying off
+            await controls.start({
+                x: targetX,
+                y: targetY,
+                opacity: 0,
+                transition: { type: "spring", stiffness: 200, damping: 30, mass: 0.8 }
+            });
+
+            // Move front card to back of the stack (infinite loop)
+            setCardOrder(prev => {
+                const newOrder = [...prev];
+                const front = newOrder.shift()!;
+                newOrder.push(front);
+                return newOrder;
+            });
+
+            // Update active project in windowModeState
+            const nextFrontIndex = cardOrder[1]; // card[1] becomes the new front
+            if (nextFrontIndex !== undefined) {
+                setActiveMobileProject(filteredProjects[nextFrontIndex]?.slug || "insure-tech");
+            }
+
+            // Reset drag position for the new front card
+            dragX.set(0);
+            dragY.set(0);
+            controls.set({ x: 0, y: 0, opacity: 1 });
+            isAnimatingRef.current = false;
+        } else {
+            // Snap back with spring
+            setIsDragging(false);
+            controls.start({
+                x: 0,
+                y: 0,
+                transition: { type: "spring", stiffness: 500, damping: 30 }
+            });
         }
     };
 
@@ -243,22 +294,17 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             .filter(Boolean);
     }, [windowModeState, filteredProjects, isExiting, expandedProject]);
 
-    // Mobile swipe rendering block (placed after all hook declarations)
+    // ── Framer-style swipeable card stack (mobile) ──────────────────────────
     if (isMounted && isMobile) {
-        const project = filteredProjects.find((p) => p.slug === activeSlug) || filteredProjects[0];
-        if (!project) return null;
+        if (!filteredProjects.length || cardOrder.length === 0) return null;
 
-        let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
-        if (currentIndex === -1) currentIndex = 0;
+        const STACK_OFFSET = 12;   // px each card peeks behind the one in front
+        const SCALE_STEP = 0.05;   // 5% smaller per layer
+        const VISIBLE_CARDS = Math.min(3, filteredProjects.length);
+        const PERSPECTIVE = 600;
 
-        // Next two projects for the stack behind
-        const stack1Index = (currentIndex + 1) % filteredProjects.length;
-        const stack2Index = (currentIndex + 2) % filteredProjects.length;
-        const stack1 = filteredProjects.length > 1 ? filteredProjects[stack1Index] : null;
-        const stack2 = filteredProjects.length > 2 ? filteredProjects[stack2Index] : null;
-
-        const mobileWidth = "min(320px, calc(100vw - 56px))";
-        const mobileHeight = "min(400px, calc(100vh - 300px))";
+        const mobileWidth = "min(300px, calc(100vw - 72px))";
+        const mobileHeight = "min(360px, calc(100vh - 340px))";
 
         return (
             <div style={{
@@ -273,7 +319,8 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                 pointerEvents: "none",
                 padding: "0 20px",
                 boxSizing: "border-box",
-                zIndex: 10
+                zIndex: 10,
+                perspective: PERSPECTIVE,
             }}>
                 <div style={{
                     position: "relative",
@@ -283,91 +330,122 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                     maxHeight: "460px",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
                 }}>
-                    {/* Stack card 2 (deepest — peeks above front card) */}
-                    {stack2 && (
-                        <div style={{
-                            position: "absolute",
-                            width: "76%",
-                            height: "100%",
-                            bottom: 20,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            opacity: 0.35,
-                            zIndex: 1,
-                            pointerEvents: "none",
-                            borderRadius: 16,
-                            background: "rgba(255,255,255,0.6)",
-                            backdropFilter: "blur(4px)",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                        }} />
-                    )}
+                    {/* Render cards: back cards first, front card last (painter's order) */}
+                    {cardOrder.slice(0, VISIBLE_CARDS).map((projectIndex, stackPosition) => {
+                        const project = filteredProjects[projectIndex];
+                        if (!project) return null;
 
-                    {/* Stack card 1 (middle — peeks above front card) */}
-                    {stack1 && (
-                        <div style={{
-                            position: "absolute",
-                            width: "86%",
-                            height: "100%",
-                            bottom: 10,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            opacity: 0.55,
-                            zIndex: 2,
-                            pointerEvents: "none",
-                            borderRadius: 16,
-                            background: "rgba(255,255,255,0.8)",
-                            backdropFilter: "blur(4px)",
-                            boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
-                        }} />
-                    )}
+                        const isFront = stackPosition === 0;
+                        const depth = stackPosition; // 0 = front, 1 = behind, 2 = deepest
 
-                    <AnimatePresence mode="wait">
-                        {/* Front swipeable card */}
-                        <motion.div
-                            key={project.slug}
-                            initial={hasMobileSwiped.current
-                                ? { y: mobileDirection === "up" ? 300 : -300, opacity: 0, scale: 0.95 }
-                                : false
-                            }
-                            animate={{ y: 0, opacity: 1, scale: 1 }}
-                            exit={{ y: mobileDirection === "up" ? -300 : 300, opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                            style={{
-                                position: "absolute",
-                                width: "100%",
-                                height: "100%",
-                                zIndex: 10,
-                                pointerEvents: "auto",
-                                touchAction: "none",
-                            }}
-                            drag="y"
-                            dragConstraints={{ top: 0, bottom: 0 }}
-                            dragElastic={0.6}
-                            onDragEnd={handleMobileDragEnd}
-                        >
-                            <Card
-                                height={mobileHeight}
-                                width={mobileWidth}
-                                projectName={project.name}
-                                projectDescription={project.description}
-                                video={project.video}
-                                demoPoster={project.demoPoster}
-                                zIndex={10}
-                                isExiting={isExiting}
-                                onExpandProject={handleExpandProject}
-                                isProjectExpanded={!!expandedProject}
-                                onCloseWindow={() => {}}
-                                isActive={true}
-                                layoutId={
-                                    getProjectLayoutId
-                                        ? getProjectLayoutId(project.name.toLowerCase())
-                                        : getVideoModalLayoutId?.(project.name)
-                                }
-                            />
-                        </motion.div>
-                    </AnimatePresence>
+                        // Stack appearance: each card behind is slightly smaller and offset down
+                        const scale = 1 - depth * SCALE_STEP;
+                        const yOffset = -(depth * STACK_OFFSET); // negative = peek above the front card
+                        const cardOpacity = 1 - depth * 0.2;
+                        const zIdx = (VISIBLE_CARDS - depth) * 10;
+
+                        if (isFront) {
+                            // Front card: draggable with 3D tilt
+                            return (
+                                <motion.div
+                                    key={`stack-${projectIndex}`}
+                                    animate={controls}
+                                    style={{
+                                        position: "absolute",
+                                        width: mobileWidth,
+                                        height: mobileHeight,
+                                        zIndex: zIdx,
+                                        pointerEvents: "auto",
+                                        touchAction: "none",
+                                        rotateX,
+                                        rotateY,
+                                        cursor: "grab",
+                                        transformStyle: "preserve-3d",
+                                    }}
+                                    drag
+                                    dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+                                    dragElastic={0.6}
+                                    onDragStart={() => setIsDragging(true)}
+                                    onDrag={(_e, info) => {
+                                        dragX.set(info.offset.x);
+                                        dragY.set(info.offset.y);
+                                    }}
+                                    onDragEnd={handleStackDragEnd}
+                                    whileDrag={{ scale: 1.02, cursor: "grabbing" }}
+                                >
+                                    <Card
+                                        height={mobileHeight}
+                                        width={mobileWidth}
+                                        projectName={project.name}
+                                        projectDescription={project.description}
+                                        video={project.video}
+                                        demoPoster={project.demoPoster}
+                                        zIndex={zIdx}
+                                        isExiting={isExiting}
+                                        onExpandProject={handleExpandProject}
+                                        isProjectExpanded={!!expandedProject}
+                                        onCloseWindow={() => {}}
+                                        isActive={true}
+                                        layoutId={
+                                            getProjectLayoutId
+                                                ? getProjectLayoutId(project.name.toLowerCase())
+                                                : getVideoModalLayoutId?.(project.name)
+                                        }
+                                    />
+                                </motion.div>
+                            );
+                        }
+
+                        // Background cards: real cards that peek behind, animate on reorder
+                        return (
+                            <motion.div
+                                key={`stack-${projectIndex}`}
+                                initial={false}
+                                animate={{
+                                    scale,
+                                    y: yOffset,
+                                    opacity: cardOpacity,
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 300,
+                                    damping: 25,
+                                    mass: 0.8,
+                                }}
+                                style={{
+                                    position: "absolute",
+                                    zIndex: zIdx,
+                                    pointerEvents: "none",
+                                    borderRadius: 16,
+                                    overflow: "hidden",
+                                    transformOrigin: "center center",
+                                    boxShadow: `0 ${8 - depth * 2}px ${24 - depth * 4}px -4px rgba(0,0,0,${0.15 - depth * 0.03})`,
+                                }}
+                            >
+                                <Card
+                                    height={mobileHeight}
+                                    width={mobileWidth}
+                                    projectName={project.name}
+                                    projectDescription={project.description}
+                                    video={project.video}
+                                    demoPoster={project.demoPoster}
+                                    zIndex={zIdx}
+                                    isExiting={isExiting}
+                                    onExpandProject={handleExpandProject}
+                                    isProjectExpanded={!!expandedProject}
+                                    onCloseWindow={() => {}}
+                                    isActive={false}
+                                    layoutId={
+                                        getProjectLayoutId
+                                            ? getProjectLayoutId(project.name.toLowerCase())
+                                            : getVideoModalLayoutId?.(project.name)
+                                    }
+                                />
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         );
