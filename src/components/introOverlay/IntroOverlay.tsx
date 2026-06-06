@@ -215,7 +215,7 @@ const IntroOverlay: React.FC = () => {
                 className={classes.avatarVideo}
                 src="/videos/intro-avatar-new.webm"
                 playsInline
-                preload="auto"
+                preload="metadata"
               />
             </motion.div>
 

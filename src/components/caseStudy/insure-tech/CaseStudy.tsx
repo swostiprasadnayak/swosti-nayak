@@ -70,7 +70,7 @@ const REFLECTIONS = [
 // ─── Final design showcase data (hi-fi PNGs from Figma) ──────────────────────
 const DESIGNS = [
   {
-    src: "/final-designs/06-heor.png",
+    src: "/final-designs/06-heor.webp",
     label: "Unified Workspace",
     title: "The product builder's home screen.",
     summary: "Every signal needed to start verifying — extraction health, source documents, plan structure, and open issues — consolidated into one view without hunting across tabs.",
@@ -84,7 +84,7 @@ const DESIGNS = [
     ],
   },
   {
-    src: "/final-designs/05-tree-drawer.png",
+    src: "/final-designs/05-tree-drawer.webp",
     label: "Tree + Parameter Drawer",
     title: "Inspect any card without losing the map.",
     summary: "Clicking a card on the Tree opens the Parameter Drawer on the right edge — the full canvas stays visible so dependencies and sibling values remain legible.",
@@ -98,7 +98,7 @@ const DESIGNS = [
     ],
   },
   {
-    src: "/final-designs/03-parameter.png",
+    src: "/final-designs/03-parameter.webp",
     label: "Parameter Editor",
     title: "The Trust Loop, expanded.",
     summary: "A single parameter — In-patient Hospitalisation — opens into a focused editor with the Parameter Drawer pinning the AI's source passage right next to the form.",
@@ -112,7 +112,7 @@ const DESIGNS = [
     ],
   },
   {
-    src: "/final-designs/01-workspace.png",
+    src: "/final-designs/01-workspace.webp",
     label: "Tree Mode",
     title: "The whole plan as a single canvas.",
     summary: "A full-screen anatomy view — every parameter rendered as a card, grouped by category, connected by dependency edges. Switch tier with one click; issues count follows you.",
@@ -126,7 +126,7 @@ const DESIGNS = [
     ],
   },
   {
-    src: "/final-designs/02-drilldown.png",
+    src: "/final-designs/02-drilldown.webp",
     label: "Coverage Drill-Down",
     title: "From workspace to category in one click.",
     summary: "Selecting a category morphs the left rail into a Categories list with progress per group, while the workspace shows per-parameter 3-up values across Mini / Medi / Max.",
@@ -413,7 +413,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* HERO BANNER IMAGE — bleeds to full content width */}
         <div style={{ marginLeft: isMobile ? 0 : -40, marginRight: isMobile ? 0 : -40 }}>
           <Image
-            src="/images/insure-tech-devices.png"
+            src="/images/insure-tech-devices.webp"
             alt="Insure-Tech Product Plan Builder Multi-Device View"
             width={3669}
             height={2028}
@@ -492,7 +492,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
                   border: `1px solid ${BORDER}`,
                   background: "#fff",
                 }}>
-                  <img src={d.src} alt={d.title} style={{ width: "100%", display: "block" }} />
+                  <img src={d.src} alt={d.title} loading="lazy" decoding="async" style={{ width: "100%", display: "block" }} />
                 </div>
                 <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr", gap: 28, alignItems: "start" }}>
                   <div>

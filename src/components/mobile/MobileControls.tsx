@@ -75,7 +75,7 @@ export default function MobileControls({
 
   return (
     <div className={classes.controlsWrapper}>
-      <audio ref={player.audioRef} src={player.track?.src} preload="auto" />
+      <audio ref={player.audioRef} src={player.track?.src} preload="metadata" />
 
       {/* 1. TOP RIGHT: Hamburger Menu Trigger Button */}
       <button

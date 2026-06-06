@@ -95,6 +95,8 @@ const Card: React.FC<CardProps> = ({
             {!isExiting && (
                 <motion.div
                     className={classes.cardContainer}
+                    data-component="Card"
+                    data-project={projectName}
                     style={{ zIndex, cursor: isDisabled ? "default" : "pointer" }}
                     onClick={handleClick}
                     onMouseEnter={() => setIsHovered(true)}
@@ -140,7 +142,7 @@ const Card: React.FC<CardProps> = ({
                                                 ref={videoRef}
                                                 src={video}
                                                 autoPlay={shouldPlay}
-                                                preload="auto"
+                                                preload="metadata"
                                                 loop
                                                 muted
                                                 playsInline
