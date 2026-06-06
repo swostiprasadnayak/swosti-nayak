@@ -13,7 +13,7 @@ import { CARD_STYLES } from "@/app/types/cards.types";
 // Background colors per project (matches each poster's own background)
 const MOBILE_CARD_BG: Record<string, string> = {
     blinkit: "#EAEAEA",
-    "insure-tech": "#E8E8E8",
+    "insure-tech": "#F9F9F9",
     "gc-dental": "#f5f5f5",
     unicef: "#ffffff",
 };
