@@ -160,3 +160,19 @@
   background: var(--it-bg-secondary) !important;
   color: var(--it-text-primary) !important;
 }
+
+/* ── Header responsive: tabs vs dropdown ──────────────────────────────── */
+/* Desktop: show tabs, hide dropdown */
+.insure-tech-root .eicore-mobile-dropdown {
+  display: none;
+}
+
+/* Mobile: hide tabs, show dropdown */
+@media (max-width: 600px) {
+  .insure-tech-root .eicore-desktop-tabs {
+    display: none !important;
+  }
+  .insure-tech-root .eicore-mobile-dropdown {
+    display: block !important;
+  }
+}

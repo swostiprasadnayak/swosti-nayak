@@ -133,8 +133,8 @@ function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSi
         )}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        {/* Desktop: show tabs inline */}
-        <div style={{ display: "flex", gap: 2, padding: 3, borderRadius: 8, background: C.bgTertiary, border: `1px solid ${C.border}` }}>
+        {/* Desktop: inline tabs (hidden on mobile via CSS class) */}
+        <div className="eicore-desktop-tabs" style={{ display: "flex", gap: 2, padding: 3, borderRadius: 8, background: C.bgTertiary, border: `1px solid ${C.border}` }}>
           {TABS.map(({ id, label }) => (
             <button className="nav-tab" key={id} onClick={() => setView(id)}
               style={{ padding: "5px 12px", borderRadius: 6, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, background: view === id ? C.card : "transparent", color: view === id ? C.brand : C.text3, boxShadow: view === id ? C.shadowSm : "none", whiteSpace: "nowrap" }}>
@@ -143,12 +143,13 @@ function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSi
           ))}
         </div>
 
-        {/* Mobile: dropdown menu */}
-        <div ref={dropdownRef} style={{ position: "relative" }}>
+        {/* Mobile: dropdown with selected label (hidden on desktop via CSS class) */}
+        <div ref={dropdownRef} className="eicore-mobile-dropdown" style={{ position: "relative" }}>
           <button
             onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid ${C.border}`, borderRadius: 6, width: 28, height: 28, color: C.text2, background: C.card, cursor: "pointer" }}>
-            <ChevronDown size={14} />
+            style={{ display: "flex", alignItems: "center", gap: 6, padding: "5px 10px", border: `1px solid ${C.border}`, borderRadius: 8, background: C.bgTertiary, color: C.text, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
+            {TABS.find(t => t.id === view)?.label}
+            <ChevronDown size={12} style={{ color: C.text3, transform: mobileDropdownOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
           </button>
 
           {mobileDropdownOpen && (
@@ -160,7 +161,8 @@ function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSi
                     setView(id);
                     setMobileDropdownOpen(false);
                   }}
-                  style={{ display: "flex", alignItems: "center", width: "100%", padding: "10px 14px", border: "none", textAlign: "left" as const, cursor: "pointer", whiteSpace: "nowrap" as const, background: view === id ? C.brandTint : "transparent", color: view === id ? C.brand : C.text2, fontSize: 12, fontWeight: view === id ? 600 : 400 }}>
+                  style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "10px 14px", border: "none", textAlign: "left" as const, cursor: "pointer", whiteSpace: "nowrap" as const, background: view === id ? C.brandTint : "transparent", color: view === id ? C.brand : C.text2, fontSize: 12, fontWeight: view === id ? 600 : 400 }}>
+                  {view === id && <Check size={12} />}
                   {label}
                 </button>
               ))}
