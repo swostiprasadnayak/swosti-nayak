@@ -352,27 +352,19 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08)",
                                     }}
                                 >
-                                    {/* Traffic lights — close / minimise / expand
-                                        Uses onPointerDown to fire before framer-motion's drag
-                                        handler can intercept the gesture. */}
+                                    {/* Traffic lights — close / minimise / expand */}
                                     {isTop && (
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                gap: 8,
-                                                alignItems: "center",
-                                                padding: "4px 6px",
-                                                position: "relative",
-                                                zIndex: 5,
-                                            }}
-                                            onPointerDownCapture={(e) => e.stopPropagation()}
-                                        >
+                                        <div style={{
+                                            display: "flex",
+                                            gap: 6,
+                                            alignItems: "center",
+                                            padding: "2px 4px 0",
+                                        }}>
                                             <button
-                                                onPointerDown={(e) => {
+                                                onClick={(e) => {
                                                     e.stopPropagation();
-                                                    e.preventDefault();
                                                     // "Close" = remove card from stack.
-                                                    // Tapping the dock icon reopens it.
+                                                    // Tapping the dock icon reopens it via the sync effect.
                                                     const closingSlug = project.slug;
                                                     const nextProject = mobileCards[1];
                                                     setMobileCards(prev => prev.filter(p => p.slug !== closingSlug));
@@ -381,43 +373,35 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                         if (nextProject) windowModeState.bringToFront(nextProject.slug);
                                                     }
                                                 }}
-                                                style={{ width: 14, height: 14, borderRadius: "50%", border: "none", background: "#FE5F57", cursor: "pointer", padding: 0, touchAction: "manipulation" }}
+                                                style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#FE5F57", cursor: "pointer", padding: 0 }}
                                                 title="Close"
-                                                aria-label="Close card"
                                             />
                                             <button
-                                                onPointerDown={(e) => e.stopPropagation()}
-                                                style={{ width: 14, height: 14, borderRadius: "50%", border: "none", background: "#FEBC2E", cursor: "default", padding: 0, touchAction: "manipulation" }}
+                                                style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#FEBC2E", cursor: "default", padding: 0 }}
                                                 title="Minimise"
-                                                aria-label="Minimise"
                                             />
                                             <button
-                                                onPointerDown={(e) => {
+                                                onClick={(e) => {
                                                     e.stopPropagation();
-                                                    e.preventDefault();
                                                     handleExpandProject(project.name);
                                                 }}
-                                                style={{ width: 14, height: 14, borderRadius: "50%", border: "none", background: "#28C840", cursor: "pointer", padding: 0, touchAction: "manipulation" }}
+                                                style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#28C840", cursor: "pointer", padding: 0 }}
                                                 title="Open case study"
-                                                aria-label="Open case study"
                                             />
                                         </div>
                                     )}
 
-                                    {/* Inset media panel — image/video fits the frame (contain).
-                                        Clean inset shadow so light/white media reads as a
-                                        separate card-in-card panel. */}
-                                    <div style={{ position: "relative", flex: "0 0 60%", width: "100%" }}>
-                                        <Squircle
-                                            cornerRadius={14}
-                                            style={{
-                                                position: "relative",
-                                                width: "100%",
-                                                height: "100%",
-                                                background: cardBg,
-                                                overflow: "hidden",
-                                            }}
-                                        >
+                                    {/* Inset media panel — image/video fits the frame (contain) */}
+                                    <Squircle
+                                        cornerRadius={14}
+                                        style={{
+                                            position: "relative",
+                                            flex: "0 0 60%",
+                                            width: "100%",
+                                            background: cardBg,
+                                            overflow: "hidden",
+                                        }}
+                                    >
                                         {project.video ? (
                                             <video
                                                 key={project.slug}
@@ -453,20 +437,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                 }}
                                             />
                                         ) : null}
-                                        </Squircle>
-                                        {/* Soft inner-shadow overlay — clean ring shadow that
-                                            sits ABOVE the media but doesn't block taps */}
-                                        <div
-                                            aria-hidden
-                                            style={{
-                                                position: "absolute",
-                                                inset: 0,
-                                                borderRadius: 14,
-                                                pointerEvents: "none",
-                                                boxShadow: "inset 0 1px 2px rgba(0,0,0,0.10), inset 0 -1px 2px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(0,0,0,0.06)",
-                                            }}
-                                        />
-                                    </div>
+                                    </Squircle>
 
                                     {/* Description panel — inset below the media */}
                                     <div style={{
