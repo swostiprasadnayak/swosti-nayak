@@ -250,8 +250,12 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
         let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
         if (currentIndex === -1) currentIndex = 0;
-        const nextProjectIndex = (currentIndex + 1) % filteredProjects.length;
-        const nextProject = filteredProjects.length > 1 ? filteredProjects[nextProjectIndex] : null;
+
+        // Next two projects for the stack behind
+        const stack1Index = (currentIndex + 1) % filteredProjects.length;
+        const stack2Index = (currentIndex + 2) % filteredProjects.length;
+        const stack1 = filteredProjects.length > 1 ? filteredProjects[stack1Index] : null;
+        const stack2 = filteredProjects.length > 2 ? filteredProjects[stack2Index] : null;
 
         const mobileWidth = "min(320px, calc(100vw - 56px))";
         const mobileHeight = "min(400px, calc(100vh - 300px))";
@@ -281,8 +285,46 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
+                    {/* Stack card 2 (deepest — peeks above front card) */}
+                    {stack2 && (
+                        <div style={{
+                            position: "absolute",
+                            width: "76%",
+                            height: "100%",
+                            bottom: 20,
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            opacity: 0.35,
+                            zIndex: 1,
+                            pointerEvents: "none",
+                            borderRadius: 16,
+                            background: "rgba(255,255,255,0.6)",
+                            backdropFilter: "blur(4px)",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                        }} />
+                    )}
+
+                    {/* Stack card 1 (middle — peeks above front card) */}
+                    {stack1 && (
+                        <div style={{
+                            position: "absolute",
+                            width: "86%",
+                            height: "100%",
+                            bottom: 10,
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            opacity: 0.55,
+                            zIndex: 2,
+                            pointerEvents: "none",
+                            borderRadius: 16,
+                            background: "rgba(255,255,255,0.8)",
+                            backdropFilter: "blur(4px)",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+                        }} />
+                    )}
+
                     <AnimatePresence mode="wait">
-                        {/* Single swipeable card with vertical drag */}
+                        {/* Front swipeable card */}
                         <motion.div
                             key={project.slug}
                             initial={hasMobileSwiped.current
