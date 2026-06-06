@@ -18,13 +18,11 @@ const MOBILE_CARD_BG: Record<string, string> = {
     unicef: "#ffffff",
 };
 
-// Per-project image fit overrides for the mobile stack
-const MOBILE_POSTER_FIT: Record<string, "cover" | "contain"> = {
-    "insure-tech": "contain",
-};
-const MOBILE_VIDEO_FIT: Record<string, "cover" | "contain"> = {
-    blinkit: "contain",
-};
+// All media uses `contain` on mobile so full image/video shows without crop.
+// Object-fit defaults to "contain" — override here only if a specific project
+// needs different behavior.
+const MOBILE_POSTER_FIT: Record<string, "cover" | "contain"> = {};
+const MOBILE_VIDEO_FIT: Record<string, "cover" | "contain"> = {};
 
 type CardStackContainerProps = {
     isExiting: boolean;
@@ -282,8 +280,8 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                         const cardOpacity = 1 - index * 0.15;
 
                         const cardBg = MOBILE_CARD_BG[project.slug] ?? "#ffffff";
-                        const posterFit = MOBILE_POSTER_FIT[project.slug] ?? "cover";
-                        const videoFit = MOBILE_VIDEO_FIT[project.slug] ?? "cover";
+                        const posterFit = MOBILE_POSTER_FIT[project.slug] ?? "contain";
+                        const videoFit = MOBILE_VIDEO_FIT[project.slug] ?? "contain";
 
                         return (
                             <motion.div
@@ -326,16 +324,23 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         display: "flex",
                                         flexDirection: "column",
                                         overflow: "hidden",
+                                        padding: 10,
+                                        boxSizing: "border-box",
+                                        gap: 10,
                                         boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08)",
                                     }}
                                 >
-                                    {/* Media area — edge-to-edge image/video */}
-                                    <div style={{
-                                        position: "relative",
-                                        flex: "0 0 62%",
-                                        background: cardBg,
-                                        overflow: "hidden",
-                                    }}>
+                                    {/* Inset media panel — image/video fits the frame (contain) */}
+                                    <Squircle
+                                        cornerRadius={14}
+                                        style={{
+                                            position: "relative",
+                                            flex: "0 0 60%",
+                                            width: "100%",
+                                            background: cardBg,
+                                            overflow: "hidden",
+                                        }}
+                                    >
                                         {project.video ? (
                                             <video
                                                 key={project.slug}
@@ -371,16 +376,15 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                 }}
                                             />
                                         ) : null}
-                                    </div>
+                                    </Squircle>
 
-                                    {/* Description panel */}
+                                    {/* Description panel — inset below the media */}
                                     <div style={{
                                         flex: 1,
-                                        padding: "14px 16px 16px",
+                                        padding: "8px 6px 6px",
                                         display: "flex",
                                         flexDirection: "column",
                                         gap: 6,
-                                        background: "#ffffff",
                                         overflow: "hidden",
                                     }}>
                                         <h3 style={{
@@ -409,7 +413,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                 display: "flex",
                                                 gap: 6,
                                                 flexWrap: "wrap",
-                                                marginTop: 4,
+                                                marginTop: 2,
                                             }}>
                                                 {project.tags.slice(0, 3).map(tag => (
                                                     <span key={tag} style={{
