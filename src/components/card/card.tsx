@@ -26,7 +26,7 @@ const POSTER_CONTAIN: Record<string, boolean> = {
 
 const CARD_BG_COLORS: Record<string, string> = {
     blinkit: "#EAEAEA",
-    "insure-tech": "#F9F9F9",
+    "insure-tech": "#E8E8E8",
     "gc-dental": "#f5f5f5",
     unicef: "#ffffff",
 };
