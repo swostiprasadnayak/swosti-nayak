@@ -415,8 +415,8 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <Image
             src="/images/insure-tech-devices.png"
             alt="Insure-Tech Product Plan Builder Multi-Device View"
-            width={1400}
-            height={800}
+            width={3669}
+            height={2028}
             priority
             sizes="100vw"
             style={{ width: "100%", height: "auto", display: "block" }}
