@@ -46,16 +46,14 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     const [isMobile, setIsMobile] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
-    // Unconditional motion value setup for hooks rules compliance
+    // Motion values for desktop window mode
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const rotate = useTransform(x, [-200, 200], [-12, 12]);
     const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0.6, 1, 1, 1, 0.6]);
-    const mobileOpacity = useTransform(y, [-200, -80, 0, 80, 200], [0.3, 0.8, 1, 0.8, 0.3]);
-    const mobileScale = useTransform(y, [-200, 0, 200], [0.92, 1, 0.92]);
-    const controls = useAnimation();
-    const [mobileDirection, setMobileDirection] = useState<"up" | "down" | null>(null);
-    const hasMobileSwiped = useRef(false);
+
+    // Framer-style swipe stack state: ordered array of project slugs
+    const [mobileCards, setMobileCards] = useState<typeof PROJECTS>([]);
 
     useEffect(() => {
         setIsMounted(true);
@@ -83,12 +81,25 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
     }, [isMobile, windowModeState?.openWindows, filteredProjects, windowModeState]);
 
-    // Initialize with unicef if empty on mobile startup
+    // Initialize with insure-tech if empty on mobile startup
     useEffect(() => {
         if (isMobile && windowModeState && windowModeState.openWindows.length === 0) {
             windowModeState.bringToFront("insure-tech");
         }
     }, [isMobile, windowModeState]);
+
+    // Initialize mobile card order (insure-tech first)
+    useEffect(() => {
+        if (isMobile && filteredProjects.length > 0 && mobileCards.length === 0) {
+            const sorted = [...filteredProjects];
+            const insureIdx = sorted.findIndex(p => p.slug === "insure-tech");
+            if (insureIdx > 0) {
+                const [item] = sorted.splice(insureIdx, 1);
+                sorted.unshift(item);
+            }
+            setMobileCards(sorted);
+        }
+    }, [isMobile, filteredProjects, mobileCards.length]);
 
     const setActiveMobileProject = useCallback((slug: string) => {
         if (!windowModeState) return;
@@ -143,48 +154,24 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         []
     );
 
-    const handleMobileDragEnd = async (event: any, info: any) => {
-        const swipeThreshold = 60;
-        const swipe = info.offset.y;
-        const velocity = info.velocity.y;
+    // Framer-style swipe: drag in any direction, front card goes to back
+    const handleSwipeDragEnd = useCallback((_event: any, info: any) => {
+        const swipeThreshold = 100;
+        const dist = Math.sqrt(info.offset.x ** 2 + info.offset.y ** 2);
 
-        if (filteredProjects.length <= 1) {
-            controls.start({ y: 0, scale: 1, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 25 } });
-            return;
+        if (dist > swipeThreshold && mobileCards.length > 1) {
+            setMobileCards(prev => {
+                const next = [...prev];
+                const swiped = next.shift()!;
+                next.push(swiped);
+                return next;
+            });
+            // Sync the new front card with windowModeState
+            const newFront = mobileCards[1]; // after shift, [1] becomes [0]
+            if (newFront) setActiveMobileProject(newFront.slug);
         }
-
-        // Swipe up or strong upward velocity → next project
-        if (swipe < -swipeThreshold || velocity < -400) {
-            hasMobileSwiped.current = true;
-            setMobileDirection("up");
-            await controls.start({ y: -600, opacity: 0, scale: 0.9, transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } });
-            let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
-            if (currentIndex === -1) currentIndex = 0;
-            const nextIndex = (currentIndex + 1) % filteredProjects.length;
-            setActiveMobileProject(filteredProjects[nextIndex].slug);
-            // Reset position — new card will enter via AnimatePresence
-            y.set(0);
-            controls.set({ y: 0, opacity: 1, scale: 1 });
-            setMobileDirection(null);
-        }
-        // Swipe down or strong downward velocity → previous project
-        else if (swipe > swipeThreshold || velocity > 400) {
-            hasMobileSwiped.current = true;
-            setMobileDirection("down");
-            await controls.start({ y: 600, opacity: 0, scale: 0.9, transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } });
-            let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
-            if (currentIndex === -1) currentIndex = 0;
-            const prevIndex = (currentIndex - 1 + filteredProjects.length) % filteredProjects.length;
-            setActiveMobileProject(filteredProjects[prevIndex].slug);
-            y.set(0);
-            controls.set({ y: 0, opacity: 1, scale: 1 });
-            setMobileDirection(null);
-        }
-        // Snap back
-        else {
-            controls.start({ y: 0, scale: 1, opacity: 1, transition: { type: "spring", stiffness: 400, damping: 30 } });
-        }
-    };
+        // If not past threshold, framer-motion snaps back via dragConstraints
+    }, [mobileCards, setActiveMobileProject]);
 
     const windowCards = useMemo(() => {
         if (!windowModeState) return null;
@@ -243,133 +230,96 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             .filter(Boolean);
     }, [windowModeState, filteredProjects, isExiting, expandedProject]);
 
-    // Mobile swipe rendering block (placed after all hook declarations)
+    // ── Framer-style swipeable card stack (mobile) ──────────────────────────
+    // Uses `layout` prop for smooth spring-based reorder transitions.
+    // Front card is draggable in any direction; on swipe it moves to back.
     if (isMounted && isMobile) {
-        const project = filteredProjects.find((p) => p.slug === activeSlug) || filteredProjects[0];
-        if (!project) return null;
+        if (!mobileCards.length) return null;
 
-        let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
-        if (currentIndex === -1) currentIndex = 0;
-
-        // Next two projects for the stack behind
-        const stack1Index = (currentIndex + 1) % filteredProjects.length;
-        const stack2Index = (currentIndex + 2) % filteredProjects.length;
-        const stack1 = filteredProjects.length > 1 ? filteredProjects[stack1Index] : null;
-        const stack2 = filteredProjects.length > 2 ? filteredProjects[stack2Index] : null;
-
-        const mobileWidth = "min(320px, calc(100vw - 56px))";
-        const mobileHeight = "min(400px, calc(100vh - 300px))";
+        const mobileWidth = "min(300px, calc(100vw - 64px))";
+        const mobileHeight = "min(370px, calc(100vh - 320px))";
 
         return (
-            <div style={{
-                position: "absolute",
-                top: 90,
-                bottom: 110,
-                left: 0,
-                right: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                pointerEvents: "none",
-                padding: "0 20px",
-                boxSizing: "border-box",
-                zIndex: 10
-            }}>
+            <LayoutGroup>
                 <div style={{
-                    position: "relative",
-                    width: "100%",
-                    maxWidth: "340px",
-                    height: "100%",
-                    maxHeight: "460px",
+                    position: "absolute",
+                    top: 90,
+                    bottom: 110,
+                    left: 0,
+                    right: 0,
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    pointerEvents: "none",
+                    zIndex: 10,
                 }}>
-                    {/* Stack card 2 (deepest — peeks above front card) */}
-                    {stack2 && (
-                        <div style={{
-                            position: "absolute",
-                            width: "76%",
-                            height: "100%",
-                            bottom: 20,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            opacity: 0.35,
-                            zIndex: 1,
-                            pointerEvents: "none",
-                            borderRadius: 16,
-                            background: "rgba(255,255,255,0.6)",
-                            backdropFilter: "blur(4px)",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                        }} />
-                    )}
+                    {mobileCards.map((project, index) => {
+                        const isTop = index === 0;
 
-                    {/* Stack card 1 (middle — peeks above front card) */}
-                    {stack1 && (
-                        <div style={{
-                            position: "absolute",
-                            width: "86%",
-                            height: "100%",
-                            bottom: 10,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            opacity: 0.55,
-                            zIndex: 2,
-                            pointerEvents: "none",
-                            borderRadius: 16,
-                            background: "rgba(255,255,255,0.8)",
-                            backdropFilter: "blur(4px)",
-                            boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
-                        }} />
-                    )}
+                        // Stack effect: cards behind get smaller, rotate, and shift
+                        const scale = 1 - index * 0.05;
+                        const cardRotate = index * 4;     // 0°, 4°, 8°
+                        const xOffset = index * 20;       // 0px, 20px, 40px
+                        const yOffset = index * 10;       // 0px, 10px, 20px
+                        const cardOpacity = 1 - index * 0.15;
 
-                    <AnimatePresence mode="wait">
-                        {/* Front swipeable card */}
-                        <motion.div
-                            key={project.slug}
-                            initial={hasMobileSwiped.current
-                                ? { y: mobileDirection === "up" ? 300 : -300, opacity: 0, scale: 0.95 }
-                                : false
-                            }
-                            animate={{ y: 0, opacity: 1, scale: 1 }}
-                            exit={{ y: mobileDirection === "up" ? -300 : 300, opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                            style={{
-                                position: "absolute",
-                                width: "100%",
-                                height: "100%",
-                                zIndex: 10,
-                                pointerEvents: "auto",
-                                touchAction: "none",
-                            }}
-                            drag="y"
-                            dragConstraints={{ top: 0, bottom: 0 }}
-                            dragElastic={0.6}
-                            onDragEnd={handleMobileDragEnd}
-                        >
-                            <Card
-                                height={mobileHeight}
-                                width={mobileWidth}
-                                projectName={project.name}
-                                projectDescription={project.description}
-                                video={project.video}
-                                demoPoster={project.demoPoster}
-                                zIndex={10}
-                                isExiting={isExiting}
-                                onExpandProject={handleExpandProject}
-                                isProjectExpanded={!!expandedProject}
-                                onCloseWindow={() => {}}
-                                isActive={true}
-                                layoutId={
-                                    getProjectLayoutId
-                                        ? getProjectLayoutId(project.name.toLowerCase())
-                                        : getVideoModalLayoutId?.(project.name)
-                                }
-                            />
-                        </motion.div>
-                    </AnimatePresence>
+                        return (
+                            <motion.div
+                                key={project.slug}
+                                initial={false}
+                                animate={{
+                                    scale,
+                                    rotate: cardRotate,
+                                    x: xOffset,
+                                    y: yOffset,
+                                    opacity: cardOpacity,
+                                    zIndex: mobileCards.length - index,
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 300,
+                                    damping: 25,
+                                }}
+                                drag={isTop}
+                                dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
+                                dragElastic={0.8}
+                                onDragEnd={isTop ? handleSwipeDragEnd : undefined}
+                                whileDrag={{ cursor: "grabbing", scale: 1.02 }}
+                                style={{
+                                    position: "absolute",
+                                    width: mobileWidth,
+                                    height: mobileHeight,
+                                    overflow: "hidden",
+                                    borderRadius: 16,
+                                    cursor: isTop ? "grab" : "auto",
+                                    touchAction: "none",
+                                    pointerEvents: isTop ? "auto" : "none",
+                                }}
+                            >
+                                <Card
+                                    height={mobileHeight}
+                                    width={mobileWidth}
+                                    projectName={project.name}
+                                    projectDescription={project.description}
+                                    video={project.video}
+                                    demoPoster={project.demoPoster}
+                                    zIndex={mobileCards.length - index}
+                                    isExiting={isExiting}
+                                    onExpandProject={handleExpandProject}
+                                    isProjectExpanded={!!expandedProject}
+                                    onCloseWindow={() => {}}
+                                    isActive={isTop}
+                                    layoutId={
+                                        getProjectLayoutId
+                                            ? getProjectLayoutId(project.name.toLowerCase())
+                                            : getVideoModalLayoutId?.(project.name)
+                                    }
+                                />
+                            </motion.div>
+                        );
+                    })}
                 </div>
-            </div>
+            </LayoutGroup>
         );
     }
 
