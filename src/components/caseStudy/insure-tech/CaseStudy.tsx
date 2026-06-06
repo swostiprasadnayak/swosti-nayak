@@ -392,7 +392,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* HERO */}
         <div>
           <h1 style={{ fontSize: isMobile ? 28 : 48, lineHeight: 1.1, fontWeight: 700, letterSpacing: "-0.03em", color: INK, margin: "0 0 20px" }}>
-            Eicore OneBuzz<br />Product Plan Builder Redesign
+            InsureTec<br />Product Plan Builder Redesign
           </h1>
           <p style={{ fontSize: isMobile ? 15 : 18, lineHeight: 1.6, color: MUTED, maxWidth: 720, margin: "0 0 28px" }}>
             Redesigning an AI-powered insurance Product Plan Builder — compressing 3–5 days of manual configuration into hours of intelligent, trustworthy review.
@@ -425,7 +425,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <SectionLabel n="01" label="THE CHALLENGE" />
           <H2 isMobile={isMobile}>A tool that knew too much — and told you nothing clearly.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 28px" }}>
-            OneBuzz uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings — compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
+            InsureTec uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings — compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
             {[

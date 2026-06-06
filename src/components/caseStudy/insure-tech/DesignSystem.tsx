@@ -918,7 +918,7 @@ function VariablesSection() {
     <div>
       <SectionLabel n="00" label="Variable Collections" />
       <SectionH>5 Variable Collections · 138 Tokens</SectionH>
-      <SectionSub>All collections live in the Figma file on the "Design System — Eicore OneBuzz" page. Every component binds to semantic tokens, never to raw primitives.</SectionSub>
+      <SectionSub>All collections live in the Figma file on the "Design System — InsureTec" page. Every component binds to semantic tokens, never to raw primitives.</SectionSub>
       <div style={{ display: "flex", flexDirection: "column" as const, gap: 12 }}>
         {collections.map(c => (
           <div key={c.name} style={{ display: "flex", alignItems: "flex-start", gap: 20, padding: "18px 20px", background: T.surf, border: `1px solid ${T.border}`, borderRadius: 12 }}>
@@ -988,7 +988,7 @@ export default function DesignSystem() {
                 </div>
                 <span style={{ fontSize: 12, fontWeight: 700, color: T.ink }}>Design System</span>
               </div>
-              <p style={{ fontSize: 10, color: T.text3, margin: 0 }}>v1.0 · Eicore OneBuzz</p>
+              <p style={{ fontSize: 10, color: T.text3, margin: 0 }}>v1.0 · InsureTec</p>
             </div>
             <div style={{ height: 1, background: T.border, margin: "0 0 12px" }} />
           </>
@@ -1033,7 +1033,7 @@ export default function DesignSystem() {
         <div style={{ background: T.brand, padding: isMobile ? "20px 20px" : "32px 60px", display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" as const }}>
           <div style={{ flex: 1 }}>
             <p style={{ fontSize: 11, fontWeight: 700, color: "#a7f3d0", margin: "0 0 6px", letterSpacing: "0.1em", textTransform: "uppercase" as const }}>Design System</p>
-            <h1 style={{ fontSize: isMobile ? 20 : 28, fontWeight: 700, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.025em" }}>Eicore OneBuzz v1.0</h1>
+            <h1 style={{ fontSize: isMobile ? 20 : 28, fontWeight: 700, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.025em" }}>InsureTec v1.0</h1>
             <p style={{ fontSize: 14, color: "#a7f3d0", margin: 0 }}>5 variable collections · 138 tokens · 19 text styles · 6 elevation levels · Inter</p>
           </div>
           <div style={{ display: "flex", gap: 10 }}>
