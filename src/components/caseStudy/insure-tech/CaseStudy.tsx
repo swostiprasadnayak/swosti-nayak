@@ -386,7 +386,7 @@ const ResolveIllustration = () => (
 export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?: number) => void }) {
   const isMobile = useIsMobile();
   return (
-    <div style={{ height: "100%", overflowY: "auto", background: "#ffffff" }}>
+    <div style={{ height: "100%", overflowY: "auto", overflowX: "hidden", background: "#ffffff" }}>
       <div style={{ maxWidth: 920, margin: "0 auto", padding: isMobile ? "40px 20px 80px" : "64px 40px 100px", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
 
         {/* HERO */}
