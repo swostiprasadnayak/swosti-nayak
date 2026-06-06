@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { MotionConfig } from "motion/react";
 import {
   Zap, Target, Users, AlertTriangle, CheckCircle2, ArrowRight,
@@ -390,9 +391,6 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* HERO */}
         <div>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 100, background: BRAND_TINT, color: BRAND, fontSize: 13, fontWeight: 600, marginBottom: 24 }}>
-            <Zap size={13} /> UX Case Study
-          </span>
           <h1 style={{ fontSize: isMobile ? 28 : 48, lineHeight: 1.1, fontWeight: 700, letterSpacing: "-0.03em", color: INK, margin: "0 0 20px" }}>
             Eicore OneBuzz —<br />Product Plan Builder Redesign
           </h1>
@@ -409,22 +407,70 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           </button>
         </div>
 
-        {/* ⭐ FINAL DESIGN SHOWCASE — positioned right after the hero for primary impact */}
+        {/* HERO BANNER IMAGE — bleeds to full content width */}
+        <div style={{ marginLeft: isMobile ? 0 : -40, marginRight: isMobile ? 0 : -40 }}>
+          <Image
+            src="/images/insure-tech-devices.png"
+            alt="Insure-Tech Product Plan Builder Multi-Device View"
+            width={1400}
+            height={800}
+            priority
+            sizes="100vw"
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+        </div>
+
+        {/* 01 CHALLENGE */}
+        <div>
+          <SectionLabel n="01" label="THE CHALLENGE" />
+          <H2 isMobile={isMobile}>A tool that knew too much — and told you nothing clearly.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 28px" }}>
+            OneBuzz uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings — compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
+            {[
+              { stat: "3–5 days", label: "Manual config time before AI", color: "#dc2626" },
+              { stat: "155 fields", label: "AI-extracted across 8 categories", color: BRAND },
+              { stat: "8 UX flaws", label: "Identified in the interface audit", color: "#d97706" },
+            ].map((s, i) => (
+              <div key={i} style={{ padding: "26px 22px", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14 }}>
+                <p style={{ fontSize: 32, fontWeight: 700, color: s.color, margin: "0 0 6px", lineHeight: 1 }}>{s.stat}</p>
+                <p style={{ fontSize: 14, color: SUBTLE, margin: 0, lineHeight: 1.4 }}>{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 02 USERS */}
+        <div>
+          <SectionLabel n="02" label="USER ANALYSIS" />
+          <H2 isMobile={isMobile}>Domain experts who can't afford UI friction.</H2>
+          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
+            The system serves deep insurance domain experts — not developers. They configure several products a quarter, each across multiple sessions, where a single misread co-payment bracket can cost millions.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
+            {PERSONAS.map((p, i) => (
+              <div key={i} style={{ padding: 24, background: p.bg, border: `1px solid ${p.color}22`, borderRadius: 14 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <Users size={15} color={p.color} />
+                  <span style={{ fontSize: 12, fontWeight: 600, color: p.color, letterSpacing: "0.06em", textTransform: "uppercase" }}>{p.tag}</span>
+                </div>
+                <p style={{ fontSize: 18, fontWeight: 700, color: INK, margin: "0 0 4px" }}>{p.role}</p>
+                <p style={{ fontSize: 14, color: MUTED, margin: "0 0 12px" }}>Motive: <strong>{p.motive}</strong></p>
+                <p style={{ fontSize: 14, color: MUTED, margin: "0 0 10px", lineHeight: 1.5 }}>Core need: {p.need}</p>
+                <p style={{ fontSize: 13.5, color: p.color, fontStyle: "italic", margin: 0, lineHeight: 1.5 }}>Pain: "{p.pain}"</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ⭐ FINAL DESIGN SHOWCASE */}
         <div style={isMobile ? { padding: "32px 0", background: "#ffffff" } : {
           marginLeft: -40, marginRight: -40,
           padding: "52px 40px",
           background: "#ffffff",
         }}>
           <div style={{ marginBottom: 44 }}>
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: 6,
-              padding: "6px 14px", borderRadius: 100,
-              background: BRAND, color: "#fff",
-              fontSize: 11.5, fontWeight: 700, letterSpacing: "0.06em",
-              marginBottom: 18,
-            }}>
-              <Sparkles size={13} /> FINAL DESIGNS · HI-FI SHOWCASE
-            </span>
             <h2 style={{
               fontSize: isMobile ? 24 : 36, lineHeight: 1.15, fontWeight: 700,
               color: INK, margin: "0 0 14px", letterSpacing: "-0.025em",
@@ -467,50 +513,6 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
                     </ul>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 01 CHALLENGE */}
-        <div>
-          <SectionLabel n="01" label="THE CHALLENGE" />
-          <H2 isMobile={isMobile}>A tool that knew too much — and told you nothing clearly.</H2>
-          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 28px" }}>
-            OneBuzz uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings — compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
-            {[
-              { stat: "3–5 days", label: "Manual config time before AI", color: "#dc2626" },
-              { stat: "155 fields", label: "AI-extracted across 8 categories", color: BRAND },
-              { stat: "8 UX flaws", label: "Identified in the interface audit", color: "#d97706" },
-            ].map((s, i) => (
-              <div key={i} style={{ padding: "26px 22px", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14 }}>
-                <p style={{ fontSize: 32, fontWeight: 700, color: s.color, margin: "0 0 6px", lineHeight: 1 }}>{s.stat}</p>
-                <p style={{ fontSize: 14, color: SUBTLE, margin: 0, lineHeight: 1.4 }}>{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 02 USERS */}
-        <div>
-          <SectionLabel n="02" label="USER ANALYSIS" />
-          <H2 isMobile={isMobile}>Domain experts who can't afford UI friction.</H2>
-          <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
-            The system serves deep insurance domain experts — not developers. They configure several products a quarter, each across multiple sessions, where a single misread co-payment bracket can cost millions.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
-            {PERSONAS.map((p, i) => (
-              <div key={i} style={{ padding: 24, background: p.bg, border: `1px solid ${p.color}22`, borderRadius: 14 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                  <Users size={15} color={p.color} />
-                  <span style={{ fontSize: 12, fontWeight: 600, color: p.color, letterSpacing: "0.06em", textTransform: "uppercase" }}>{p.tag}</span>
-                </div>
-                <p style={{ fontSize: 18, fontWeight: 700, color: INK, margin: "0 0 4px" }}>{p.role}</p>
-                <p style={{ fontSize: 14, color: MUTED, margin: "0 0 12px" }}>Motive: <strong>{p.motive}</strong></p>
-                <p style={{ fontSize: 14, color: MUTED, margin: "0 0 10px", lineHeight: 1.5 }}>Core need: {p.need}</p>
-                <p style={{ fontSize: 13.5, color: p.color, fontStyle: "italic", margin: 0, lineHeight: 1.5 }}>Pain: "{p.pain}"</p>
               </div>
             ))}
           </div>

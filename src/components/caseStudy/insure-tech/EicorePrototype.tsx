@@ -110,6 +110,17 @@ function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSi
     { id: "prototype",      label: "Prototype"      },
     { id: "design-system",  label: "Design System"  },
   ];
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!mobileDropdownOpen) return;
+    const handler = (e: MouseEvent) => { if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) setMobileDropdownOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [mobileDropdownOpen]);
+
   return (
     <header style={{ height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", background: C.card, borderBottom: `1px solid ${C.border}`, borderRadius: "12px 12px 0 0", zIndex: 10, flexShrink: 0 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -122,6 +133,7 @@ function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSi
         )}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        {/* Desktop: show tabs inline */}
         <div style={{ display: "flex", gap: 2, padding: 3, borderRadius: 8, background: C.bgTertiary, border: `1px solid ${C.border}` }}>
           {TABS.map(({ id, label }) => (
             <button className="nav-tab" key={id} onClick={() => setView(id)}
@@ -130,7 +142,31 @@ function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSi
             </button>
           ))}
         </div>
-        <button style={{ display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid ${C.border}`, borderRadius: 6, width: 28, height: 28, color: C.text2, background: C.card, cursor: "pointer" }}><Eye size={14} /></button>
+
+        {/* Mobile: dropdown menu */}
+        <div ref={dropdownRef} style={{ position: "relative" }}>
+          <button
+            onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid ${C.border}`, borderRadius: 6, width: 28, height: 28, color: C.text2, background: C.card, cursor: "pointer" }}>
+            <ChevronDown size={14} />
+          </button>
+
+          {mobileDropdownOpen && (
+            <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, zIndex: 9999, background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, boxShadow: "0 8px 24px rgba(0,0,0,0.14)", minWidth: 180, overflow: "hidden" }}>
+              {TABS.map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => {
+                    setView(id);
+                    setMobileDropdownOpen(false);
+                  }}
+                  style={{ display: "flex", alignItems: "center", width: "100%", padding: "10px 14px", border: "none", textAlign: "left" as const, cursor: "pointer", whiteSpace: "nowrap" as const, background: view === id ? C.brandTint : "transparent", color: view === id ? C.brand : C.text2, fontSize: 12, fontWeight: view === id ? 600 : 400 }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
