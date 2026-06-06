@@ -240,18 +240,21 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         const nextProjectIndex = (currentIndex + 1) % filteredProjects.length;
         const nextProject = filteredProjects.length > 1 ? filteredProjects[nextProjectIndex] : null;
 
-        const mobileWidth = "min(340px, calc(100vw - 40px))";
-        const mobileHeight = "min(460px, calc(100vh - 250px))";
+        const mobileWidth = "min(320px, calc(100vw - 56px))";
+        const mobileHeight = "min(400px, calc(100vh - 300px))";
 
         return (
             <div style={{
                 position: "absolute",
-                inset: 0,
+                top: 90,
+                bottom: 110,
+                left: 0,
+                right: 0,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 pointerEvents: "none",
-                padding: "20px",
+                padding: "0 20px",
                 boxSizing: "border-box",
                 zIndex: 10
             }}>
@@ -259,26 +262,27 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                     position: "relative",
                     width: "100%",
                     maxWidth: "340px",
-                    height: "460px",
+                    height: "100%",
+                    maxHeight: "460px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
                     <AnimatePresence>
-                        {/* 1. Underlying layered card for 3D stack depth */}
+                        {/* 1. Underlying layered card — peek visible below the front card */}
                         {nextProject && (
                             <motion.div
                                 key={nextProject.slug + "_stack"}
                                 style={{
                                     position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
+                                    width: "90%",
+                                    height: "97%",
                                     transformOrigin: "bottom center",
-                                    scale: 0.94,
-                                    y: 16,
-                                    opacity: 0.45,
+                                    y: 20,
+                                    opacity: 0.6,
                                     zIndex: 1,
-                                    pointerEvents: "none"
+                                    pointerEvents: "none",
+                                    borderRadius: 16,
                                 }}
                             >
                                 <Card
@@ -346,7 +350,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
     return (
         <LayoutGroup>
-            <div className={classes.stackWrapper}>
+            <div className={classes.stackWrapper} data-component="CardStackContainer">
                 <div className={classes.windowContainer}>
                     <AnimatePresence>
                         {windowCards}
