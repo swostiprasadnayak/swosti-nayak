@@ -348,7 +348,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                     style={{
                                         width: "100%",
                                         height: "100%",
-                                        background: "#ffffff",
+                                        // Outer frame matches the media background so the
+                                        // image edge blends seamlessly to the card edge.
+                                        background: cardBg,
                                         display: "flex",
                                         flexDirection: "column",
                                         overflow: "hidden",
