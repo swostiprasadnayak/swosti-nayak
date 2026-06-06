@@ -48,9 +48,14 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
     // Unconditional motion value setup for hooks rules compliance
     const x = useMotionValue(0);
+    const y = useMotionValue(0);
     const rotate = useTransform(x, [-200, 200], [-12, 12]);
     const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0.6, 1, 1, 1, 0.6]);
+    const mobileOpacity = useTransform(y, [-200, -80, 0, 80, 200], [0.3, 0.8, 1, 0.8, 0.3]);
+    const mobileScale = useTransform(y, [-200, 0, 200], [0.92, 1, 0.92]);
     const controls = useAnimation();
+    const [mobileDirection, setMobileDirection] = useState<"up" | "down" | null>(null);
+    const hasMobileSwiped = useRef(false);
 
     useEffect(() => {
         setIsMounted(true);
@@ -139,37 +144,45 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     );
 
     const handleMobileDragEnd = async (event: any, info: any) => {
-        const swipeThreshold = 80;
-        const swipe = info.offset.x;
+        const swipeThreshold = 60;
+        const swipe = info.offset.y;
+        const velocity = info.velocity.y;
 
         if (filteredProjects.length <= 1) {
-            controls.start({ x: 0, transition: { type: "spring", stiffness: 300, damping: 20 } });
+            controls.start({ y: 0, scale: 1, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 25 } });
             return;
         }
 
-        if (swipe < -swipeThreshold) {
-            // Swiped Left -> Next Project
-            await controls.start({ x: -300, opacity: 0, transition: { duration: 0.15, ease: "easeOut" } });
+        // Swipe up or strong upward velocity → next project
+        if (swipe < -swipeThreshold || velocity < -400) {
+            hasMobileSwiped.current = true;
+            setMobileDirection("up");
+            await controls.start({ y: -600, opacity: 0, scale: 0.9, transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } });
             let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
             if (currentIndex === -1) currentIndex = 0;
             const nextIndex = (currentIndex + 1) % filteredProjects.length;
-            const nextSlug = filteredProjects[nextIndex].slug;
-            setActiveMobileProject(nextSlug);
-            x.set(0);
-            controls.set({ x: 0, opacity: 1 });
-        } else if (swipe > swipeThreshold) {
-            // Swiped Right -> Previous Project
-            await controls.start({ x: 300, opacity: 0, transition: { duration: 0.15, ease: "easeOut" } });
+            setActiveMobileProject(filteredProjects[nextIndex].slug);
+            // Reset position — new card will enter via AnimatePresence
+            y.set(0);
+            controls.set({ y: 0, opacity: 1, scale: 1 });
+            setMobileDirection(null);
+        }
+        // Swipe down or strong downward velocity → previous project
+        else if (swipe > swipeThreshold || velocity > 400) {
+            hasMobileSwiped.current = true;
+            setMobileDirection("down");
+            await controls.start({ y: 600, opacity: 0, scale: 0.9, transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } });
             let currentIndex = filteredProjects.findIndex((p) => p.slug === activeSlug);
             if (currentIndex === -1) currentIndex = 0;
             const prevIndex = (currentIndex - 1 + filteredProjects.length) % filteredProjects.length;
-            const prevSlug = filteredProjects[prevIndex].slug;
-            setActiveMobileProject(prevSlug);
-            x.set(0);
-            controls.set({ x: 0, opacity: 1 });
-        } else {
-            // Bounce back
-            controls.start({ x: 0, transition: { type: "spring", stiffness: 300, damping: 20 } });
+            setActiveMobileProject(filteredProjects[prevIndex].slug);
+            y.set(0);
+            controls.set({ y: 0, opacity: 1, scale: 1 });
+            setMobileDirection(null);
+        }
+        // Snap back
+        else {
+            controls.start({ y: 0, scale: 1, opacity: 1, transition: { type: "spring", stiffness: 400, damping: 30 } });
         }
     };
 
@@ -268,59 +281,29 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
-                    <AnimatePresence>
-                        {/* 1. Underlying layered card — peek visible below the front card */}
-                        {nextProject && (
-                            <motion.div
-                                key={nextProject.slug + "_stack"}
-                                style={{
-                                    position: "absolute",
-                                    width: "90%",
-                                    height: "97%",
-                                    transformOrigin: "bottom center",
-                                    y: 20,
-                                    opacity: 0.6,
-                                    zIndex: 1,
-                                    pointerEvents: "none",
-                                    borderRadius: 16,
-                                }}
-                            >
-                                <Card
-                                    height={mobileHeight}
-                                    width={mobileWidth}
-                                    projectName={nextProject.name}
-                                    projectDescription={nextProject.description}
-                                    video={nextProject.video}
-                                    demoPoster={nextProject.demoPoster}
-                                    zIndex={1}
-                                    isExiting={false}
-                                    onExpandProject={() => {}}
-                                    isProjectExpanded={false}
-                                    onCloseWindow={() => {}}
-                                    isActive={false}
-                                />
-                            </motion.div>
-                        )}
-
-                        {/* 2. Front Draggable Swipable Card */}
+                    <AnimatePresence mode="wait">
+                        {/* Single swipeable card with vertical drag */}
                         <motion.div
                             key={project.slug}
+                            initial={hasMobileSwiped.current
+                                ? { y: mobileDirection === "up" ? 300 : -300, opacity: 0, scale: 0.95 }
+                                : false
+                            }
+                            animate={{ y: 0, opacity: 1, scale: 1 }}
+                            exit={{ y: mobileDirection === "up" ? -300 : 300, opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                             style={{
                                 position: "absolute",
                                 width: "100%",
                                 height: "100%",
-                                x,
-                                rotate,
-                                opacity,
                                 zIndex: 10,
                                 pointerEvents: "auto",
-                                cursor: "grab"
+                                touchAction: "none",
                             }}
-                            drag="x"
-                            dragConstraints={{ left: 0, right: 0 }}
-                            dragElastic={1}
+                            drag="y"
+                            dragConstraints={{ top: 0, bottom: 0 }}
+                            dragElastic={0.6}
                             onDragEnd={handleMobileDragEnd}
-                            animate={controls}
                         >
                             <Card
                                 height={mobileHeight}
