@@ -120,24 +120,30 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     // Sync mobileCards front with windowModeState's activeSlug.
     // - Dock tap on a card already in the stack → reorder to front.
     // - Dock tap on a previously-closed card → re-add to the front.
+    // NOTE: do NOT depend on mobileCards here — that causes an infinite
+    // re-add loop (every setMobileCards triggers the effect, which adds again).
+    // Use the functional updater to access the latest state.
     useEffect(() => {
         if (!isMobile || filteredProjects.length === 0) return;
-        if (mobileCards[0]?.slug === activeSlug) return;
-        const idx = mobileCards.findIndex(p => p.slug === activeSlug);
-        if (idx > 0) {
-            // Reorder to front
-            setMobileCards(prev => {
+        setMobileCards(prev => {
+            if (prev[0]?.slug === activeSlug) return prev;
+            const idx = prev.findIndex(p => p.slug === activeSlug);
+            if (idx > 0) {
                 const next = [...prev];
                 const [target] = next.splice(idx, 1);
                 next.unshift(target);
                 return next;
-            });
-        } else if (idx === -1) {
-            // Card was closed via traffic light — re-add it to the front
-            const project = filteredProjects.find(p => p.slug === activeSlug);
-            if (project) setMobileCards(prev => [project, ...prev]);
-        }
-    }, [activeSlug, isMobile, mobileCards, filteredProjects]);
+            }
+            if (idx === -1) {
+                const project = filteredProjects.find(p => p.slug === activeSlug);
+                // Defensive: don't re-add if already present.
+                if (project && !prev.some(p => p.slug === project.slug)) {
+                    return [project, ...prev];
+                }
+            }
+            return prev;
+        });
+    }, [activeSlug, isMobile, filteredProjects]);
 
     const setActiveMobileProject = useCallback((slug: string) => {
         if (!windowModeState) return;
@@ -349,7 +355,8 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         padding: 10,
                                         boxSizing: "border-box",
                                         gap: 8,
-                                        boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08)",
+                                        // Multi-layer drop shadow matching the desktop Card
+                                        boxShadow: "0 2px 4px rgba(0,0,0,0.05), 0 12px 24px rgba(0,0,0,0.1), 0 32px 64px rgba(0,0,0,0.15), 0 64px 120px rgba(0,0,0,0.12)",
                                     }}
                                 >
                                     {/* Traffic lights — close / minimise / expand */}
