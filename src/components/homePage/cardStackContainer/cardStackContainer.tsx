@@ -117,20 +117,27 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
     }, [isMobile, filteredProjects, mobileCards.length]);
 
-    // Sync mobileCards front with windowModeState's activeSlug
-    // (handles dock taps which call windowModeState.bringToFront but don't reorder mobileCards)
+    // Sync mobileCards front with windowModeState's activeSlug.
+    // - Dock tap on a card already in the stack → reorder to front.
+    // - Dock tap on a previously-closed card → re-add to the front.
     useEffect(() => {
-        if (!isMobile || mobileCards.length === 0) return;
+        if (!isMobile || filteredProjects.length === 0) return;
         if (mobileCards[0]?.slug === activeSlug) return;
         const idx = mobileCards.findIndex(p => p.slug === activeSlug);
-        if (idx <= 0) return;
-        setMobileCards(prev => {
-            const next = [...prev];
-            const [target] = next.splice(idx, 1);
-            next.unshift(target);
-            return next;
-        });
-    }, [activeSlug, isMobile, mobileCards]);
+        if (idx > 0) {
+            // Reorder to front
+            setMobileCards(prev => {
+                const next = [...prev];
+                const [target] = next.splice(idx, 1);
+                next.unshift(target);
+                return next;
+            });
+        } else if (idx === -1) {
+            // Card was closed via traffic light — re-add it to the front
+            const project = filteredProjects.find(p => p.slug === activeSlug);
+            if (project) setMobileCards(prev => [project, ...prev]);
+        }
+    }, [activeSlug, isMobile, mobileCards, filteredProjects]);
 
     const setActiveMobileProject = useCallback((slug: string) => {
         if (!windowModeState) return;
@@ -268,7 +275,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         if (!mobileCards.length) return null;
 
         const mobileWidth = "min(320px, calc(100vw - 56px))";
-        const mobileHeight = "min(400px, calc(100vh - 320px))";
+        const mobileHeight = "min(440px, calc(100vh - 280px))";
 
         return (
             <LayoutGroup>
@@ -356,16 +363,14 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    // "Close" = send card to back
-                                                    if (mobileCards.length > 1) {
-                                                        setMobileCards(prev => {
-                                                            const next = [...prev];
-                                                            const swiped = next.shift()!;
-                                                            next.push(swiped);
-                                                            return next;
-                                                        });
-                                                        const newFront = mobileCards[1];
-                                                        if (newFront) setActiveMobileProject(newFront.slug);
+                                                    // "Close" = remove card from stack.
+                                                    // Tapping the dock icon reopens it via the sync effect.
+                                                    const closingSlug = project.slug;
+                                                    const nextProject = mobileCards[1];
+                                                    setMobileCards(prev => prev.filter(p => p.slug !== closingSlug));
+                                                    if (windowModeState) {
+                                                        windowModeState.closeWindow(closingSlug);
+                                                        if (nextProject) windowModeState.bringToFront(nextProject.slug);
                                                     }
                                                 }}
                                                 style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#FE5F57", cursor: "pointer", padding: 0 }}
@@ -391,12 +396,10 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         cornerRadius={14}
                                         style={{
                                             position: "relative",
-                                            flex: "0 0 58%",
+                                            flex: "0 0 60%",
                                             width: "100%",
                                             background: cardBg,
                                             overflow: "hidden",
-                                            // subtle border so white media doesn't merge with white card
-                                            boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.06)",
                                         }}
                                     >
                                         {project.video ? (
