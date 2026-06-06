@@ -329,7 +329,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08)",
                                     }}
                                 >
-                                    {/* Image / Video area (~62%) */}
+                                    {/* Media area — edge-to-edge image/video */}
                                     <div style={{
                                         position: "relative",
                                         flex: "0 0 62%",
@@ -338,17 +338,24 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                     }}>
                                         {project.video ? (
                                             <video
+                                                key={project.slug}
                                                 src={project.video}
-                                                autoPlay={isTop}
-                                                preload="metadata"
+                                                autoPlay
+                                                preload="auto"
                                                 loop
                                                 muted
                                                 playsInline
+                                                disablePictureInPicture
                                                 style={{
                                                     width: "100%",
                                                     height: "100%",
                                                     objectFit: videoFit,
                                                     display: "block",
+                                                }}
+                                                onLoadedMetadata={(e) => {
+                                                    const v = e.currentTarget;
+                                                    v.muted = true;
+                                                    v.play().catch(() => {});
                                                 }}
                                             />
                                         ) : project.demoPoster ? (
@@ -361,27 +368,24 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                 style={{
                                                     objectFit: posterFit,
                                                     objectPosition: "center",
-                                                    padding: posterFit === "contain" ? "12px" : "0",
-                                                    boxSizing: "border-box",
                                                 }}
                                             />
                                         ) : null}
                                     </div>
 
-                                    {/* Description panel (~38%) */}
+                                    {/* Description panel */}
                                     <div style={{
                                         flex: 1,
-                                        padding: "16px 18px",
+                                        padding: "14px 16px 16px",
                                         display: "flex",
                                         flexDirection: "column",
-                                        gap: 8,
+                                        gap: 6,
                                         background: "#ffffff",
-                                        borderTop: "1px solid rgba(0,0,0,0.06)",
                                         overflow: "hidden",
                                     }}>
                                         <h3 style={{
                                             fontSize: 16,
-                                            fontWeight: 600,
+                                            fontWeight: 700,
                                             color: "#111",
                                             margin: 0,
                                             letterSpacing: "-0.01em",
@@ -394,7 +398,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             color: "#555",
                                             margin: 0,
                                             display: "-webkit-box",
-                                            WebkitLineClamp: 3,
+                                            WebkitLineClamp: 2,
                                             WebkitBoxOrient: "vertical",
                                             overflow: "hidden",
                                         }}>
@@ -405,7 +409,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                 display: "flex",
                                                 gap: 6,
                                                 flexWrap: "wrap",
-                                                marginTop: 2,
+                                                marginTop: 4,
                                             }}>
                                                 {project.tags.slice(0, 3).map(tag => (
                                                     <span key={tag} style={{
