@@ -47,8 +47,8 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 }) => {
     const filteredProjects = useMemo(() => {
         if (activeFilters.length === 0 || activeFilters.includes("All Works")) {
-            // All Works: Insure-Tech (front), Blinkit, GC Dental
-            return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental"].includes(p.slug));
+            // All Works: Insure-Tech (front), Blinkit, GC Dental, Unicef
+            return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental", "unicef"].includes(p.slug));
         }
         if (activeFilters.includes("Featured")) {
             return PROJECTS.filter((p) => p.slug === "insure-tech");
@@ -116,6 +116,21 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             setMobileCards(sorted);
         }
     }, [isMobile, filteredProjects, mobileCards.length]);
+
+    // Sync mobileCards front with windowModeState's activeSlug
+    // (handles dock taps which call windowModeState.bringToFront but don't reorder mobileCards)
+    useEffect(() => {
+        if (!isMobile || mobileCards.length === 0) return;
+        if (mobileCards[0]?.slug === activeSlug) return;
+        const idx = mobileCards.findIndex(p => p.slug === activeSlug);
+        if (idx <= 0) return;
+        setMobileCards(prev => {
+            const next = [...prev];
+            const [target] = next.splice(idx, 1);
+            next.unshift(target);
+            return next;
+        });
+    }, [activeSlug, isMobile, mobileCards]);
 
     const setActiveMobileProject = useCallback((slug: string) => {
         if (!windowModeState) return;
@@ -253,7 +268,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         if (!mobileCards.length) return null;
 
         const mobileWidth = "min(320px, calc(100vw - 56px))";
-        const mobileHeight = "min(440px, calc(100vh - 280px))";
+        const mobileHeight = "min(400px, calc(100vh - 320px))";
 
         return (
             <LayoutGroup>
@@ -326,19 +341,62 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         overflow: "hidden",
                                         padding: 10,
                                         boxSizing: "border-box",
-                                        gap: 10,
+                                        gap: 8,
                                         boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.08)",
                                     }}
                                 >
+                                    {/* Traffic lights — close / minimise / expand */}
+                                    {isTop && (
+                                        <div style={{
+                                            display: "flex",
+                                            gap: 6,
+                                            alignItems: "center",
+                                            padding: "2px 4px 0",
+                                        }}>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    // "Close" = send card to back
+                                                    if (mobileCards.length > 1) {
+                                                        setMobileCards(prev => {
+                                                            const next = [...prev];
+                                                            const swiped = next.shift()!;
+                                                            next.push(swiped);
+                                                            return next;
+                                                        });
+                                                        const newFront = mobileCards[1];
+                                                        if (newFront) setActiveMobileProject(newFront.slug);
+                                                    }
+                                                }}
+                                                style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#FE5F57", cursor: "pointer", padding: 0 }}
+                                                title="Close"
+                                            />
+                                            <button
+                                                style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#FEBC2E", cursor: "default", padding: 0 }}
+                                                title="Minimise"
+                                            />
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleExpandProject(project.name);
+                                                }}
+                                                style={{ width: 12, height: 12, borderRadius: "50%", border: "none", background: "#28C840", cursor: "pointer", padding: 0 }}
+                                                title="Open case study"
+                                            />
+                                        </div>
+                                    )}
+
                                     {/* Inset media panel — image/video fits the frame (contain) */}
                                     <Squircle
                                         cornerRadius={14}
                                         style={{
                                             position: "relative",
-                                            flex: "0 0 60%",
+                                            flex: "0 0 58%",
                                             width: "100%",
                                             background: cardBg,
                                             overflow: "hidden",
+                                            // subtle border so white media doesn't merge with white card
+                                            boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.06)",
                                         }}
                                     >
                                         {project.video ? (
@@ -381,14 +439,14 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                     {/* Description panel — inset below the media */}
                                     <div style={{
                                         flex: 1,
-                                        padding: "8px 6px 6px",
+                                        padding: "4px 6px 4px",
                                         display: "flex",
                                         flexDirection: "column",
-                                        gap: 6,
+                                        gap: 4,
                                         overflow: "hidden",
                                     }}>
                                         <h3 style={{
-                                            fontSize: 16,
+                                            fontSize: 15,
                                             fontWeight: 700,
                                             color: "#111",
                                             margin: 0,
@@ -397,8 +455,8 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             {project.name}
                                         </h3>
                                         <p style={{
-                                            fontSize: 12.5,
-                                            lineHeight: 1.45,
+                                            fontSize: 12,
+                                            lineHeight: 1.4,
                                             color: "#555",
                                             margin: 0,
                                             display: "-webkit-box",
@@ -411,14 +469,14 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         {project.tags && project.tags.length > 0 && (
                                             <div style={{
                                                 display: "flex",
-                                                gap: 6,
+                                                gap: 5,
                                                 flexWrap: "wrap",
                                                 marginTop: 2,
                                             }}>
                                                 {project.tags.slice(0, 3).map(tag => (
                                                     <span key={tag} style={{
-                                                        fontSize: 10,
-                                                        padding: "3px 8px",
+                                                        fontSize: 9.5,
+                                                        padding: "2px 7px",
                                                         background: "#f4f4f4",
                                                         border: "1px solid #e5e5e5",
                                                         borderRadius: 100,
