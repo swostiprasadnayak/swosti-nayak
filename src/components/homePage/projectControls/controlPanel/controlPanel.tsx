@@ -144,7 +144,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                                 <MusicCard player={player} />
                             </div>
                         </div>
-                        <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isOpen} labelColor="rgba(255, 255, 255, 0.95)" />
+                        <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isOpen} labelColor="rgba(0, 0, 0, 0.75)" />
                     </motion.div>
                 )}
             </AnimatePresence>
