@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import {
   CheckCircle2, AlertTriangle, AlertCircle, XCircle,
   ChevronDown, ChevronRight, Eye, EyeOff, Search, X,
+  Copy, Code2,
 } from "lucide-react";
 import { useIsMobile } from "@/app/hooks/useIsMobile";
+import { CODE } from "./DesignSystemCode";
 
 // ─── Design tokens (mirrors Figma DS collections) ────────────────────────────
 const T = {
@@ -44,6 +46,126 @@ function SectionH({ children }: { children: React.ReactNode }) {
 }
 function SectionSub({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: 14, color: T.text2, margin: "0 0 28px", lineHeight: 1.6 }}>{children}</p>;
+}
+
+// ─── Code snippet block ──────────────────────────────────────────────────────
+// Tiny inline highlighter — strings (green), comments (muted), JSX tags (rose).
+// Intentionally simple so it stays readable; not a full parser.
+function highlightTSX(code: string): string {
+  // 1. Escape HTML so user code never injects markup
+  let s = code
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // 2. Comments first (single-line)
+  s = s.replace(/(\/\/[^\n]*)/g, '<span style="color:#64748B;font-style:italic">$1</span>');
+  // 3. Strings — double, single, backtick. Skip if already inside a span.
+  s = s.replace(/(&quot;[^&]*?&quot;|"[^"\n]*?"|'[^'\n]*?'|`[^`]*?`)/g,
+    '<span style="color:#86EFAC">$1</span>');
+  // 4. JSX/HTML tag openers (matches both Capital + lowercase)
+  s = s.replace(/(&lt;\/?)([A-Za-z][A-Za-z0-9.]*)/g,
+    '<span style="color:#FDA4AF">$1$2</span>');
+  // 5. Keywords
+  s = s.replace(
+    /\b(const|let|var|function|return|if|else|import|export|from|default|async|await|interface|type|new|class|extends|implements|true|false|null|undefined|forwardRef|displayName)\b/g,
+    '<span style="color:#C4B5FD">$1</span>');
+  return s;
+}
+
+function CodeSnippet({ code, label = "TSX", filename }: { code: string; label?: string; filename?: string }) {
+  const [copied, setCopied] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {}
+  };
+
+  // Show first 16 lines collapsed; full thing on expand
+  const lines = code.split("\n");
+  const isLong = lines.length > 18;
+  const shown = !expanded && isLong ? lines.slice(0, 16).join("\n") : code;
+
+  return (
+    <div style={{
+      marginTop: 16,
+      borderRadius: 12,
+      overflow: "hidden",
+      background: "#0F172A",
+      border: "1px solid #1E293B",
+    }}>
+      {/* Header */}
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "8px 14px",
+        borderBottom: "1px solid #1E293B",
+        background: "linear-gradient(180deg, rgba(255,255,255,0.04), transparent)",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Code2 size={13} color="#94A3B8" />
+          <span style={{ fontSize: 10, fontWeight: 700, color: "#94A3B8", letterSpacing: "0.08em" }}>{label}</span>
+          {filename && (
+            <span style={{ fontSize: 11, color: "#CBD5E1", fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+              {filename}
+            </span>
+          )}
+        </div>
+        <button
+          onClick={handleCopy}
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            padding: "4px 10px", borderRadius: 6,
+            border: "1px solid #334155",
+            background: copied ? "#064E3B" : "rgba(255,255,255,0.04)",
+            color: copied ? "#D1FAE5" : "#E2E8F0",
+            fontSize: 11, fontWeight: 600, cursor: "pointer",
+            transition: "all 120ms ease",
+          }}
+        >
+          {copied ? <CheckCircle2 size={11} /> : <Copy size={11} />}
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+
+      {/* Code */}
+      <pre style={{
+        margin: 0,
+        padding: "16px 18px",
+        fontSize: 12.5,
+        lineHeight: 1.65,
+        color: "#E2E8F0",
+        fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+        overflowX: "auto",
+        whiteSpace: "pre",
+        tabSize: 2,
+      }}>
+        <code dangerouslySetInnerHTML={{ __html: highlightTSX(shown) }} />
+      </pre>
+
+      {/* Expand / Collapse */}
+      {isLong && (
+        <button
+          onClick={() => setExpanded(v => !v)}
+          style={{
+            width: "100%",
+            padding: "8px 14px",
+            background: "rgba(255,255,255,0.03)",
+            border: "none",
+            borderTop: "1px solid #1E293B",
+            color: "#94A3B8",
+            fontSize: 11, fontWeight: 600, cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+          }}
+        >
+          {expanded ? "Show less" : `Show all ${lines.length} lines`}
+        </button>
+      )}
+    </div>
+  );
 }
 
 // ─── 01 · COLOUR PALETTE ─────────────────────────────────────────────────────
@@ -391,7 +513,7 @@ function MoleculesSection() {
       {/* Button matrix */}
       <SectionH>Button</SectionH>
       <SectionSub>6 variants × 4 sizes × 5 states. All fully interactive in the prototype.</SectionSub>
-      <div style={{ display: "flex", flexDirection: "column" as const, gap: 28, marginBottom: 48 }}>
+      <div style={{ display: "flex", flexDirection: "column" as const, gap: 28, marginBottom: 24 }}>
         {BTN_VARIANTS.map(v => (
           <div key={v.name}>
             <p style={{ fontSize: 11, fontWeight: 700, color: T.text3, letterSpacing: "0.06em", textTransform: "uppercase" as const, margin: "0 0 10px" }}>{v.name}</p>
@@ -432,11 +554,13 @@ function MoleculesSection() {
           </div>
         ))}
       </div>
+      <CodeSnippet code={CODE.button} filename="Button.tsx" />
+      <div style={{ marginBottom: 48 }} />
 
       {/* Tag / Chip */}
       <SectionH>Tag / Chip</SectionH>
       <SectionSub>6 variants. Status chips are used throughout the builder for confidence and verification states.</SectionSub>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const, marginBottom: 48 }}>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const, marginBottom: 24 }}>
         {[
           { label: "B2B InsurTech",     bg: T.surf,     border: T.border,  fg: T.ink,    r: 7 },
           { label: "AI Workflow",       bg: T.surf,     border: T.border,  fg: T.ink,    r: 100, dashed: true },
@@ -458,11 +582,13 @@ function MoleculesSection() {
           </div>
         ))}
       </div>
+      <CodeSnippet code={CODE.tag} filename="Tag.tsx" />
+      <div style={{ marginBottom: 48 }} />
 
       {/* Input field */}
       <SectionH>Input Field</SectionH>
       <SectionSub>5 types × 7 states. All follow the label + input + helper text pattern.</SectionSub>
-      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const, marginBottom: 24 }}>
         {[
           { label: "Default",    placeholder: "Enter value…",  border: T.border,  bg: T.surf },
           { label: "Focused",    placeholder: "Enter value…",  border: T.brand,   bg: T.surf, ring: `0 0 0 3px ${T.brandTint}` },
@@ -488,6 +614,7 @@ function MoleculesSection() {
           </div>
         ))}
       </div>
+      <CodeSnippet code={CODE.input} filename="Input.tsx" />
     </div>
   );
 }
@@ -514,7 +641,7 @@ function OrganismsSection() {
       {/* Stage pipeline */}
       <SectionH>Stage Pipeline</SectionH>
       <SectionSub>5-step lifecycle. Shown in 3 states: Not started / In progress / Complete.</SectionSub>
-      <div style={{ display: "flex", flexDirection: "column" as const, gap: 14, marginBottom: 48 }}>
+      <div style={{ display: "flex", flexDirection: "column" as const, gap: 14, marginBottom: 24 }}>
         {[
           { label: "Not started", active: -1 },
           { label: "In progress (Verify)", active: 2 },
@@ -541,11 +668,13 @@ function OrganismsSection() {
           </div>
         ))}
       </div>
+      <CodeSnippet code={CODE.stagePipeline} filename="StagePipeline.tsx" />
+      <div style={{ marginBottom: 48 }} />
 
       {/* Extraction Health Card */}
       <SectionH>Extraction Health Card</SectionH>
       <SectionSub>Primary overview card. 3 quality states: healthy ≥85% · medium ≥65% · low &lt;65%.</SectionSub>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" as const, marginBottom: 48 }}>
+      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" as const, marginBottom: 24 }}>
         {[
           { score: 89, hi: 124, med: 40, lo: 15, b: 2, w: 4, label: "In-progress" },
           { score: 100,hi: 155, med: 0,  lo: 0,  b: 0, w: 0, label: "Complete"    },
@@ -590,11 +719,13 @@ function OrganismsSection() {
           );
         })}
       </div>
+      <CodeSnippet code={CODE.healthCard} filename="ExtractionHealthCard.tsx" />
+      <div style={{ marginBottom: 48 }} />
 
       {/* Parameter Cards */}
       <SectionH>Parameter Card</SectionH>
       <SectionSub>4 states — Verified · Low Confidence · Missing · Blocker. Status badge + confidence + source.</SectionSub>
-      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const, marginBottom: 48 }}>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const, marginBottom: 24 }}>
         {PARAM_CARDS.map(pc => (
           <div key={pc.title} style={{
             width: 260, borderRadius: 10,
@@ -620,11 +751,13 @@ function OrganismsSection() {
           </div>
         ))}
       </div>
+      <CodeSnippet code={CODE.parameterCard} filename="ParameterCard.tsx" />
+      <div style={{ marginBottom: 48 }} />
 
       {/* Activity Feed */}
       <SectionH>Activity Feed Item</SectionH>
       <SectionSub>Blocker (red) · Warning (amber). Each has Open parameter + Resolve actions.</SectionSub>
-      <div style={{ width: 460, border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden" }}>
+      <div style={{ width: 460, border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", marginBottom: 24 }}>
         {FEED_ITEMS.map((fi, i) => (
           <div key={i} style={{
             display: "flex", gap: 12, padding: "14px 16px",
@@ -647,6 +780,7 @@ function OrganismsSection() {
           </div>
         ))}
       </div>
+      <CodeSnippet code={CODE.activityFeed} filename="ActivityFeedItem.tsx" />
     </div>
   );
 }
@@ -795,6 +929,9 @@ function DrawerSection() {
             </div>
           ))}
         </div>
+      </div>
+      <div style={{ marginTop: 24 }}>
+        <CodeSnippet code={CODE.drawer} filename="ParameterDrawer.tsx" />
       </div>
     </div>
   );
