@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { ChevronDown, AlertTriangle, Info } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { ChevronDown, AlertTriangle, Info, ChevronRight } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Heuristic Analysis — Product Builder screen
@@ -87,8 +87,13 @@ const SEVERITY_COLOR: Record<Severity, { fg: string; bg: string; ring: string }>
   low:  { fg: "#0ea5e9", bg: "#e0f2fe",   ring: "#7dd3fc" },
 };
 
-// ─── The annotated mockup (replaces the old PNG plan-builder image) ──────────
-function BuilderMockup({ hoveredPin, setHoveredPin }: { hoveredPin: number | null; setHoveredPin: (n: number | null) => void }) {
+// ─── The annotated mockup at its NATURAL width (renders inside the responsive
+//     wrapper below). Container width is fixed so internal flex/grid math stays
+//     stable regardless of viewport. ResponsiveBuilderMockup scales it down.
+const MOCKUP_NATURAL_W = 720;
+const MOCKUP_NATURAL_H = 500; // approximate; the wrapper observes actual height
+
+function BuilderMockupInner({ hoveredPin, setHoveredPin }: { hoveredPin: number | null; setHoveredPin: (n: number | null) => void }) {
   return (
     <div style={{
       position: "relative",
@@ -97,6 +102,7 @@ function BuilderMockup({ hoveredPin, setHoveredPin }: { hoveredPin: number | nul
       padding: 14,
       border: `1px solid ${BORDER_STRONG}`,
       boxShadow: "0 12px 40px -8px rgba(15,23,42,.12), 0 2px 4px rgba(15,23,42,.04)",
+      width: MOCKUP_NATURAL_W,
     }}>
       <div style={{
         background: "#fff",
@@ -316,40 +322,127 @@ function BuilderMockup({ hoveredPin, setHoveredPin }: { hoveredPin: number | nul
   );
 }
 
-// ─── Single legend row ───────────────────────────────────────────────────────
+// ─── Responsive wrapper: renders the natural-width mockup, then scales it to
+//     fit whatever column width the parent grid gives it. Keeps the pins
+//     anchored proportionally because they live INSIDE the scaled element.
+function BuilderMockup(props: { hoveredPin: number | null; setHoveredPin: (n: number | null) => void }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const innerRef   = useRef<HTMLDivElement>(null);
+  const [scale, setScale]   = useState(1);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const inner   = innerRef.current;
+    if (!wrapper || !inner) return;
+
+    const compute = () => {
+      const wrapW = wrapper.getBoundingClientRect().width;
+      const s = Math.min(1, wrapW / MOCKUP_NATURAL_W);
+      const naturalH = inner.scrollHeight || MOCKUP_NATURAL_H;
+      setScale(s);
+      setHeight(naturalH * s);
+    };
+
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(wrapper);
+    ro.observe(inner);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapperRef} style={{
+      position: "relative",
+      width: "100%",
+      height: height || undefined,
+      overflow: "hidden",
+    }}>
+      <div ref={innerRef} style={{
+        width: MOCKUP_NATURAL_W,
+        transform: `scale(${scale})`,
+        transformOrigin: "top left",
+        position: "absolute",
+        top: 0, left: 0,
+      }}>
+        <BuilderMockupInner {...props} />
+      </div>
+    </div>
+  );
+}
+
+// ─── Single legend row — visual-first, click to reveal body ─────────────────
 function FindingRow({ p, hovered }: { p: Pin; hovered: boolean }) {
   const c = SEVERITY_COLOR[p.severity];
+  const [open, setOpen] = useState(false);
+  // Hovering the matching pin on the mockup also expands the row.
+  const expanded = open || hovered;
+
   return (
-    <div style={{
-      display: "grid", gridTemplateColumns: "32px 1fr 78px",
-      gap: 14, padding: "14px 16px",
-      borderRadius: 10,
-      border: `1px solid ${hovered ? c.fg : BORDER}`,
-      background: hovered ? c.bg : "#fff",
-      transition: "all 120ms ease",
-      alignItems: "start",
-    }}>
+    <div
+      onClick={() => setOpen(v => !v)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen(v => !v); } }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "auto 1fr auto",
+        gap: 12, padding: "12px 14px",
+        borderRadius: 10,
+        // Left border carries the severity colour for at-a-glance scanning.
+        borderLeft: `4px solid ${c.fg}`,
+        border: `1px solid ${BORDER}`,
+        borderLeftWidth: 4,
+        background: expanded ? c.bg : "#fff",
+        cursor: "pointer",
+        transition: "background 120ms ease, border-color 120ms ease",
+        alignItems: "center",
+      }}
+    >
+      {/* Number badge — large, severity-coloured */}
       <span style={{
-        width: 26, height: 26, borderRadius: "50%",
+        width: 30, height: 30, borderRadius: "50%",
         background: c.fg, color: "#fff",
         display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: 12, fontWeight: 800, flexShrink: 0,
+        fontSize: 13, fontWeight: 800, flexShrink: 0,
       }}>{p.n}</span>
-      <div style={{ minWidth: 0 }}>
-        <p style={{ fontSize: 13.5, fontWeight: 700, color: INK, margin: "0 0 3px" }}>{p.title}</p>
-        <p style={{ fontSize: 12.5, color: MUTED, margin: "0 0 6px", lineHeight: 1.5 }}>{p.body}</p>
+
+      {/* Title + heuristic tag — single row, scannable */}
+      <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+        <p style={{
+          fontSize: 14, fontWeight: 700, color: INK, margin: 0,
+          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+        }}>{p.title}</p>
         <span style={{
           fontSize: 10.5, fontWeight: 700, color: BRAND,
           background: BRAND_TINT, padding: "2px 8px", borderRadius: 100,
-          letterSpacing: "0.02em",
+          letterSpacing: "0.02em", alignSelf: "flex-start",
+          maxWidth: "100%",
+          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
         }}>{p.heuristic}</span>
       </div>
-      <span style={{
-        fontSize: 10.5, fontWeight: 700, color: c.fg,
-        background: c.bg, padding: "3px 8px", borderRadius: 6,
-        textAlign: "center", flexShrink: 0,
-        textTransform: "uppercase" as const, letterSpacing: "0.04em",
-      }}>{SEVERITY_LABEL[p.severity]}</span>
+
+      {/* Severity dot — minimal visual cue (label appears on expand) */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+        <span style={{
+          fontSize: 10.5, fontWeight: 700, color: c.fg,
+          background: c.bg, padding: "3px 8px", borderRadius: 6,
+          textTransform: "uppercase" as const, letterSpacing: "0.04em",
+        }}>{SEVERITY_LABEL[p.severity]}</span>
+        <ChevronRight size={14} color={LIGHT} style={{
+          transform: expanded ? "rotate(90deg)" : "rotate(0)",
+          transition: "transform 180ms ease",
+        }} />
+      </div>
+
+      {/* Expanded body */}
+      {expanded && (
+        <p style={{
+          gridColumn: "2 / 4",
+          fontSize: 12.5, color: MUTED,
+          margin: "6px 0 0", lineHeight: 1.5,
+        }}>{p.body}</p>
+      )}
     </div>
   );
 }
@@ -380,6 +473,67 @@ const OTHER_SCREENS: { screen: string; findings: { title: string; heuristic: str
     ],
   },
 ];
+
+// ─── A simpler findings row used in the "Read more" panel ────────────────────
+function OtherFindingRow({ f }: { f: { title: string; heuristic: string; body: string; severity: Severity } }) {
+  const c = SEVERITY_COLOR[f.severity];
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      onClick={() => setOpen(v => !v)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen(v => !v); } }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "auto 1fr auto",
+        gap: 12, padding: "12px 14px",
+        borderRadius: 10,
+        borderLeft: `4px solid ${c.fg}`,
+        border: `1px solid ${BORDER}`,
+        borderLeftWidth: 4,
+        background: open ? c.bg : "#fff",
+        cursor: "pointer",
+        transition: "background 120ms ease",
+        alignItems: "center",
+      }}
+    >
+      <AlertTriangle size={16} color={c.fg} style={{ flexShrink: 0 }} />
+      <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+        <p style={{
+          fontSize: 14, fontWeight: 700, color: INK, margin: 0,
+          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+        }}>{f.title}</p>
+        <span style={{
+          fontSize: 10.5, fontWeight: 700, color: BRAND,
+          background: BRAND_TINT, padding: "2px 8px", borderRadius: 100,
+          letterSpacing: "0.02em", alignSelf: "flex-start",
+          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+          maxWidth: "100%",
+        }}>{f.heuristic}</span>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+        <span style={{
+          fontSize: 10.5, fontWeight: 700, color: c.fg,
+          background: c.bg, padding: "3px 8px", borderRadius: 6,
+          textTransform: "uppercase" as const, letterSpacing: "0.04em",
+        }}>{SEVERITY_LABEL[f.severity]}</span>
+        <ChevronRight size={14} color={LIGHT} style={{
+          transform: open ? "rotate(90deg)" : "rotate(0)",
+          transition: "transform 180ms ease",
+        }} />
+      </div>
+      {open && (
+        <p style={{
+          gridColumn: "2 / 4",
+          fontSize: 12.5, color: MUTED,
+          margin: "6px 0 0", lineHeight: 1.5,
+        }}>{f.body}</p>
+      )}
+    </div>
+  );
+}
 
 // ─── Main export ─────────────────────────────────────────────────────────────
 export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
@@ -432,10 +586,12 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
         })}
       </div>
 
-      {/* Annotated screen + findings (legend) */}
+      {/* Annotated screen + findings (legend) — stacks on tablet & mobile */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1.35fr 1fr",
+        // Stack below the desktop breakpoint so the mockup gets full width and
+        // doesn't get crushed into a narrow side column.
+        gridTemplateColumns: "1fr",
         gap: 28, alignItems: "start",
       }}>
         <div>
@@ -444,10 +600,15 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
             fontSize: 11.5, color: LIGHT, marginTop: 10, marginBottom: 0,
             textAlign: "center", fontStyle: "italic",
           }}>
-            Live Product Builder screen, annotated with 10 findings
+            Live Product Builder screen, annotated with 10 findings — tap a row to read more
           </p>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{
+          display: "grid",
+          // Findings flow as a responsive grid of compact cards.
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(320px, 1fr))",
+          gap: 10,
+        }}>
           {BUILDER_PINS.map(p => (
             <FindingRow key={p.n} p={p} hovered={hoveredPin === p.n} />
           ))}
@@ -491,33 +652,9 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
                   {s.screen}
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {s.findings.map((f, fi) => {
-                    const c = SEVERITY_COLOR[f.severity];
-                    return (
-                      <div key={fi} style={{
-                        display: "grid", gridTemplateColumns: "auto 1fr 78px",
-                        gap: 14, padding: "12px 14px",
-                        borderRadius: 10, border: `1px solid ${BORDER}`,
-                        background: "#fff", alignItems: "start",
-                      }}>
-                        <AlertTriangle size={14} color={c.fg} style={{ marginTop: 3 }} />
-                        <div>
-                          <p style={{ fontSize: 13.5, fontWeight: 700, color: INK, margin: "0 0 3px" }}>{f.title}</p>
-                          <p style={{ fontSize: 12.5, color: MUTED, margin: "0 0 6px", lineHeight: 1.5 }}>{f.body}</p>
-                          <span style={{
-                            fontSize: 10.5, fontWeight: 700, color: BRAND,
-                            background: BRAND_TINT, padding: "2px 8px", borderRadius: 100,
-                          }}>{f.heuristic}</span>
-                        </div>
-                        <span style={{
-                          fontSize: 10.5, fontWeight: 700, color: c.fg,
-                          background: c.bg, padding: "3px 8px", borderRadius: 6,
-                          textAlign: "center", flexShrink: 0,
-                          textTransform: "uppercase" as const, letterSpacing: "0.04em",
-                        }}>{SEVERITY_LABEL[f.severity]}</span>
-                      </div>
-                    );
-                  })}
+                  {s.findings.map((f, fi) => (
+                    <OtherFindingRow key={fi} f={f} />
+                  ))}
                 </div>
               </div>
             ))}
