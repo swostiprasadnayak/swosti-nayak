@@ -45,3 +45,4 @@ Thumbs.db
 
 # Generated files
 src/data/codeDB.json
+.claude/worktrees/
