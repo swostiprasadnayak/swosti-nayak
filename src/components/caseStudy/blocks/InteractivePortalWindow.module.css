@@ -61,7 +61,20 @@
   padding: 4px 12px;
   font-size: 12px;
   color: #666;
-  min-width: 300px;
+  /* Grow up to 300px on desktop, but allow shrink + truncate on mobile so the
+     toolbar never forces the window wider than the viewport. */
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.urlBar span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .lockIcon {

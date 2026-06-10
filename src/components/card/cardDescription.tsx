@@ -15,7 +15,7 @@ const CardDescription: React.FC<CardDescriptionProps> = ({
     tags,
 }) => {
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper} data-component="CardDescription">
             <Squircle
                 className={classes.descriptionContainer}
                 cornerRadius={16}

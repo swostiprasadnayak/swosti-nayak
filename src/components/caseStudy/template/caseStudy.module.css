@@ -6,6 +6,16 @@
     background: #ffffff;
     padding: 60px 40px;
     color: var(--text-primary);
+    /* Without border-box, width:100% + horizontal padding overflows the
+       parent by the padding amount, pushing content off the right edge
+       (clipped by overflow-x:hidden) — the cause of cut titles on mobile. */
+    box-sizing: border-box;
+}
+
+/* Belt-and-braces: nothing inside a case study may exceed the column width.
+   Media and tables are the usual offenders on small screens. */
+.pageWrapper :where(img, video, svg, canvas, iframe, table) {
+    max-width: 100%;
 }
 
 :global([data-theme="dark"]) .pageWrapper {
@@ -14,7 +24,10 @@
 
 .contentMaxWidth {
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
+    min-width: 0; /* allow flex/grid children to shrink instead of overflowing */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 60px;
@@ -358,4 +371,9 @@
   .rGrid2 { grid-template-columns: 1fr; }
   .rGrid3 { grid-template-columns: 1fr; }
   .rGrid4 { grid-template-columns: repeat(2, 1fr); }
+  /* Sticky idea cards: drop the square aspect-ratio on mobile (text needs
+     more height than a 1:1 box gives) and let them shrink in the grid —
+     otherwise the aspect-ratio inflates each card's width and overflows. */
+  .ideasGrid { grid-template-columns: 1fr; }
+  .ideaSticky { aspect-ratio: auto; min-width: 0; }
 }

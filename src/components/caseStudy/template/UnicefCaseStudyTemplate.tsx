@@ -269,7 +269,7 @@ export default function UnicefCaseStudyTemplate() {
                     { name: "WHO GHO", desc: "Good accessibility base. Comparison limited to 2 countries. No URL sharing." },
                     { name: "ODI & UN Stats", desc: "Trusted by researchers. Requires academic familiarity. No entry point for policy." }
                   ].map((portal, i) => (
-                     <div key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
+                     <div key={i} style={{ display: 'grid', gridTemplateColumns: '120px minmax(0, 1fr)', gap: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
                         <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#111' }}>{portal.name}</span>
                         <span style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5 }}>{portal.desc}</span>
                      </div>
@@ -362,13 +362,13 @@ export default function UnicefCaseStudyTemplate() {
                   { icon: "🌍", role: "Country Rep", jtbd: "One profile page with all learning indicators brief stakeholders without cross-referencing sources." },
                   { icon: "👤", role: "General Public", jtbd: "Understand the global education picture instantly explore without knowing the indicator taxonomy." }
                 ].map((job, i) => (
-                   <Squircle key={i} cornerRadius={12} style={{ boxShadow: 'inset 0 0 0 1px #e2e8f0', background: '#fff', padding: '24px 32px', display: 'flex', alignItems: 'flex-start', gap: '32px' }}>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '180px' }}>
+                   <Squircle key={i} cornerRadius={12} style={{ boxShadow: 'inset 0 0 0 1px #e2e8f0', background: '#fff', padding: isMobile ? '20px' : '24px 32px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'flex-start', gap: isMobile ? '12px' : '32px' }}>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: isMobile ? 0 : '180px' }}>
                         <div style={{ fontSize: '1.2rem' }}>{job.icon}</div>
                         <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111' }}>{job.role}</span>
                      </div>
-                     <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, margin: 0, paddingLeft: '32px', borderLeft: '1px solid #e2e8f0' }}>
-                        {job.jtbd.split(/(I want to.*?)( so|$)/).map((part, index) => 
+                     <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, margin: 0, minWidth: 0, paddingLeft: isMobile ? 0 : '32px', borderLeft: isMobile ? 'none' : '1px solid #e2e8f0' }}>
+                        {job.jtbd.split(/(I want to.*?)( so|$)/).map((part, index) =>
                            part.startsWith("I want to") ? <strong key={index} style={{ color: '#111' }}>{part}</strong> : part
                         )}
                      </p>

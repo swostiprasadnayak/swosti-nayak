@@ -41,6 +41,8 @@ export default function ExpandedProject({ projectName, onClose, layoutId }: Expa
                         className={classes.windowContainer}
                         layoutId={layoutId}
                         transition={{ type: "spring", bounce: 0.1, duration: 0.6 }}
+                        data-component="ExpandedProject"
+                        data-project={projectName}
                     >
                         <div className={classes.header}>
                             <TrafficLights onClose={onClose} visible={true} />

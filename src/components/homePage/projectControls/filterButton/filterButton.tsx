@@ -67,12 +67,13 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     const activeLabel = hasActiveFilters ? activeFilters[0] : "Workspace";
 
     return (
-        <div className={classes.container} ref={containerRef}>
+        <div className={classes.container} ref={containerRef} data-component="FilterButton">
             <button
                 className={classes.filterTrigger}
                 onClick={() => setIsOpen(!isOpen)}
                 aria-expanded={isOpen}
                 aria-label="Filter projects"
+                data-component-trigger="filter"
             >
                 <span className={classes.buttonText}>{activeLabel}</span>
                 <ChevronDown

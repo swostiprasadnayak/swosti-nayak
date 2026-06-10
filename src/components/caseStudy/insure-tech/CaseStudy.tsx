@@ -274,11 +274,23 @@ function H2({ children, isMobile }: { children: React.ReactNode; isMobile?: bool
 
 // ─── Real-DOM screen thumbnail ────────────────────────────────────────────────
 function ScreenThumb({ n, name, desc, onOpen, render }: { n: number; name: string; desc: string; onOpen: () => void; render: () => React.ReactNode }) {
-  const SCALE = 0.29;
   const W = 1400, H = Math.round(W * 10 / 16); // 875
+  // Scale the 1400px real-DOM screen to fit whatever width the column gives us,
+  // so the thumbnail never overflows (fixed scales crop/overflow on mobile).
+  const btnRef = React.useRef<HTMLButtonElement>(null);
+  const [scale, setScale] = React.useState(0.29);
+  React.useEffect(() => {
+    const el = btnRef.current;
+    if (!el) return;
+    const compute = () => setScale(el.getBoundingClientRect().width / W);
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <button onClick={onOpen} aria-label={`Open ${name} in prototype`} style={{
+    <div style={{ display: "flex", flexDirection: "column", gap: 14, minWidth: 0 }}>
+      <button ref={btnRef} onClick={onOpen} aria-label={`Open ${name} in prototype`} style={{
         position: "relative", width: "100%", aspectRatio: "16 / 10",
         borderRadius: 14, border: `1px solid ${BORDER}`, overflow: "hidden",
         background: "#F9FAFB", cursor: "pointer", padding: 0,
@@ -286,7 +298,7 @@ function ScreenThumb({ n, name, desc, onOpen, render }: { n: number; name: strin
         {/* Scaled screen */}
         <div style={{
           width: W, height: H,
-          transform: `scale(${SCALE})`, transformOrigin: "top left",
+          transform: `scale(${scale})`, transformOrigin: "top left",
           pointerEvents: "none", position: "absolute", top: 0, left: 0,
         }}>
           <div style={{ width: "100%", height: "100%", background: "#F9FAFB", padding: 24, boxSizing: "border-box" }}>
@@ -388,7 +400,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
   const isMobile = useIsMobile();
   return (
     <div style={{ height: "100%", overflowY: "auto", overflowX: "hidden", background: "#ffffff" }}>
-      <div style={{ maxWidth: 920, margin: "0 auto", padding: isMobile ? "40px 20px 80px" : "64px 40px 100px", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
+      <div style={{ maxWidth: 920, width: "100%", boxSizing: "border-box", margin: "0 auto", padding: isMobile ? "40px 20px 80px" : "64px 40px 100px", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
 
         {/* HERO */}
         <div>
@@ -603,9 +615,9 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             The principles materialised as six distinct UI patterns inside Screen 3. Each one retires a specific class of friction from the audit — and together they're the reason a 3–5 day workflow now takes hours.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16 }}>
             {PATTERNS.map((p, i) => (
-              <div key={i} style={{ display: "flex", flexDirection: "column" }}>
+              <div key={i} style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
                 <div style={{ height: 130, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, overflow: "hidden" }}>
                   {p.mockup}
                 </div>
@@ -641,9 +653,9 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14 }}>
             {OUTCOMES.map((o, i) => (
-              <div key={i} style={{ padding: 22, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14 }}>
+              <div key={i} style={{ padding: 22, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14, minWidth: 0 }}>
                 <p style={{ fontSize: 12, color: SUBTLE, margin: "0 0 14px", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600 }}>{o.label}</p>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
                   <div style={{ padding: "8px 14px", borderRadius: 10, background: "#fee2e2", border: "1px solid #fecaca", flex: "0 0 auto" }}>
                     <p style={{ fontSize: 14, fontWeight: 700, color: "#991b1b", margin: 0, whiteSpace: "nowrap" }}>{o.before}</p>
                   </div>
