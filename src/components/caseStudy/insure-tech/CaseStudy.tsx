@@ -12,6 +12,7 @@ import {
   PrePublishReview, StakeholderDashboard,
 } from "./EicorePrototype";
 import UnifiedBuilder from "./UnifiedBuilder";
+import HeuristicAnalysis from "./HeuristicAnalysis";
 
 // ─── Design tokens (matches saas-builder system) ──────────────────────────────
 const BRAND = "#047857";
@@ -521,9 +522,14 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           </div>
         </div>
 
-        {/* 03 8 UX FLAWS */}
+        {/* 03 HEURISTIC ANALYSIS — Product Builder screen (Nielsen's 10) */}
         <div>
-          <SectionLabel n="03" label="8 UX FLAWS → REDESIGN RESPONSES" />
+          <HeuristicAnalysis isMobile={isMobile} />
+        </div>
+
+        {/* 04 8 UX FLAWS */}
+        <div>
+          <SectionLabel n="04" label="8 UX FLAWS → REDESIGN RESPONSES" />
           <H2 isMobile={isMobile}>An audit of the existing interface.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
             Eight behaviors were undermining trust in the AI-extracted output. The redesign answers each with a specific, scoped affordance — no blanket rewrites.
@@ -553,7 +559,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* 04 PRINCIPLES */}
         <div>
-          <SectionLabel n="04" label="DESIGN PRINCIPLES" />
+          <SectionLabel n="05" label="DESIGN PRINCIPLES" />
           <H2 isMobile={isMobile}>Four ideas that shaped every decision.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
             Once the audit was clear, four principles became the rubric for every layout, control, and interaction in the rebuild.
@@ -571,7 +577,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* 05 FIVE SCREENS — real DOM thumbnails */}
         <div>
-          <SectionLabel n="05" label="THE 5 REDESIGNED SCREENS" />
+          <SectionLabel n="06" label="THE 5 REDESIGNED SCREENS" />
           <H2 isMobile={isMobile}>Walk the product, screen by screen.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             Each thumbnail is a live render of the actual screen, scaled. Click any one to open it in the interactive prototype.
@@ -592,7 +598,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* 06 ANATOMY OF THE WORKSPACE */}
         <div>
-          <SectionLabel n="06" label="ANATOMY OF THE WORKSPACE" />
+          <SectionLabel n="07" label="ANATOMY OF THE WORKSPACE" />
           <H2 isMobile={isMobile}>Six patterns make the unified workspace work.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             The principles materialised as six distinct UI patterns inside Screen 3. Each one retires a specific class of friction from the audit — and together they're the reason a 3–5 day workflow now takes hours.
@@ -614,7 +620,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* 07 TRUST LOOP */}
         <div>
-          <SectionLabel n="07" label="THE TRUST LOOP" />
+          <SectionLabel n="08" label="THE TRUST LOOP" />
           <H2 isMobile={isMobile}>Three clicks from suspicion to verified.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             The interaction that ties the whole system together — <strong style={{ color: INK }}>Spot · Inspect · Resolve</strong>. The user never has to leave the canvas to trust an AI extraction.
@@ -628,7 +634,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* 08 OUTCOMES */}
         <div>
-          <SectionLabel n="08" label="OUTCOMES" />
+          <SectionLabel n="09" label="OUTCOMES" />
           <H2 isMobile={isMobile}>What the redesign moves.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
             Each before / after pair retires a specific UX flaw from the audit.
@@ -653,7 +659,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
 
         {/* 09 REFLECTION */}
         <div>
-          <SectionLabel n="09" label="REFLECTION" />
+          <SectionLabel n="10" label="REFLECTION" />
           <H2 isMobile={isMobile}>What I'd carry forward.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.75, color: MUTED, margin: "0 0 24px" }}>
             The hardest decision wasn't visual — it was deciding how AI confidence should behave when it's wrong. The principle I'd carry forward: <strong style={{ color: INK }}>never make the user discover a problem at the end of a flow that the system could have surfaced at the start.</strong>
