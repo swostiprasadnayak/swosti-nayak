@@ -101,7 +101,7 @@ function HomeContent() {
   }, []);
 
   return (
-    <main style={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
+    <main style={{ display: 'flex', height: '100dvh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
 
       {/* Background Image */}
       <div style={{
