@@ -11,6 +11,14 @@
     z-index: 50;
     /* Ensures it sits above blur layers */
     width: fit-content;
+    /* Never wider than the viewport — was clipping first/last icons on
+       small phones where 6 icons × 48px + gaps overflowed by ~20px. */
+    max-width: calc(100vw - 16px);
+}
+
+.dock {
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .dock {
@@ -23,6 +31,15 @@
     /* Reduced vertical padding */
     height: 64px;
     /* Fixed height for the glass bar */
+}
+
+/* Tighten the dock on narrow viewports so all 6 icons fit without clipping. */
+@media (max-width: 420px) {
+    .dock {
+        gap: 9px;
+        padding: 0 12px 12px 12px;
+        height: 58px;
+    }
 }
 
 .dockBgFill {
@@ -53,6 +70,15 @@
     cursor: pointer;
     transform-origin: bottom;
     /* Crucial for growing upwards */
+}
+
+/* Override the inline 48px size with !important on narrow phones so all 6
+   icons fit. JS sets inline width/height; this scales them down in CSS. */
+@media (max-width: 420px) {
+    .iconButton {
+        width: 42px !important;
+        height: 42px !important;
+    }
 }
 
 .activeDot {

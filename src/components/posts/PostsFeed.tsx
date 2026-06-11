@@ -286,6 +286,17 @@ export default function PostsFeed() {
         .post-content-rich h2 { font-size: 1.8rem; font-weight: 700; margin: 32px 0 16px; }
         .post-content-rich h3 { font-size: 1.4rem; font-weight: 600; margin: 24px 0 12px; }
         .post-content-rich p { margin-bottom: 24px; color: #333; }
+        /* Hard width caps so nothing in the rich body can push the panel
+           wider than its column (was overflowing on small phones). */
+        .post-content-rich { max-width: 100%; word-wrap: break-word; overflow-wrap: anywhere; }
+        .post-content-rich img,
+        .post-content-rich video,
+        .post-content-rich iframe,
+        .post-content-rich svg,
+        .post-content-rich canvas { max-width: 100%; height: auto; display: block; }
+        .post-content-rich pre,
+        .post-content-rich code { max-width: 100%; white-space: pre-wrap; word-break: break-word; }
+        .post-content-rich table { max-width: 100%; display: block; overflow-x: auto; }
       `}</style>
 
     </div>

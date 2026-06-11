@@ -1102,19 +1102,23 @@ export default function DesignSystem() {
   const isMobile = useIsMobile();
 
   return (
-    <div style={{ display: "flex", height: "100%", overflow: "hidden", background: T.surf, flexDirection: isMobile ? "column" : "row" }}>
+    <div style={{ display: "flex", height: "100%", width: "100%", overflow: "hidden", background: T.surf, flexDirection: isMobile ? "column" : "row", minWidth: 0 }}>
 
       {/* Left nav */}
       <nav style={{
         width: isMobile ? "100%" : 180, flexShrink: 0,
+        boxSizing: "border-box",
         borderRight: isMobile ? "none" : `1px solid ${T.border}`,
         borderBottom: isMobile ? `1px solid ${T.border}` : "none",
         background: T.surf, overflowY: isMobile ? "hidden" : "auto",
         overflowX: isMobile ? "auto" : "hidden",
-        padding: isMobile ? "12px 0" : "24px 0",
+        // End padding on mobile gives the last tab breathing room so it
+        // doesn't look clipped against the right edge.
+        padding: isMobile ? "12px 16px 12px 4px" : "24px 0",
         display: isMobile ? "flex" : "block",
         flexDirection: isMobile ? "row" : undefined,
         flexWrap: isMobile ? "nowrap" : undefined,
+        WebkitOverflowScrolling: "touch" as const,
       }}>
         {!isMobile && (
           <>
@@ -1165,7 +1169,7 @@ export default function DesignSystem() {
       </nav>
 
       {/* Content */}
-      <main style={{ flex: 1, overflowY: "auto", background: T.surf2 }}>
+      <main style={{ flex: 1, overflowY: "auto", overflowX: "hidden", minWidth: 0, background: T.surf2 }}>
         {/* Banner */}
         <div style={{ background: T.brand, padding: isMobile ? "20px 20px" : "32px 60px", display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" as const }}>
           <div style={{ flex: 1 }}>

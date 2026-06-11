@@ -191,6 +191,7 @@ body {
   box-shadow: 0 24px 48px rgba(0,0,0,0.1);
   transform: translate(50px, 0);
   margin-bottom: 40px;
+  box-sizing: border-box;
 }
 
 /* Mobile Responsive */
