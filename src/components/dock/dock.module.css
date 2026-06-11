@@ -27,18 +27,19 @@
     align-items: flex-end;
     /* Anchors icons to the bottom so they grow upwards */
     gap: 14px;
-    padding: 0 18px 14px 18px;
-    /* Reduced vertical padding */
-    height: 64px;
-    /* Fixed height for the glass bar */
+    /* Symmetric vertical padding so the bar feels balanced top/bottom.
+       Height grows accordingly: 48px icon + 14px × 2 = 76px. */
+    padding: 14px 18px;
+    height: 76px;
 }
 
 /* Tighten the dock on narrow viewports so all 6 icons fit without clipping. */
 @media (max-width: 420px) {
     .dock {
         gap: 9px;
-        padding: 0 12px 12px 12px;
-        height: 58px;
+        /* Symmetric padding: 42px icon + 12px × 2 = 66px tall. */
+        padding: 12px;
+        height: 66px;
     }
 }
 
