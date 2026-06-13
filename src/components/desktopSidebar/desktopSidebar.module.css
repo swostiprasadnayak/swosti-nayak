@@ -130,7 +130,9 @@
 }
 
 .navItem {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 0.9rem;
     font-family: inherit;
     line-height: 130%;
@@ -149,6 +151,12 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navItem > .navIcon {
+    flex-shrink: 0;
+    color: currentColor;
+    opacity: 0.85;
 }
 
 .navItem:hover {
