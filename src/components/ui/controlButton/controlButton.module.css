@@ -9,8 +9,10 @@
 }
 
 .btn {
-    background: var(--control-btn-bg) !important;
-    border: 1px solid var(--control-btn-border) !important;
+    /* Use the same glass surface the view toggle uses so both controls
+       read as the same family. No visible white stroke. */
+    background: var(--bg-glass) !important;
+    border: none !important;
     color: var(--control-btn-icon) !important;
     -webkit-backdrop-filter: blur(24px) saturate(150%);
     backdrop-filter: blur(24px) saturate(150%);
@@ -20,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none;

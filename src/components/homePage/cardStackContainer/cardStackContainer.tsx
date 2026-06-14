@@ -46,12 +46,13 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     viewMode,
 }) => {
     const filteredProjects = useMemo(() => {
-        // Default (empty filter), "Default", and "All Works": all four projects open.
-        if (
-            activeFilters.length === 0 ||
-            activeFilters.includes("Default") ||
-            activeFilters.includes("All Works")
-        ) {
+        // Default (empty filter or "Default"): three flagship projects in
+        // their original staggered layout — Insure-Tech, Blinkit, GC Dental.
+        if (activeFilters.length === 0 || activeFilters.includes("Default")) {
+            return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental"].includes(p.slug));
+        }
+        // All Works: everything including Unicef.
+        if (activeFilters.includes("All Works")) {
             return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental", "unicef"].includes(p.slug));
         }
         // Featured: just the flagship case study.
@@ -114,31 +115,33 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
     }, [isMobile, windowModeState]);
 
-    // Desktop: sync open windows to whatever the current filter says.
-    // - Opens any window in filteredProjects that's not yet open
-    //   (so "All Works" reveals Unicef too, "Corporate" opens GC + Unicef, etc.)
-    // - Closes any open window whose slug isn't in the current filter.
-    // Skipped on mobile because mobile uses the single-front-card stack.
+    // Desktop: sync open windows to whatever the current filter says, but ONLY
+    // when the filter actually changes. This is critical for the close button —
+    // if the user clicks the red traffic light, we want that window to stay
+    // closed even though it's still in `filteredProjects`. Running the sync on
+    // every render would immediately reopen it.
+    const lastFilterKeyRef = useRef<string | null>(null);
     useEffect(() => {
         if (isMobile || !windowModeState || filteredProjects.length === 0) return;
+        const filterKey = activeFilters.length === 0 ? "__default__" : activeFilters.join("|");
+        if (lastFilterKeyRef.current === filterKey) return;
+        lastFilterKeyRef.current = filterKey;
+
         const wantedSlugs = new Set(filteredProjects.map(p => p.slug));
-        // Open everything in the filter that isn't already open.
+        // Open every project in the filter (no-ops if already open).
         wantedSlugs.forEach(slug => {
             if (!windowModeState.openWindows.includes(slug)) {
                 windowModeState.bringToFront(slug);
             }
         });
-        // Close windows that no longer belong.
+        // Close windows that aren't in the new filter.
         windowModeState.openWindows.forEach(slug => {
             if (!wantedSlugs.has(slug)) {
                 windowModeState.closeWindow(slug);
             }
         });
-        // Note: we intentionally omit windowModeState.openWindows from the
-        // deps array — only the FILTER change should drive this. Including
-        // openWindows would loop when bringToFront mutates it.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMobile, filteredProjects, windowModeState]);
+    }, [activeFilters, isMobile, filteredProjects, windowModeState]);
 
     // Reset the mobile-stack cache whenever the filter changes so the new
     // set of projects shows up at the front instead of stale cards.

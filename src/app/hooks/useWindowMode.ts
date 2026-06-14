@@ -16,12 +16,12 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     const [topZ, setTopZ] = useState(3);
 
     // Initialize desktop open windows on mount — last item is frontmost.
-    // Matches the "All Works" filter (4 projects: unicef, gc-dental, blinkit,
-    // insure-tech). The filter-change effect in CardStackContainer keeps these
-    // in sync with the active filter afterwards.
+    // Matches the "Default" filter (3 flagship projects in their original
+    // staggered layout). The filter-change effect in CardStackContainer
+    // brings in additional projects when the user switches filters.
     useEffect(() => {
         if (typeof window !== "undefined" && window.innerWidth > 768) {
-            setOpenWindows(["unicef", "gc-dental", "blinkit", "insure-tech"]);
+            setOpenWindows(["gc-dental", "blinkit", "insure-tech"]);
         }
     }, []);
 
