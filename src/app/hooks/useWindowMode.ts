@@ -15,10 +15,13 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, blinkit: 2, "insure-tech": 3 });
     const [topZ, setTopZ] = useState(3);
 
-    // Initialize desktop open windows on mount — insure-tech last = frontmost
+    // Initialize desktop open windows on mount — last item is frontmost.
+    // Matches the "All Works" filter (4 projects: unicef, gc-dental, blinkit,
+    // insure-tech). The filter-change effect in CardStackContainer keeps these
+    // in sync with the active filter afterwards.
     useEffect(() => {
         if (typeof window !== "undefined" && window.innerWidth > 768) {
-            setOpenWindows(["gc-dental", "blinkit", "insure-tech"]);
+            setOpenWindows(["unicef", "gc-dental", "blinkit", "insure-tech"]);
         }
     }, []);
 
@@ -57,11 +60,13 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
             return gridPositions[slug] || { x: 0, y: 0 };
         }
 
-        // Initial staggered positions — spread so all 3 cards are clearly visible
+        // Initial staggered positions — spread so all 4 default cards are
+        // clearly visible without overlap. Unicef gets its own slot to the
+        // right so it doesn't sit underneath GC Dental.
         const positions: Record<string, { x: number, y: number }> = {
             syne:         { x: -260, y: -60 },
             "gc-dental":  { x: -260, y: -60 },
-            unicef:       { x: -260, y: -60 },
+            unicef:       { x:  340, y: -80 },
             "insure-tech":{ x:  -70, y:  -15 },
             blinkit:      { x:  150, y:   55 },
             aristotle:    { x:    0, y:    0 },

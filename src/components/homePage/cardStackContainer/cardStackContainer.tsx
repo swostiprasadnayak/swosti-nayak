@@ -46,13 +46,19 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     viewMode,
 }) => {
     const filteredProjects = useMemo(() => {
+        // Default (no filter) and "All Works": all four projects open.
         if (activeFilters.length === 0 || activeFilters.includes("All Works")) {
-            // All Works: Insure-Tech (front), Blinkit, GC Dental, Unicef
             return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental", "unicef"].includes(p.slug));
         }
+        // Featured: just the flagship case study.
         if (activeFilters.includes("Featured")) {
             return PROJECTS.filter((p) => p.slug === "insure-tech");
         }
+        // Corporate: client engagements (GC Dental + Unicef).
+        if (activeFilters.includes("Corporate")) {
+            return PROJECTS.filter((p) => ["gc-dental", "unicef"].includes(p.slug));
+        }
+        // Fallback: tag-based match for any other future categories.
         return PROJECTS.filter((project) =>
             project.tags?.some((tag) => activeFilters.includes(tag))
         );
@@ -103,6 +109,38 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             windowModeState.bringToFront("insure-tech");
         }
     }, [isMobile, windowModeState]);
+
+    // Desktop: sync open windows to whatever the current filter says.
+    // - Opens any window in filteredProjects that's not yet open
+    //   (so "All Works" reveals Unicef too, "Corporate" opens GC + Unicef, etc.)
+    // - Closes any open window whose slug isn't in the current filter.
+    // Skipped on mobile because mobile uses the single-front-card stack.
+    useEffect(() => {
+        if (isMobile || !windowModeState || filteredProjects.length === 0) return;
+        const wantedSlugs = new Set(filteredProjects.map(p => p.slug));
+        // Open everything in the filter that isn't already open.
+        wantedSlugs.forEach(slug => {
+            if (!windowModeState.openWindows.includes(slug)) {
+                windowModeState.bringToFront(slug);
+            }
+        });
+        // Close windows that no longer belong.
+        windowModeState.openWindows.forEach(slug => {
+            if (!wantedSlugs.has(slug)) {
+                windowModeState.closeWindow(slug);
+            }
+        });
+        // Note: we intentionally omit windowModeState.openWindows from the
+        // deps array — only the FILTER change should drive this. Including
+        // openWindows would loop when bringToFront mutates it.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMobile, filteredProjects, windowModeState]);
+
+    // Reset the mobile-stack cache whenever the filter changes so the new
+    // set of projects shows up at the front instead of stale cards.
+    useEffect(() => {
+        if (isMobile) setMobileCards([]);
+    }, [activeFilters, isMobile]);
 
     // Initialize mobile card order (insure-tech first)
     useEffect(() => {

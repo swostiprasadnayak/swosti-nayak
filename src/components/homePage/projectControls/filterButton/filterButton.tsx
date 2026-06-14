@@ -55,16 +55,22 @@ const FilterButton: React.FC<FilterButtonProps> = ({
 
     if (!mounted || isMobile) return null;
 
-    const toggleFilter = (filter: FilterOption) => {
-        if (activeFilters.includes(filter)) {
-            onFilterChange(activeFilters.filter((f) => f !== filter));
+    // Single-select (radio) behaviour: clicking an option replaces the
+    // current filter with that one. Re-clicking the active filter clears it.
+    const selectFilter = (filter: FilterOption) => {
+        if (activeFilters[0] === filter) {
+            onFilterChange([]);
         } else {
-            onFilterChange([...activeFilters, filter]);
+            onFilterChange([filter]);
         }
+        setIsOpen(false);
     };
 
     const hasActiveFilters = activeFilters.length > 0;
-    const activeLabel = hasActiveFilters ? activeFilters[0] : "Workspace";
+    // Trigger label always shows "Workspace"; the active filter is reflected
+    // inside the dropdown via the highlighted radio + the header chip.
+    const activeLabel = "Workspace";
+    const currentSelection = hasActiveFilters ? activeFilters[0] : "All Works";
 
     return (
         <div className={classes.container} ref={containerRef} data-component="FilterButton">
@@ -107,14 +113,25 @@ const FilterButton: React.FC<FilterButtonProps> = ({
                         }}
                     >
                         <Squircle className={classes.dropdownInner} cornerRadius={12}>
+                            {/* Header — shows the active filter at a glance */}
+                            <div className={classes.dropdownHeader}>
+                                <span className={classes.dropdownHeaderLabel}>Current</span>
+                                <span className={classes.dropdownHeaderValue}>{currentSelection}</span>
+                            </div>
                             {FILTER_OPTIONS.map((option) => {
-                                const isChecked = activeFilters.includes(option);
+                                // Radio: an option is "checked" only if it is the
+                                // single active filter. Empty state defaults to All Works.
+                                const isChecked = hasActiveFilters
+                                    ? activeFilters[0] === option
+                                    : option === "All Works";
                                 return (
                                     <button
                                         key={option}
                                         className={classes.filterOption}
-                                        onClick={() => toggleFilter(option)}
+                                        onClick={() => selectFilter(option)}
                                         aria-pressed={isChecked}
+                                        role="radio"
+                                        aria-checked={isChecked}
                                     >
                                         <span
                                             className={`${classes.checkbox} ${isChecked ? classes.checked : ""}`}
