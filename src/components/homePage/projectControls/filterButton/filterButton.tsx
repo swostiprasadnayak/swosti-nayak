@@ -17,7 +17,9 @@ import { useViewport } from "@/app/contexts/ViewportContext";
 import { useControlsRow } from "@/components/homePage/projectControls/controlsRow/controlsRow";
 import classes from "./filterButton.module.css";
 
-const FILTER_OPTIONS = ["All Works", "Featured", "Corporate"] as const;
+// "Default" sits at the top as the initial / reset state. "All Works",
+// "Featured", "Corporate" are the explicit filters below it.
+const FILTER_OPTIONS = ["Default", "All Works", "Featured", "Corporate"] as const;
 type FilterOption = (typeof FILTER_OPTIONS)[number];
 
 type FilterButtonProps = {
@@ -56,9 +58,13 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     if (!mounted || isMobile) return null;
 
     // Single-select (radio) behaviour: clicking an option replaces the
-    // current filter with that one. Re-clicking the active filter clears it.
+    // current filter with that one. "Default" maps to an empty filter
+    // (the initial reset state); the others stay as-is.
     const selectFilter = (filter: FilterOption) => {
-        if (activeFilters[0] === filter) {
+        if (filter === "Default") {
+            onFilterChange([]);
+        } else if (activeFilters[0] === filter) {
+            // Re-clicking the active filter clears it back to default.
             onFilterChange([]);
         } else {
             onFilterChange([filter]);
@@ -67,10 +73,9 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     };
 
     const hasActiveFilters = activeFilters.length > 0;
-    // Trigger label always shows "Workspace"; the active filter is reflected
-    // inside the dropdown via the highlighted radio + the header chip.
+    // Trigger label is always "Workspace"; the active state lives on the
+    // highlighted radio inside the dropdown.
     const activeLabel = "Workspace";
-    const currentSelection = hasActiveFilters ? activeFilters[0] : "All Works";
 
     return (
         <div className={classes.container} ref={containerRef} data-component="FilterButton">
@@ -113,17 +118,13 @@ const FilterButton: React.FC<FilterButtonProps> = ({
                         }}
                     >
                         <Squircle className={classes.dropdownInner} cornerRadius={12}>
-                            {/* Header — shows the active filter at a glance */}
-                            <div className={classes.dropdownHeader}>
-                                <span className={classes.dropdownHeaderLabel}>Current</span>
-                                <span className={classes.dropdownHeaderValue}>{currentSelection}</span>
-                            </div>
                             {FILTER_OPTIONS.map((option) => {
-                                // Radio: an option is "checked" only if it is the
-                                // single active filter. Empty state defaults to All Works.
+                                // Radio behaviour: only the active filter shows
+                                // as checked. With no active filter, "Default"
+                                // is the implicit selection.
                                 const isChecked = hasActiveFilters
                                     ? activeFilters[0] === option
-                                    : option === "All Works";
+                                    : option === "Default";
                                 return (
                                     <button
                                         key={option}

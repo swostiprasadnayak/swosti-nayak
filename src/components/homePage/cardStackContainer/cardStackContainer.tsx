@@ -46,8 +46,12 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     viewMode,
 }) => {
     const filteredProjects = useMemo(() => {
-        // Default (no filter) and "All Works": all four projects open.
-        if (activeFilters.length === 0 || activeFilters.includes("All Works")) {
+        // Default (empty filter), "Default", and "All Works": all four projects open.
+        if (
+            activeFilters.length === 0 ||
+            activeFilters.includes("Default") ||
+            activeFilters.includes("All Works")
+        ) {
             return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental", "unicef"].includes(p.slug));
         }
         // Featured: just the flagship case study.

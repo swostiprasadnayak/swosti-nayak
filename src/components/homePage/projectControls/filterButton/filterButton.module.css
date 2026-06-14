@@ -23,32 +23,6 @@
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
-/* Header row: shows the currently-selected filter so users always know
-   the dropdown's state without having to scan the radio rows. */
-.dropdownHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 0.4rem 0.6rem 0.55rem;
-    border-bottom: 1px solid rgba(var(--text-primary-rgb), 0.08);
-    margin-bottom: 0.4rem;
-}
-
-.dropdownHeaderLabel {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgba(var(--text-primary-rgb), 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
-.dropdownHeaderValue {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    white-space: nowrap;
-}
 
 .filterOption {
     display: flex;
