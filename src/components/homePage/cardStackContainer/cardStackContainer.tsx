@@ -128,17 +128,25 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         lastFilterKeyRef.current = filterKey;
 
         const wantedSlugs = new Set(filteredProjects.map(p => p.slug));
-        // Open every project in the filter (no-ops if already open).
-        wantedSlugs.forEach(slug => {
-            if (!windowModeState.openWindows.includes(slug)) {
-                windowModeState.bringToFront(slug);
-            }
-        });
-        // Close windows that aren't in the new filter.
+        // Close windows that aren't in the new filter first.
         windowModeState.openWindows.forEach(slug => {
             if (!wantedSlugs.has(slug)) {
                 windowModeState.closeWindow(slug);
             }
+        });
+        // Open every project in the filter. Order matters: bringToFront pushes
+        // the slug to the END of openWindows (frontmost). We want Insure-Tech
+        // on top whenever it's in the filter, so iterate other projects first
+        // and Insure-Tech last.
+        const slugsOrdered = filteredProjects
+            .map(p => p.slug)
+            .sort((a, b) => {
+                if (a === "insure-tech") return 1;   // a goes last
+                if (b === "insure-tech") return -1;  // b goes last
+                return 0;
+            });
+        slugsOrdered.forEach(slug => {
+            windowModeState.bringToFront(slug);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeFilters, isMobile, filteredProjects, windowModeState]);
