@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roz — System Architecture &amp; Use Case Workflows</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --orange: #E8460A;
+    --orange-light: #FF6B35;
+    --orange-pale: #FFF0EB;
+    --dark: #1A1A1A;
+    --mid: #4A4A4A;
+    --muted: #8A8A8A;
+    --border: #E0E0E0;
+    --bg: #F5F5F3;
+    --white: #FFFFFF;
+    --red: #DC2626;
+    --red-pale: #FEF2F2;
+    --green: #16A34A;
+    --green-pale: #F0FDF4;
+    --blue: #2563EB;
+    --blue-pale: #EFF6FF;
+    --purple: #7C3AED;
+    --purple-pale: #F5F3FF;
+    --yellow: #D97706;
+    --yellow-pale: #FFFBEB;
+    --teal: #0D9488;
+    --teal-pale: #F0FDFA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.5;
+  }
+
+  /* ===== TOP NAV ===== */
+  .top-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+    gap: 32px;
+  }
+  .logo {
+    font-size: 22px; font-weight: 900; color: var(--orange);
+    letter-spacing: -0.5px;
+  }
+  .logo small { font-size: 10px; font-weight: 500; color: var(--muted); display: block; letter-spacing: 0.5px; }
+  .nav-pills { display: flex; gap: 4px; }
+  .nav-pill {
+    padding: 8px 16px; font-size: 12px; font-weight: 600;
+    color: var(--muted); border-radius: 8px; cursor: pointer;
+    transition: all 0.15s; border: 1px solid transparent;
+  }
+  .nav-pill:hover { color: var(--dark); background: var(--bg); }
+  .nav-pill.active { color: var(--orange); background: var(--orange-pale); border-color: #FDBA74; }
+
+  /* ===== MAIN ===== */
+  main { max-width: 1400px; margin: 0 auto; padding: 32px 40px; }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ===== PAGE HEADER ===== */
+  .page-head { margin-bottom: 32px; }
+  .page-head h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .page-head p { font-size: 14px; color: var(--muted); max-width: 700px; }
+
+  /* ===== ARCHITECTURE DIAGRAM ===== */
+  .arch-canvas {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+  }
+
+  /* Zone bands */
+  .zone {
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 20px 24px 24px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .zone-label {
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 2px 12px;
+    border-radius: 6px;
+    background: var(--white);
+  }
+  .zone-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Architecture node boxes */
+  .arch-node {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    min-width: 140px;
+    max-width: 180px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .arch-node:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .arch-node .icon {
+    width: 40px; height: 40px;
+    margin: 0 auto 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    border-radius: 10px;
+  }
+  .arch-node .name { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+  .arch-node .desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
+
+  /* Node color variants */
+  .arch-node.external { border-color: #C4B5FD; background: #FAF8FF; }
+  .arch-node.external .icon { background: var(--purple-pale); color: var(--purple); }
+  .arch-node.system { border-color: #93C5FD; background: #F8FBFF; }
+  .arch-node.system .icon { background: var(--blue-pale); color: var(--blue); }
+  .arch-node.roz { border-color: #FDBA74; background: #FFFAF5; }
+  .arch-node.roz .icon { background: var(--orange-pale); color: var(--orange); }
+  .arch-node.manager { border-color: #86EFAC; background: #F7FEF9; }
+  .arch-node.manager .icon { background: var(--green-pale); color: var(--green); }
+  .arch-node.output { border-color: #FCA5A5; background: #FFFBFB; }
+  .arch-node.output .icon { background: var(--red-pale); color: var(--red); }
+
+  /* Connection arrows between zones */
+  .zone-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 6px 0;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .zone-connector .arrow-line {
+    flex: 1;
+    height: 0;
+    border-top: 2px dashed var(--border);
+    max-width: 200px;
+  }
+  .zone-connector .arrow-icon { font-size: 16px; color: var(--orange); }
+
+  /* ===== TECH STACK STRIP ===== */
+  .tech-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .tech-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    border-top: 3px solid var(--orange);
+  }
+  .tech-card .tc-icon { font-size: 24px; margin-bottom: 8px; }
+  .tech-card .tc-name { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .tech-card .tc-role { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  /* ===== USE CASE CARDS ===== */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .uc-thumb {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .uc-thumb:hover { border-color: var(--orange); box-shadow: 0 4px 20px rgba(232,70,10,0.08); transform: translateY(-2px); }
+  .uc-thumb.active-uc { border-color: var(--orange); background: var(--orange-pale); }
+  .uc-thumb .uc-time { font-size: 10px; font-weight: 800; color: var(--orange); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+  .uc-thumb .uc-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .uc-thumb .uc-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .uc-thumb .uc-badge {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 9px; font-weight: 700; padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .uc-badge.core { background: var(--green-pale); color: var(--green); }
+  .uc-badge.alert { background: var(--yellow-pale); color: var(--yellow); }
+  .uc-badge.support { background: var(--blue-pale); color: var(--blue); }
+
+  /* ===== USE CASE DETAIL PANEL ===== */
+  .uc-detail {
+    display: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    animation: slideIn 0.2s ease;
+  }
+  .uc-detail.open { display: block; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .uc-detail-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .uc-detail-head h2 { font-size: 20px; font-weight: 800; }
+  .uc-detail-head .uc-time-big { font-size: 11px; font-weight: 700; color: var(--orange); margin-bottom: 4px; }
+  .uc-detail-head .uc-trigger { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .uc-close {
+    width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); cursor: pointer; font-size: 14px; color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .uc-close:hover { background: var(--red-pale); color: var(--red); border-color: #FCA5A5; }
+
+  /* Flow diagram inside use case */
+  .flow-diagram {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+  .flow-step {
+    min-width: 140px;
+    max-width: 170px;
+    flex-shrink: 0;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step-box {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 12px;
+    background: var(--white);
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.15s;
+  }
+  .flow-step-box:hover { border-color: var(--orange); box-shadow: 0 2px 12px rgba(232,70,10,0.08); }
+  .flow-step-box .fs-icon { font-size: 22px; margin-bottom: 4px; }
+  .flow-step-box .fs-label { font-size: 10px; font-weight: 700; color: var(--dark); line-height: 1.3; }
+  .flow-step-box .fs-detail { font-size: 9px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
+
+  .flow-step-box.trigger { border-color: var(--purple); background: var(--purple-pale); }
+  .flow-step-box.trigger .fs-label { color: var(--purple); }
+  .flow-step-box.data { border-color: var(--blue); background: var(--blue-pale); }
+  .flow-step-box.data .fs-label { color: var(--blue); }
+  .flow-step-box.ai { border-color: var(--orange); background: var(--orange-pale); }
+  .flow-step-box.ai .fs-label { color: var(--orange); }
+  .flow-step-box.human { border-color: var(--green); background: var(--green-pale); }
+  .flow-step-box.human .fs-label { color: var(--green); }
+  .flow-step-box.output { border-color: var(--red); background: var(--red-pale); }
+  .flow-step-box.output .fs-label { color: var(--red); }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .flow-arrow::before {
+    content: '';
+    width: 28px;
+    height: 0;
+    border-top: 2px solid var(--border);
+  }
+  .flow-arrow::after {
+    content: '›';
+    font-size: 18px;
+    color: var(--orange);
+    font-weight: 900;
+    position: absolute;
+    right: 2px;
+  }
+  .flow-arrow-label {
+    position: absolute;
+    top: -14px;
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* Tech pipeline strip */
+  .pipeline-strip {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    line-height: 1.8;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .pipeline-strip .pipe { color: var(--orange); font-weight: 700; margin: 0 6px; }
+  .pipeline-strip .sys { color: var(--blue); font-weight: 600; }
+  .pipeline-strip .ai { color: var(--orange); font-weight: 600; }
+  .pipeline-strip .out { color: var(--green); font-weight: 600; }
+
+  /* Edge case card */
+  .edge-case-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .edge-card {
+    flex: 1;
+    background: var(--yellow-pale);
+    border: 1px solid #FCD34D;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .edge-card .ec-title { font-size: 11px; font-weight: 700; color: #92400E; margin-bottom: 4px; }
+  .edge-card .ec-body { font-size: 10px; color: #78350F; line-height: 1.5; }
+
+  /* Factor table */
+  .factor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+  .factor-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .factor-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #F0F0F0;
+    color: var(--mid);
+  }
+  .factor-table tr:hover td { background: #FAFAF8; }
+  .factor-table .src { font-size: 10px; color: var(--blue); font-weight: 600; }
+
+  /* ===== LEGEND ===== */
+  .legend-strip {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    border: 1.5px solid;
+  }
+
+  /* ===== DATA FLOW VIEW ===== */
+  .flow-canvas {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    overflow-x: auto;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    .uc-grid { grid-template-columns: repeat(2, 1fr); }
+    .tech-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .uc-grid { grid-template-columns: 1fr; }
+    .tech-strip { grid-template-columns: repeat(2, 1fr); }
+    main { padding: 20px; }
+    .nav-pills { overflow-x: auto; }
+  }
+
+  /* ===== SECTION LABELS ===== */
+  .section-label {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--muted);
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Sub-engine chips row */
+  .engine-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .engine-chip {
+    font-size: 9px; font-weight: 700;
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid;
+  }
+
+  /* ===== OFFLINE ARCHITECTURE ===== */
+  .offline-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .offline-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    border-left: 3px solid var(--teal);
+  }
+  .offline-card .oc-icon { font-size: 20px; margin-bottom: 6px; }
+  .offline-card .oc-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .offline-card .oc-body { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+  /* ===== FEEDBACK LOOP ===== */
+  .feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .fb-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .fb-card .fb-action-icon { font-size: 24px; flex-shrink: 0; }
+  .fb-card .fb-action { font-size: 11px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .fb-card .fb-teaches { font-size: 10px; color: var(--muted); line-height: 1.4; }
+
+  /* Hover tooltip for arch-node */
+  .arch-node[data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: var(--white);
+    font-size: 10px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+    z-index: 10;
+  }
+  .arch-node[data-tip]:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo">रोज़ Roz<small>SYSTEM ARCHITECTURE</small></div>
+  <div class="nav-pills">
+    <div class="nav-pill active" onclick="showView('overview')">Architecture Overview</div>
+    <div class="nav-pill" onclick="showView('usecases')">Use Case Workflows</div>
+    <div class="nav-pill" onclick="showView('dataflow')">Data Flow Map</div>
+    <div class="nav-pill" onclick="showView('offline')">Offline + Feedback</div>
+  </div>
+</div>
+
+<main>
+
+<!-- ==================== VIEW 1: ARCHITECTURE OVERVIEW ==================== -->
+<div class="view active" id="view-overview">
+  <div class="page-head">
+    <h1>System Architecture</h1>
+    <p>How Roz connects external data feeds, existing More Retail systems, AI engines, and the store manager's phone into a single decision layer.</p>
+  </div>
+
+  <!-- Tech stack strip -->
+  <div class="section-label">Tech Stack</div>
+  <div class="tech-strip">
+    <div class="tech-card">
+      <div class="tc-icon">📱</div>
+      <div class="tc-name">Roz Mobile App</div>
+      <div class="tc-role">Android PWA. Offline-first. Hindi + voice. Mid-range device, 2G capable.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-icon">🧠</div>
+      <div class="tc-name">AWS SageMaker + Ganit</div>
+      <div class="tc-role">ML engine — demand forecast, anomaly detection, peak prediction, markdown optimization.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-icon">🏢</div>
+      <div class="tc-name">Oracle ERP</div>
+      <div class="tc-role">Existing backbone — indent, PO, invoicing, inventory master, vendor master, GRN.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-icon">🛒</div>
+      <div class="tc-name">POS System</div>
+      <div class="tc-role">Transaction data, real-time sales velocity, terminal-level throughput, till totals.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tc-icon">💬</div>
+      <div class="tc-name">WhatsApp Business API</div>
+      <div class="tc-role">Report delivery to Area Manager, staff notifications, the channel they already use.</div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-strip">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple-pale);border-color:#C4B5FD"></div>External Feeds</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue-pale);border-color:#93C5FD"></div>Existing Systems</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--orange-pale);border-color:#FDBA74"></div>Roz AI Layer</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green-pale);border-color:#86EFAC"></div>Manager Interface</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red-pale);border-color:#FCA5A5"></div>Output / Action</div>
+  </div>
+
+  <div class="arch-canvas">
+
+    <!-- Zone 1: External Feeds -->
+    <div class="zone" style="border-color: #C4B5FD;">
+      <div class="zone-label" style="color: var(--purple); background: var(--purple-pale);">External Feeds — demand signals not tracked today</div>
+      <div class="zone-row">
+        <div class="arch-node external" data-tip="Tomorrow's forecast + live conditions">
+          <div class="icon">🌦️</div>
+          <div class="name">Weather API</div>
+          <div class="desc">Forecast + live conditions. Rain = higher staples demand.</div>
+        </div>
+        <div class="arch-node external" data-tip="National + hyperlocal events">
+          <div class="icon">🎉</div>
+          <div class="name">Festival Calendar</div>
+          <div class="desc">National + local events. Mango festival = +40% fruit demand.</div>
+        </div>
+        <div class="arch-node external" data-tip="Basket share being taken by quick commerce">
+          <div class="icon">⚡</div>
+          <div class="name">Q-Comm Signal</div>
+          <div class="desc">Zepto / Blinkit basket share. Cannibalization signal.</div>
+        </div>
+        <div class="arch-node external" data-tip="Freezer + cooler temperature monitoring">
+          <div class="icon">🌡️</div>
+          <div class="name">Cold Chain Sensors</div>
+          <div class="desc">Freezer temp monitoring. Breach = food safety alert.</div>
+        </div>
+        <div class="arch-node external" data-tip="Payday cycles, local holidays">
+          <div class="icon">📅</div>
+          <div class="name">Pay-Day Cycles</div>
+          <div class="desc">Salary day surges. Predictable monthly pattern.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zone-connector">
+      <div class="arrow-line"></div>
+      <div class="arrow-icon">⬇ feeds into</div>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- Zone 2: Existing Systems -->
+    <div class="zone" style="border-color: #93C5FD;">
+      <div class="zone-label" style="color: var(--blue); background: var(--blue-pale);">Existing More Retail Systems — data already here, siloed</div>
+      <div class="zone-row">
+        <div class="arch-node system" data-tip="Indent / PO / GRN / vendor master">
+          <div class="icon">🏛️</div>
+          <div class="name">Oracle ERP</div>
+          <div class="desc">Indent · PO · GRN · invoicing · vendor master · pricing</div>
+        </div>
+        <div class="arch-node system" data-tip="Real-time sales + terminal throughput">
+          <div class="icon">🛒</div>
+          <div class="name">POS System</div>
+          <div class="desc">Sales data · velocity · terminal throughput · till totals</div>
+        </div>
+        <div class="arch-node system" data-tip="Batch expiry · stock levels · shelf + stockroom">
+          <div class="icon">📦</div>
+          <div class="name">Inventory DB</div>
+          <div class="desc">Batch expiry · stock levels · shelf + stockroom counts</div>
+        </div>
+        <div class="arch-node system" data-tip="Per-vendor quality + reliability history">
+          <div class="icon">🚛</div>
+          <div class="name">Vendor Master</div>
+          <div class="desc">Vendor profile · reliability score · delivery history</div>
+        </div>
+        <div class="arch-node system" data-tip="Staff attendance + availability">
+          <div class="icon">👥</div>
+          <div class="name">Attendance System</div>
+          <div class="desc">Staff availability · shift patterns · absence history</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zone-connector">
+      <div class="arrow-line"></div>
+      <div class="arrow-icon">⬇ Roz reads &amp; computes</div>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- Zone 3: Roz AI Layer -->
+    <div class="zone" style="border-color: #FDBA74; background: #FFFDF9;">
+      <div class="zone-label" style="color: var(--orange); background: var(--orange-pale);">Roz AI Layer — the new intelligence that sits between data and decisions</div>
+      <div class="zone-row">
+        <div class="arch-node roz" data-tip="Demand forecast + anomaly detection">
+          <div class="icon">🧠</div>
+          <div class="name">AWS ML Engine</div>
+          <div class="desc">SageMaker + Ganit. Demand forecast · anomaly detection · peak prediction.</div>
+        </div>
+        <div class="arch-node roz" data-tip="Orchestration between all systems">
+          <div class="icon">⚙️</div>
+          <div class="name">Roz API Server</div>
+          <div class="desc">Orchestration layer. Reads systems → computes → pushes to app.</div>
+        </div>
+        <div class="arch-node roz" data-tip="Category defaults for unknown-expiry items">
+          <div class="icon">🏷️</div>
+          <div class="name">Product Taxonomy</div>
+          <div class="desc">Expiry defaults by category. Mango=4d, Watermelon=6d.</div>
+        </div>
+        <div class="arch-node roz" data-tip="Quality + reliability per vendor over time">
+          <div class="icon">⭐</div>
+          <div class="name">Vendor Scoring</div>
+          <div class="desc">Rejection rate × category × season → per-vendor score.</div>
+        </div>
+        <div class="arch-node roz" data-tip="Photos, logs, cached state">
+          <div class="icon">💾</div>
+          <div class="name">S3 + RDS</div>
+          <div class="desc">Rejection photos · audit logs · cached offline state.</div>
+        </div>
+      </div>
+
+      <div class="engine-row">
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Smart Order</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Peak Predictor</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Expiry Scanner</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Markdown Optimizer</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Auto Briefing</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Dock Check</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Auto Recon</div>
+        <div class="engine-chip" style="border-color: #FDBA74; background: #FFF7ED; color: var(--orange);">Stockout Forecast</div>
+      </div>
+    </div>
+
+    <div class="zone-connector">
+      <div class="arrow-line"></div>
+      <div class="arrow-icon">⬇ surfaces decisions, not dashboards</div>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- Zone 4: Manager Interface -->
+    <div class="zone" style="border-color: #86EFAC;">
+      <div class="zone-label" style="color: var(--green); background: var(--green-pale);">Manager Interface — what Radhika actually sees and touches</div>
+      <div class="zone-row">
+        <div class="arch-node manager" data-tip="The core mobile app — Android PWA">
+          <div class="icon">📱</div>
+          <div class="name">Roz Mobile App</div>
+          <div class="desc">Android PWA · offline-first · Hindi + voice · mid-range device, 2G</div>
+        </div>
+        <div class="arch-node manager" data-tip="Exception-based only, never noise">
+          <div class="icon">🔔</div>
+          <div class="name">Push Alerts</div>
+          <div class="desc">Exception-based only. 7 alerts/day max. Speaks only when it matters.</div>
+        </div>
+        <div class="arch-node manager" data-tip="Phone camera at dock for challan scan">
+          <div class="icon">📷</div>
+          <div class="name">QR Scanner</div>
+          <div class="desc">Phone camera. Vendor challan QR scan at dock.</div>
+        </div>
+        <div class="arch-node manager" data-tip="Voice notes for HQ report context">
+          <div class="icon">🎤</div>
+          <div class="name">Voice Input</div>
+          <div class="desc">Voice notes for HQ report. Hindi speech-to-text.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zone-connector">
+      <div class="arrow-line"></div>
+      <div class="arrow-icon">⬇ manager approves → system writes</div>
+      <div class="arrow-line"></div>
+    </div>
+
+    <!-- Zone 5: Output / Action -->
+    <div class="zone" style="border-color: #FCA5A5;">
+      <div class="zone-label" style="color: var(--red); background: var(--red-pale);">Output / Action — what gets written back into the world</div>
+      <div class="zone-row">
+        <div class="arch-node output" data-tip="Approved order → PO created automatically">
+          <div class="icon">📋</div>
+          <div class="name">Oracle ERP Indent</div>
+          <div class="desc">Approved order → PO auto-created. 1-tap from Roz.</div>
+        </div>
+        <div class="arch-node output" data-tip="HQ report auto-sent to Area Manager">
+          <div class="icon">💬</div>
+          <div class="name">WhatsApp → Area Mgr</div>
+          <div class="desc">HQ report + anomaly flags. Consistent format across 8 stores.</div>
+        </div>
+        <div class="arch-node output" data-tip="Rejection log + quality trend per vendor">
+          <div class="icon">📊</div>
+          <div class="name">Vendor Score DB</div>
+          <div class="desc">Rejection log + quality trend. Surfaces at monthly review.</div>
+        </div>
+        <div class="arch-node output" data-tip="GRN · recon · compliance trail">
+          <div class="icon">📝</div>
+          <div class="name">Audit Trail</div>
+          <div class="desc">GRN records · cash recon · compliance log. Auto-maintained.</div>
+        </div>
+        <div class="arch-node output" data-tip="Manager actions teach the ML models">
+          <div class="icon">🔄</div>
+          <div class="name">Feedback → ML</div>
+          <div class="desc">Every adjust, override, tag feeds back into the model.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== VIEW 2: USE CASE WORKFLOWS ==================== -->
+<div class="view" id="view-usecases">
+  <div class="page-head">
+    <h1>Use Case Workflows</h1>
+    <p>Click any use case to see the step-by-step flow — trigger, data sources, Roz processing, manager action, and system output.</p>
+  </div>
+
+  <div class="legend-strip">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple-pale);border-color:#C4B5FD"></div>Trigger</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue-pale);border-color:#93C5FD"></div>Data Source</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--orange-pale);border-color:#FDBA74"></div>Roz AI</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green-pale);border-color:#86EFAC"></div>Manager Action</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red-pale);border-color:#FCA5A5"></div>System Output</div>
+  </div>
+
+  <div class="uc-grid" id="ucGrid">
+    <div class="uc-thumb" onclick="openUC('dock')">
+      <div class="uc-badge support">SUPPORT</div>
+      <div class="uc-time">7:00 AM · UC-01</div>
+      <div class="uc-name">Smart Dock Check</div>
+      <div class="uc-desc">Vendor QR challan scan → auto-tally vs ERP indent → flag discrepancies before truck leaves.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('quality')">
+      <div class="uc-badge support">SUPPORT</div>
+      <div class="uc-time">7:30 AM · UC-02</div>
+      <div class="uc-name">Quality + Vendor Scoring</div>
+      <div class="uc-desc">One-tap reject + photo → vendor quality score accumulates over time → surfaces at monthly review.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('roster')">
+      <div class="uc-badge alert">ALERT</div>
+      <div class="uc-time">8:00 AM · UC-03</div>
+      <div class="uc-name">Predicted-Footfall Roster</div>
+      <div class="uc-desc">ML predicts today's footfall by hour → maps to staff availability → suggests floor positions.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('peak')">
+      <div class="uc-badge alert">ALERT</div>
+      <div class="uc-time">8:40 AM / 4:30 PM · UC-04</div>
+      <div class="uc-name">Peak Predictor Alert</div>
+      <div class="uc-desc">20 min before predicted rush → push alert with staffing redeployment suggestion.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('stockout')">
+      <div class="uc-badge alert">ALERT</div>
+      <div class="uc-time">Continuous · UC-05</div>
+      <div class="uc-name">Stockout Forecast</div>
+      <div class="uc-desc">Continuous inventory watch → alerts before shelf empties → Stage 2: cross-store transfer.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('order')">
+      <div class="uc-badge core">CORE</div>
+      <div class="uc-time">12:00 PM · UC-06</div>
+      <div class="uc-name">Smart Order Engine</div>
+      <div class="uc-desc">11-factor ML demand forecast → SKU-level order rec → review + 1-tap approve → Oracle ERP indent.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('expiry')">
+      <div class="uc-badge support">SUPPORT</div>
+      <div class="uc-time">2:00 PM · UC-07</div>
+      <div class="uc-name">Expiry Scanner</div>
+      <div class="uc-desc">Batch-level expiry scan + unknown-expiry fallback → pre-generated near-expiry list for floor walk.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('markdown')">
+      <div class="uc-badge support">SUPPORT</div>
+      <div class="uc-time">4:00 PM · UC-08</div>
+      <div class="uc-name">Markdown Optimizer</div>
+      <div class="uc-desc">Hours-to-expiry × velocity × historical clearance → per-SKU markdown % suggestion.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('queue')">
+      <div class="uc-badge alert">ALERT</div>
+      <div class="uc-time">5:00 PM · UC-09</div>
+      <div class="uc-name">Queue Monitor</div>
+      <div class="uc-desc">POS transaction velocity per terminal → queue inference → threshold-based alert.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('recon')">
+      <div class="uc-badge support">SUPPORT</div>
+      <div class="uc-time">7:00 PM · UC-10</div>
+      <div class="uc-name">Auto Cash Recon</div>
+      <div class="uc-desc">POS totals vs counted cash → auto-match → only discrepancies surface for review.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('report')">
+      <div class="uc-badge core">CORE</div>
+      <div class="uc-time">8:00 PM · UC-11</div>
+      <div class="uc-name">Auto Daily Briefing</div>
+      <div class="uc-desc">POS + inventory auto-pulled at 7:30 → anomaly-flagged → report drafted → 1-tap send via WhatsApp.</div>
+    </div>
+    <div class="uc-thumb" onclick="openUC('eod')">
+      <div class="uc-badge support">SUPPORT</div>
+      <div class="uc-time">9:00 PM · UC-12</div>
+      <div class="uc-name">EOD Confirmation</div>
+      <div class="uc-desc">Day rollup + tomorrow's order pre-staged → "all logged, tomorrow ready" → psychological closure.</div>
+    </div>
+  </div>
+
+  <!-- Detail panels -->
+  <div class="uc-detail" id="uc-dock">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">7:00 AM · UC-01</div>
+        <h2>Smart Dock Check</h2>
+        <div class="uc-trigger">Trigger: Vendor truck arrives at loading dock</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box trigger"><div class="fs-icon">🚛</div><div class="fs-label">Vendor Arrives</div><div class="fs-detail">Truck at dock with paper challan</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📷</div><div class="fs-label">Scan QR Challan</div><div class="fs-detail">Phone camera reads vendor QR</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🏛️</div><div class="fs-label">Pull ERP Indent</div><div class="fs-detail">Oracle REST API — what was ordered</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🧮</div><div class="fs-label">Auto-Tally</div><div class="fs-detail">Crates × per-crate avg from vendor master</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">👆</div><div class="fs-label">Confirm / Flag</div><div class="fs-detail">Radhika reviews mismatches</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">✅</div><div class="fs-label">GRN → ERP</div><div class="fs-detail">Auto-written + vendor score update</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">Phone Camera</span> <span class="pipe">→</span> QR decode <span class="pipe">→</span> <span class="sys">Roz API</span> <span class="pipe">→</span> <span class="sys">Oracle ERP</span> (read indent) <span class="pipe">→</span> <span class="ai">Tally algorithm</span> (crate × avg) <span class="pipe">→</span> Comparison UI <span class="pipe">→</span> Manager action <span class="pipe">→</span> <span class="out">Oracle ERP</span> (write GRN) + <span class="out">Vendor Score DB</span>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Wrong SKU Delivered</div>
+        <div class="ec-body">QR scan rejects on SKU mismatch. Vendor reliability score auto-deducted. ERP records the discrepancy without manual typing.</div>
+      </div>
+      <div class="edge-card">
+        <div class="ec-title">⚠ QR Code Missing / Damaged</div>
+        <div class="ec-body">Fallback: manual search by vendor name + date. Same tally runs against ERP indent. Slightly slower, still digital.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-quality">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">7:30 AM · UC-02</div>
+        <h2>Quality Inspection + Vendor Scoring</h2>
+        <div class="uc-trigger">Trigger: Radhika finds substandard produce at dock</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box trigger"><div class="fs-icon">🍅</div><div class="fs-label">Bad Produce Found</div><div class="fs-detail">Physical inspection by hand</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📸</div><div class="fs-label">Tap Reject + Photo</div><div class="fs-detail">One tap per crate in Roz</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">☁️</div><div class="fs-label">S3 Storage</div><div class="fs-detail">Photo + metadata saved</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">⭐</div><div class="fs-label">Score Accumulates</div><div class="fs-detail">rejection rate × category × season</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">📊</div><div class="fs-label">Monthly Scorecard</div><div class="fs-detail">Surfaces at Area Manager review</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">Phone camera</span> <span class="pipe">→</span> <span class="sys">S3</span> (image) <span class="pipe">→</span> <span class="ai">Roz API</span> (rejection event) <span class="pipe">→</span> <span class="out">Vendor Score DB</span> (aggregate: vendor × category × time) <span class="pipe">→</span> Monthly report <span class="pipe">→</span> <span class="out">Area Manager dashboard</span>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Unknown-Shelf-Life Produce</div>
+        <div class="ec-body">Mango, watermelon — no printed expiry. Roz tags vendor-received-date + category default (mango=4d, watermelon=6d). Tunable per vendor over time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-roster">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">8:00 AM · UC-03</div>
+        <h2>Predicted-Footfall Staff Roster</h2>
+        <div class="uc-trigger">Trigger: Automated — runs at 10 PM previous night</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box trigger"><div class="fs-icon">🕙</div><div class="fs-label">10 PM Auto-Run</div><div class="fs-detail">Previous night, scheduled</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📊</div><div class="fs-label">Pull POS 30-day</div><div class="fs-detail">+ weather + calendar + events</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🧠</div><div class="fs-label">Footfall Model</div><div class="fs-detail">Predicted curve by hour</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">👥</div><div class="fs-label">Staff Matching</div><div class="fs-detail">Availability × demand → positions</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">Morning Briefing</div><div class="fs-detail">Radhika sees roster card at 7 AM</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">POS 30-day history</span> + <span class="sys">Weather API</span> + <span class="sys">Festival calendar</span> <span class="pipe">→</span> <span class="ai">AWS SageMaker</span> (footfall model) <span class="pipe">→</span> Staffing algorithm <span class="pipe">→</span> <span class="ai">Roz API</span> <span class="pipe">→</span> <span class="out">Push notification</span> (previous night) + <span class="out">Morning briefing card</span>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Two Simultaneous Absences</div>
+        <div class="ec-body">Roz auto-suggests floor consolidation (combine produce + dairy) and escalates to Area Manager for potential cross-store staff loan.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-peak">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">8:40 AM / 4:30 PM · UC-04</div>
+        <h2>Peak Predictor Alert</h2>
+        <div class="uc-trigger">Trigger: 20 minutes before predicted peak</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🛒</div><div class="fs-label">POS Real-time</div><div class="fs-detail">Transaction velocity per terminal</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📈</div><div class="fs-label">30-Day Pattern</div><div class="fs-detail">Day-of-week + weather + calendar</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🧠</div><div class="fs-label">Peak Model</div><div class="fs-detail">Predict rush 20 min out</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">🔔</div><div class="fs-label">Push Alert</div><div class="fs-detail">"Heavy queue at 9:00. Move Suresh to billing #3"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">✅</div><div class="fs-label">Accept / Dismiss</div><div class="fs-detail">Radhika's call</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">POS real-time stream</span> + <span class="sys">Historical 30-day pattern</span> + <span class="sys">Weather</span> <span class="pipe">→</span> <span class="ai">AWS ML</span> (peak prediction) <span class="pipe">→</span> Threshold check <span class="pipe">→</span> <span class="out">Roz push notification</span> with staffing suggestion
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Surprise Spike (school exam day)</div>
+        <div class="ec-body">Roz catches the anomaly within ~30 min of it starting (POS velocity deviation) and sends a revised alert mid-morning.</div>
+      </div>
+      <div class="edge-card">
+        <div class="ec-title">⚠ Sudden Weather Change (rain)</div>
+        <div class="ec-body">Roz pulls live weather feed and revises guidance in real time — rain shifts customer patterns from evening to morning.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-stockout">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">Continuous · UC-05</div>
+        <h2>Stockout Forecast</h2>
+        <div class="uc-trigger">Trigger: Continuous inventory delta monitoring</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🛒</div><div class="fs-label">POS Velocity</div><div class="fs-detail">Real-time sales per SKU</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📦</div><div class="fs-label">Inventory Level</div><div class="fs-detail">Shelf + stockroom count</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">⏱️</div><div class="fs-label">Depletion Model</div><div class="fs-detail">"Tomato empties in ~45 min"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">🔔</div><div class="fs-label">Alert Manager</div><div class="fs-detail">"Top up from stockroom"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🏪</div><div class="fs-label">Stage 2: Cross-Store</div><div class="fs-detail">"Akurdi has 80kg surplus"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">🚚</div><div class="fs-label">Transfer Request</div><div class="fs-detail">Queued to nearby store</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">POS sales velocity</span> + <span class="sys">Inventory DB</span> <span class="pipe">→</span> <span class="ai">Depletion prediction model</span> <span class="pipe">→</span> Threshold check <span class="pipe">→</span> <span class="out">Roz alert</span> <span class="pipe">→</span> Stage 2: <span class="ai">Cross-store inventory API</span> <span class="pipe">→</span> <span class="out">Transfer request</span>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ DC Delivery Delayed Past Noon</div>
+        <div class="ec-body">Roz detects the expected delivery hasn't arrived, checks nearby stores for surplus on missing SKUs, and proposes a same-day transfer.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-order">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">12:00 PM · UC-06 · 🟢 CORE — BIGGEST WIN</div>
+        <h2>Smart Order Engine</h2>
+        <div class="uc-trigger">Trigger: Daily order window (noon). 60 min → 2 min.</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box trigger"><div class="fs-icon">⏰</div><div class="fs-label">11:30 AM Pipeline</div><div class="fs-detail">Scheduled pre-compute</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📊</div><div class="fs-label">11 Data Sources</div><div class="fs-detail">POS + ERP + weather + festival + vendor…</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🧠</div><div class="fs-label">Ganit ML Model</div><div class="fs-detail">SKU-level qty + confidence</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">Review in Roz</div><div class="fs-detail">Pre-loaded order. Adjust 1-2 items</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">👆</div><div class="fs-label">1-Tap Approve</div><div class="fs-detail">2 minutes total</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">🏛️</div><div class="fs-label">Oracle ERP Indent</div><div class="fs-detail">PO created automatically</div></div></div>
+    </div>
+
+    <div class="section-label">11 Input Factors</div>
+    <table class="factor-table">
+      <thead><tr><th>#</th><th>Factor</th><th>Source</th><th>Why It Matters</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>30-day SKU sales history</td><td class="src">POS System</td><td>Base demand signal</td></tr>
+        <tr><td>2</td><td>Day-of-week pattern</td><td class="src">POS System</td><td>Weekend vs weekday volume</td></tr>
+        <tr><td>3</td><td>Weather forecast (tomorrow)</td><td class="src">Weather API</td><td>Rain = +staples −produce</td></tr>
+        <tr><td>4</td><td>Festival / local event</td><td class="src">Calendar + manual tags</td><td>Demand spikes unpredictable</td></tr>
+        <tr><td>5</td><td>Vendor reliability score</td><td class="src">Vendor Score DB</td><td>Unreliable vendor → order more buffer</td></tr>
+        <tr><td>6</td><td>Q-commerce cannibalization</td><td class="src">External signal</td><td>Zepto/Blinkit stealing basket share</td></tr>
+        <tr><td>7</td><td>Margin tier</td><td class="src">Oracle ERP</td><td>Prioritize high-margin SKUs</td></tr>
+        <tr><td>8</td><td>Storage capacity</td><td class="src">Inventory DB</td><td>Physical space constraint</td></tr>
+        <tr><td>9</td><td>Cold-chain ceiling</td><td class="src">Cold Chain Sensor</td><td>Freezer/cooler can't hold more</td></tr>
+        <tr><td>10</td><td>Wastage history (7 days)</td><td class="src">Oracle ERP</td><td>Over-ordering pattern</td></tr>
+        <tr><td>11</td><td>Historical markdown clearance</td><td class="src">POS + markdown log</td><td>How much near-expiry actually sells</td></tr>
+      </tbody>
+    </table>
+
+    <div class="pipeline-strip">
+      <span class="sys">POS</span> + <span class="sys">Oracle ERP</span> + <span class="sys">Weather</span> + <span class="sys">Festival</span> + <span class="sys">Vendor Score</span> + <span class="sys">Cold Chain</span> <span class="pipe">→</span> <span class="ai">AWS SageMaker (Ganit model)</span> <span class="pipe">→</span> SKU recommendation + confidence <span class="pipe">→</span> <span class="ai">Roz API</span> <span class="pipe">→</span> Smart Order screen <span class="pipe">→</span> Manager review <span class="pipe">→</span> <span class="out">Oracle ERP indent API</span> (PO)
+    </div>
+    <div style="background:var(--green-pale);border:1px solid #86EFAC;border-radius:10px;padding:14px 18px;margin:16px 0;display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+      <div><strong style="font-size:20px;color:#15803D">76%</strong><div style="font-size:10px;color:#166534">forecast accuracy (was 24%)</div></div>
+      <div><strong style="font-size:20px;color:#15803D">−30%</strong><div style="font-size:10px;color:#166534">wastage reduction</div></div>
+      <div><strong style="font-size:20px;color:#15803D">+25%</strong><div style="font-size:10px;color:#166534">gross profit improvement</div></div>
+      <div><strong style="font-size:20px;color:#15803D">2 min</strong><div style="font-size:10px;color:#166534">instead of 60 min</div></div>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Off-Calendar Festival</div>
+        <div class="ec-body">Week 1: demand anomaly captured. Week 2: Roz calibrates. Radhika can also tag an event manually for next year.</div>
+      </div>
+      <div class="edge-card">
+        <div class="ec-title">⚠ Low-Confidence Items</div>
+        <div class="ec-body">New SKU with no history, or conflicting signals → flagged as "Low confidence" with reason string. Manager decides.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-expiry">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">2:00 PM · UC-07</div>
+        <h2>Expiry Scanner + Near-Expiry List</h2>
+        <div class="uc-trigger">Trigger: Automated — generated before afternoon floor walk</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📦</div><div class="fs-label">Inventory Batch Data</div><div class="fs-detail">Expiry dates per batch</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📋</div><div class="fs-label">GRN Received Dates</div><div class="fs-detail">When vendor delivered</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🏷️</div><div class="fs-label">Product Taxonomy</div><div class="fs-detail">Category defaults for unknown expiry</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">⚠️</div><div class="fs-label">24h Flag Engine</div><div class="fs-detail">Everything expiring within 24h</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">Near-Expiry List</div><div class="fs-detail">Checklist on Radhika's phone</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">🚶</div><div class="fs-label">Verification Walk</div><div class="fs-detail">Not discovery — targeted check</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">Inventory DB</span> (batch expiry) + <span class="sys">GRN</span> (received dates) + <span class="ai">Product Taxonomy</span> (category defaults) <span class="pipe">→</span> <span class="ai">Roz expiry algorithm</span> (24h flag) <span class="pipe">→</span> Near-expiry list <span class="pipe">→</span> <span class="out">Roz mobile card</span> <span class="pipe">→</span> Manager overrides <span class="pipe">→</span> Feed back to model
+    </div>
+    <div style="background:var(--bg);border-radius:10px;padding:14px 18px;margin:12px 0;font-size:12px;">
+      <strong>Product Taxonomy Defaults:</strong> Fresh produce 1–5d · Dairy/Bakery 1–10d · Frozen 30–90d · Dry staples 6–12mo · Personal care 12–36mo
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Same-Batch Ripeness Variance</div>
+        <div class="ec-body">Mangoes in the same crate ripening at different rates. Radhika can override to "early markdown" — that override teaches the per-vendor model.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-markdown">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">4:00 PM · UC-08</div>
+        <h2>Markdown Optimizer</h2>
+        <div class="uc-trigger">Trigger: Near-expiry items flagged from Expiry Scanner</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">⏳</div><div class="fs-label">Hours to Expiry</div><div class="fs-detail">Per item, from batch data</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📈</div><div class="fs-label">Sales Velocity</div><div class="fs-detail">POS current rate</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">📊</div><div class="fs-label">Historical Clearance</div><div class="fs-detail">% sold at each discount tier</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">💰</div><div class="fs-label">Markdown Model</div><div class="fs-detail">Optimal % per SKU</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">👆</div><div class="fs-label">Approve %</div><div class="fs-detail">Radhika reviews per item</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">🏷️</div><div class="fs-label">Staff Re-Labels</div><div class="fs-detail">Physical price gun</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">Expiry data</span> + <span class="sys">POS velocity</span> + <span class="sys">Historical markdown clearance by tier</span> <span class="pipe">→</span> <span class="ai">Markdown optimization model</span> <span class="pipe">→</span> Per-SKU suggestion <span class="pipe">→</span> <span class="out">Roz mobile</span> <span class="pipe">→</span> Manager approve <span class="pipe">→</span> Staff re-labels (physical)
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Q-Comm Price Drop</div>
+        <div class="ec-body">Zepto drops fruit prices mid-afternoon → Roz detects the cannibalization signal and adjusts the discount tier to stay competitive on clearance items.</div>
+      </div>
+      <div class="edge-card">
+        <div class="ec-title">🔮 Stage 2: Dynamic Intraday Pricing</div>
+        <div class="ec-body">Markdown % adjusts automatically through the day (deeper at 6 PM than 4 PM). Requires POS integration for real-time price updates.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-queue">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">5:00 PM · UC-09</div>
+        <h2>Real-time Queue Monitor</h2>
+        <div class="uc-trigger">Trigger: POS transaction velocity crosses threshold</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🛒</div><div class="fs-label">POS Velocity</div><div class="fs-detail">Transactions/min per terminal</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">📉</div><div class="fs-label">Queue Inference</div><div class="fs-detail">Rate drop = queue building</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🚨</div><div class="fs-label">Threshold Check</div><div class="fs-detail">Only alert when real</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">🔔</div><div class="fs-label">Push Alert</div><div class="fs-detail">"Open billing #4"</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">POS transaction velocity per terminal</span> (real-time) <span class="pipe">→</span> <span class="ai">Queue inference model</span> <span class="pipe">→</span> Threshold alert <span class="pipe">→</span> <span class="out">Roz push notification</span>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ POS Down at Peak</div>
+        <div class="ec-body">Roz switches to offline mode. Queues all writes locally. Keeps queue alerts working from cached historical patterns. Auto-reconciles when POS returns.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-recon">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">7:00 PM · UC-10</div>
+        <h2>Auto Cash Reconciliation</h2>
+        <div class="uc-trigger">Trigger: Radhika starts closing tills</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">💵</div><div class="fs-label">Count Physical Cash</div><div class="fs-detail">Manual per till (stays human)</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">Enter in Roz</div><div class="fs-detail">Counted amount per terminal</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🛒</div><div class="fs-label">POS Totals</div><div class="fs-detail">Auto-pulled per terminal</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">⚖️</div><div class="fs-label">Auto-Match</div><div class="fs-detail">90% balances = silent</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">⚠️</div><div class="fs-label">Discrepancies Only</div><div class="fs-detail">"Till 3: ₹650 short"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">📝</div><div class="fs-label">Audit Trail</div><div class="fs-detail">Logged for compliance</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">Manual cash count</span> (via Roz) + <span class="sys">POS terminal totals</span> (auto-pulled) <span class="pipe">→</span> <span class="ai">Roz recon engine</span> (auto-match) <span class="pipe">→</span> <span class="out">Discrepancy list</span> <span class="pipe">→</span> Manager review <span class="pipe">→</span> <span class="out">Audit trail DB</span> → <span class="out">Area Manager compliance dashboard</span>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Genuine Shortfall</div>
+        <div class="ec-body">Roz creates a discrepancy ticket with till number, time window, photo+note option. Flows to Area Manager — audit trail intact.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-report">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">8:00 PM · UC-11 · 🟢 CORE — 2ND BIGGEST WIN</div>
+        <h2>Auto Daily Briefing / HQ Report</h2>
+        <div class="uc-trigger">Trigger: Automated — data pull at 7:30 PM. 60 min → 2 min.</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box trigger"><div class="fs-icon">🕢</div><div class="fs-label">7:30 PM Auto-Pull</div><div class="fs-detail">Scheduled 3-system read</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🛒</div><div class="fs-label">POS + ERP + Inventory</div><div class="fs-detail">Sales, wastage, roster, stock</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🔍</div><div class="fs-label">Anomaly Detection</div><div class="fs-detail">Flag unusual patterns</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">📝</div><div class="fs-label">Report Generator</div><div class="fs-detail">Hindi summary, consistent format</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">Review + Voice Note</div><div class="fs-detail">"Vendor delayed today"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">💬</div><div class="fs-label">WhatsApp → Area Mgr</div><div class="fs-detail">1-tap send via WA Business API</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      <span class="sys">POS</span> + <span class="sys">Inventory DB</span> + <span class="sys">Oracle ERP</span> (wastage) + <span class="sys">Roster</span> <span class="pipe">→</span> <span class="ai">Roz API</span> (aggregation) <span class="pipe">→</span> <span class="ai">AWS ML</span> (anomaly detection) <span class="pipe">→</span> Report generator (Hindi) <span class="pipe">→</span> <span class="out">Roz mobile</span> (review) <span class="pipe">→</span> Voice note (<span class="sys">S3</span>) <span class="pipe">→</span> <span class="out">WhatsApp Business API</span> → Area Manager
+    </div>
+    <div style="background:var(--green-pale);border:1px solid #86EFAC;border-radius:10px;padding:14px 18px;margin:16px 0;display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+      <div><strong style="font-size:20px;color:#15803D">2 min</strong><div style="font-size:10px;color:#166534">instead of 60 min</div></div>
+      <div><strong style="font-size:20px;color:#15803D">100%</strong><div style="font-size:10px;color:#166534">consistent format across 8 stores</div></div>
+      <div><strong style="font-size:20px;color:#15803D">0</strong><div style="font-size:10px;color:#166534">manual data copy errors</div></div>
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Incomplete POS Sync</div>
+        <div class="ec-body">Roz drafts what it has and explicitly flags missing data: "Cold chain data unavailable today — add note manually."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uc-detail" id="uc-eod">
+    <div class="uc-detail-head">
+      <div>
+        <div class="uc-time-big">9:00 PM · UC-12</div>
+        <h2>EOD Confirmation + Tomorrow's Pre-Stage</h2>
+        <div class="uc-trigger">Trigger: After HQ report sent</div>
+      </div>
+      <button class="uc-close" onclick="closeUC()">✕</button>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-step"><div class="flow-step-box trigger"><div class="fs-icon">📤</div><div class="fs-label">HQ Report Sent</div><div class="fs-detail">Triggers EOD rollup</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">📊</div><div class="fs-label">Day Rollup</div><div class="fs-detail">Wastage, sales, compliance</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">📋</div><div class="fs-label">Pre-Stage Tomorrow</div><div class="fs-detail">Order draft already computed</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">EOD Card</div><div class="fs-detail">"All logged · tomorrow ready"</div></div></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><div class="flow-step-box output"><div class="fs-icon">🔒</div><div class="fs-label">Close Store</div><div class="fs-detail">Real closure, not anxiety</div></div></div>
+    </div>
+    <div class="pipeline-strip">
+      All day's data <span class="pipe">→</span> <span class="ai">Roz EOD rollup</span> <span class="pipe">→</span> Tomorrow's order pre-staged (ML already ran at 11:30) <span class="pipe">→</span> <span class="out">EOD confirmation card</span> <span class="pipe">→</span> Roz mobile
+    </div>
+    <div class="edge-case-row">
+      <div class="edge-card">
+        <div class="ec-title">⚠ Open Corrective Action</div>
+        <div class="ec-body">If Area Manager flagged something during a store visit, it surfaces on the EOD card so it can't be forgotten by tomorrow morning.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== VIEW 3: DATA FLOW MAP ==================== -->
+<div class="view" id="view-dataflow">
+  <div class="page-head">
+    <h1>Data Flow Map</h1>
+    <p>What data flows where — every system read, every system write, every ML computation, mapped by use case.</p>
+  </div>
+
+  <div class="flow-canvas">
+    <table class="factor-table" style="font-size:11px">
+      <thead>
+        <tr>
+          <th>Use Case</th>
+          <th>Reads From</th>
+          <th>AI Computation</th>
+          <th>Writes To</th>
+          <th>User Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>UC-01 Dock Check</strong></td>
+          <td>Oracle ERP (indent), QR decode</td>
+          <td>Tally: crate × avg per crate</td>
+          <td>Oracle ERP (GRN), Vendor Score DB</td>
+          <td>Scan → Confirm/Flag</td>
+        </tr>
+        <tr>
+          <td><strong>UC-02 Vendor Score</strong></td>
+          <td>Phone camera, Vendor Master</td>
+          <td>Score: rejection rate × category × season</td>
+          <td>S3 (photo), Vendor Score DB</td>
+          <td>Tap Reject + Photo</td>
+        </tr>
+        <tr>
+          <td><strong>UC-03 Roster</strong></td>
+          <td>POS 30-day, Weather, Calendar, Attendance</td>
+          <td>Footfall prediction → staffing match</td>
+          <td>Roz briefing card</td>
+          <td>Review roster</td>
+        </tr>
+        <tr>
+          <td><strong>UC-04 Peak Alert</strong></td>
+          <td>POS real-time, Historical pattern, Weather</td>
+          <td>Peak prediction 20 min out</td>
+          <td>Push notification</td>
+          <td>Accept / Dismiss</td>
+        </tr>
+        <tr>
+          <td><strong>UC-05 Stockout</strong></td>
+          <td>POS velocity, Inventory DB</td>
+          <td>Depletion prediction per SKU</td>
+          <td>Alert, Cross-store transfer request</td>
+          <td>Top up / Request transfer</td>
+        </tr>
+        <tr style="background:#F0FDF4">
+          <td><strong style="color:#16A34A">UC-06 Smart Order 🟢</strong></td>
+          <td>POS + ERP + Weather + Festival + Vendor + Q-comm + Cold Chain</td>
+          <td>11-factor demand forecast → SKU qty + confidence</td>
+          <td>Oracle ERP indent (PO)</td>
+          <td>Review → 1-tap Approve</td>
+        </tr>
+        <tr>
+          <td><strong>UC-07 Expiry Scanner</strong></td>
+          <td>Inventory (batch), GRN (received dates), Product Taxonomy</td>
+          <td>24h flag + unknown-expiry fallback</td>
+          <td>Near-expiry list card</td>
+          <td>Walk + Override</td>
+        </tr>
+        <tr>
+          <td><strong>UC-08 Markdown</strong></td>
+          <td>Expiry data, POS velocity, Historical clearance</td>
+          <td>Optimal % per tier per SKU</td>
+          <td>Markdown suggestion</td>
+          <td>Approve % → Staff re-labels</td>
+        </tr>
+        <tr>
+          <td><strong>UC-09 Queue</strong></td>
+          <td>POS velocity per terminal</td>
+          <td>Queue inference + threshold</td>
+          <td>Push notification</td>
+          <td>Open extra billing</td>
+        </tr>
+        <tr>
+          <td><strong>UC-10 Recon</strong></td>
+          <td>POS terminal totals, Manual cash count</td>
+          <td>Auto-match, surface discrepancies</td>
+          <td>Audit trail DB</td>
+          <td>Review flagged only</td>
+        </tr>
+        <tr style="background:#F0FDF4">
+          <td><strong style="color:#16A34A">UC-11 HQ Report 🟢</strong></td>
+          <td>POS + Inventory + ERP + Roster</td>
+          <td>Aggregation + anomaly detection + Hindi text gen</td>
+          <td>WhatsApp → Area Manager</td>
+          <td>Review → Voice note → Send</td>
+        </tr>
+        <tr>
+          <td><strong>UC-12 EOD</strong></td>
+          <td>All day's aggregated data</td>
+          <td>Day rollup + tomorrow order pre-stage</td>
+          <td>EOD confirmation card</td>
+          <td>Acknowledge → Lock up</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ==================== VIEW 4: OFFLINE + FEEDBACK ==================== -->
+<div class="view" id="view-offline">
+  <div class="page-head">
+    <h1>Offline Architecture + Feedback Loops</h1>
+    <p>How Roz works on 2G connections in Tier-2 India, and how every manager action makes the AI smarter.</p>
+  </div>
+
+  <div class="section-label">Offline Architecture — designed for 2G on mid-range Android</div>
+  <div class="offline-grid">
+    <div class="offline-card">
+      <div class="oc-icon">☁️</div>
+      <div class="oc-name">Pre-Computed Server-Side</div>
+      <div class="oc-body">All ML recommendations computed on AWS, then cached on-device. Phone never runs inference — just displays results.</div>
+    </div>
+    <div class="offline-card">
+      <div class="oc-icon">📤</div>
+      <div class="oc-name">Offline Queue</div>
+      <div class="oc-body">Any action taken without connectivity is queued locally and synced when connection returns. No action is ever lost.</div>
+    </div>
+    <div class="offline-card">
+      <div class="oc-icon">💾</div>
+      <div class="oc-name">Critical Data Cached</div>
+      <div class="oc-body">Today's order draft, near-expiry list, roster, last-known inventory levels — always available even offline.</div>
+    </div>
+    <div class="offline-card">
+      <div class="oc-icon">⚠️</div>
+      <div class="oc-name">Graceful Degradation</div>
+      <div class="oc-body">If server unreachable, Roz shows last-synced state with "stale data" badge. Never a blank screen. Never blocks the manager.</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:32px">Feedback Loops — every action teaches Roz</div>
+  <div class="feedback-grid">
+    <div class="fb-card">
+      <div class="fb-action-icon">📊</div>
+      <div>
+        <div class="fb-action">Adjusts order qty before approving</div>
+        <div class="fb-teaches">Demand model learns her local intuition — festival weeks, vendor quirks, neighborhood patterns no data captures.</div>
+      </div>
+    </div>
+    <div class="fb-card">
+      <div class="fb-action-icon">🥭</div>
+      <div>
+        <div class="fb-action">Taps "early markdown" on a mango batch</div>
+        <div class="fb-teaches">Per-vendor shelf-life default adjusts. Vendor A's mangoes = 3 days, Vendor B's = 5 days. Learned over time.</div>
+      </div>
+    </div>
+    <div class="fb-card">
+      <div class="fb-action-icon">📸</div>
+      <div>
+        <div class="fb-action">Rejects a crate with photo</div>
+        <div class="fb-teaches">Vendor quality score accumulates. Same vendor can't send bad produce 3 weeks in a row without it surfacing.</div>
+      </div>
+    </div>
+    <div class="fb-card">
+      <div class="fb-action-icon">🎉</div>
+      <div>
+        <div class="fb-action">Tags a local event / festival</div>
+        <div class="fb-teaches">Festival calendar grows store-by-store. Next year, Roz knows about the local mango festival before it happens.</div>
+      </div>
+    </div>
+    <div class="fb-card">
+      <div class="fb-action-icon">🔕</div>
+      <div>
+        <div class="fb-action">Dismisses a peak alert</div>
+        <div class="fb-teaches">Threshold calibrates — was it a false positive? Roz learns to reduce noise for this store's specific patterns.</div>
+      </div>
+    </div>
+    <div class="fb-card">
+      <div class="fb-action-icon">💰</div>
+      <div>
+        <div class="fb-action">Overrides markdown %</div>
+        <div class="fb-teaches">Clearance model adjusts per category. If 20% always undersells, model bumps to 25% next time for that SKU.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--orange-pale);border:1px solid #FDBA74;border-radius:14px;padding:20px 24px;margin-top:24px;text-align:center">
+    <div style="font-size:14px;font-weight:700;color:#9A3412;margin-bottom:4px">Every manager action flows back into the model.</div>
+    <div style="font-size:12px;color:#78350F">Roz gets more accurate with every store, every day, without anyone explicitly "training" it.</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  event.target.classList.add('active');
+  closeUC();
+  window.scrollTo(0, 0);
+}
+
+function openUC(id) {
+  document.querySelectorAll('.uc-detail').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.uc-thumb').forEach(t => t.classList.remove('active-uc'));
+  const detail = document.getElementById('uc-' + id);
+  if (detail) {
+    detail.classList.add('open');
+    detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  event.currentTarget.classList.add('active-uc');
+}
+
+function closeUC() {
+  document.querySelectorAll('.uc-detail').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.uc-thumb').forEach(t => t.classList.remove('active-uc'));
+}
+</script>
+
+</body>
+</html>
