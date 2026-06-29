@@ -80,7 +80,7 @@ const FeedbackPopup: React.FC = () => {
                         <div className={classes.content}>
                             <h4 className={classes.title}>Feedback</h4>
                             <p className={classes.description}>
-                                One honest sentence from you reshaped the next version.
+                                One honest sentence from you will reshape the next version.
                             </p>
                             <button className={classes.actionBtn} onClick={handleOpenFeedback}>
                                 Enjoying Experience?
