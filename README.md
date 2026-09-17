@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# swosti-nayak
 
-## Getting Started
+Personal portfolio — a macOS-style desktop where project cards expand into full case studies.
 
-First, run the development server:
+**Live:** https://swosti-nayak.vercel.app
+
+## Stack
+
+Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · CSS Modules + Tailwind v4 ·
+[motion](https://motion.dev) for animation · Resend for the feedback form · deployed on Vercel.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The feedback form needs a Resend API key. Without it the rest of the site runs fine:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# .env.local
+RESEND_API_KEY=your_key_here
+```
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Generates the code database, then starts the dev server |
+| `npm run build` | Generates the code database, then builds for production |
+| `npm start` | Serves the production build |
+| `npm run lint` | ESLint (currently reports pre-existing issues — see `AGENTS.md`) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`scripts/buildCodeDB.mjs` runs before `dev` and `build`. It serialises `src/` into
+`src/data/codeDB.json` so the site can show its own source in the in-page code panel.
+That file is generated and gitignored.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`scripts/compressImages.mjs` is a manual utility that converts images in `public/`
+larger than 100KB to WebP.
 
-## Deploy on Vercel
+## Layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [`AGENTS.md`](AGENTS.md) for a full map of the codebase and its conventions.

@@ -46,3 +46,9 @@ Thumbs.db
 # Generated files
 src/data/codeDB.json
 .claude/worktrees/
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Claude Code local settings (machine-specific; has contained secrets)
+.claude/settings.local.json
