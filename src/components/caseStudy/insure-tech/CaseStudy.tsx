@@ -3,8 +3,16 @@ import React from "react";
 import Image from "next/image";
 import { MotionConfig } from "motion/react";
 import {
-  Zap, Target, Users, AlertTriangle, CheckCircle2, ArrowRight,
-  Layers, Search, FileSearch, Activity, Sparkles,
+    Target,
+    Users,
+    AlertTriangle,
+    CheckCircle2,
+    ArrowRight,
+    Layers,
+    Search,
+    FileSearch,
+    Activity,
+    Sparkles,
 } from "lucide-react";
 import { useIsMobile } from "@/app/hooks/useIsMobile";
 import {
@@ -513,7 +521,8 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
                   border: `1px solid ${BORDER}`,
                   background: "#fff",
                 }}>
-                  <img src={d.src} alt={d.title} loading="lazy" decoding="async" style={{ width: "100%", display: "block" }} />
+                  {/* Source files are 5184×2991; next/image serves a right-sized AVIF/WebP. */}
+                  <Image src={d.src} alt={d.title} width={5184} height={2991} sizes="(max-width: 768px) 100vw, 840px" style={{ width: "100%", height: "auto", display: "block" }} />
                 </div>
                 <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr", gap: 28, alignItems: "start" }}>
                   <div>

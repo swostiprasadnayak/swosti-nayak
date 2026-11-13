@@ -4,7 +4,7 @@ import { Folder, FolderOpen, FileText, ChevronRight, ChevronDown, GitBranch } fr
 
 type TreeNode = { name: string; path: string; type: "file" | "folder"; children: Record<string, TreeNode> };
 
-export default function FileSidebar({ selectedFile, onSelectFile }: any) {
+export default function FileSidebar({ selectedFile, onSelectFile }: { selectedFile: string | null; onSelectFile: (path: string) => void }) {
     const [fileList, setFileList] = useState<string[]>([]);
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(["components", "src/components", "app", "src/app", "src"]));
 

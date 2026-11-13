@@ -17,7 +17,6 @@ interface MobileControlsProps {
   onImageToggle?: () => void;
   onScreenshot?: () => void;
   onShowPosts?: () => void;
-  onWorkClick?: () => void;
 }
 
 // Shutter sound for screenshot feedback
@@ -34,7 +33,6 @@ export default function MobileControls({
   onImageToggle,
   onScreenshot,
   onShowPosts,
-  onWorkClick,
 }: MobileControlsProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isControlOpen, setIsControlOpen] = useState(false);

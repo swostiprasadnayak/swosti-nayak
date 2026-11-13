@@ -13,7 +13,7 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     const [openWindows, setOpenWindows] = useState<string[]>([]);
     // insure-tech has highest z (frontmost), blinkit middle, gc-dental back
     const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, blinkit: 2, "insure-tech": 3 });
-    const [topZ, setTopZ] = useState(3);
+    const [, setTopZ] = useState(3);
 
     // Initialize desktop open windows on mount — last item is frontmost.
     // Matches the "Default" filter (3 flagship projects in their original

@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import {
-  CheckCircle2, AlertTriangle, AlertCircle, XCircle,
-  ChevronDown, ChevronRight, Eye, EyeOff, Search, X,
-  Copy, Code2,
+    CheckCircle2,
+    XCircle,
+    X,
+    Copy,
+    Code2,
 } from "lucide-react";
 import { useIsMobile } from "@/app/hooks/useIsMobile";
 import { CODE } from "./DesignSystemCode";

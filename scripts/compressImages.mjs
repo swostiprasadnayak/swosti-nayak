@@ -4,8 +4,8 @@
  * Run: node scripts/compressImages.mjs
  */
 import sharp from 'sharp';
-import { readdirSync, statSync, renameSync, existsSync } from 'fs';
-import { join, extname, basename } from 'path';
+import { readdirSync, statSync } from 'fs';
+import { join, extname } from 'path';
 
 const PUBLIC_DIR = new URL('../public', import.meta.url).pathname;
 const QUALITY = 80;

@@ -1,18 +1,24 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Squircle } from "corner-smoothing";
+
 import CaseStudyHeader from "../blocks/CaseStudyHeader";
 import classes from "./caseStudy.module.css";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { useIsMobile } from "@/app/hooks/useIsMobile";
-import { 
-  Search, ShieldAlert, FileText,
-  Stethoscope, Settings, Microscope, ClipboardList,
-  CheckCircle2, XCircle, ArrowRight,
-  Download, Globe, Smartphone, Building2,
-  Check, X, FileSearch, MessageSquare, ListTree,
-  AlertTriangle, Zap, CheckCircle, Database
+import {
+    Search,
+    Stethoscope,
+    Settings,
+    Microscope,
+    ClipboardList,
+    CheckCircle2,
+    XCircle,
+    ArrowRight,
+    Check,
+    Zap,
+    CheckCircle,
+    Database,
 } from "lucide-react";
 
 export default function GCDentalCaseStudyTemplate() {
@@ -40,7 +46,6 @@ export default function GCDentalCaseStudyTemplate() {
           </div>
 
        </div>
-
 
       {/* ============================================================
           SECTION 2: PROBLEM STATEMENT & RESEARCH

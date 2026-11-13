@@ -66,6 +66,8 @@ const ScreenshotThumbnail: React.FC<ScreenshotThumbnailProps> = ({
                 >
                     <Squircle cornerRadius={12} className={classes.thumbnailCard}>
                         <Squircle cornerRadius={7} className={classes.imageWrapper}>
+                            {/* `url` is a data: URL captured in the browser, which next/image can't optimise. */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={url}
                                 className={classes.thumbnailImage}

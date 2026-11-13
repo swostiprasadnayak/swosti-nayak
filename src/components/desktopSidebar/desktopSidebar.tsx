@@ -31,8 +31,6 @@ const getNavigationProps = (section: string) => {
     }
 };
 
-const useCursorElement = (opts: any) => ({ ref: useRef(null) });
-
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     isProjectExpanded,
     activePage = "Work",
@@ -150,12 +148,6 @@ const NavItem: React.FC<{
     onClick?: () => void;
     isFeedback?: boolean;
 }> = ({ section, isActive, navProps, onClick, isFeedback }) => {
-    const { ref } = useCursorElement({
-        mode: "block",
-        cornerRadius: 12,
-        resetOnClick: true,
-    });
-
     const className = `${classes.navItem} ${isActive ? classes.navItemActive : ""} ${isFeedback ? classes.navItemFeedback : ""}`;
     const isExternal = navProps.target === "_blank";
 
@@ -170,7 +162,6 @@ const NavItem: React.FC<{
     if (isExternal) {
         return (
             <a
-                ref={ref as React.Ref<HTMLAnchorElement>}
                 href={navProps.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -184,7 +175,6 @@ const NavItem: React.FC<{
     if (navProps.href === "#") {
         return (
             <button
-                ref={ref as React.Ref<HTMLButtonElement>}
                 className={className}
                 onClick={onClick}
             >
@@ -195,7 +185,6 @@ const NavItem: React.FC<{
 
     return (
         <Link
-            ref={ref as React.Ref<HTMLAnchorElement>}
             href={navProps.href}
             className={className}
             onClick={onClick ? (e) => { e.preventDefault(); onClick(); } : undefined}

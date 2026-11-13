@@ -4,7 +4,13 @@ import { Sun } from "lucide-react";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import classes from "./brightnessSlider.module.css";
 
-export default function BrightnessSlider({ onBrightnessChange, labelColor }: any) {
+type BrightnessSliderProps = {
+  onBrightnessChange?: (percent: number) => void;
+  isOpen?: boolean;
+  labelColor?: string;
+};
+
+export default function BrightnessSlider({ onBrightnessChange, labelColor }: BrightnessSliderProps) {
   const [level, setLevel] = useState(100);
   const { isDark } = useTheme();
 

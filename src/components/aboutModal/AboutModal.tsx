@@ -92,12 +92,6 @@ const AboutModal: React.FC = () => {
 
                                             {/* LEFT PANEL — gradient image + article teaser */}
                                             <Squircle className={classes.leftPanel} cornerRadius={12}>
-                                                <img
-                                                    src="/about-gradient.jpg"
-                                                    alt="Abstract green gradient"
-                                                    className={classes.gradientBg}
-                                                    draggable={false}
-                                                />
                                                 {/* Bottom scrim for text legibility */}
                                                 <div className={classes.leftOverlay} />
 

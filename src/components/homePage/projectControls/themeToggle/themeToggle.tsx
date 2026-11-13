@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Sun, Moon } from "lucide-react";
 import ControlButton from "@/components/ui/controlButton/controlButton";
 import { useTheme } from "@/app/contexts/ThemeContext";

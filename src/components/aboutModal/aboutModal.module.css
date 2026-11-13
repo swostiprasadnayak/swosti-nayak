@@ -169,10 +169,6 @@
     box-sizing: border-box;
 }
 
-.gradientBg {
-    display: none;
-}
-
 /* Figma: gradient overlay */
 .leftOverlay {
     position: absolute;

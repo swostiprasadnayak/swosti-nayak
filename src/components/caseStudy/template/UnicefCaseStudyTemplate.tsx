@@ -8,9 +8,17 @@ import classes from "./caseStudy.module.css";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { useIsMobile } from "@/app/hooks/useIsMobile";
 import {
-  Search, ShieldAlert, Clock, ArrowUpRight, CheckCircle2,
-  Map, Fingerprint, Database, Copy, Briefcase, FileText, Globe, Key, LayoutGrid, Check, Info, FileSpreadsheet, Compass,
-  Layers, AlertTriangle, ChevronDown
+    Search,
+    ShieldAlert,
+    Clock,
+    ArrowUpRight,
+    CheckCircle2,
+    Database,
+    FileText,
+    Check,
+    Info,
+    Layers,
+    AlertTriangle,
 } from "lucide-react";
 
 export default function UnicefCaseStudyTemplate() {
@@ -37,7 +45,6 @@ export default function UnicefCaseStudyTemplate() {
             <Image src="/unicef-hero-container.png" alt="Unicef Portal" width={1920} height={1080} sizes="(max-width: 768px) 100vw, 90vw" priority style={{ width: '100%', height: 'auto', display: 'block' }} onError={(e) => e.currentTarget.style.display = 'none'} />
          </Squircle>
       </div>
-
 
       {/* ============================================================
           SECTION 2: PROBLEM STATEMENT

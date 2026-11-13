@@ -133,7 +133,7 @@ function BuilderMockupInner({ hoveredPin, setHoveredPin }: { hoveredPin: number 
           padding: "8px 12px", borderBottom: `1px solid ${BORDER}`,
           display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap", fontSize: 9.5,
         }}>
-          {["Config Product", "Config Rules", "Config Rating"].map((s, i) => (
+          {["Config Product", "Config Rules", "Config Rating"].map((s) => (
             <React.Fragment key={s}>
               <span style={{ color: BRAND, display: "flex", gap: 3, alignItems: "center", fontWeight: 500 }}>
                 <span style={{ width: 9, height: 9, borderRadius: "50%", background: BRAND, color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 6, fontWeight: 700 }}>✓</span>

@@ -1,10 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import {
-  ChevronDown, ChevronRight, ChevronUp, ExternalLink, Search, Filter,
-  AlertCircle, AlertTriangle, FileText, Trash2, ArrowRight,
-  CheckCircle2, Clock, Maximize2, Plus, Check, GitBranch, MoreHorizontal, X,
-  Sparkles, Activity, Layers,
+    ChevronDown,
+    ChevronRight,
+    ChevronUp,
+    ExternalLink,
+    Search,
+    Filter,
+    AlertTriangle,
+    FileText,
+    Trash2,
+    ArrowRight,
+    CheckCircle2,
+    Clock,
+    Maximize2,
+    Plus,
+    Check,
+    GitBranch,
+    Layers,
 } from "lucide-react";
 
 // ─── Design tokens (refined to match new Figma) ──────────────────────────────
@@ -243,7 +256,6 @@ function StageChip({ stage }: { stage: { label: string; state: StageState } }) {
   const done = state === "done";
   const active = state === "active";
   const color = done ? C.brand : active ? C.amberDark : C.text3;
-  const bg = done ? C.brandTint : active ? C.amberLight : "transparent";
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -270,7 +282,6 @@ function StageChip({ stage }: { stage: { label: string; state: StageState } }) {
 function ExtractionHealthCard({
   sourceIdx, setSourceIdx, needsReviewOnly, setNeedsReviewOnly,
 }: { sourceIdx: number; setSourceIdx: (i: number) => void; needsReviewOnly: boolean; setNeedsReviewOnly: (v: boolean) => void }) {
-  const HEALTH_SCORE = 89;
   const HIGH = 124, MED = 40, LOW = 15;
   const total = HIGH + MED + LOW;
   const highPct = (HIGH / total) * 100;

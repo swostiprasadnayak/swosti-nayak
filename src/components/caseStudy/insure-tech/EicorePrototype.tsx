@@ -1,13 +1,31 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import {
-  X, Eye, LayoutGrid, Package, CreditCard, GitBranch, LayoutTemplate, Users,
-  ChevronDown, ChevronRight, CheckCircle2, Circle, UploadCloud, FileText,
-  FileSpreadsheet, Plus, Clock, ArrowRight, ArrowLeft, AlertTriangle, AlertCircle,
-  FileSearch, ShieldCheck, FolderTree, BookOpen, Settings, Activity, ExternalLink,
-  Shield, Calendar, FileType, Link2, PanelLeftClose, PanelLeftOpen, Check,
+    X,
+    LayoutTemplate,
+    Users,
+    ChevronDown,
+    ChevronRight,
+    CheckCircle2,
+    UploadCloud,
+    FileText,
+    FileSpreadsheet,
+    Plus,
+    Clock,
+    ArrowRight,
+    ArrowLeft,
+    AlertTriangle,
+    FileSearch,
+    ShieldCheck,
+    Activity,
+    Shield,
+    Calendar,
+    Link2,
+    PanelLeftClose,
+    PanelLeftOpen,
+    Check,
 } from "lucide-react";
-import { C, T, card, pill, btn } from "./theme";
+import { C, T, card, pill } from "./theme";
 import CaseStudy from "./CaseStudy";
 import TreeExpansion from "./TreeExpansion";
 import UnifiedBuilder from "./UnifiedBuilder";
@@ -16,23 +34,6 @@ import DesignSystem from "./DesignSystem";
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared bits
 // ─────────────────────────────────────────────────────────────────────────────
-function RainbowLogo({ size = 32 }: { size?: number }) {
-  const dots: [number, number, number, string][] = [
-    [50, 15, 5, "#E83A59"], [68, 20, 4.5, "#D9467C"], [80, 32, 4.5, "#A855F7"],
-    [85, 50, 5, "#6366F1"], [80, 68, 4.5, "#3B82F6"], [68, 80, 4.5, "#0EA5E9"],
-    [50, 85, 5, "#06B6D4"], [32, 80, 4.5, "#14B8A6"], [20, 68, 4.5, "#10B981"],
-    [15, 50, 5, "#22C55E"], [20, 32, 4.5, "#F59E0B"], [32, 20, 4.5, "#F97316"],
-    [50, 28, 3.5, "#E83A59"], [62, 34, 3.5, "#A855F7"], [72, 50, 3.5, "#6366F1"],
-    [62, 66, 3.5, "#0EA5E9"], [50, 72, 3.5, "#14B8A6"], [38, 66, 3.5, "#10B981"],
-    [28, 50, 3.5, "#F59E0B"], [38, 34, 3.5, "#F97316"],
-  ];
-  return (
-    <svg viewBox="0 0 100 100" width={size} height={size}>
-      {dots.map(([cx, cy, r, fill], i) => <circle key={i} cx={cx} cy={cy} r={r} fill={fill} />)}
-    </svg>
-  );
-}
-
 function StatusTag({ label, kind }: { label: string; kind: "brand" | "success" | "warning" | "error" | "neutral" }) {
   const map = {
     brand: { c: C.brand, b: C.brandTint }, success: { c: C.success, b: C.successTint },
@@ -44,65 +45,6 @@ function StatusTag({ label, kind }: { label: string; kind: "brand" | "success" |
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Global icon rail
-// ─────────────────────────────────────────────────────────────────────────────
-function GlobalSidebar() {
-  const [expanded, setExpanded] = useState(false);
-  const [cfgOpen, setCfgOpen] = useState(true);
-  const navItems = [
-    { icon: CreditCard, label: "Billing" }, { icon: GitBranch, label: "Workflows" },
-    { icon: LayoutTemplate, label: "Templates" },
-  ];
-  const itemStyle = (active = false): React.CSSProperties => ({
-    display: "flex", alignItems: "center", gap: 12, padding: "10px 12px",
-    borderRadius: active ? 10 : 8, border: "none",
-    background: active ? C.brandTintSoft : "transparent",
-    color: active ? C.brand : C.text2, cursor: "pointer", whiteSpace: "nowrap",
-    width: "100%", textAlign: "left", fontSize: 14, fontWeight: active ? 600 : 500,
-  });
-  return (
-    <aside
-      onMouseEnter={() => setExpanded(true)} onMouseLeave={() => setExpanded(false)}
-      style={{
-        width: expanded ? 240 : 64, minWidth: expanded ? 240 : 64,
-        transition: "width .25s ease, min-width .25s ease", height: "100vh",
-        background: C.card, borderRight: `1px solid ${C.border}`, display: "flex",
-        flexDirection: "column", overflow: "hidden", flexShrink: 0, zIndex: 50,
-      }}>
-      <div style={{ height: 64, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
-        <RainbowLogo />
-      </div>
-      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", padding: "16px 8px", display: "flex", flexDirection: "column", gap: 4 }}>
-        <button style={itemStyle()}><LayoutGrid size={20} style={{ flexShrink: 0 }} />{expanded && <span>Dashboard</span>}</button>
-        <div>
-          <button style={itemStyle(true)} onClick={() => setCfgOpen(!cfgOpen)}>
-            <Package size={20} style={{ flexShrink: 0 }} />
-            {expanded && (<><span style={{ flex: 1 }}>Product Config</span>{cfgOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}</>)}
-          </button>
-          {expanded && cfgOpen && (
-            <div style={{ paddingLeft: 44, display: "flex", flexDirection: "column", gap: 4, marginTop: 4 }}>
-              <button style={{ border: "none", background: "none", textAlign: "left", padding: "6px 8px", fontSize: 13, fontWeight: 700, color: C.text, cursor: "pointer", borderRadius: 6 }}>New Product</button>
-              <button style={{ border: "none", background: "none", textAlign: "left", padding: "6px 8px", fontSize: 13, fontWeight: 500, color: C.text2, cursor: "pointer", borderRadius: 6 }}>Products</button>
-            </div>
-          )}
-        </div>
-        {navItems.map(it => (
-          <button key={it.label} style={itemStyle()}><it.icon size={20} style={{ flexShrink: 0 }} />{expanded && <span>{it.label}</span>}</button>
-        ))}
-        <div style={{ margin: "8px 0", borderTop: `1px solid ${C.border}` }} />
-        <button style={itemStyle()}><Users size={20} style={{ flexShrink: 0 }} />{expanded && <span>Team</span>}</button>
-      </div>
-      <div style={{ padding: "12px 8px", borderTop: `1px solid ${C.border}`, overflow: "hidden" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", justifyContent: expanded ? "flex-start" : "center" }}>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", border: `1px solid ${C.border}`, background: C.bgTertiary, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 11, fontWeight: 700, color: C.text }}>DU</div>
-          {expanded && (<div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: 13, fontWeight: 600, color: C.text }}>Designer User</span><span style={{ fontSize: 11, color: C.text3 }}>Sign out</span></div>)}
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Header (with Case Study / Prototype toggle)
 // ─────────────────────────────────────────────────────────────────────────────
 function Header({ view, setView, showSidebarToggle, sidebarCollapsed, onToggleSidebar }: { view: "prototype" | "case-study" | "design-system"; setView: (v: "prototype" | "case-study" | "design-system") => void; showSidebarToggle?: boolean; sidebarCollapsed?: boolean; onToggleSidebar?: () => void }) {
   const TABS: { id: "prototype" | "case-study" | "design-system"; label: string }[] = [
@@ -185,7 +127,7 @@ const STEPS = [
   { id: 5, name: "Stakeholder Overview" },
 ];
 
-function StepSidebar({ currentStep, setCurrentStep, collapsed, onToggle }: { currentStep: number; setCurrentStep: (n: number) => void; collapsed?: boolean; onToggle?: () => void }) {
+function StepSidebar({ currentStep, setCurrentStep, collapsed }: { currentStep: number; setCurrentStep: (n: number) => void; collapsed?: boolean }) {
   return (
     <aside style={{ width: collapsed ? 0 : 240, minWidth: collapsed ? 0 : 240, background: C.card, borderRight: collapsed ? "none" : `1px solid ${C.border}`, overflow: "hidden", transition: "width .22s ease, min-width .22s ease", flexShrink: 0 }}>
       <div style={{ width: 240, height: "100%", boxSizing: "border-box", overflowY: "auto", padding: "20px 14px", display: "flex", flexDirection: "column" }}>
@@ -638,8 +580,6 @@ export function ExtractionPreview({ onNext, onBack }: { onNext: () => void; onBa
 // ─────────────────────────────────────────────────────────────────────────────
 // SCREEN 3 — Unified Builder
 // ─────────────────────────────────────────────────────────────────────────────
-const COVERAGES = ["Organ Donor Expenses", "Cumulative Bonus", "Restoration of Sum Insured", "ICU Charges", "Room Rent (Normal Room)", "Wellness Benefits", "Cataract Surgery", "OPD Cover"];
-
 export function PrePublishReview({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   const checklist = [
     { t: "Configure hospitalisation sub-limit rules", k: "blocker" },
@@ -873,7 +813,7 @@ export default function EicoreApp() {
         <div style={{ display: "flex", flex: 1, overflow: "hidden", background: C.card, borderRadius: "0 0 12px 12px", boxShadow: C.shadowMd, border: `1px solid ${C.border}`, borderTop: "none" }}>
           {view === "prototype" ? (
             <>
-              <StepSidebar currentStep={step} setCurrentStep={setStep} collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(c => !c)} />
+              <StepSidebar currentStep={step} setCurrentStep={setStep} collapsed={sidebarCollapsed} />
               <main style={{ flex: 1, overflowY: "auto", padding: "24px 32px", background: C.bgTertiary }}>
                 {step === 1 && <MethodSelection onNext={() => setStep(2)} />}
                 {step === 2 && <ExtractionPreview onNext={() => setStep(3)} onBack={() => setStep(1)} />}

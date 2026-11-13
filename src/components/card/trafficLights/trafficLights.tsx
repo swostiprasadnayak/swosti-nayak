@@ -2,7 +2,13 @@
 
 import React from "react";
 
-export default function TrafficLights({ onClose, onExpand, visible }: any) {
+type TrafficLightsProps = {
+    onClose?: () => void;
+    onExpand?: () => void;
+    visible?: boolean;
+};
+
+export default function TrafficLights({ onClose, onExpand, visible }: TrafficLightsProps) {
     const btnBase: React.CSSProperties = {
         width: 14,
         height: 14,

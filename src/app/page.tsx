@@ -175,7 +175,6 @@ function HomeContent() {
             onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
             onScreenshot={handleScreenshot}
             onShowPosts={() => setIsPostsOpen(true)}
-            onWorkClick={() => windowModeState.bringToFront("gc-dental")}
           />
         </div>
 

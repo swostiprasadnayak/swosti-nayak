@@ -11,7 +11,7 @@ export default function CodePanel({ selectedFile }: { selectedFile: string | nul
     useEffect(() => {
         if (!selectedFile) return;
         import("@/data/codeDB.json").then((module) => {
-            setContent((module.default as any)[selectedFile] || "// File not found in database.");
+            setContent((module.default as Record<string, string>)[selectedFile] || "// File not found in database.");
         });
     }, [selectedFile]);
 

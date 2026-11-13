@@ -121,7 +121,7 @@ export default function PostsFeed() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
                       <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "4px" }}>
                         {post.author} 
-                        <img src="/icons/SVG.png" alt="verified" style={{ width: 14, height: 14, objectFit: "contain" }} /> 
+                        <Image src="/icons/SVG.png" alt="verified" width={14} height={14} style={{ width: 14, height: 14, objectFit: "contain" }} /> 
                         <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: "0.8rem" }}>• {post.time}</span>
                       </div>
                       <div style={{ fontSize: "0.75rem", color: "#8e8e93", fontWeight: 500 }}>{post.location}</div>
@@ -145,7 +145,7 @@ export default function PostsFeed() {
                       backdropFilter: "blur(5.3px)",
                       boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
                     }}>
-                      <img src="/icons/Frame 1932992809.png" alt="expand" style={{ width: 20, height: 20 }} />
+                      <Image src="/icons/Frame 1932992809.png" alt="expand" width={20} height={20} style={{ width: 20, height: 20 }} />
                     </div>
                   </motion.div>
 
@@ -153,15 +153,15 @@ export default function PostsFeed() {
                   <motion.div layoutId={`post-footer-${post.id}`}>
                     <div style={{ display: "flex", gap: "20px", marginBottom: "12px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#1c2b33" }}>
-                        <img src="/icons/Vector.png" alt="like" style={{ width: 22, height: 22 }} /> 119 likes
+                        <Image src="/icons/Vector.png" alt="like" width={22} height={22} style={{ width: 22, height: 22 }} /> 119 likes
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#5c6770" }}>
-                        <img src="/icons/Container.png" alt="share" style={{ width: 22, height: 22 }} /> Share
+                        <Image src="/icons/Container.png" alt="share" width={22} height={22} style={{ width: 22, height: 22 }} /> Share
                       </div>
                     </div>
                     <p style={{ fontSize: "0.85rem", color: "#1c2b33", lineHeight: 1.6, margin: 0 }}>
                       <span style={{ fontWeight: 600 }}>{post.author}</span> 
-                      <img src="/icons/SVG.png" alt="verified" style={{ width: 12, height: 12, margin: "0 6px", display: "inline-block" }} />
+                      <Image src="/icons/SVG.png" alt="verified" width={12} height={12} style={{ width: 12, height: 12, margin: "0 6px", display: "inline-block" }} />
                       {post.content}
                     </p>
                   </motion.div>
@@ -208,7 +208,7 @@ export default function PostsFeed() {
                       <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                         <div style={{ fontWeight: 700, fontSize: "1.05rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "6px" }}>
                           {post.author} 
-                          <img src="/icons/SVG.png" alt="verified" style={{ width: 16, height: 16, objectFit: "contain" }} />
+                          <Image src="/icons/SVG.png" alt="verified" width={16} height={16} style={{ width: 16, height: 16, objectFit: "contain" }} />
                           <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: "0.9rem" }}>• {post.time}</span>
                         </div>
                         <div style={{ fontSize: "0.9rem", color: "#8e8e93", fontWeight: 500 }}>{post.location}</div>
@@ -239,7 +239,7 @@ export default function PostsFeed() {
                           backdropFilter: "blur(5.3px)"
                         }}
                       >
-                        <img src="/icons/Frame 1932992809.png" alt="minimize" style={{ width: 24, height: 24, transform: "scale(-1, -1)" }} />
+                        <Image src="/icons/Frame 1932992809.png" alt="minimize" width={24} height={24} style={{ width: 24, height: 24, transform: "scale(-1, -1)" }} />
                       </button>
                     </motion.div>
 
@@ -247,15 +247,15 @@ export default function PostsFeed() {
                     <motion.div layoutId={`post-footer-${post.id}`}>
                       <div style={{ display: "flex", gap: "24px", marginBottom: "20px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 600, color: "#1c2b33" }}>
-                          <img src="/icons/Vector.png" alt="like" style={{ width: 24, height: 24 }} /> 119 likes
+                          <Image src="/icons/Vector.png" alt="like" width={24} height={24} style={{ width: 24, height: 24 }} /> 119 likes
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 500, color: "#5c6770" }}>
-                          <img src="/icons/Container.png" alt="share" style={{ width: 24, height: 24 }} /> Share
+                          <Image src="/icons/Container.png" alt="share" width={24} height={24} style={{ width: 24, height: 24 }} /> Share
                         </div>
                       </div>
                       <p style={{ fontSize: "1.1rem", color: "#1c2b33", lineHeight: 1.7, marginBottom: "40px" }}>
                         <span style={{ fontWeight: 700 }}>{post.author}</span> 
-                        <img src="/icons/SVG.png" alt="verified" style={{ width: 14, height: 14, margin: "0 8px", display: "inline-block" }} />
+                        <Image src="/icons/SVG.png" alt="verified" width={14} height={14} style={{ width: 14, height: 14, margin: "0 8px", display: "inline-block" }} />
                         {post.content}
                       </p>
                     </motion.div>

@@ -27,7 +27,7 @@ src/app/
   posts/page.tsx      /posts route
   api/feedback/       POST route — sends feedback email via Resend
   contexts/           5 React contexts: Theme, Viewport, AboutModal, FeedbackModal, VoiceModal
-  hooks/              useIsMobile, useMusicPlayer, useVideoPlayback, useWindowMode
+  hooks/              useIsClient, useIsMobile, useMusicPlayer, useVideoPlayback, useWindowMode
   types/              cards.types.ts, projects.types.ts  ← project metadata lives here
 
 src/components/
@@ -68,8 +68,13 @@ scripts/
 - `public/*.html` (`roz-system-architecture.html`, `more-system-map.html`,
   `prototypes/*.html`) are **standalone pages opened by direct URL**, not imported by any
   component. They look unreferenced to a grep. Do not delete them.
-- `npm run lint` currently reports ~300 pre-existing errors/warnings (mostly
-  `no-explicit-any` and `react-hooks/set-state-in-effect`). The build does not gate on
-  them. Don't treat a non-empty lint run as a regression you caused — compare first.
+- `npm run lint` is clean (0 errors, 0 warnings) — keep it that way; any finding is
+  new. The React Compiler lint skips a whole component if it contains an
+  `eslint-disable` for a react-hooks rule, so put unavoidable suppressions in a small
+  isolated hook (see `cardStackContainer/useMobileCardStack.ts`), not in a component.
+- Browser-only values: use `useIsClient()` (`src/app/hooks/useIsClient.ts`), not
+  `useState(false)` + `useEffect(() => setMounted(true))`.
+- Projects with `disabled: true` in `projects.types.ts` are unfinished: the dock greys
+  them out and `?project=` links ignore them. Keep both paths in sync.
 - `public/` is the heavy part of the repo (~31 MB of video/audio/screenshots). Avoid
   listing it wholesale; target the subdirectory you need.

@@ -2,7 +2,7 @@
 
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import Image from "next/image";
-import { motion, LayoutGroup, AnimatePresence, useMotionValue, useTransform, useAnimation, type PanInfo } from "motion/react";
+import { motion, LayoutGroup, AnimatePresence, type PanInfo } from "motion/react";
 import { Squircle } from "corner-smoothing";
 import type { WindowModeAPI } from "@/app/hooks/useWindowMode";
 import classes from "./cardStackContainer.module.css";
@@ -75,11 +75,6 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     const [isMobile, setIsMobile] = useState(false);
     const isMounted = useIsClient();
 
-    // Motion values for desktop window mode
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const rotate = useTransform(x, [-200, 200], [-12, 12]);
-    const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0.6, 1, 1, 1, 0.6]);
 
     // Framer-style swipe stack state: ordered array of project slugs
 

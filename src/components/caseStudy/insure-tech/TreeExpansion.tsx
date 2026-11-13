@@ -1,10 +1,23 @@
 "use client";
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import {
-  ArrowLeft, ArrowRight, ChevronDown, ChevronRight, ChevronUp, ChevronLeft,
-  X, Check, AlertTriangle, AlertCircle, FileText, ExternalLink, Search,
-  Sparkles, Filter, Maximize2, Minimize2, Plus, Minus, MessageCircle,
-  PanelLeftClose, PanelLeftOpen,
+    ArrowLeft,
+    ArrowRight,
+    ChevronDown,
+    ChevronRight,
+    X,
+    Check,
+    FileText,
+    ExternalLink,
+    Search,
+    Sparkles,
+    Filter,
+    Maximize2,
+    Plus,
+    Minus,
+    MessageCircle,
+    PanelLeftClose,
+    PanelLeftOpen,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { C } from "./theme";
@@ -313,7 +326,7 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
               >
                 <ParameterDrawer
                   field={selected} tier={tier} setTier={setTier}
-                  onClose={() => setSelectedId(null)} onJump={setSelectedId}
+                  onClose={() => setSelectedId(null)}
                 />
               </motion.aside>
             </>
@@ -803,7 +816,6 @@ function CategoryColumn({ cat, fields, totalFields, tier, selectedId, onSelect }
     if (s === "verified") ok++; else if (s === "warning") warn++; else bad++;
   }
   const total = ok + warn + bad;
-  const topColor = bad > 0 ? C.error : warn > 0 ? C.warning : C.success;
 
   return (
     <div style={{ display: "flex", flexDirection: "column" as const, gap: 8 }}>
@@ -948,9 +960,9 @@ function FieldCard({ field, tier, selected, onClick }: {
 // ─────────────────────────────────────────────────────────────────────────
 // Parameter Drawer — matches Figma "Tree card.png" exactly
 // ─────────────────────────────────────────────────────────────────────────
-function ParameterDrawer({ field, tier, setTier, onClose, onJump }: {
+function ParameterDrawer({ field, tier, setTier, onClose }: {
   field: Parameter; tier: PlanTier; setTier: (t: PlanTier) => void;
-  onClose: () => void; onJump: (id: string) => void;
+  onClose: () => void;
 }) {
   const val = field.values[tier];
   const doc = DOCUMENTS.find(d => d.id === val.source.docId)!;
