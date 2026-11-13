@@ -60,10 +60,6 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         if (activeFilters.includes("Featured")) {
             return PROJECTS.filter((p) => p.slug === "insure-tech");
         }
-        // Corporate: client engagements.
-        if (activeFilters.includes("Corporate")) {
-            return PROJECTS.filter((p) => p.slug === "gc-dental");
-        }
         // Fallback: tag-based match for any other future categories.
         return PROJECTS.filter((project) =>
             !project.disabled && project.tags?.some((tag) => activeFilters.includes(tag))

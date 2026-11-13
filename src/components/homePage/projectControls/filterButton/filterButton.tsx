@@ -17,9 +17,9 @@ import { useViewport } from "@/app/contexts/ViewportContext";
 import { useControlsRow } from "@/components/homePage/projectControls/controlsRow/controlsRow";
 import classes from "./filterButton.module.css";
 
-// "Default" sits at the top as the initial / reset state. "All Works",
-// "Featured", "Corporate" are the explicit filters below it.
-const FILTER_OPTIONS = ["Default", "All Works", "Featured", "Corporate"] as const;
+// "Default" sits at the top as the initial / reset state. "All Works" and
+// "Featured" are the explicit filters below it.
+const FILTER_OPTIONS = ["Default", "All Works", "Featured"] as const;
 type FilterOption = (typeof FILTER_OPTIONS)[number];
 
 type FilterButtonProps = {

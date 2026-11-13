@@ -6,6 +6,9 @@ import { useIsClient } from "@/app/hooks/useIsClient";
 export default function CustomCursor() {
   const isMounted = useIsClient();
   const [isHovering, setIsHovering] = useState(false);
+  // Over sliders (seek, brightness) the hover blob covered the thin track, so
+  // scrubbing was guesswork. There the cursor becomes a slim vertical beam.
+  const [isPrecise, setIsPrecise] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
   // High-performance motion values
@@ -37,6 +40,7 @@ export default function CustomCursor() {
         target.closest('button') ||
         target.closest('a');
         
+      setIsPrecise(!!target.closest('input[type="range"], [data-cursor="precise"]'));
       setIsHovering(!!isClickable);
     };
 
@@ -56,6 +60,15 @@ export default function CustomCursor() {
 
   if (!isMounted) return null;
 
+  const isActive = isHovering || isClicked;
+  const shape = isPrecise
+    ? { width: 3, height: 22, borderRadius: 1.5, backgroundColor: "rgba(120, 120, 120, 0.85)" }
+    : isActive
+      ? { width: 43, height: 43, borderRadius: 21.5, backgroundColor: "rgba(120, 120, 120, 0.4)" }
+      : { width: 19, height: 19, borderRadius: 9.5, backgroundColor: "rgba(100, 100, 100, 0.2)" };
+
+  // Outer box tracks the pointer (32px, centred on the tip); the inner shape
+  // is centred in it and morphs between dot, hover blob and slider beam.
   return (
     <motion.div
       style={{
@@ -64,21 +77,25 @@ export default function CustomCursor() {
         top: 0,
         width: 32,
         height: 32,
-        borderRadius: "50%",
         pointerEvents: "none",
         zIndex: 99999,
         x: smoothX,
         y: smoothY,
-        backgroundColor: (isHovering || isClicked) 
-          ? "rgba(120, 120, 120, 0.4)" 
-          : "rgba(100, 100, 100, 0.2)",
-        border: "none",
-        backdropFilter: (isHovering || isClicked) ? "blur(1px)" : "none",
       }}
-      animate={{
-        scale: (isHovering || isClicked) ? 1.35 : 0.6,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    />
+    >
+      <motion.div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          x: "-50%",
+          y: "-50%",
+          backdropFilter: isActive && !isPrecise ? "blur(1px)" : "none",
+        }}
+        initial={false}
+        animate={shape}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      />
+    </motion.div>
   );
 }
