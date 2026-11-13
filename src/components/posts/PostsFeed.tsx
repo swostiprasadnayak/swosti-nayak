@@ -90,7 +90,7 @@ export default function PostsFeed() {
       
       {/* THE GREY BOX (Island) */}
       <Squircle 
-        cornerRadius={48} 
+        cornerRadius={28} 
         style={{ 
           width: "100%", 
           height: "100%", 
