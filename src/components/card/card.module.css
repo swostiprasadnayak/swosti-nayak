@@ -92,18 +92,19 @@
     overflow: visible;
 }
 
-/* Dark mode overrides */
+/* Dark mode overrides: same charcoal tint as the dock and sidebar
+   (rgb 28,28,30), header one step lighter like the code panel. */
 :global([data-theme="dark"]) .card {
-    background-color: #1e1e1e;
+    background-color: #1c1c1e;
     border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global([data-theme="dark"]) .windowHeader {
-    background: #2a2a2a;
+    background: #232325;
 }
 
 :global([data-theme="dark"]) .videoContainer {
-    background-color: #1e1e1e;
+    background-color: #1c1c1e;
 }
 
 /* Responsive Sizer for Mobile Viewports */

@@ -16,6 +16,12 @@
     gap: 10px;
 }
 
+/* Dark: near-solid so it stays charcoal over the light screenshots instead of
+   washing out to grey (the shared --bg-card is only 85% opaque). */
+:global([data-theme="dark"]) .descriptionContainer {
+    background: rgba(28, 28, 30, 0.94);
+}
+
 .descText {
     margin: 0;
     font-size: 0.9rem;
