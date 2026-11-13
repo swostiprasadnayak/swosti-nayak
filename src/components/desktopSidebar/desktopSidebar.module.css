@@ -193,8 +193,8 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--bg-glass) !important;
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     font-weight: 500;
     margin-top: 0.5rem;

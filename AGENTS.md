@@ -37,7 +37,7 @@ src/components/
     projectControls/      Dock-adjacent UI: filters, view toggle, theme toggle,
                           control panel (brightness, music), code-reveal panel
   caseStudy/
-    template/             One template per case study — Unicef, Blinkit, GCDental, InsureTech
+    template/             One template per case study — Blinkit, GCDental, InsureTech
     insure-tech/          Interactive InsureTech pieces (tree, design system, builder)
     blocks/               Shared case-study building blocks
   dock/ desktopSidebar/ mobile/     Navigation shells (desktop dock, sidebar, mobile nav)

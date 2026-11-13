@@ -53,26 +53,18 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
         if (viewMode === 'card') {
             // Grid layout positions
             const gridPositions: Record<string, { x: number, y: number }> = {
-                syne:         { x: -380, y: -20 },
                 "insure-tech":{ x:   50, y: -20 },
                 blinkit:      { x: -380, y: 350 },
-                aristotle:    { x:   50, y: 350 },
                 "gc-dental":  { x: -380, y: -20 },
-                unicef:       { x: -380, y: -20 },
             };
             return gridPositions[slug] || { x: 0, y: 0 };
         }
 
-        // Initial staggered positions — spread so all 4 default cards are
-        // clearly visible without overlap. Unicef gets its own slot to the
-        // right so it doesn't sit underneath GC Dental.
+        // Initial staggered positions — spread so every card stays visible.
         const positions: Record<string, { x: number, y: number }> = {
-            syne:         { x: -260, y: -60 },
             "gc-dental":  { x: -260, y: -60 },
-            unicef:       { x:  340, y: -80 },
             "insure-tech":{ x:  -70, y:  -15 },
             blinkit:      { x:  150, y:   55 },
-            aristotle:    { x:    0, y:    0 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, [viewMode]);

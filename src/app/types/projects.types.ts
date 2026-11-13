@@ -26,35 +26,11 @@ export const PROJECTS: ProjectContent[] = [
         demoPoster: "/images/blinkit-portal.png"
     },
     {
-        name: "Unicef",
-        slug: "unicef",
-        description: "Building a global education data portal with AI to track learning outcomes for every child.",
-        tags: ["Interaction", "Web"],
-        demoPoster: "/images/unicef-portal.png"
-    },
-    {
         name: "GC Dental",
         slug: "gc-dental",
         description: "B2B Healthcare Web Redesign. Discovery → Design System → Dev Handoff.",
         tags: ["B2B", "Healthcare", "Web"],
         video: "/videos/gc-dental.mp4",
         demoPoster: "/images/gc-banner.webp"
-    },
-    {
-        name: "Surrounding",
-        slug: "syne",
-        description: "Designing a Multi-sensory IoT ecosystem for adaptive home environments based on emotional, activity-based feedback and a Smell Vocabulary of base Odorants.",
-        tags: ["UX", "AI", "XR", "Flutter", "Next.js"],
-        video: "/videos/syne-iot.mp4",
-        demoPoster: "/images/project-1.jpg",
-        disabled: true
-    },
-    {
-        name: "Dynamic Map",
-        slug: "aristotle",
-        description: "Interactive dynamic mapping platform.",
-        tags: ["AI", "Interaction"],
-        demoPoster: "/images/project-3.jpg",
-        disabled: true
     }
 ];

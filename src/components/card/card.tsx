@@ -11,9 +11,7 @@ import type { CardProps } from "@/app/types/cards.types";
 import { PROJECTS } from "@/app/types/projects.types";
 import { useVideoPlayback } from "@/app/hooks/useVideoPlayback";
 
-const VIDEO_POSITIONS: Record<string, string> = {
-    syne: "center bottom",
-};
+const VIDEO_POSITIONS: Record<string, string> = {};
 
 const VIDEO_FIT: Record<string, "cover" | "contain"> = {
     blinkit: "contain",
@@ -28,7 +26,6 @@ const CARD_BG_COLORS: Record<string, string> = {
     blinkit: "#EAEAEA",
     "insure-tech": "#F9F9F9",
     "gc-dental": "#f5f5f5",
-    unicef: "#ffffff",
 };
 
 const EXIT_ANIMATION = {

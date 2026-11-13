@@ -2,8 +2,8 @@
     display: inline-flex;
     align-items: center;
     background: var(--bg-glass);
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     padding: 6px;
     gap: 4px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);

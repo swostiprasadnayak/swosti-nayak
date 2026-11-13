@@ -351,7 +351,7 @@
     text-align: center;
 }
 
-/* ─── Responsive grid utilities (used by GC Dental / Unicef / Blinkit templates) ─── */
+/* ─── Responsive grid utilities (used by GC Dental / Blinkit templates) ─── */
 .rGrid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .rGrid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .rGrid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }

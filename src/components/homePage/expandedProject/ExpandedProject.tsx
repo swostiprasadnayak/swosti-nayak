@@ -9,8 +9,6 @@ import classes from "./expandedProject.module.css";
 // is split into its own chunk instead of shipping with the homepage. Keys are
 // lower-cased project names.
 const CASE_STUDY_LOADERS = {
-    "surrounding": () => import("@/components/caseStudy/template/CaseStudyTemplate"),
-    "unicef": () => import("@/components/caseStudy/template/UnicefCaseStudyTemplate"),
     "blinkit": () => import("@/components/caseStudy/template/BlinkitCaseStudyTemplate"),
     "gc dental": () => import("@/components/caseStudy/template/GCDentalCaseStudyTemplate"),
     "insure-tech": () => import("@/components/caseStudy/template/InsureTechCaseStudyTemplate"),

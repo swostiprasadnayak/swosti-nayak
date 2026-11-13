@@ -17,7 +17,6 @@ const MOBILE_CARD_BG: Record<string, string> = {
     blinkit: "#EAEAEA",
     "insure-tech": "#F9F9F9",
     "gc-dental": "#f5f5f5",
-    unicef: "#ffffff",
 };
 
 // All media uses `contain` on mobile so full image/video shows without crop.
@@ -53,17 +52,17 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         if (activeFilters.length === 0 || activeFilters.includes("Default")) {
             return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental"].includes(p.slug));
         }
-        // All Works: everything including Unicef.
+        // All Works: every published project.
         if (activeFilters.includes("All Works")) {
-            return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental", "unicef"].includes(p.slug));
+            return PROJECTS.filter((p) => !p.disabled);
         }
         // Featured: just the flagship case study.
         if (activeFilters.includes("Featured")) {
             return PROJECTS.filter((p) => p.slug === "insure-tech");
         }
-        // Corporate: client engagements (GC Dental + Unicef).
+        // Corporate: client engagements.
         if (activeFilters.includes("Corporate")) {
-            return PROJECTS.filter((p) => ["gc-dental", "unicef"].includes(p.slug));
+            return PROJECTS.filter((p) => p.slug === "gc-dental");
         }
         // Fallback: tag-based match for any other future categories.
         return PROJECTS.filter((project) =>

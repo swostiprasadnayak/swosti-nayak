@@ -8,9 +8,12 @@
     right: 0;
     width: 360px;
     padding: 18px;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(8px) saturate(120%);
-    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    /* Opaque enough that dark content behind can't tint the glass unevenly. */
+    background: rgba(255, 255, 255, 0.72);
+    /* -webkit- must come first: Next's CSS compiler drops the blur entirely
+       when the prefixed declaration follows the standard one. */
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    backdrop-filter: blur(60px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 42px;
     box-shadow: 
