@@ -30,14 +30,34 @@ import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
 import { AudioLines } from "lucide-react";
 
+// Desktop wallpapers, cycled by the control panel's Image toggle. These are a
+// CSS background (not next/image), so files are pre-sized: 2560px long edge.
+const WALLPAPERS = [
+  "/wallpapers/pexels-sergei-31959340.jpg",
+  "/wallpapers/bg1.jpg",
+  "/wallpapers/jose-llamas.jpg",
+  "/wallpapers/andrei-popescu.jpg",
+  "/wallpapers/clay-banks.jpg",
+  "/wallpapers/agatha-depine.jpg",
+  "/wallpapers/anna-scarfiello.jpg",
+  "/wallpapers/kevin-oetiker.jpg",
+  "/wallpapers/anders-jilden.jpg",
+];
+
 function HomeContent() {
   const [viewMode, setViewMode] = useState<ViewMode>("tab");
   const windowModeState = useWindowMode(viewMode);
   const { openModal: openVoiceModal } = useVoiceModal();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [imageIndex, setImageIndex] = useState<number>(0);
-  const WALLPAPERS = ["/wallpapers/pexels-sergei-31959340.jpg", "/bg.jpg", "/wallpapers/bg1.jpg", "/wallpapers/bg2.jpg", "/wallpapers/bg3.jpg", "/wallpapers/bg4.jpg"];
   const bgImage = WALLPAPERS[imageIndex];
+
+  // Warm the cache for the wallpaper the toggle will show next, so switching
+  // is instant without downloading every wallpaper up front.
+  useEffect(() => {
+    const next = new Image();
+    next.src = WALLPAPERS[(imageIndex + 1) % WALLPAPERS.length];
+  }, [imageIndex]);
 
   // Screenshot State
   const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);

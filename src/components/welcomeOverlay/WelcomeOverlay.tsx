@@ -49,9 +49,8 @@ export default function WelcomeOverlay() {
   useEffect(() => {
     if (!mounted) return;
     const imagePaths = [
-      '/bg.jpg', '/wallpapers/pexels-sergei-31959340.jpg',
-      '/wallpapers/bg1.jpg', '/wallpapers/bg2.jpg',
-      '/wallpapers/bg3.jpg', '/wallpapers/bg4.jpg',
+      // Only the default wallpaper; the page preloads the next one on demand.
+      '/wallpapers/pexels-sergei-31959340.jpg',
       '/feedback-gradient.jpg', '/icon.png',
     ];
     imagePaths.forEach((src) => { const img = new Image(); img.src = src; });
