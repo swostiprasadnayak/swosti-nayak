@@ -177,6 +177,31 @@
     color: #ffffff;
 }
 
+/* Hover-only ↗ (Resume): hidden until hover/focus, then fades in while
+   sliding a few px along its own diagonal. Ease-out with no overshoot, so it
+   glides into place rather than popping. */
+.hoverArrow {
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translate(-6px, 6px);
+    transition:
+        opacity 220ms ease-out,
+        transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navItem:hover .hoverArrow,
+.navItem:focus-visible .hoverArrow {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hoverArrow {
+        transform: none;
+        transition: opacity 150ms ease-out;
+    }
+}
+
 .navItemActive {
     color: var(--text-primary);
     font-weight: 500;
