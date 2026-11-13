@@ -373,27 +373,28 @@
 }
 
 /* ════════════════════════════════════════
-   DARK MODE
+   DARK MODE — same charcoal family as the dock, sidebar, cards and About:
+   base #1c1c1e, raised #232325, controls #2c2c2e.
 ════════════════════════════════════════ */
 :global([data-theme="dark"]) .modal {
-    background: #1e1e1e;
+    background: #1c1c1e;
 }
 
 :global([data-theme="dark"]) .titleBar {
-    background: #252525;
+    background: #232325;
     border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 :global([data-theme="dark"]) .titleBarLabel {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 :global([data-theme="dark"]) .body {
-    background: #1a1a1a;
+    background: #1c1c1e;
 }
 
 :global([data-theme="dark"]) .maskGroup {
-    background: #1e1e1e;
+    background: #232325;
 }
 
 :global([data-theme="dark"]) .ratingLabel {
@@ -401,22 +402,22 @@
 }
 
 :global([data-theme="dark"]) .ratingBtn {
-    background: #2a2a2a;
+    background: #2c2c2e;
     border-color: rgba(255, 255, 255, 0.10);
 }
 
 :global([data-theme="dark"]) .ratingBtn:hover {
-    background: #333;
+    background: #3a3a3c;
     border-color: rgba(255, 255, 255, 0.22);
 }
 
 :global([data-theme="dark"]) .ratingBtn.selected {
     border-color: #f0f0f0;
-    background: #2a2a2a;
+    background: #2c2c2e;
 }
 
 :global([data-theme="dark"]) .ratingText {
-    color: rgba(240, 240, 240, 0.55);
+    color: rgba(240, 240, 240, 0.7);
 }
 
 :global([data-theme="dark"]) .ratingBtn.selected .ratingText {
@@ -424,17 +425,35 @@
 }
 
 :global([data-theme="dark"]) .textarea {
-    background: #2a2a2a;
+    background: #2c2c2e;
     border-color: rgba(255, 255, 255, 0.10);
     color: #f0f0f0;
 }
 
 :global([data-theme="dark"]) .textarea::placeholder {
-    color: rgba(240, 240, 240, 0.30);
+    color: rgba(240, 240, 240, 0.4);
 }
 
 :global([data-theme="dark"]) .textarea:focus {
     border-color: rgba(240, 240, 240, 0.35);
+}
+
+/* Submit: the site's dark-mode green (About's CTA) when enabled; a plainly
+   neutral, disabled-looking chip until a rating is picked (the light-mode
+   forest green at 45% opacity read as a muddy smear on charcoal). */
+:global([data-theme="dark"]) .submitBtn {
+    background: #8db868;
+    color: #10200e;
+}
+
+:global([data-theme="dark"]) .submitBtn:hover {
+    background: #9cc778;
+}
+
+:global([data-theme="dark"]) .submitBtn:disabled {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+    opacity: 1;
 }
 
 :global([data-theme="dark"]) .successTitle {
