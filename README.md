@@ -18,11 +18,18 @@ npm run dev
 
 Then open http://localhost:3000.
 
-The feedback form needs a Resend API key. Without it the rest of the site runs fine:
+The site runs without any environment variables. These enable optional features:
+
+| Variable | Used by | If unset |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Feedback form email (`src/app/api/feedback/route.ts`) | Feedback submissions fail |
+| `FEEDBACK_TO_EMAIL` | Feedback form recipient | Falls back to a hardcoded address |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics (`src/app/layout.tsx`) | Analytics is skipped |
+
+The values live in the Vercel project, scoped to Production (the default `vercel env pull` targets Development, which has none). To pull them into `.env.local`:
 
 ```bash
-# .env.local
-RESEND_API_KEY=your_key_here
+vercel env pull --environment=production
 ```
 
 ## Scripts

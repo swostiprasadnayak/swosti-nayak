@@ -52,3 +52,5 @@ src/data/codeDB.json
 
 # Claude Code local settings (machine-specific; has contained secrets)
 .claude/settings.local.json
+.vercel
+.env*
