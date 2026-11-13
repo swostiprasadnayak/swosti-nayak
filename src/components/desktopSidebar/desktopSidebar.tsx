@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Briefcase, UserRound, Newspaper, FileText } from "lucide-react";
 import classes from "./desktopSidebar.module.css";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
 import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
@@ -111,12 +111,23 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     );
 };
 
-// Brand glyphs (Simple Icons paths) and a small Mail/phone icon for Contact.
+// Line icons for the main nav, brand glyphs (Simple Icons paths) for socials,
+// and a phone icon for Contact.
 // Inlined SVGs use currentColor so they inherit the menu text colour and
 // dark-mode swaps automatically.
 const SectionIcon: React.FC<{ section: string }> = ({ section }) => {
     const common = { width: 16, height: 16, viewBox: "0 0 24 24", "aria-hidden": true, className: classes.navIcon };
+    // Main navigation: lucide line icons, same 16px box as the social glyphs.
+    const line = { size: 16, strokeWidth: 1.75, "aria-hidden": true, className: classes.navIcon } as const;
     switch (section) {
+        case "Work":
+            return <Briefcase {...line} />;
+        case "About":
+            return <UserRound {...line} />;
+        case "Post":
+            return <Newspaper {...line} />;
+        case "Resume":
+            return <FileText {...line} />;
         case "LinkedIn":
             return (
                 <svg {...common} fill="currentColor">
