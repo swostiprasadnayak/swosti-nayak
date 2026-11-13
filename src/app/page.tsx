@@ -34,14 +34,9 @@ import { AudioLines } from "lucide-react";
 // CSS background (not next/image), so files are pre-sized: 2560px long edge.
 const WALLPAPERS = [
   "/wallpapers/pexels-sergei-31959340.jpg",
-  "/wallpapers/bg1.jpg",
   "/wallpapers/jose-llamas.jpg",
-  "/wallpapers/andrei-popescu.jpg",
-  "/wallpapers/clay-banks.jpg",
   "/wallpapers/agatha-depine.jpg",
   "/wallpapers/anna-scarfiello.jpg",
-  "/wallpapers/kevin-oetiker.jpg",
-  "/wallpapers/anders-jilden.jpg",
 ];
 
 function HomeContent() {
