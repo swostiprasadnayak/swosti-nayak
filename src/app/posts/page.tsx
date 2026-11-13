@@ -40,7 +40,7 @@ export default function PostsPage() {
           style={{
             width: "100%",
             height: "100%",
-            background: "#fff",
+            background: "var(--posts-window)",
             boxShadow: "0 24px 64px rgba(0,0,0,0.12)",
             display: "flex",
             flexDirection: "column",
@@ -49,7 +49,7 @@ export default function PostsPage() {
           }}
         >
           {/* macOS Title bar */}
-          <div style={{ height: "52px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", borderBottom: "1px solid #f2f2f2", background: "#fff", flexShrink: 0 }}>
+          <div style={{ height: "52px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", borderBottom: "1px solid var(--posts-titlebar-border)", background: "var(--posts-window)", flexShrink: 0 }}>
             {/* macOS buttons */}
             <div style={{ position: "absolute", left: "16px", display: "flex", gap: "8px" }}>
               <div onClick={handleClose} style={{ width: 12, height: 12, borderRadius: 6, background: "#ff5f56", cursor: "pointer" }} />
@@ -57,7 +57,7 @@ export default function PostsPage() {
               <div style={{ width: 12, height: 12, borderRadius: 6, background: "#27c93f" }} />
             </div>
             {/* Title */}
-            <div style={{ fontSize: "14px", fontWeight: 600, color: "#111" }}>Posts</div>
+            <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--posts-title)" }}>Posts</div>
           </div>
 
           {/* The content area */}

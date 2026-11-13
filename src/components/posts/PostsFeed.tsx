@@ -94,11 +94,11 @@ export default function PostsFeed() {
         style={{ 
           width: "100%", 
           height: "100%", 
-          background: "#F0F0F0", 
+          background: "var(--posts-island)", 
           overflowY: "auto", 
           scrollbarWidth: "none", 
           msOverflowStyle: "none",
-          boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.03)"
+          boxShadow: "inset 0 0 0 1px var(--posts-island-edge)"
         }}
       >
         {/* INNER CONTAINER: Shifted 70px left on desktop */}
@@ -108,7 +108,7 @@ export default function PostsFeed() {
               <Squircle
                 key={post.id}
                 cornerRadius={24}
-                style={{ background: "#FBFBFB", padding: "20px 20px 20px", boxShadow: "0 4px 20px rgba(0,0,0,0.03)", cursor: "pointer" }}
+                style={{ background: "var(--posts-card)", padding: "20px 20px 20px", boxShadow: "0 4px 20px rgba(0,0,0,0.03)", cursor: "pointer" }}
                 onClick={() => setExpandedId(post.id)}
               >
                 <motion.div layoutId={`post-container-${post.id}`}>
@@ -119,17 +119,17 @@ export default function PostsFeed() {
                        <Image src={post.avatar} alt={post.author} fill sizes="36px" style={{ objectFit: "cover" }} />
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
-                      <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "4px" }}>
+                      <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "var(--posts-text)", display: "flex", alignItems: "center", gap: "4px" }}>
                         {post.author} 
                         <Image src="/icons/SVG.png" alt="verified" width={14} height={14} style={{ width: 14, height: 14, objectFit: "contain" }} /> 
-                        <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: "0.8rem" }}>• {post.time}</span>
+                        <span style={{ color: "var(--posts-muted)", fontWeight: 400, fontSize: "0.8rem" }}>• {post.time}</span>
                       </div>
-                      <div style={{ fontSize: "0.75rem", color: "#8e8e93", fontWeight: 500 }}>{post.location}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--posts-muted)", fontWeight: 500 }}>{post.location}</div>
                     </div>
                   </motion.div>
 
                   {/* Post Media: 4/3 aspect ratio */}
-                  <motion.div layoutId={`post-media-${post.id}`} style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", marginBottom: "14px", background: "#f0f0f0" }}>
+                  <motion.div layoutId={`post-media-${post.id}`} style={{ position: "relative", width: "100%", aspectRatio: "4/3", borderRadius: "12px", overflow: "hidden", marginBottom: "14px", background: "var(--posts-media)" }}>
                     <Image src={post.mediaUrl} alt="Post media" fill sizes="(max-width: 768px) 90vw, 400px" loading="lazy" style={{ objectFit: "cover" }} />
                     <div style={{ 
                       position: "absolute", 
@@ -152,14 +152,14 @@ export default function PostsFeed() {
                   {/* Post Actions & Content */}
                   <motion.div layoutId={`post-footer-${post.id}`}>
                     <div style={{ display: "flex", gap: "20px", marginBottom: "12px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#1c2b33" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "var(--posts-text)" }}>
                         <Image src="/icons/Vector.png" alt="like" width={22} height={22} style={{ width: 22, height: 22 }} /> 119 likes
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "#5c6770" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "var(--posts-share)" }}>
                         <Image src="/icons/Container.png" alt="share" width={22} height={22} style={{ width: 22, height: 22 }} /> Share
                       </div>
                     </div>
-                    <p style={{ fontSize: "0.85rem", color: "#1c2b33", lineHeight: 1.6, margin: 0 }}>
+                    <p style={{ fontSize: "0.85rem", color: "var(--posts-text)", lineHeight: 1.6, margin: 0 }}>
                       <span style={{ fontWeight: 600 }}>{post.author}</span> 
                       <Image src="/icons/SVG.png" alt="verified" width={12} height={12} style={{ width: 12, height: 12, margin: "0 6px", display: "inline-block" }} />
                       {post.content}
@@ -206,19 +206,19 @@ export default function PostsFeed() {
                         <Image src={post.avatar} alt={post.author} fill sizes="48px" style={{ objectFit: "cover" }} />
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                        <div style={{ fontWeight: 700, fontSize: "1.05rem", color: "#1c2b33", display: "flex", alignItems: "center", gap: "6px" }}>
+                        <div style={{ fontWeight: 700, fontSize: "1.05rem", color: "var(--posts-text)", display: "flex", alignItems: "center", gap: "6px" }}>
                           {post.author} 
                           <Image src="/icons/SVG.png" alt="verified" width={16} height={16} style={{ width: 16, height: 16, objectFit: "contain" }} />
-                          <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: "0.9rem" }}>• {post.time}</span>
+                          <span style={{ color: "var(--posts-muted)", fontWeight: 400, fontSize: "0.9rem" }}>• {post.time}</span>
                         </div>
-                        <div style={{ fontSize: "0.9rem", color: "#8e8e93", fontWeight: 500 }}>{post.location}</div>
+                        <div style={{ fontSize: "0.9rem", color: "var(--posts-muted)", fontWeight: 500 }}>{post.location}</div>
                       </div>
                     </motion.div>
 
                     {/* Media */}
                     <motion.div 
                       layoutId={`post-media-${post.id}`} 
-                      style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "16px", overflow: "hidden", marginBottom: "24px", background: "#f0f0f0" }}
+                      style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "16px", overflow: "hidden", marginBottom: "24px", background: "var(--posts-media)" }}
                     >
                       <Image src={post.mediaUrl} alt="Post media" fill sizes="(max-width: 768px) 90vw, 700px" loading="lazy" style={{ objectFit: "cover" }} />
                       <button 
@@ -231,7 +231,7 @@ export default function PostsFeed() {
                           border: "none", 
                           padding: "12px", 
                           borderRadius: "12px", 
-                          color: "#1c2b33", 
+                          color: "var(--posts-text)", 
                           display: "flex", 
                           alignItems: "center", 
                           justifyContent: "center", 
@@ -246,14 +246,14 @@ export default function PostsFeed() {
                     {/* Actions */}
                     <motion.div layoutId={`post-footer-${post.id}`}>
                       <div style={{ display: "flex", gap: "24px", marginBottom: "20px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 600, color: "#1c2b33" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 600, color: "var(--posts-text)" }}>
                           <Image src="/icons/Vector.png" alt="like" width={24} height={24} style={{ width: 24, height: 24 }} /> 119 likes
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 500, color: "#5c6770" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 500, color: "var(--posts-share)" }}>
                           <Image src="/icons/Container.png" alt="share" width={24} height={24} style={{ width: 24, height: 24 }} /> Share
                         </div>
                       </div>
-                      <p style={{ fontSize: "1.1rem", color: "#1c2b33", lineHeight: 1.7, marginBottom: "40px" }}>
+                      <p style={{ fontSize: "1.1rem", color: "var(--posts-text)", lineHeight: 1.7, marginBottom: "40px" }}>
                         <span style={{ fontWeight: 700 }}>{post.author}</span> 
                         <Image src="/icons/SVG.png" alt="verified" width={14} height={14} style={{ width: 14, height: 14, margin: "0 8px", display: "inline-block" }} />
                         {post.content}
@@ -264,10 +264,10 @@ export default function PostsFeed() {
                     <div 
                       className="post-content-rich"
                       style={{ 
-                        color: "#1c2b33", 
+                        color: "var(--posts-text)", 
                         fontSize: "1.1rem", 
                         lineHeight: 1.8, 
-                        borderTop: "1px solid #f0f0f0", 
+                        borderTop: "1px solid var(--posts-rule)", 
                         paddingTop: "40px",
                         fontFamily: "Inter, sans-serif"
                       }}
@@ -285,7 +285,7 @@ export default function PostsFeed() {
       <style jsx global>{`
         .post-content-rich h2 { font-size: 1.8rem; font-weight: 700; margin: 32px 0 16px; }
         .post-content-rich h3 { font-size: 1.4rem; font-weight: 600; margin: 24px 0 12px; }
-        .post-content-rich p { margin-bottom: 24px; color: #333; }
+        .post-content-rich p { margin-bottom: 24px; color: var(--posts-rich-text); }
         /* Hard width caps so nothing in the rich body can push the panel
            wider than its column (was overflowing on small phones). */
         .post-content-rich { max-width: 100%; word-wrap: break-word; overflow-wrap: anywhere; }

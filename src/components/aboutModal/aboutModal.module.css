@@ -357,26 +357,28 @@
     }
 }
 
-/* ── Dark mode overrides ── */
+/* ── Dark mode overrides ──
+   Same charcoal family as the dock, sidebar, cards and code panel:
+   base #1c1c1e, raised surfaces #232325 (mirrors light: grey body, white panel). */
 :global([data-theme="dark"]) .modal {
-    background: #1e1e1e;
+    background: #1c1c1e;
 }
 
 :global([data-theme="dark"]) .titleBar {
-    background: #252525;
+    background: #232325;
     border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 :global([data-theme="dark"]) .titleBarLabel {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 :global([data-theme="dark"]) .body {
-    background: #1a1a1a;
+    background: #1c1c1e;
 }
 
 :global([data-theme="dark"]) .maskGroup {
-    background: #1e1e1e;
+    background: #232325;
 }
 
 :global([data-theme="dark"]) .rightPanel {

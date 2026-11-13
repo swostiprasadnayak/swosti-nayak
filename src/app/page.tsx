@@ -222,16 +222,16 @@ function HomeContent() {
               >
                 <Squircle
                   cornerRadius={24}
-                  style={{ width: '100%', height: '100%', background: '#fff', boxShadow: '0 24px 64px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden', pointerEvents: 'auto' }}
+                  style={{ width: '100%', height: '100%', background: 'var(--posts-window)', boxShadow: '0 24px 64px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden', pointerEvents: 'auto' }}
                 >
                   {/* macOS Title bar */}
-                  <div style={{ height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #f2f2f2', background: '#fff', flexShrink: 0 }}>
+                  <div style={{ height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid var(--posts-titlebar-border)', background: 'var(--posts-window)', flexShrink: 0 }}>
                     <div style={{ position: 'absolute', left: '16px', display: 'flex', gap: '8px' }}>
                       <div onClick={() => setIsPostsOpen(false)} style={{ width: 12, height: 12, borderRadius: 6, background: '#ff5f56', cursor: 'pointer' }} />
                       <div style={{ width: 12, height: 12, borderRadius: 6, background: '#ffbd2e' }} />
                       <div style={{ width: 12, height: 12, borderRadius: 6, background: '#27c93f' }} />
                     </div>
-                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#111' }}>Posts</div>
+                    <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--posts-title)' }}>Posts</div>
                   </div>
 
                   {/* Content area */}

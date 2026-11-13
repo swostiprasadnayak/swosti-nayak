@@ -63,6 +63,21 @@
   --slider-track: rgba(255, 255, 255, 0.95) !important;
   --slider-fill-color: rgba(0, 0, 0, 0.09) !important;
   --slider-tick: rgba(0, 0, 0, 0.14) !important;
+
+  /* Posts window (light values = the original hardcoded colours) */
+  --posts-window: #ffffff;
+  --posts-titlebar-border: #f2f2f2;
+  --posts-title: #111111;
+  --posts-island: #f0f0f0;
+  --posts-island-edge: rgba(0, 0, 0, 0.03);
+  --posts-card: #fbfbfb;
+  --posts-media: #f0f0f0;
+  --posts-text: #1c2b33;
+  --posts-muted: #8e8e93;
+  --posts-share: #5c6770;
+  --posts-rich-text: #333333;
+  --posts-rule: #f0f0f0;
+  --posts-backdrop: rgba(240, 240, 240, 0.95);
 }
 
 
@@ -101,6 +116,21 @@
   --slider-track: rgba(255, 255, 255, 0.12) !important;
   --slider-fill-color: rgba(255, 255, 255, 0.85) !important;
   --slider-tick: rgba(255, 255, 255, 0.25) !important;
+
+  /* Posts window — charcoal family: window #1c1c1e, island darker, cards raised */
+  --posts-window: #1c1c1e;
+  --posts-titlebar-border: rgba(255, 255, 255, 0.08);
+  --posts-title: rgba(255, 255, 255, 0.85);
+  --posts-island: #141416;
+  --posts-island-edge: rgba(255, 255, 255, 0.05);
+  --posts-card: #232325;
+  --posts-media: #2c2c2e;
+  --posts-text: rgba(255, 255, 255, 0.92);
+  --posts-muted: rgba(235, 235, 245, 0.55);
+  --posts-share: rgba(235, 235, 245, 0.7);
+  --posts-rich-text: rgba(255, 255, 255, 0.78);
+  --posts-rule: rgba(255, 255, 255, 0.08);
+  --posts-backdrop: rgba(20, 20, 22, 0.95);
 
   /* Accents */
   --accent-color: #409cff;
@@ -155,7 +185,7 @@ body {
   left: -12%;
   width: 113.7vw;
   height: 100vh;
-  background: rgba(240, 240, 240, 0.95);
+  background: var(--posts-backdrop);
   z-index: 100;
   backdrop-filter: blur(10px);
 }
@@ -183,7 +213,7 @@ body {
 }
 
 .posts-expanded-card {
-  background: #FBFBFB;
+  background: var(--posts-card);
   width: 95%;
   max-width: 850px;
   height: auto;
