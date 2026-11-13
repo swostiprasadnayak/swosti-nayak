@@ -155,7 +155,8 @@ const NavItem: React.FC<{
         <>
             <SectionIcon section={section} />
             <span style={{ flex: 1 }}>{section}</span>
-            {isFeedback && <ArrowUpRight size={16} strokeWidth={2} />}
+            {/* Trailing ↗ on Feedback, and on Resume since it opens in a new tab */}
+            {(isFeedback || section === "Resume") && <ArrowUpRight size={16} strokeWidth={2} aria-hidden="true" />}
         </>
     );
 
