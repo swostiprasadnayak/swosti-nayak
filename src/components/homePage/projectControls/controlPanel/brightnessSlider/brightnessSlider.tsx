@@ -7,12 +7,15 @@ import classes from "./brightnessSlider.module.css";
 type BrightnessSliderProps = {
   onBrightnessChange?: (percent: number) => void;
   isOpen?: boolean;
-  labelColor?: string;
+  /** "dark" forces the dark colours regardless of theme, for surfaces that are
+   *  always dark (the mobile control sheet). "auto" follows the theme. */
+  surface?: "auto" | "dark";
 };
 
-export default function BrightnessSlider({ onBrightnessChange, labelColor }: BrightnessSliderProps) {
+export default function BrightnessSlider({ onBrightnessChange, surface = "auto" }: BrightnessSliderProps) {
   const [level, setLevel] = useState(100);
   const { isDark } = useTheme();
+  const dark = surface === "dark" || isDark;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
@@ -21,8 +24,8 @@ export default function BrightnessSlider({ onBrightnessChange, labelColor }: Bri
   };
 
   return (
-    <div className={classes.container}>
-      <span className={classes.label} style={labelColor ? { color: labelColor } : undefined}>Display</span>
+    <div className={`${classes.container} ${dark ? classes.dark : ""}`}>
+      <span className={classes.label}>Display</span>
       <div className={classes.sliderOuter}>
         <div className={classes.sunIcon}>
           <Sun size={20} />
@@ -37,7 +40,7 @@ export default function BrightnessSlider({ onBrightnessChange, labelColor }: Bri
             max="100"
             value={level}
             onChange={handleChange}
-            className={`${classes.slider} ${isDark ? classes.sliderDark : classes.sliderLight}`}
+            className={classes.slider}
           />
         </div>
       </div>

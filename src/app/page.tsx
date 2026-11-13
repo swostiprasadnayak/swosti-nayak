@@ -127,8 +127,11 @@ function HomeContent() {
         />
       </div>
 
-      {/* 2. The Main Desktop Area */}
-      <div style={{ flex: 1, position: 'relative', zIndex: 10 }}>
+      {/* 2. The Main Desktop Area. Clipped horizontally so windows positioned or
+          dragged left slide under the sidebar instead of covering it (both
+          wrappers are z-index 10, so this later one would otherwise paint on top).
+          Overlays that should cover the sidebar are position: fixed and unaffected. */}
+      <div style={{ flex: 1, position: 'relative', zIndex: 10, overflowX: 'clip' }}>
         <GradientBlur direction="top" />
 
         {/* Top Controls Container: Left, Center, Right components */}

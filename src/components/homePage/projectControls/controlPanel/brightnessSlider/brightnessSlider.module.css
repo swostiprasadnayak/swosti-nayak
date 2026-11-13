@@ -7,76 +7,54 @@
 .label {
   font-size: 1.05rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(0, 0, 0, 0.75);
   letter-spacing: -0.01em;
 }
 
-[data-theme="dark"] .label {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Outer container: sun icon + inner slider pill side by side */
+/* Outer container: sun icon + inner slider pill side by side.
+   Light mode: near-white box, darker grey rail, lighter grey fill, dark handle. */
 .sliderOuter {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.95);
+  background: #fafafb;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 18px;
   box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.2s ease;
 }
 
-[data-theme="dark"] .sliderOuter {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
 /* Sun icon sits outside the pill */
 .sunIcon {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-[data-theme="dark"] .sunIcon {
-  color: rgba(255, 255, 255, 0.45);
-}
-
-/* Inner rounded pill  rail = faint grey (unfilled area). Sits on a white
-   tile, so both rail and fill need their own grey to stay visible. */
+/* Inner rounded pill  rail = unfilled area */
 .sliderInner {
   position: relative;
   flex: 1;
   height: 46px;
-  background: rgba(60, 60, 67, 0.07);
+  background: #cbcbd2;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-[data-theme="dark"] .sliderInner {
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Fill layer  darker grey on the left (filled area). Not white: at the
-   default 100% it covers the whole rail and vanished into the white tile. */
+/* Fill layer  filled area, lighter than the rail */
 .sliderFill {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  background: rgba(60, 60, 67, 0.17);
+  background: #e3e3e7;
   pointer-events: none;
   z-index: 1;
   transition: width 0.1s ease-out;
-}
-
-[data-theme="dark"] .sliderFill {
-  background: rgba(255, 255, 255, 0.28);
 }
 
 /* Tick marks  10 segments */
@@ -87,24 +65,14 @@
     to right,
     transparent,
     transparent calc(10% - 1px),
-    rgba(0, 0, 0, 0.22) calc(10% - 1px),
-    rgba(0, 0, 0, 0.22) 10%
+    rgba(0, 0, 0, 0.2) calc(10% - 1px),
+    rgba(0, 0, 0, 0.2) 10%
   );
   pointer-events: none;
   height: 24px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
-}
-
-[data-theme="dark"] .ticks {
-  background: repeating-linear-gradient(
-    to right,
-    transparent,
-    transparent calc(10% - 1px),
-    rgba(255, 255, 255, 0.32) calc(10% - 1px),
-    rgba(255, 255, 255, 0.32) 10%
-  );
 }
 
 /* Range input covers entire inner pill */
@@ -122,42 +90,70 @@
   z-index: 4;
 }
 
-/* Light mode thumb  small visible rounded rect */
-.sliderLight::-webkit-slider-thumb {
+/* Thumb  small rounded rect */
+.slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 5px;
   height: 28px;
-  background: rgba(0, 0, 0, 0.45);
+  background: #6e6e73;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.sliderLight::-moz-range-thumb {
+.slider::-moz-range-thumb {
   width: 5px;
   height: 28px;
-  background: rgba(0, 0, 0, 0.45);
+  background: #6e6e73;
   border-radius: 3px;
   border: none;
   cursor: pointer;
 }
 
-/* Dark mode thumb */
-.sliderDark::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 5px;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.45);
-  border-radius: 3px;
-  cursor: pointer;
+.slider:focus-visible {
+  outline: 2px solid rgba(0, 122, 255, 0.6);
+  outline-offset: -2px;
+  border-radius: 12px;
 }
 
-.sliderDark::-moz-range-thumb {
-  width: 5px;
-  height: 28px;
+/* ── Dark colours (dark theme, or surface="dark") ───────────────────────── */
+.dark .label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dark .sliderOuter {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark .sunIcon {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dark .sliderInner {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .sliderFill {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.dark .ticks {
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(10% - 1px),
+    rgba(255, 255, 255, 0.32) calc(10% - 1px),
+    rgba(255, 255, 255, 0.32) 10%
+  );
+}
+
+.dark .slider::-webkit-slider-thumb {
   background: rgba(255, 255, 255, 0.45);
-  border-radius: 3px;
-  border: none;
-  cursor: pointer;
+}
+
+.dark .slider::-moz-range-thumb {
+  background: rgba(255, 255, 255, 0.45);
 }

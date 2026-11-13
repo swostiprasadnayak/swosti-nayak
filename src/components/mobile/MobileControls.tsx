@@ -508,7 +508,7 @@ export default function MobileControls({
 
               {/* Brightness Slider */}
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isControlOpen} labelColor="rgba(255, 255, 255, 0.95)" />
+                <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isControlOpen} surface="dark" />
               </div>
             </motion.div>
           </>
