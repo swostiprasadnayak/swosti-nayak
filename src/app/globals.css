@@ -31,8 +31,9 @@
   --bg-glass: rgba(255, 255, 255, 0.55);
   --bg-blur: rgba(255, 255, 255, 0.4);
   
-  /* Sidebar (Highly transparent so the blur works) */
-  --glass-sidebar: rgba(255, 255, 255, 0.15) !important; 
+  /* Sidebar (Highly transparent so the blur works). No !important here: an
+     important custom property beats the [data-theme="dark"] value below. */
+  --glass-sidebar: rgba(255, 255, 255, 0.15);
 
   /* Borders */
   --border-subtle: rgba(0, 0, 0, 0.15);
@@ -80,7 +81,7 @@
   /* Translucency & Glassmorphism */
   --bg-glass: rgba(28, 28, 30, 0.45);
   --bg-blur: rgba(25, 25, 28, 0.55);
-  --glass-sidebar: rgba(0, 0, 0, 0.55);
+  --glass-sidebar: rgba(28, 28, 30, 0.55); /* same tint as the dock (--bg-glass), a little denser for text */
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.18);
