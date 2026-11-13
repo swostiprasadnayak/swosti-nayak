@@ -52,18 +52,18 @@ export default function FileSidebar({ selectedFile, onSelectFile }: { selectedFi
                     style={{
                         display: "flex", alignItems: "center", gap: "8px", padding: "6px 8px",
                         paddingLeft: `${level * 16 + 8}px`, border: "none",
-                        background: isSelected ? "#f1f5f9" : "transparent",
+                        background: isSelected ? "var(--cr-row-selected)" : "transparent",
                         borderRadius: "6px", cursor: "pointer", textAlign: "left", width: "100%",
-                        color: isSelected ? "#0f172a" : "#475569", fontSize: "0.95rem",
+                        color: isSelected ? "var(--cr-text-strong)" : "var(--cr-text)", fontSize: "0.95rem",
                     }}
                 >
                     {isFolder ? (
                         <>
-                            {isExpanded ? <ChevronDown size={14} color="#94a3b8" /> : <ChevronRight size={14} color="#94a3b8" />}
+                            {isExpanded ? <ChevronDown size={14} color="var(--cr-muted)" /> : <ChevronRight size={14} color="var(--cr-muted)" />}
                             {isExpanded ? <FolderOpen size={16} fill="#3b82f6" color="#3b82f6" /> : <Folder size={16} fill="#3b82f6" color="#3b82f6" />}
                         </>
                     ) : (
-                        <FileText size={14} color="#cbd5e1" style={{ marginLeft: "22px" }} />
+                        <FileText size={14} color="var(--cr-file-icon)" style={{ marginLeft: "22px" }} />
                     )}
                     <span style={{ fontWeight: isFolder ? 500 : 400 }}>{node.name}</span>
                 </button>
@@ -73,15 +73,15 @@ export default function FileSidebar({ selectedFile, onSelectFile }: { selectedFi
     };
 
     return (
-        <div style={{ width: "260px", background: "#ffffff", borderRight: "1px solid rgba(0,0,0,0.06)", overflowY: "auto", padding: "20px 16px", flexShrink: 0 }}>
+        <div style={{ width: "260px", background: "var(--cr-sidebar)", borderRight: "1px solid var(--cr-divider)", overflowY: "auto", padding: "20px 16px", flexShrink: 0 }}>
             {/* Root Node Header */}
             <div style={{ marginBottom: "20px" }}>
                 <div style={{
                     display: "flex", alignItems: "center", gap: "10px", padding: "8px 12px",
-                    border: "1px solid rgba(0,0,0,0.08)", borderRadius: "6px", background: "#f8fafc",
-                    fontSize: "0.95rem", fontWeight: 600, color: "#334155", cursor: "default"
+                    border: "1px solid var(--cr-root-border)", borderRadius: "6px", background: "var(--cr-root-bg)",
+                    fontSize: "0.95rem", fontWeight: 600, color: "var(--cr-root-text)", cursor: "default"
                 }}>
-                    <GitBranch size={16} color="#64748b" style={{ transform: "rotate(90deg)" }} />
+                    <GitBranch size={16} color="var(--cr-branch-icon)" style={{ transform: "rotate(90deg)" }} />
                     portfolio-site
                 </div>
             </div>

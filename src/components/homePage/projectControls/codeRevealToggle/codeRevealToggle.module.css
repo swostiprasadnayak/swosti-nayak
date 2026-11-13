@@ -6,7 +6,27 @@
     left: 16rem;
     /* Leaves the main sidebar visible! Our sidebar is 16rem */
     z-index: 1000;
-    background: var(--bg-card);
+
+    /* Panel palette. Light values match the previous hardcoded colours. Dark
+       values are opaque on purpose: the theme's --bg-card / --bg-secondary are
+       translucent in dark mode, which let the page's top bar ghost through. */
+    --cr-bg: #ffffff;
+    --cr-header: #f5f5f5;
+    --cr-sidebar: #ffffff;
+    --cr-divider: rgba(0, 0, 0, 0.06);
+    --cr-row-selected: #f1f5f9;
+    --cr-text: #475569;
+    --cr-text-strong: #0f172a;
+    --cr-muted: #94a3b8;
+    --cr-file-icon: #cbd5e1;
+    --cr-root-bg: #f8fafc;
+    --cr-root-border: rgba(0, 0, 0, 0.08);
+    --cr-root-text: #334155;
+    --cr-branch-icon: #64748b;
+    --cr-close-bg: #f1f5f9;
+    --cr-close-fg: #64748b;
+
+    background: var(--cr-bg);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -22,7 +42,7 @@
     padding: 16px 24px;
     border-bottom: 1px solid var(--border-subtle);
     flex-shrink: 0;
-    background: var(--bg-secondary);
+    background: var(--cr-header);
 }
 
 .headerContent {
@@ -39,5 +59,23 @@
     min-height: 0;
     overflow: hidden;
     position: relative;
-    background: var(--bg-card);
+    background: var(--cr-bg);
+}
+
+:global([data-theme="dark"]) .overlay {
+    --cr-bg: #1c1c1e;
+    --cr-header: #232325;
+    --cr-sidebar: #1f1f21;
+    --cr-divider: rgba(255, 255, 255, 0.08);
+    --cr-row-selected: rgba(255, 255, 255, 0.08);
+    --cr-text: rgba(255, 255, 255, 0.72);
+    --cr-text-strong: #ffffff;
+    --cr-muted: rgba(255, 255, 255, 0.45);
+    --cr-file-icon: rgba(255, 255, 255, 0.35);
+    --cr-root-bg: rgba(255, 255, 255, 0.05);
+    --cr-root-border: rgba(255, 255, 255, 0.1);
+    --cr-root-text: rgba(255, 255, 255, 0.85);
+    --cr-branch-icon: rgba(255, 255, 255, 0.55);
+    --cr-close-bg: rgba(255, 255, 255, 0.08);
+    --cr-close-fg: rgba(255, 255, 255, 0.75);
 }

@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vs, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Copy, Check } from "lucide-react";
+import { useTheme } from "@/app/contexts/ThemeContext";
 
 export default function CodePanel({ selectedFile }: { selectedFile: string | null }) {
     const [content, setContent] = useState<string>("");
     const [copied, setCopied] = useState(false);
+    const { isDark } = useTheme();
 
     useEffect(() => {
         if (!selectedFile) return;
@@ -26,7 +28,7 @@ export default function CodePanel({ selectedFile }: { selectedFile: string | nul
     };
 
     if (!selectedFile) {
-        return <div style={{ flex: 1, background: "var(--bg-card)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>Select a file from the explorer to view its code.</div>;
+        return <div style={{ flex: 1, background: "var(--cr-bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>Select a file from the explorer to view its code.</div>;
     }
 
     // Format breadcrumbs "portfolio-site / folder / folder / file.tsx"
@@ -35,13 +37,13 @@ export default function CodePanel({ selectedFile }: { selectedFile: string | nul
     const folderPath = parts.length > 0 ? parts.join(" / ") + " / " : "";
 
     return (
-        <div style={{ flex: 1, background: "var(--bg-card)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        <div style={{ flex: 1, background: "var(--cr-bg)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
             <div style={{
                 padding: "20px 24px",
                 borderBottom: "1px solid var(--border-subtle)",
                 fontSize: "0.95rem",
                 color: "var(--text-secondary)",
-                background: "var(--bg-card)",
+                background: "var(--cr-bg)",
                 zIndex: 10,
                 display: "flex",
                 alignItems: "center",
@@ -59,7 +61,7 @@ export default function CodePanel({ selectedFile }: { selectedFile: string | nul
                         padding: "6px 12px",
                         borderRadius: "6px",
                         border: "1px solid var(--border-subtle)",
-                        background: copied ? "#dcfce7" : "var(--bg-card)",
+                        background: copied ? "#dcfce7" : "var(--cr-bg)",
                         color: copied ? "#166534" : "var(--text-secondary)",
                         cursor: "pointer",
                         fontSize: "0.9rem",
@@ -91,10 +93,12 @@ export default function CodePanel({ selectedFile }: { selectedFile: string | nul
                     )}
                 </button>
             </div>
-            <div style={{ flex: 1, overflowY: "auto", background: "var(--bg-card)" }}>
+            <div style={{ flex: 1, overflowY: "auto", background: "var(--cr-bg)" }}>
                 <SyntaxHighlighter
                     language={selectedFile.endsWith('.css') ? 'css' : 'tsx'}
-                    style={vs}
+                    style={isDark ? oneDark : vs}
+                    // oneDark paints its own panel colour on <code>; keep the panel's background.
+                    codeTagProps={isDark ? { style: { ...oneDark['code[class*="language-"]'], background: "transparent" } } : undefined}
                     customStyle={{
                         background: 'transparent',
                         border: 'none',

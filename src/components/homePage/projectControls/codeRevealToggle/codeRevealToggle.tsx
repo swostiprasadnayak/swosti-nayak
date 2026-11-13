@@ -45,15 +45,15 @@ export default function CodeRevealToggle() {
                         >
                             <div className={classes.header}>
                                 <div className={classes.headerContent}>
-                                    <SquareTerminal size={18} strokeWidth={2} color="#94a3b8" />
-                                    <span style={{ color: "#94a3b8", fontWeight: 400 }}>code snippets</span>
+                                    <SquareTerminal size={18} strokeWidth={2} color="var(--cr-muted)" />
+                                    <span style={{ color: "var(--cr-muted)", fontWeight: 400 }}>code snippets</span>
                                 </div>
 
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     style={{
                                         width: "36px", height: "36px", borderRadius: "10px",
-                                        border: "none", background: "#f1f5f9", color: "#64748b",
+                                        border: "none", background: "var(--cr-close-bg)", color: "var(--cr-close-fg)",
                                         display: "flex", alignItems: "center", justifyContent: "center",
                                         cursor: "pointer", transition: "background 0.2s"
                                     }}
