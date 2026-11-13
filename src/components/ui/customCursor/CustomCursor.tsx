@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useIsClient } from "@/app/hooks/useIsClient";
 
 export default function CustomCursor() {
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useIsClient();
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -17,8 +18,6 @@ export default function CustomCursor() {
   const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    setIsMounted(true);
-    
     // Check if device has a touch screen, don't show custom cursor if it does
     if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
 

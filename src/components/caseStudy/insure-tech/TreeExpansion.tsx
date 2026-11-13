@@ -84,6 +84,9 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
   const [zoom, setZoom] = useState(0.7);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const isPanning = useRef(false);
+  // Mirrors isPanning for rendering: a ref change doesn't re-render, so the
+  // cursor never switched to "grabbing" on mouse-down.
+  const [panning, setPanning] = useState(false);
   const lastMouse = useRef({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLDivElement>(null);
 
@@ -109,6 +112,7 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
   const onMouseDown = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest("button")) return;
     isPanning.current = true;
+    setPanning(true);
     lastMouse.current = { x: e.clientX, y: e.clientY };
   };
   const onMouseMove = (e: React.MouseEvent) => {
@@ -118,7 +122,7 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
     lastMouse.current = { x: e.clientX, y: e.clientY };
     setPan(p => ({ x: p.x + dx, y: p.y + dy }));
   };
-  const onMouseUp = () => { isPanning.current = false; };
+  const onMouseUp = () => { isPanning.current = false; setPanning(false); };
 
   const zoomIn  = () => setZoom(z => Math.min(2,   Math.round((z + 0.1) * 10) / 10));
   const zoomOut = () => setZoom(z => Math.max(0.2, Math.round((z - 0.1) * 10) / 10));
@@ -200,7 +204,7 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
           style={{
             flex: 1, overflow: "hidden",
             position: "relative",
-            cursor: isPanning.current ? "grabbing" : "grab",
+            cursor: panning ? "grabbing" : "grab",
             background: C.bgTertiary,
             backgroundImage: `radial-gradient(circle, ${C.borderStrong} 1px, transparent 1px)`,
             backgroundSize: `${Math.max(16, 24 * zoom)}px ${Math.max(16, 24 * zoom)}px`,
@@ -954,7 +958,16 @@ function ParameterDrawer({ field, tier, setTier, onClose, onJump }: {
   const status = statusOf(field, tier);
   const [draft, setDraft] = useState(val.display);
 
-  useEffect(() => { setDraft(val.display); }, [field.id, tier, val.display]);
+  // Reset the draft when a different field/tier is shown. Done during render
+  // (React's "adjust state on prop change" pattern) rather than in an effect,
+  // which painted the previous field's value for a frame first. A `key` would
+  // also work but would wipe the comment footer's state too.
+  const draftKey = `${field.id}:${tier}`;
+  const [draftFor, setDraftFor] = useState(draftKey);
+  if (draftFor !== draftKey) {
+    setDraftFor(draftKey);
+    setDraft(val.display);
+  }
 
   return (
     <>

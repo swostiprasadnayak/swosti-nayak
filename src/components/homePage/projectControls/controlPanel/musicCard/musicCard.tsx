@@ -4,9 +4,10 @@ import Image from "next/image";
 import { Squircle } from "corner-smoothing";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import { Play, Pause, FastForward, Rewind } from "lucide-react";
+import type { MusicPlayerState } from "@/app/hooks/useMusicPlayer";
 import classes from "./musicCard.module.css";
 
-export default function MusicCard({ player }: any) {
+export default function MusicCard({ player }: { player: MusicPlayerState }) {
     const { track, progress, isPlaying, togglePlay, nextTrack, prevTrack, seek, currentTime, duration } = player;
     const { isDark } = useTheme();
 
@@ -55,6 +56,7 @@ export default function MusicCard({ player }: any) {
                         step="0.1"
                         value={progress || 0}
                         onChange={(e) => seek(parseFloat(e.target.value))}
+                        aria-label="Seek"
                         className={classes.rangeInput}
                         style={{
                             position: "absolute", inset: "-10px 0", zIndex: 2
@@ -76,6 +78,7 @@ export default function MusicCard({ player }: any) {
             }}>
                 <button 
                     onClick={prevTrack} 
+                    aria-label="Previous track"
                     style={{ 
                         background: "none", 
                         border: "none", 
@@ -92,6 +95,7 @@ export default function MusicCard({ player }: any) {
                 
                 <button 
                     onClick={togglePlay} 
+                    aria-label={isPlaying ? "Pause" : "Play"}
                     style={{ 
                         background: "none", 
                         border: "none", 
@@ -112,6 +116,7 @@ export default function MusicCard({ player }: any) {
                 
                 <button 
                     onClick={nextTrack} 
+                    aria-label="Next track"
                     style={{ 
                         background: "none", 
                         border: "none", 

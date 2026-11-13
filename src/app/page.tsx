@@ -12,7 +12,7 @@ import Dock from "@/components/dock/dock";
 import GradientBlur from "@/components/gradientBlur/gradientBlur";
 import AboutModal from "@/components/aboutModal/AboutModal";
 import VoiceModal from "@/components/voiceModal/VoiceModal";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { Squircle } from "corner-smoothing";
 import FilterButton from "@/components/homePage/projectControls/filterButton/filterButton";
 import ControlsRow from "@/components/homePage/projectControls/controlsRow/controlsRow";
@@ -56,7 +56,12 @@ function HomeContent() {
     const projectSlug = searchParams.get("project");
     if (projectSlug) {
       const project = PROJECTS.find(p => p.slug.toLowerCase() === projectSlug.toLowerCase());
-      if (project) {
+      // Disabled projects are unfinished: the dock greys them out, so a direct
+      // ?project= link must not open them either. The State -> URL effect below
+      // then strips the param.
+      if (project && !project.disabled) {
+        // Syncing from an external source (the URL), which is what effects are for.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setExpandedProject(project.name);
       }
     }

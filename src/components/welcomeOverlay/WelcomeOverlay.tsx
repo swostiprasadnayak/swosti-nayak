@@ -57,12 +57,33 @@ export default function WelcomeOverlay() {
     imagePaths.forEach((src) => { const img = new Image(); img.src = src; });
   }, [mounted]);
 
+  // One shared AudioContext for the typing ticks. Browsers refuse to start audio
+  // before a user gesture, so it is only created on the first pointer/key press;
+  // until then ticks are silently skipped. (Previously a new context was created
+  // per character and never closed — 100+ leaked contexts per visit.)
+  const audioCtxRef = useRef<AudioContext | null>(null);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const unlock = () => {
+      if (audioCtxRef.current) return;
+      const AC = window.AudioContext ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (AC) audioCtxRef.current = new AC();
+    };
+    window.addEventListener("pointerdown", unlock, { once: true });
+    window.addEventListener("keydown", unlock, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+      audioCtxRef.current?.close().catch(() => {});
+      audioCtxRef.current = null;
+    };
+  }, [mounted]);
+
   const playTick = () => {
+    const ctx = audioCtxRef.current;
+    if (!ctx || ctx.state !== "running") return;
     try {
-      const AC = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AC) return;
-      const ctx = new AC();
-      if (ctx.state === "suspended") return;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
@@ -74,7 +95,7 @@ export default function WelcomeOverlay() {
       gain.connect(ctx.destination);
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.02);
-    } catch (e) {}
+    } catch {}
   };
 
   useEffect(() => {

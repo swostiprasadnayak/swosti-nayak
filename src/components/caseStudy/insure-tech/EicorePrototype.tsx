@@ -463,6 +463,25 @@ function DocTabBar({ tabs, active, onSelect, maxVisible = 3 }: { tabs: string[];
   );
 }
 
+// Clickable source highlight inside the extraction document. Defined at module
+// level (not inside ExtractionPreview) so React keeps the same element across
+// re-renders — otherwise every click remounts all marks and the active-ring
+// transition never plays.
+function DocMark({ id, tone, activeLink, onJump, registerRef, children }: {
+  id: string; tone: "brand" | "warn"; children: React.ReactNode;
+  activeLink: string | null; onJump: (id: string) => void;
+  registerRef: (id: string, el: HTMLElement | null) => void;
+}) {
+  const active = activeLink === id;
+  const c = tone === "warn" ? { bg: C.warningTint, fg: C.warning } : { bg: C.brandTint, fg: C.brand };
+  return (
+    <mark ref={el => registerRef(id, el)} onClick={() => onJump(id)} title="Jump to extracted field →"
+      style={{ background: c.bg, color: c.fg, padding: "1px 5px", borderRadius: 4, fontWeight: 600, cursor: "pointer", boxShadow: active ? `0 0 0 2px ${C.brand}` : "none", scrollMarginTop: 24, transition: "box-shadow .2s" }}>
+      {children}<Link2 size={11} style={{ verticalAlign: "middle", marginLeft: 3, opacity: 0.65 }} />
+    </mark>
+  );
+}
+
 export function ExtractionPreview({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   const [docTab, setDocTab] = useState(0);
   const [paneView, setPaneView] = useState<"split" | "files" | "data">("split");
@@ -494,17 +513,9 @@ export function ExtractionPreview({ onNext, onBack }: { onNext: () => void; onBa
 
   const activeLabel = activeLink ? (EXTRACT_SECTIONS.flatMap(s => s.rows).find(r => r.link === activeLink)?.cells[0] ?? "") : "";
 
-  // Clickable source highlight inside the document
-  const DocMark = ({ id, tone, children }: { id: string; tone: "brand" | "warn"; children: React.ReactNode }) => {
-    const active = activeLink === id;
-    const c = tone === "warn" ? { bg: C.warningTint, fg: C.warning } : { bg: C.brandTint, fg: C.brand };
-    return (
-      <mark ref={el => { docRefs.current[id] = el; }} onClick={() => jumpTo(id)} title="Jump to extracted field →"
-        style={{ background: c.bg, color: c.fg, padding: "1px 5px", borderRadius: 4, fontWeight: 600, cursor: "pointer", boxShadow: active ? `0 0 0 2px ${C.brand}` : "none", scrollMarginTop: 24, transition: "box-shadow .2s" }}>
-        {children}<Link2 size={11} style={{ verticalAlign: "middle", marginLeft: 3, opacity: 0.65 }} />
-      </mark>
-    );
-  };
+  // Shared props for every <DocMark> in the document pane.
+  const registerDocRef = (id: string, el: HTMLElement | null) => { docRefs.current[id] = el; };
+  const markProps = { activeLink, onJump: jumpTo, registerRef: registerDocRef };
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }} className="animate-fade-in">
@@ -551,10 +562,10 @@ export function ExtractionPreview({ onNext, onBack }: { onNext: () => void; onBa
             <p style={{ ...T(11, 600, C.brand), marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}><Link2 size={12} /> Tip: click a highlighted value to jump to its extracted field</p>
             <h4 style={{ ...T(15, 700), marginBottom: 16 }}>SECTION 2. PLANS DEFINITION</h4>
             <p style={{ ...T(13, 400, C.text2, 1.7), marginBottom: 16 }}>The D.I.Y Health Insurance product offers three standard tiers of benefits designed to meet varied customer requirements:</p>
-            <p style={{ ...T(13, 400, C.text, 1.7), marginBottom: 16 }}><strong>2.1 Mini Plan:</strong> Entry-level plan tier. The Sum Insured options available are either <DocMark id="mini-si" tone="brand">Rs. 4,00,000 or Rs. 5,00,000</DocMark>. Floater coverage basis is supported for Self, Spouse/Legal Partner, and dependent Children.</p>
-            <p style={{ ...T(13, 400, C.text, 1.7), marginBottom: 16 }}><strong>2.2 Medi Plan:</strong> Mid-tier plan. Sum Insured ranges from <DocMark id="medi-si" tone="brand">Rs. 6,00,000 up to Rs. 10,00,000</DocMark>. Floater bases extend to cover Parents and Parents-in-law (max 2 + 2 in a single floater contract).</p>
+            <p style={{ ...T(13, 400, C.text, 1.7), marginBottom: 16 }}><strong>2.1 Mini Plan:</strong> Entry-level plan tier. The Sum Insured options available are either <DocMark {...markProps} id="mini-si" tone="brand">Rs. 4,00,000 or Rs. 5,00,000</DocMark>. Floater coverage basis is supported for Self, Spouse/Legal Partner, and dependent Children.</p>
+            <p style={{ ...T(13, 400, C.text, 1.7), marginBottom: 16 }}><strong>2.2 Medi Plan:</strong> Mid-tier plan. Sum Insured ranges from <DocMark {...markProps} id="medi-si" tone="brand">Rs. 6,00,000 up to Rs. 10,00,000</DocMark>. Floater bases extend to cover Parents and Parents-in-law (max 2 + 2 in a single floater contract).</p>
             <h4 style={{ ...T(15, 700), marginTop: 32, marginBottom: 16 }}>SECTION 4. OUT-PATIENT BENEFITS</h4>
-            <p style={{ ...T(13, 400, C.text, 1.7) }}><strong>4.1 Out-patient (OPD) Treatment:</strong> Provides coverage for medical consultations, diagnostic services, and prescribed medications where hospitalisation is not required. For the Mini Plan option, out-patient (OPD) expenses are capped at an <DocMark id="opd-limit" tone="warn">annual limit of Rs. 3,000</DocMark> per policy. Under the Medi Plan, the limit is Rs. 5,00,000. Under the Max Plan, the limit is Rs. 10,00,000.</p>
+            <p style={{ ...T(13, 400, C.text, 1.7) }}><strong>4.1 Out-patient (OPD) Treatment:</strong> Provides coverage for medical consultations, diagnostic services, and prescribed medications where hospitalisation is not required. For the Mini Plan option, out-patient (OPD) expenses are capped at an <DocMark {...markProps} id="opd-limit" tone="warn">annual limit of Rs. 3,000</DocMark> per policy. Under the Medi Plan, the limit is Rs. 5,00,000. Under the Max Plan, the limit is Rs. 10,00,000.</p>
           </div>
         </div>
 

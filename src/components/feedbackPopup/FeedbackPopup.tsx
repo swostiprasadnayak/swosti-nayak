@@ -23,12 +23,12 @@ const FeedbackPopup: React.FC = () => {
         return () => clearTimeout(timer);
     }, [hasDismissed, isOpen]);
 
-    // Close popup automatically if the user opens the modal from somewhere else
-    useEffect(() => {
-        if (isOpen) {
-            setIsVisible(false);
-        }
-    }, [isOpen]);
+    // Close popup automatically if the user opens the modal from somewhere else.
+    // Adjusted during render rather than in an effect, so it never paints a frame
+    // of popup-over-modal.
+    if (isOpen && isVisible) {
+        setIsVisible(false);
+    }
 
     const handleOpenFeedback = () => {
         setIsVisible(false);

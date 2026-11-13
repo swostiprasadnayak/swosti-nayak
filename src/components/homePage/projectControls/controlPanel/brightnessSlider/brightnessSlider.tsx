@@ -26,6 +26,7 @@ export default function BrightnessSlider({ onBrightnessChange, labelColor }: any
           <div className={classes.ticks} />
           <input
             type="range"
+            aria-label="Brightness"
             min="0"
             max="100"
             value={level}

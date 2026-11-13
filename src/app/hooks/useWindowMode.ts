@@ -21,6 +21,9 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // brings in additional projects when the user switches filters.
     useEffect(() => {
         if (typeof window !== "undefined" && window.innerWidth > 768) {
+            // Viewport width is only knowable after hydration; seeding it in
+            // useState would make server and client markup disagree.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setOpenWindows(["gc-dental", "blinkit", "insure-tech"]);
         }
     }, []);

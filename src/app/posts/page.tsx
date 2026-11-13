@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import PostsFeed from "@/components/posts/PostsFeed";
 import { Squircle } from "corner-smoothing";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export default function PostsPage() {
   const router = useRouter();

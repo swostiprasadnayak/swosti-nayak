@@ -695,7 +695,7 @@ export default function UnicefCaseStudyTemplate() {
                         <span style={{ color: '#38bdf8' }}>JTBD 3:</span> "When I'm preparing a country briefing..." (ref: Country Rep)<br/>
                         <span style={{ color: '#38bdf8' }}>CONSTRAINTS:</span> WCAG 2.0 AA, No login wall, Max map state = 100K geojson points<br/>
                         <br/>
-                        <span style={{ color: '#4ade80' }}>// Provide the Country Profile Wireframe</span><br/>
+                        <span style={{ color: '#4ade80' }}>{"// Provide the Country Profile Wireframe"}</span><br/>
                         <span style={{ color: '#e2e8f0' }}>👉 Build the component layout in TSX implementing above context, ensuring Learning Poverty headline metrics are visually dominant, map interaction matches JTBD 3, and all chart color palettes map to the `--unicef-chart-palette` CSS variables.</span>
                      </div>
                   </Squircle>

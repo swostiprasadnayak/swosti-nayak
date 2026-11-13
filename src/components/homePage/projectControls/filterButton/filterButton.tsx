@@ -130,7 +130,6 @@ const FilterButton: React.FC<FilterButtonProps> = ({
                                         key={option}
                                         className={classes.filterOption}
                                         onClick={() => selectFilter(option)}
-                                        aria-pressed={isChecked}
                                         role="radio"
                                         aria-checked={isChecked}
                                     >

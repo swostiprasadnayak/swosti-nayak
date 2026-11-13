@@ -2,12 +2,14 @@
 
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import Image from "next/image";
-import { motion, LayoutGroup, AnimatePresence, useMotionValue, useTransform, useAnimation } from "motion/react";
+import { motion, LayoutGroup, AnimatePresence, useMotionValue, useTransform, useAnimation, type PanInfo } from "motion/react";
 import { Squircle } from "corner-smoothing";
 import type { WindowModeAPI } from "@/app/hooks/useWindowMode";
 import classes from "./cardStackContainer.module.css";
 import Card from "../../card/card";
 import { PROJECTS } from "@/app/types/projects.types";
+import { useIsClient } from "@/app/hooks/useIsClient";
+import { useMobileCardStack } from "./useMobileCardStack";
 import { CARD_STYLES } from "@/app/types/cards.types";
 
 // Background colors per project (matches each poster's own background)
@@ -65,13 +67,13 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
         // Fallback: tag-based match for any other future categories.
         return PROJECTS.filter((project) =>
-            project.tags?.some((tag) => activeFilters.includes(tag))
+            !project.disabled && project.tags?.some((tag) => activeFilters.includes(tag))
         );
     }, [activeFilters]);
 
     const [expandingCard, setExpandingCard] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = useIsClient();
 
     // Motion values for desktop window mode
     const x = useMotionValue(0);
@@ -80,21 +82,20 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0.6, 1, 1, 1, 0.6]);
 
     // Framer-style swipe stack state: ordered array of project slugs
-    const [mobileCards, setMobileCards] = useState<typeof PROJECTS>([]);
 
     useEffect(() => {
-        setIsMounted(true);
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    const openWindows = windowModeState?.openWindows;
     const activeSlug = useMemo(() => {
-        if (!windowModeState || windowModeState.openWindows.length === 0) return "insure-tech";
+        if (!openWindows || openWindows.length === 0) return "insure-tech";
         // The last window in openWindows is the active/front-most one
-        return windowModeState.openWindows[windowModeState.openWindows.length - 1];
-    }, [windowModeState?.openWindows]);
+        return openWindows[openWindows.length - 1];
+    }, [openWindows]);
 
     // Keep exactly one window active on mobile to match the active dot "click state" in the dock
     useEffect(() => {
@@ -148,55 +149,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         slugsOrdered.forEach(slug => {
             windowModeState.bringToFront(slug);
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeFilters, isMobile, filteredProjects, windowModeState]);
 
-    // Reset the mobile-stack cache whenever the filter changes so the new
-    // set of projects shows up at the front instead of stale cards.
-    useEffect(() => {
-        if (isMobile) setMobileCards([]);
-    }, [activeFilters, isMobile]);
-
-    // Initialize mobile card order (insure-tech first)
-    useEffect(() => {
-        if (isMobile && filteredProjects.length > 0 && mobileCards.length === 0) {
-            const sorted = [...filteredProjects];
-            const insureIdx = sorted.findIndex(p => p.slug === "insure-tech");
-            if (insureIdx > 0) {
-                const [item] = sorted.splice(insureIdx, 1);
-                sorted.unshift(item);
-            }
-            setMobileCards(sorted);
-        }
-    }, [isMobile, filteredProjects, mobileCards.length]);
-
-    // Sync mobileCards front with windowModeState's activeSlug.
-    // - Dock tap on a card already in the stack → reorder to front.
-    // - Dock tap on a previously-closed card → re-add to the front.
-    // NOTE: do NOT depend on mobileCards here — that causes an infinite
-    // re-add loop (every setMobileCards triggers the effect, which adds again).
-    // Use the functional updater to access the latest state.
-    useEffect(() => {
-        if (!isMobile || filteredProjects.length === 0) return;
-        setMobileCards(prev => {
-            if (prev[0]?.slug === activeSlug) return prev;
-            const idx = prev.findIndex(p => p.slug === activeSlug);
-            if (idx > 0) {
-                const next = [...prev];
-                const [target] = next.splice(idx, 1);
-                next.unshift(target);
-                return next;
-            }
-            if (idx === -1) {
-                const project = filteredProjects.find(p => p.slug === activeSlug);
-                // Defensive: don't re-add if already present.
-                if (project && !prev.some(p => p.slug === project.slug)) {
-                    return [project, ...prev];
-                }
-            }
-            return prev;
-        });
-    }, [activeSlug, isMobile, filteredProjects]);
+    const [mobileCards, setMobileCards] = useMobileCardStack({ isMobile, activeFilters, filteredProjects, activeSlug });
 
     const setActiveMobileProject = useCallback((slug: string) => {
         if (!windowModeState) return;
@@ -208,11 +163,11 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         });
     }, [windowModeState, filteredProjects]);
 
-    useEffect(() => {
-        if (expandedProject === null && expandingCard !== null) {
-            setExpandingCard(null);
-        }
-    }, [expandedProject, expandingCard]);
+    // Clear the expanding-card marker once the case study closes. Adjusted during
+    // render rather than in an effect, which rendered one stale frame first.
+    if (expandedProject === null && expandingCard !== null) {
+        setExpandingCard(null);
+    }
 
     const handleExpandProject = useCallback(
         (projectName: string) => {
@@ -252,7 +207,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     );
 
     // Framer-style swipe: drag in any direction, front card goes to back
-    const handleSwipeDragEnd = useCallback((_event: any, info: any) => {
+    const handleSwipeDragEnd = useCallback((_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
         const swipeThreshold = 100;
         const dist = Math.sqrt(info.offset.x ** 2 + info.offset.y ** 2);
 
@@ -268,7 +223,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             if (newFront) setActiveMobileProject(newFront.slug);
         }
         // If not past threshold, framer-motion snaps back via dragConstraints
-    }, [mobileCards, setActiveMobileProject]);
+    }, [mobileCards, setMobileCards, setActiveMobileProject]);
 
     const windowCards = useMemo(() => {
         if (!windowModeState) return null;
@@ -325,7 +280,11 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                 );
             })
             .filter(Boolean);
-    }, [windowModeState, filteredProjects, isExiting, expandedProject]);
+    }, [
+        windowModeState, filteredProjects, isExiting, expandedProject, activeSlug, viewMode, windowSpring,
+        handleExpandProject, handleWindowCardClick, handleWindowDragStart, handleWindowDragEnd,
+        getProjectLayoutId, getVideoModalLayoutId,
+    ]);
 
     // ── Framer-style swipeable card stack (mobile) ──────────────────────────
     // Custom card layout: no traffic lights, no window header.

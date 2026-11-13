@@ -57,12 +57,20 @@ export default function VoiceModal() {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const rafRef = useRef<number>(0);
 
+    // Create the audio element only once the modal is first opened — creating it on
+    // mount made every visitor download ~300 KB for a feature most never open.
+    // Opening still gives it a head start: playback waits for AUDIO_PRE_ROLL.
     useEffect(() => {
-        audioRef.current = new Audio("/audio/voice-mode-ishan-new.mp3");
-        audioRef.current.onended = () => {
+        if (!isOpen || audioRef.current) return;
+        const audio = new Audio("/audio/voice-mode-ishan-new.mp3");
+        audio.onended = () => {
             setIsPlaying(false);
             cancelAnimationFrame(rafRef.current);
         };
+        audioRef.current = audio;
+    }, [isOpen]);
+
+    useEffect(() => {
         return () => {
             cancelAnimationFrame(rafRef.current);
             if (audioRef.current) {

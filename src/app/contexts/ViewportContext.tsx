@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext } from "react";
+import { useIsClient } from "@/app/hooks/useIsClient";
 
 type ViewportContextType = {
     isMobile: boolean;
@@ -15,11 +16,7 @@ const ViewportContext = createContext<ViewportContextType>({
 export const useViewport = () => useContext(ViewportContext);
 
 export const ViewportProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    const mounted = useIsClient();
 
     return (
         <ViewportContext.Provider value={{ isMobile: false, mounted }}>

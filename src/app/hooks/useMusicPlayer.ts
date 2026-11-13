@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 
-export function useMusicPlayer(isOpen: boolean) {
+export function useMusicPlayer() {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -84,3 +84,7 @@ export function useMusicPlayer(isOpen: boolean) {
 
     return { audioRef, isPlaying, progress, track, currentTime, duration, togglePlay, nextTrack, prevTrack, seek };
 }
+
+/** What the music UI needs — everything except the <audio> ref, which only the
+ *  component rendering the <audio> element should hold. */
+export type MusicPlayerState = Omit<ReturnType<typeof useMusicPlayer>, "audioRef">;

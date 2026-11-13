@@ -6,6 +6,7 @@ import { SquareTerminal, X } from "lucide-react";
 import ControlButton from "@/components/ui/controlButton/controlButton";
 import FileSidebar from "./components/FileSidebar";
 import CodePanel from "./components/CodePanel";
+import { useIsClient } from "@/app/hooks/useIsClient";
 import classes from "./codeRevealToggle.module.css";
 
 const CLIP_PATH_CLOSED = "inset(0% 0% 100% 0%)";
@@ -13,9 +14,7 @@ const CLIP_PATH_CLOSED = "inset(0% 0% 100% 0%)";
 export default function CodeRevealToggle() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => setMounted(true), []);
+    const mounted = useIsClient();
 
     useEffect(() => {
         if (isOpen) document.body.setAttribute("data-code-reveal-open", "true");

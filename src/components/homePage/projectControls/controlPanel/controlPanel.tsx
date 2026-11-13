@@ -46,7 +46,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     }, [isOpen, reportOpen]);
 
     const [audioPreload, setAudioPreload] = useState<"none" | "auto">("none");
-    const player = useMusicPlayer(isOpen);
+    const { audioRef, ...player } = useMusicPlayer();
 
     const handlePrefetch = useCallback(() => {
         onPanelHover?.();
@@ -97,7 +97,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
     return (
         <div className={classes.container} ref={containerRef} onMouseEnter={handlePrefetch}>
-            <audio ref={player.audioRef} src={player.track?.src} preload={audioPreload} />
+            <audio ref={audioRef} src={player.track?.src} preload={audioPreload} />
 
             <ControlButton
                 onClick={() => setIsOpen(!isOpen)}

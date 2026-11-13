@@ -277,26 +277,28 @@ function ScreenThumb({ n, name, desc, onOpen, render }: { n: number; name: strin
   const W = 1400, H = Math.round(W * 10 / 16); // 875
   // Scale the 1400px real-DOM screen to fit whatever width the column gives us,
   // so the thumbnail never overflows (fixed scales crop/overflow on mobile).
-  const btnRef = React.useRef<HTMLButtonElement>(null);
+  const frameRef = React.useRef<HTMLDivElement>(null);
   const [scale, setScale] = React.useState(0.29);
   React.useEffect(() => {
-    const el = btnRef.current;
+    const el = frameRef.current;
     if (!el) return;
     const compute = () => setScale(el.getBoundingClientRect().width / W);
     compute();
     const ro = new ResizeObserver(compute);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [W]);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, minWidth: 0 }}>
-      <button ref={btnRef} onClick={onOpen} aria-label={`Open ${name} in prototype`} style={{
+      <div ref={frameRef} style={{
         position: "relative", width: "100%", aspectRatio: "16 / 10",
         borderRadius: 14, border: `1px solid ${BORDER}`, overflow: "hidden",
-        background: "#F9FAFB", cursor: "pointer", padding: 0,
+        background: "#F9FAFB",
       }}>
-        {/* Scaled screen */}
-        <div style={{
+        {/* Scaled live screen. A sibling of the button, not a child: the screen
+            contains its own buttons, and <button> inside <button> is invalid HTML.
+            `inert` keeps those inner controls out of the tab order and the a11y tree. */}
+        <div inert aria-hidden="true" style={{
           width: W, height: H,
           transform: `scale(${scale})`, transformOrigin: "top left",
           pointerEvents: "none", position: "absolute", top: 0, left: 0,
@@ -305,22 +307,28 @@ function ScreenThumb({ n, name, desc, onOpen, render }: { n: number; name: strin
             <MotionConfig reducedMotion="always">{render()}</MotionConfig>
           </div>
         </div>
-        {/* Step badge */}
-        <div style={{
-          position: "absolute", top: 10, left: 12, zIndex: 2,
-          padding: "3px 9px", borderRadius: 6,
-          background: "rgba(255,255,255,0.94)", border: `1px solid ${BORDER}`,
-          fontSize: 11, fontWeight: 700, color: INK, letterSpacing: "0.02em",
-        }}>0{n}</div>
-        {/* Hover hint */}
-        <div style={{
-          position: "absolute", bottom: 10, right: 12, zIndex: 2,
-          padding: "5px 10px", borderRadius: 100,
-          background: BRAND, color: "#fff",
-          fontSize: 11, fontWeight: 600,
-          display: "inline-flex", alignItems: "center", gap: 5,
-        }}>Open <ArrowRight size={12} /></div>
-      </button>
+        <button onClick={onOpen} aria-label={`Open ${name} in prototype`} style={{
+          position: "absolute", inset: 0, zIndex: 1,
+          background: "transparent", border: "none", padding: 0, cursor: "pointer",
+          borderRadius: "inherit",
+        }}>
+          {/* Step badge */}
+          <span style={{
+            position: "absolute", top: 10, left: 12,
+            padding: "3px 9px", borderRadius: 6,
+            background: "rgba(255,255,255,0.94)", border: `1px solid ${BORDER}`,
+            fontSize: 11, fontWeight: 700, color: INK, letterSpacing: "0.02em",
+          }}>0{n}</span>
+          {/* Hover hint */}
+          <span style={{
+            position: "absolute", bottom: 10, right: 12,
+            padding: "5px 10px", borderRadius: 100,
+            background: BRAND, color: "#fff",
+            fontSize: 11, fontWeight: 600,
+            display: "inline-flex", alignItems: "center", gap: 5,
+          }}>Open <ArrowRight size={12} /></span>
+        </button>
+      </div>
       <div>
         <p style={{ fontSize: 15, fontWeight: 700, color: INK, margin: "0 0 4px" }}>{name}</p>
         <p style={{ fontSize: 13.5, color: SUBTLE, margin: 0, lineHeight: 1.5 }}>{desc}</p>

@@ -42,6 +42,8 @@ export default function DockIcon({ slug, name, isActive, mouseX, onSelect }: Doc
         <motion.button
             ref={ref}
             className={classes.iconButton}
+            aria-label={isDisabled ? `${name} (coming soon)` : name}
+            aria-disabled={isDisabled || undefined}
             onClick={() => !isDisabled && onSelect(slug)}
             onMouseEnter={() => !isMobile && setIsHovered(true)}
             onMouseLeave={() => !isMobile && setIsHovered(false)}

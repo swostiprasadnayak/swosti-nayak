@@ -22,7 +22,7 @@ const ControlButton: React.FC<ControlButtonProps> = ({
                 onClick={onClick}
                 disabled={disabled}
                 aria-expanded={ariaExpanded}
-                aria-label={ariaLabel}
+                aria-label={ariaLabel ?? label}
                 className={`${classes.btn} ${isActive ? classes.active : ""}`}
             >
                 {children}
