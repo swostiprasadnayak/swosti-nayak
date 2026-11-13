@@ -222,7 +222,7 @@ export default function MobileControls({
               </button>
 
               <a
-                href="https://drive.google.com/file/d/1Rajt_0Jg-7ywpB0bX3N1JPgLXnW3uPiF/view?usp=sharing"
+                href="https://drive.google.com/file/d/14YY_rBCgFy0uUpNo_cUCu-8gag671-Mv/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

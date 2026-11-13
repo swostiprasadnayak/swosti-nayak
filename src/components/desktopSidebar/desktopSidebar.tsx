@@ -25,7 +25,7 @@ const getNavigationProps = (section: string) => {
         case "Contact": return { href: "tel:7978659329", target: "_self" };
         case "Work": return { href: "/", target: "_self" };
         case "Post": return { href: "#", target: "_self" };
-        case "Resume": return { href: "https://drive.google.com/file/d/1Rajt_0Jg-7ywpB0bX3N1JPgLXnW3uPiF/view?usp=sharing", target: "_blank" };
+        case "Resume": return { href: "https://drive.google.com/file/d/14YY_rBCgFy0uUpNo_cUCu-8gag671-Mv/view?usp=sharing", target: "_blank" };
         case "Feedback": return { href: "#", target: "_self" };
         default: return { href: "#", target: "_self" };
     }
