@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, type SyntheticEvent } from "react";
 
 export function useMusicPlayer() {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -62,29 +62,24 @@ export function useMusicPlayer() {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
 
-    useEffect(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        const handleMetadata = () => setDuration(audio.duration);
-        const updateProgress = () => {
+    // Spread onto the <audio> element. React attaches these whenever the
+    // element mounts — an effect reading audioRef.current ran before the
+    // (client-only) control panel rendered its <audio>, found null, and never
+    // re-ran until the track changed, so the time stayed at -0:00.
+    const audioEvents = {
+        onLoadedMetadata: (e: SyntheticEvent<HTMLAudioElement>) => setDuration(e.currentTarget.duration),
+        onDurationChange: (e: SyntheticEvent<HTMLAudioElement>) => setDuration(e.currentTarget.duration),
+        onTimeUpdate: (e: SyntheticEvent<HTMLAudioElement>) => {
+            const audio = e.currentTarget;
             setCurrentTime(audio.currentTime);
             setProgress((audio.currentTime / audio.duration) * 100 || 0);
-        };
+        },
+        onEnded: nextTrack,
+    };
 
-        audio.addEventListener("loadedmetadata", handleMetadata);
-        audio.addEventListener("timeupdate", updateProgress);
-        audio.addEventListener("ended", nextTrack);
-        return () => {
-            audio.removeEventListener("loadedmetadata", handleMetadata);
-            audio.removeEventListener("timeupdate", updateProgress);
-            audio.removeEventListener("ended", nextTrack);
-        };
-    }, [nextTrack]);
-
-    return { audioRef, isPlaying, progress, track, currentTime, duration, togglePlay, nextTrack, prevTrack, seek };
+    return { audioRef, audioEvents, isPlaying, progress, track, currentTime, duration, togglePlay, nextTrack, prevTrack, seek };
 }
 
-/** What the music UI needs — everything except the <audio> ref, which only the
- *  component rendering the <audio> element should hold. */
-export type MusicPlayerState = Omit<ReturnType<typeof useMusicPlayer>, "audioRef">;
+/** What the music UI needs — everything except the <audio> ref and events, which
+ *  only the component rendering the <audio> element should hold. */
+export type MusicPlayerState = Omit<ReturnType<typeof useMusicPlayer>, "audioRef" | "audioEvents">;

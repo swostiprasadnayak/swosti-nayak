@@ -37,7 +37,7 @@ export default function MobileControls({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isControlOpen, setIsControlOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
-  const { audioRef, ...player } = useMusicPlayer();
+  const { audioRef, audioEvents, ...player } = useMusicPlayer();
 
   const { openModal: openAboutModal } = useAboutModal();
   const { openModal: openFeedbackModal } = useFeedbackModal();
@@ -73,7 +73,7 @@ export default function MobileControls({
 
   return (
     <div className={classes.controlsWrapper}>
-      <audio ref={audioRef} src={player.track?.src} preload="metadata" />
+      <audio ref={audioRef} {...audioEvents} src={player.track?.src} preload="metadata" />
 
       {/* 1. TOP RIGHT: Hamburger Menu Trigger Button */}
       <button
