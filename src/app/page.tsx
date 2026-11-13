@@ -57,8 +57,7 @@ function HomeContent() {
     if (projectSlug) {
       const project = PROJECTS.find(p => p.slug.toLowerCase() === projectSlug.toLowerCase());
       // Disabled projects are unfinished: the dock greys them out, so a direct
-      // ?project= link must not open them either. The State -> URL effect below
-      // then strips the param.
+      // ?project= link must not open them either (the homepage shows instead).
       if (project && !project.disabled) {
         // Syncing from an external source (the URL), which is what effects are for.
         // eslint-disable-next-line react-hooks/set-state-in-effect
