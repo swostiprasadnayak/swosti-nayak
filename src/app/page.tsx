@@ -31,12 +31,19 @@ import { PROJECTS } from "@/app/types/projects.types";
 import { AudioLines } from "lucide-react";
 
 // Desktop wallpapers, cycled by the control panel's Image toggle. These are a
-// CSS background (not next/image), so files are pre-sized: 2560px long edge.
+// CSS background (not next/image), so large files are pre-sized (2560px long edge).
 const WALLPAPERS = [
   "/wallpapers/pexels-sergei-31959340.jpg",
   "/wallpapers/jose-llamas.jpg",
   "/wallpapers/agatha-depine.jpg",
   "/wallpapers/anna-scarfiello.jpg",
+  "/wallpapers/pink-clouds.jpg",
+  "/wallpapers/blue-clouds.jpg",
+  "/wallpapers/hill-chairs.jpg",
+  "/wallpapers/green-valley.jpg",
+  "/wallpapers/sunset-haze.jpg",
+  "/wallpapers/green-meadow.jpg",
+  "/wallpapers/soft-dunes.jpg",
 ];
 
 function HomeContent() {
