@@ -8,8 +8,9 @@
     right: 0;
     width: 360px;
     padding: 18px;
-    /* Opaque enough that dark content behind can't tint the glass unevenly. */
-    background: rgba(255, 255, 255, 0.72);
+    /* Cool-grey glass (not white) so the near-white tiles inside read as
+       raised buttons, like macOS Control Center. */
+    background: rgba(232, 234, 240, 0.58);
     /* -webkit- must come first: Next's CSS compiler drops the blur entirely
        when the prefixed declaration follows the standard one. */
     -webkit-backdrop-filter: blur(60px) saturate(180%);
@@ -50,4 +51,9 @@
     flex: 1;
     min-width: 0;
     display: flex;
+    /* Lifts the squircle-clipped music card (box-shadow would be clipped). */
+    filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.07)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
+}
+[data-theme="dark"] .musicWrapper {
+    filter: none;
 }

@@ -25,7 +25,7 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
     return (
         <Squircle cornerRadius={24} style={{
             flex: 1, padding: "16px 14px 22px 14px",
-            background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.7)",
+            background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)",
             border: "none",
             display: "flex", flexDirection: "column", justifyContent: "space-between",
             width: "100%", height: "100%", boxSizing: "border-box", minWidth: 0, margin: 0,

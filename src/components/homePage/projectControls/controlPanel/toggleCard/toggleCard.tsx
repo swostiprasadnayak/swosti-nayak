@@ -14,7 +14,17 @@ export default function ToggleCard({ icon, label, isActive, onClick }: ToggleCar
     const { isDark } = useTheme();
 
     return (
-        <div onClick={onClick} style={{ cursor: "pointer", flex: 1, display: "flex", width: "100%", minWidth: 0 }}>
+        <button
+            type="button"
+            onClick={onClick}
+            aria-pressed={isActive}
+            style={{
+                cursor: "pointer", flex: 1, display: "flex", width: "100%", minWidth: 0,
+                background: "none", border: 0, padding: 0, font: "inherit", color: "inherit", textAlign: "left",
+                // drop-shadow, not box-shadow: the squircle clip-path cuts box-shadow off.
+                filter: isDark ? "none" : "drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.07)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06))",
+            }}
+        >
             <Squircle
                 cornerRadius={24}
                 style={{
@@ -24,11 +34,11 @@ export default function ToggleCard({ icon, label, isActive, onClick }: ToggleCar
                     padding: "16px 18px",
                     background: isActive
                         ? (isDark ? "rgba(255, 255, 255, 0.15)" : "rgba(0, 0, 0, 0.08)")
-                        : (isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.85)"),
+                        : (isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)"),
                     border: "none",
                     width: "100%",
                     boxSizing: "border-box",
-                    boxShadow: isDark ? "0 4px 12px rgba(0,0,0,0.2)" : "0 2px 8px rgba(0,0,0,0.02)",
+                    boxShadow: isDark ? "0 4px 12px rgba(0,0,0,0.2)" : "none",
                     transition: "all 0.2s ease"
                 }}
             >
@@ -54,6 +64,6 @@ export default function ToggleCard({ icon, label, isActive, onClick }: ToggleCar
                     {label}
                 </span>
             </Squircle>
-        </div>
+        </button>
     );
 }
