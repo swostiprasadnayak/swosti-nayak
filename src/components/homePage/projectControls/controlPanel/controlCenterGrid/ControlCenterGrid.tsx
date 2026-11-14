@@ -37,7 +37,7 @@ export default function ControlCenterGrid({
             </div>
 
             <RoundButton label={isDark ? "Light mode" : "Dark mode"} onClick={toggleTheme}>
-                {isDark ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
+                {isDark ? <Sun size={24} strokeWidth={1.9} /> : <Moon size={24} strokeWidth={1.9} />}
             </RoundButton>
             <RoundButton label="Accessibility" onClick={() => setView("accessibility")}>
                 <AccessibilityIcon />
@@ -59,7 +59,7 @@ export default function ControlCenterGrid({
             />
 
             <RoundButton label={`Wallpaper ${imageIndex}`} onClick={onImageToggle}>
-                <ImageIcon size={20} strokeWidth={2} />
+                <ImageIcon size={24} strokeWidth={1.9} />
             </RoundButton>
             <RoundButton label="Screenshot" onClick={onScreenshot}>
                 <ScreenshotIcon />
@@ -130,16 +130,18 @@ function AccessibilityView({ onBack }: { onBack: () => void }) {
     );
 }
 
-/** The iOS Accessibility glyph: thin ring; head clear of a straight arm bar;
- *  a solid torso; two legs that start apart at the hips. */
+/** The iOS Accessibility glyph, measured from iOS (fractions of the ring
+ *  diameter): head centre 0.22 down, arm bar at 0.33 spanning 0.26–0.75,
+ *  torso to 0.6, legs ending at 0.8 and 0.38/0.62 across, ring ≈ 0.05 thick.
+ *  Drawn at 34px so the ring is ≈47% of the 62px button, as on iOS. */
 function AccessibilityIcon() {
     return (
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="10.2" fill="none" stroke="currentColor" strokeWidth="1.6" />
-            <circle cx="12" cy="6.5" r="1.6" fill="currentColor" />
-            <path d="M5.8 9.4h12.4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-            <rect x="10.55" y="9" width="2.9" height="5.2" rx="0.9" fill="currentColor" />
-            <path d="M11.25 13.4l-.95 4.8M12.75 13.4l.95 4.8" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10.4" fill="none" stroke="currentColor" strokeWidth="1.25" />
+            <circle cx="12" cy="6.05" r="1.5" fill="currentColor" />
+            <path d="M7 8.5h10.25" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
+            <rect x="10.65" y="8.2" width="2.7" height="5.9" rx="0.8" fill="currentColor" />
+            <path d="M11.35 13.5L9.55 18.3M12.65 13.5l1.8 4.8" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
         </svg>
     );
 }
@@ -150,7 +152,7 @@ function AccessibilityIcon() {
 function ScreenshotIcon() {
     const lens = `ss-lens-${useId().replace(/:/g, "")}`;
     return (
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
             <g fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M2.5 8.5V5A2.5 2.5 0 0 1 5 2.5h3.5" />
                 <path d="M15.5 2.5H19A2.5 2.5 0 0 1 21.5 5v3.5" />
