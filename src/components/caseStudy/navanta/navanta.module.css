@@ -978,6 +978,298 @@
     color: var(--text-primary);
 }
 
+/* Flow reel: the product flow as a short film, played by the page.
+   The stage keeps a fixed pale "sky" in both themes, like the demo films. */
+.reel {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    background: var(--bg-card);
+}
+
+.reelStage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    container-type: inline-size;
+    background:
+        radial-gradient(120% 90% at 50% 0%, #e6eefb 0%, rgba(230, 238, 251, 0) 60%),
+        linear-gradient(180deg, #f4f6f9 0%, #eef1f6 100%);
+}
+
+.reelWindow {
+    position: relative;
+    width: 84%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08);
+    container-type: inline-size;
+    will-change: transform, opacity;
+}
+
+.reelLayer {
+    position: absolute;
+    inset: 0;
+    transform-origin: 0 0;
+    will-change: transform, opacity;
+}
+
+.reelHighlight {
+    position: absolute;
+    border: 2px solid #6d4bd8;
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px rgba(109, 75, 216, 0.16);
+}
+
+.reelType {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: 0 0.8%;
+    background: #ffffff;
+    font-size: 1.05cqw;
+    color: #18181b;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.reelCaret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background: currentColor;
+    animation: reelBlink 1s steps(2, start) infinite;
+}
+
+@keyframes reelBlink {
+    to {
+        visibility: hidden;
+    }
+}
+
+.reelCursor {
+    position: absolute;
+    z-index: 3;
+    width: 22px;
+    height: 22px;
+    margin: -3px 0 0 -5px;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+.reelCursor svg {
+    position: relative;
+    display: block;
+    transition: transform 0.12s ease;
+}
+
+.reelRing {
+    position: absolute;
+    left: -11px;
+    top: -11px;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #6d4bd8;
+    border-radius: 50%;
+}
+
+.reelHook {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 10%;
+    text-align: center;
+    font-size: 3.4cqw;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #18181b;
+}
+
+.reelEnd {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2cqw;
+    padding: 0 12%;
+    text-align: center;
+}
+
+.reelEnd p {
+    margin: 0;
+    font-size: 3.2cqw;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #18181b;
+}
+
+.reelEnd span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4cqw;
+    font-size: 1.15cqw;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #6d4bd8;
+}
+
+.reelEnd span::before {
+    content: "";
+    width: 4cqw;
+    height: 2px;
+    background: #6d4bd8;
+}
+
+.reelBigPlay {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(17, 24, 39, 0.86);
+    color: #ffffff;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3);
+    cursor: pointer;
+}
+
+.reelBigPlay:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 4px;
+}
+
+.reelFoot {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 18px 0;
+}
+
+.reelCaption {
+    margin: 0;
+    min-height: 1.45em;
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+}
+
+.reelBar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+}
+
+.reelSteps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.reelStep {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 12px 4px 5px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 100px;
+    background: transparent;
+    font: inherit;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.reelStep:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 2px;
+}
+
+.reelStepNum {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.66rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.reelStepDone .reelStepNum {
+    background: #6d4bd8;
+    color: #ffffff;
+}
+
+.reelStepOn {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.reelStepOn .reelStepNum {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.reelStepFill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #6d4bd8;
+    transform-origin: left;
+}
+
+.reelControls {
+    display: flex;
+    gap: 6px;
+}
+
+.reelProgress {
+    height: 3px;
+    margin: 0 -18px;
+    background: var(--border-subtle);
+}
+
+.reelProgress i {
+    display: block;
+    height: 100%;
+    background: #6d4bd8;
+    transform-origin: left;
+}
+
 /* Screen tabs: several screens of one experience, one at a time */
 .screenTabs {
     display: flex;
@@ -1325,6 +1617,23 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .reelFoot {
+        padding: 12px 12px 0;
+    }
+
+    .reelProgress {
+        margin: 0 -12px;
+    }
+
+    .reelCaption {
+        font-size: 0.92rem;
+    }
+
+    .reelCursor {
+        width: 16px;
+        height: 16px;
+    }
+
     .seatQuestion {
         font-size: 1.5rem;
     }
@@ -1355,11 +1664,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .reelCaret {
+        animation: none;
+    }
+
     .stepButton,
     .seatButton,
     .relayDot,
     .relayTick,
     .relayAxis span,
+    .reelStep,
+    .reelStepNum,
     .relayLine,
     .relayLineDone {
         transition: none;

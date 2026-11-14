@@ -18,6 +18,7 @@ import {
     StateLegend,
 } from "../navanta/blocks";
 import ScreenFrame from "../navanta/ScreenFrame";
+import FlowReel from "../navanta/FlowReel";
 import LifecycleTracker from "../navanta/LifecycleTracker";
 import AgentTrace from "../navanta/AgentTrace";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
@@ -53,11 +54,73 @@ export default function ReedCaseStudyTemplate() {
                                 { label: "Client", value: "A US flooring manufacturer" },
                             ]}
                         />
-                        <ScreenFrame
-                            title="Reed's requester home"
-                            src={`${IMG}/reed-home.png`}
-                            aspect={SHOT}
-                            caption="The requester's home: what changed overnight, one place to ask, and the five jobs people come here for."
+                        <FlowReel
+                            label="Film: a requester asks Reed for a part and it becomes a purchase order"
+                            hook="A pump on line 4 needs a rebuild mid-shift."
+                            steps={["Ask", "Find", "Request", "Quote", "Track", "Approve"]}
+                            end="From “I need this” to a purchase order, in one conversation."
+                            shots={[
+                                {
+                                    src: `${IMG}/reed-home.png`,
+                                    alt: "Reed's requester home with the ask box",
+                                    step: 0,
+                                    caption: "The requester asks in plain words.",
+                                    dur: 5,
+                                    to: { s: 1.5, x: 44, y: 68 },
+                                    type: { x: 13.6, y: 69.2, w: 60, h: 3.6, text: "Rebuild kit for the pump on line 4, 2 kits by Friday", at: 1.4 },
+                                },
+                                {
+                                    src: `${IMG}/catalog-match.png`,
+                                    alt: "Reed matching a request to the catalog",
+                                    step: 1,
+                                    caption: "Bought before? Reed checks three sources and recommends one, with the last price paid.",
+                                    dur: 5,
+                                    to: { s: 1.45, x: 52, y: 46 },
+                                },
+                                {
+                                    src: `${IMG}/special-request.png`,
+                                    alt: "Reed reading back a special request",
+                                    step: 2,
+                                    caption: "Not in the catalog: Reed works through the policy, then reads the request back.",
+                                    dur: 5.5,
+                                    from: { s: 1.5, x: 42, y: 28 },
+                                    to: { s: 1.5, x: 42, y: 56 },
+                                },
+                                {
+                                    src: `${IMG}/quote-compare.png`,
+                                    alt: "Three vendor quotes compared",
+                                    step: 3,
+                                    caption: "Three quotes back. Reed compares what can actually go on the PR.",
+                                    dur: 5,
+                                    to: { s: 1.5, x: 50, y: 58 },
+                                    click: { x: 23.7, y: 68.4, at: 3.6 },
+                                },
+                                {
+                                    src: `${IMG}/track-pr.png`,
+                                    alt: "Reed answering where a request is",
+                                    step: 4,
+                                    caption: "Where's my request? The route, the date, and what's still open.",
+                                    dur: 4.5,
+                                    to: { s: 1.45, x: 42, y: 52 },
+                                },
+                                {
+                                    src: `${IMG}/review-detail.png`,
+                                    alt: "The buyer's review of a requisition",
+                                    step: 5,
+                                    caption: "The buyer sees what Reed found and fixed, then approves.",
+                                    dur: 5,
+                                    to: { s: 1.4, x: 45, y: 45 },
+                                    click: { x: 65, y: 72.8, at: 3.6 },
+                                },
+                                {
+                                    src: `${IMG}/activity-status.png`,
+                                    alt: "Every request with its stage and next move",
+                                    step: 5,
+                                    caption: "Every request shows its stage and the next move.",
+                                    dur: 4.5,
+                                    to: { s: 1.3, x: 50, y: 42 },
+                                },
+                            ]}
                         />
                     </div>
 
@@ -102,6 +165,13 @@ export default function ReedCaseStudyTemplate() {
                             ]}
                         />
                     </Split>
+
+                    <ScreenFrame
+                        title="Reed's requester home"
+                        src={`${IMG}/reed-home.png`}
+                        aspect={SHOT}
+                        caption="The requester's home: what changed overnight, one place to ask, and the five jobs people come here for."
+                    />
 
                     {/* 04 · Bridge question */}
                     <BridgeQuestion
@@ -252,7 +322,7 @@ export default function ReedCaseStudyTemplate() {
                     />
 
                     {/* 12 · Next */}
-                    <NextProject label="Next case study" title="Sterling: invoices that reconcile themselves" />
+                    <NextProject label="Next case study" title="Insure-Tech: insurance plans from a document upload" />
                 </div>
             </div>
         </div>
