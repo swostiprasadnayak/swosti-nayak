@@ -59,7 +59,7 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
                     </button>
                 </div>
 
-                <div>
+                <div className={classes.progress}>
                     <div className={classes.track}>
                         <div className={classes.fill} style={{ width: `${progress || 0}%` }} />
                         <input
