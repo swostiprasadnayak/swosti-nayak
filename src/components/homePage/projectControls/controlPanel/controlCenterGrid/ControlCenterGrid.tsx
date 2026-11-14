@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useId, useRef } from "react";
 import { AudioLines, Image as ImageIcon, Moon, Sun, Volume1, Volume2, VolumeX } from "lucide-react";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import type { MusicPlayerState } from "@/app/hooks/useMusicPlayer";
@@ -65,17 +65,28 @@ export default function ControlCenterGrid({
     );
 }
 
-/** Screenshot glyph in the style of macOS's camera.viewfinder: viewfinder
- *  corners around a small camera (a bare camera reads as "take a photo"). */
+/** Screenshot glyph modelled on macOS's Screenshot icon: four corner brackets
+ *  out at the frame edges, a solid camera centred with clear space around it,
+ *  and a knocked-out lens ring (masked, so it works on any button colour). */
 function ScreenshotIcon() {
+    const lens = `ss-lens-${useId().replace(/:/g, "")}`;
     return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M3 7.5V5a2 2 0 0 1 2-2h2.5" />
-            <path d="M16.5 3H19a2 2 0 0 1 2 2v2.5" />
-            <path d="M21 16.5V19a2 2 0 0 1-2 2h-2.5" />
-            <path d="M7.5 21H5a2 2 0 0 1-2-2v-2.5" />
-            <path d="M8.6 8.8h1.3l.8-1.3h2.6l.8 1.3h1.3a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-1.2 1.2H8.6a1.2 1.2 0 0 1-1.2-1.2V10a1.2 1.2 0 0 1 1.2-1.2z" />
-            <circle cx="12" cy="12.2" r="1.7" />
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <g fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2.5 8.5V5A2.5 2.5 0 0 1 5 2.5h3.5" />
+                <path d="M15.5 2.5H19A2.5 2.5 0 0 1 21.5 5v3.5" />
+                <path d="M21.5 15.5V19a2.5 2.5 0 0 1-2.5 2.5h-3.5" />
+                <path d="M8.5 21.5H5A2.5 2.5 0 0 1 2.5 19v-3.5" />
+            </g>
+            <mask id={lens}>
+                <rect width="24" height="24" fill="white" />
+                <circle cx="12" cy="12.6" r="2.45" fill="none" stroke="black" strokeWidth="1.1" />
+            </mask>
+            <path
+                mask={`url(#${lens})`}
+                fill="currentColor"
+                d="M8 8.7h1.7l.85-1.4h2.9l.85 1.4H16a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 8 8.7z"
+            />
         </svg>
     );
 }
