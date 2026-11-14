@@ -379,7 +379,7 @@ export default function MobileControls({
                 backdropFilter: "blur(40px)",
                 WebkitBackdropFilter: "blur(40px)",
                 border: ui.sheetBorder,
-                borderRadius: "32px",
+                borderRadius: "44px", // − 20px padding = the 24px tiles inside
                 padding: "20px",
                 boxSizing: "border-box",
                 display: "flex",

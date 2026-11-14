@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useRef } from "react";
-import { AudioLines, Camera, Image as ImageIcon, Moon, Sun, Volume1, Volume2, VolumeX } from "lucide-react";
+import { AudioLines, Image as ImageIcon, Moon, Sun, Volume1, Volume2, VolumeX } from "lucide-react";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import type { MusicPlayerState } from "@/app/hooks/useMusicPlayer";
 import MusicCard from "../musicCard/musicCard";
@@ -59,9 +59,24 @@ export default function ControlCenterGrid({
                 <ImageIcon size={20} strokeWidth={2} />
             </RoundButton>
             <RoundButton label="Screenshot" onClick={onScreenshot}>
-                <Camera size={20} strokeWidth={2} />
+                <ScreenshotIcon />
             </RoundButton>
         </div>
+    );
+}
+
+/** Screenshot glyph in the style of macOS's camera.viewfinder: viewfinder
+ *  corners around a small camera (a bare camera reads as "take a photo"). */
+function ScreenshotIcon() {
+    return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M3 7.5V5a2 2 0 0 1 2-2h2.5" />
+            <path d="M16.5 3H19a2 2 0 0 1 2 2v2.5" />
+            <path d="M21 16.5V19a2 2 0 0 1-2 2h-2.5" />
+            <path d="M7.5 21H5a2 2 0 0 1-2-2v-2.5" />
+            <path d="M8.6 8.8h1.3l.8-1.3h2.6l.8 1.3h1.3a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-1.2 1.2H8.6a1.2 1.2 0 0 1-1.2-1.2V10a1.2 1.2 0 0 1 1.2-1.2z" />
+            <circle cx="12" cy="12.2" r="1.7" />
+        </svg>
     );
 }
 
