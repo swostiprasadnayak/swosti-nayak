@@ -600,7 +600,7 @@ export default function SupplyChainCaseStudyTemplate() {
                     />
 
                     {/* 12 · Next */}
-                    <NextProject label="Next case study" title="Reed: buying a part shouldn't take a week of email" />
+                    <NextProject label="Next case study" title="LPS Planning: demand moves before the plan does" />
                 </div>
             </div>
         </div>

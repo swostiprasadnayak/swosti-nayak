@@ -10,7 +10,7 @@ import classes from "./expandedProject.module.css";
 // lower-cased project names.
 const CASE_STUDY_LOADERS = {
     "navanta supply chain": () => import("@/components/caseStudy/template/SupplyChainCaseStudyTemplate"),
-    "reed": () => import("@/components/caseStudy/template/ReedCaseStudyTemplate"),
+    "lps planning": () => import("@/components/caseStudy/template/LpsCaseStudyTemplate"),
     "blinkit": () => import("@/components/caseStudy/template/BlinkitCaseStudyTemplate"),
     "gc dental": () => import("@/components/caseStudy/template/GCDentalCaseStudyTemplate"),
     "insure-tech": () => import("@/components/caseStudy/template/InsureTechCaseStudyTemplate"),
