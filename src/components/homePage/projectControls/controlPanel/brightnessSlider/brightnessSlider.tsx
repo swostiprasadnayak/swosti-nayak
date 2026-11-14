@@ -25,7 +25,6 @@ export default function BrightnessSlider({ onBrightnessChange, surface = "auto" 
 
   return (
     <div className={`${classes.container} ${dark ? classes.dark : ""}`}>
-      <span className={classes.label}>Display</span>
       <div className={classes.sliderOuter}>
         <div className={classes.sunIcon}>
           <Sun size={20} />

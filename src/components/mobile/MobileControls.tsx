@@ -27,18 +27,21 @@ function playShutterSound() {
     shutterSound.play().catch(() => { });
 }
 
-// Colours for the mobile menu + Control Center. Dark values are the originals
-// (previously used in both themes); light mirrors the desktop glass: white
-// glass buttons, cool-grey glass panels, white tiles, dark text.
+// Colours for the mobile menu + Control Center. The floating buttons and the
+// menu use the dock's glass (dock.module.css .dockBgFill: 28% white / dark
+// --bg-glass, blur(28px) saturate(160%)); the Control Center sheet mirrors the
+// desktop control panel.
+const DOCK_BLUR = "blur(28px) saturate(160%)";
+
 const DARK_UI = {
-  fabBg: "rgba(30, 30, 35, 0.72)",
-  fabBorder: "1px solid rgba(255, 255, 255, 0.18)",
-  fabShadow: "0 6px 16px rgba(0, 0, 0, 0.22)",
+  fabBg: "rgba(28, 28, 30, 0.45)",
+  fabBorder: "1px solid var(--border-subtle)",
+  fabShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
   text: "#ffffff",
   textStrong: "rgba(255, 255, 255, 0.95)",
-  menuBg: "rgba(25, 25, 30, 0.75)",
-  menuBorder: "1px solid rgba(255, 255, 255, 0.15)",
-  menuShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+  menuBg: "rgba(28, 28, 30, 0.45)",
+  menuBorder: "1px solid var(--border-subtle)",
+  menuShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
   itemHover: "rgba(255, 255, 255, 0.08)",
   divider: "rgba(255, 255, 255, 0.1)",
   iconColor: "rgba(255, 255, 255, 0.85)",
@@ -53,14 +56,14 @@ const DARK_UI = {
 };
 
 const LIGHT_UI: typeof DARK_UI = {
-  fabBg: "rgba(255, 255, 255, 0.6)",
-  fabBorder: "1px solid rgba(255, 255, 255, 0.8)",
-  fabShadow: "0 6px 16px rgba(0, 0, 0, 0.08)",
+  fabBg: "rgba(255, 255, 255, 0.28)",
+  fabBorder: "1px solid var(--border-subtle)",
+  fabShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
   text: "#111827",
   textStrong: "rgba(0, 0, 0, 0.85)",
-  menuBg: "rgba(232, 234, 240, 0.78)",
-  menuBorder: "1px solid rgba(255, 255, 255, 0.6)",
-  menuShadow: "0 10px 30px rgba(0, 0, 0, 0.12)",
+  menuBg: "rgba(255, 255, 255, 0.28)",
+  menuBorder: "1px solid var(--border-subtle)",
+  menuShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
   itemHover: "rgba(0, 0, 0, 0.05)",
   divider: "rgba(0, 0, 0, 0.08)",
   iconColor: "rgba(0, 0, 0, 0.7)",
@@ -135,8 +138,8 @@ export default function MobileControls({
           height: "44px",
           borderRadius: "50%",
           background: ui.fabBg,
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          backdropFilter: DOCK_BLUR,
+          WebkitBackdropFilter: DOCK_BLUR,
           border: ui.fabBorder,
           display: "flex",
           alignItems: "center",
@@ -163,8 +166,8 @@ export default function MobileControls({
           height: "48px",
           borderRadius: "50%",
           background: ui.fabBg,
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          backdropFilter: DOCK_BLUR,
+          WebkitBackdropFilter: DOCK_BLUR,
           border: ui.fabBorder,
           display: "flex",
           alignItems: "center",
@@ -213,8 +216,8 @@ export default function MobileControls({
                 right: "24px",
                 width: "200px",
                 background: ui.menuBg,
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
+                backdropFilter: DOCK_BLUR,
+                WebkitBackdropFilter: DOCK_BLUR,
                 border: ui.menuBorder,
                 borderRadius: "20px",
                 padding: "12px",
