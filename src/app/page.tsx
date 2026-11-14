@@ -180,6 +180,7 @@ function HomeContent() {
                 <AudioLines size={20} strokeWidth={2} />
               </ControlButton>
               <ControlPanel
+                onVoiceMode={openVoiceModal}
                 imageIndex={imageIndex + 1}
                 onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
                 onScreenshot={handleScreenshot}

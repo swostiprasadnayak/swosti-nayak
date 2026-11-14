@@ -2,11 +2,10 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import classes from "./mobileControls.module.css";
-import { Settings, Menu, AudioLines, Image as ImageIcon, Camera, Mail, Sun, Moon } from "lucide-react";
+import { Settings, Menu, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useMusicPlayer } from "@/app/hooks/useMusicPlayer";
-import MusicCard from "@/components/homePage/projectControls/controlPanel/musicCard/musicCard";
-import BrightnessSlider, { VolumeSlider } from "@/components/homePage/projectControls/controlPanel/brightnessSlider/brightnessSlider";
+import ControlCenterGrid from "@/components/homePage/projectControls/controlPanel/controlCenterGrid/ControlCenterGrid";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
 import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
 import { useTheme } from "@/app/contexts/ThemeContext";
@@ -49,8 +48,6 @@ const DARK_UI = {
   sheetBg: "rgba(255, 255, 255, 0.12)",
   sheetBorder: "1px solid rgba(255, 255, 255, 0.2)",
   sheetShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
-  gridBg: "rgba(0, 0, 0, 0.25)",
-  tileBg: "rgba(255, 255, 255, 0.15)",
 };
 
 const LIGHT_UI: typeof DARK_UI = {
@@ -69,8 +66,6 @@ const LIGHT_UI: typeof DARK_UI = {
   sheetBg: "rgba(232, 234, 240, 0.72)",
   sheetBorder: "1px solid rgba(255, 255, 255, 0.6)",
   sheetShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-  gridBg: "rgba(255, 255, 255, 0.45)",
-  tileBg: "rgba(255, 255, 255, 0.95)",
 };
 
 export default function MobileControls({
@@ -82,7 +77,7 @@ export default function MobileControls({
 }: MobileControlsProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isControlOpen, setIsControlOpen] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark } = useTheme();
   const ui = isDark ? DARK_UI : LIGHT_UI;
   const { audioRef, audioEvents, ...player } = useMusicPlayer();
 
@@ -103,7 +98,11 @@ export default function MobileControls({
     return el;
   }, []);
 
+  // Kept here (not in the slider) so the level survives closing the sheet.
+  const [brightness, setBrightness] = useState(100);
+
   const handleBrightnessChange = useCallback((percent: number) => {
+    setBrightness(percent);
     const overlay = ensureOverlay();
     const targetOpacity = percent >= 100 ? 0 : (1 - percent / 100) * 0.85;
     overlay.style.opacity = String(targetOpacity);
@@ -415,124 +414,19 @@ export default function MobileControls({
                 pointerEvents: "auto"
               }}
             >
-              {/* Grid row: 2x2 buttons and Music Card */}
-              <div style={{ display: "flex", gap: "16px", height: "160px" }}>
-                {/* 2x2 grid container with completely equal frames */}
-                <div style={{
-                  width: "140px",
-                  background: ui.gridBg,
-                  borderRadius: "24px",
-                  padding: "12px",
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: "12px",
-                  boxSizing: "border-box",
-                  height: "100%"
-                }}>
-                  {/* 1. Theme Toggle */}
-                  <button
-                    onClick={toggleTheme}
-                    style={{
-                      background: ui.tileBg,
-                      border: "none",
-                      borderRadius: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: ui.text,
-                      cursor: "pointer",
-                      width: "100%",
-                      height: "100%",
-                      padding: 0,
-                      margin: 0
-                    }}
-                    title={isDark ? "Light Mode" : "Dark Mode"}
-                  >
-                    {isDark ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
-                  </button>
-
-                  {/* 2. Voice Toggle */}
-                  <button
-                    onClick={() => { setIsControlOpen(false); onVoiceMode?.(); }}
-                    style={{
-                      background: ui.tileBg,
-                      border: "none",
-                      borderRadius: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: ui.text,
-                      cursor: "pointer",
-                      width: "100%",
-                      height: "100%",
-                      padding: 0,
-                      margin: 0
-                    }}
-                    title="Voice Mode"
-                  >
-                    <AudioLines size={20} strokeWidth={2} />
-                  </button>
-
-                  {/* 3. Image Toggle (Wallpaper changer) */}
-                  <button
-                    onClick={onImageToggle}
-                    style={{
-                      background: imageIndex === 2 ? "rgba(255, 140, 130, 0.3)" : ui.tileBg,
-                      border: imageIndex === 2 ? "1px solid rgba(255, 140, 130, 0.5)" : "none",
-                      borderRadius: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: imageIndex === 2 ? "#ff8c82" : ui.text,
-                      cursor: "pointer",
-                      width: "100%",
-                      height: "100%",
-                      padding: 0,
-                      margin: 0
-                    }}
-                    title={`Image ${imageIndex}`}
-                  >
-                    <ImageIcon size={20} strokeWidth={2} />
-                  </button>
-
-                  {/* 4. Screenshot */}
-                  <button
-                    onClick={() => {
-                      playShutterSound();
-                      setIsControlOpen(false);
-                      onScreenshot?.();
-                    }}
-                    style={{
-                      background: ui.tileBg,
-                      border: "none",
-                      borderRadius: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: ui.text,
-                      cursor: "pointer",
-                      width: "100%",
-                      height: "100%",
-                      padding: 0,
-                      margin: 0
-                    }}
-                    title="Take Screenshot"
-                  >
-                    <Camera size={20} strokeWidth={2} />
-                  </button>
-                </div>
-
-                {/* Right Music Player */}
-                <div style={{ flex: 1, minWidth: 0, height: "100%" }}>
-                  <MusicCard player={player} />
-                </div>
-              </div>
-
-              {/* Brightness Slider */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isControlOpen} />
-                <VolumeSlider value={player.volume} onChange={player.setVolume} />
-              </div>
+              <ControlCenterGrid
+                player={player}
+                brightness={brightness}
+                onBrightnessChange={handleBrightnessChange}
+                imageIndex={imageIndex}
+                onImageToggle={onImageToggle}
+                onVoiceMode={() => { setIsControlOpen(false); onVoiceMode?.(); }}
+                onScreenshot={() => {
+                  playShutterSound();
+                  setIsControlOpen(false);
+                  onScreenshot?.();
+                }}
+              />
             </motion.div>
           </>
         )}

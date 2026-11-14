@@ -2,14 +2,12 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Settings2, Image as ImageIcon, Camera } from "lucide-react";
+import { Settings2 } from "lucide-react";
 import { useViewport } from "@/app/contexts/ViewportContext";
 import { useControlsRow } from "@/components/homePage/projectControls/controlsRow/controlsRow";
 import { useMusicPlayer } from "@/app/hooks/useMusicPlayer";
 import ControlButton from "@/components/ui/controlButton/controlButton";
-import ToggleCard from "./toggleCard/toggleCard";
-import MusicCard from "./musicCard/musicCard";
-import BrightnessSlider, { VolumeSlider } from "./brightnessSlider/brightnessSlider";
+import ControlCenterGrid from "./controlCenterGrid/ControlCenterGrid";
 import classes from "./controlPanel.module.css";
 
 // Shutter sound for screenshot feedback
@@ -24,6 +22,7 @@ interface ControlPanelProps {
     imageIndex?: number;
     onImageToggle?: () => void;
     onScreenshot?: () => void;
+    onVoiceMode?: () => void;
     onPanelHover?: () => void;
 }
 
@@ -31,6 +30,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
     imageIndex = 1,
     onImageToggle,
     onScreenshot,
+    onVoiceMode,
     onPanelHover,
 }) => {
     const { isMobile, mounted } = useViewport();
@@ -67,7 +67,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         return el;
     }, []);
 
+    // Kept here (not in the slider) so the level survives closing the panel.
+    const [brightness, setBrightness] = useState(100);
+
     const handleBrightnessChange = useCallback((percent: number) => {
+        setBrightness(percent);
         const overlay = ensureOverlay();
         const targetOpacity = percent >= 100 ? 0 : (1 - percent / 100) * 0.85;
         overlay.style.opacity = String(targetOpacity);
@@ -121,33 +125,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                             transition: { type: "spring", bounce: 0, duration: 0.3 }
                         }}
                     >
-                        <div className={classes.topRow}>
-                            <div className={classes.toggleColumn}>
-                                <ToggleCard
-                                    icon={<ImageIcon size={17} strokeWidth={2} />}
-                                    label={`Image ${imageIndex}`}
-                                    isActive={imageIndex === 2}
-                                    onClick={onImageToggle ?? (() => { })}
-                                />
-                                <ToggleCard
-                                    icon={<Camera size={17} strokeWidth={2} />}
-                                    label="Screenshot"
-                                    isActive={false}
-                                    onClick={() => {
-                                        playShutterSound();
-                                        setIsOpen(false);
-                                        onScreenshot?.(); // Fires instantly now
-                                    }}
-                                />
-                            </div>
-                            <div className={classes.musicWrapper}>
-                                <MusicCard player={player} />
-                            </div>
-                        </div>
-                        <div className={classes.levelSliders}>
-                            <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isOpen} />
-                            <VolumeSlider value={player.volume} onChange={player.setVolume} />
-                        </div>
+                        <ControlCenterGrid
+                            player={player}
+                            brightness={brightness}
+                            onBrightnessChange={handleBrightnessChange}
+                            imageIndex={imageIndex}
+                            onImageToggle={onImageToggle}
+                            onVoiceMode={() => { setIsOpen(false); onVoiceMode?.(); }}
+                            onScreenshot={() => {
+                                playShutterSound();
+                                setIsOpen(false);
+                                onScreenshot?.();
+                            }}
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>
