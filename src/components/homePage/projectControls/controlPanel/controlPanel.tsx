@@ -9,7 +9,7 @@ import { useMusicPlayer } from "@/app/hooks/useMusicPlayer";
 import ControlButton from "@/components/ui/controlButton/controlButton";
 import ToggleCard from "./toggleCard/toggleCard";
 import MusicCard from "./musicCard/musicCard";
-import BrightnessSlider from "./brightnessSlider/brightnessSlider";
+import BrightnessSlider, { VolumeSlider } from "./brightnessSlider/brightnessSlider";
 import classes from "./controlPanel.module.css";
 
 // Shutter sound for screenshot feedback
@@ -144,7 +144,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                                 <MusicCard player={player} />
                             </div>
                         </div>
-                        <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isOpen} />
+                        <div className={classes.levelSliders}>
+                            <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isOpen} />
+                            <VolumeSlider value={player.volume} onChange={player.setVolume} />
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

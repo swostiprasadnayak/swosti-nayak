@@ -6,7 +6,7 @@ import { Settings, Menu, AudioLines, Image as ImageIcon, Camera, Mail, Sun, Moon
 import { AnimatePresence, motion } from "motion/react";
 import { useMusicPlayer } from "@/app/hooks/useMusicPlayer";
 import MusicCard from "@/components/homePage/projectControls/controlPanel/musicCard/musicCard";
-import BrightnessSlider from "@/components/homePage/projectControls/controlPanel/brightnessSlider/brightnessSlider";
+import BrightnessSlider, { VolumeSlider } from "@/components/homePage/projectControls/controlPanel/brightnessSlider/brightnessSlider";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
 import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
 import { useTheme } from "@/app/contexts/ThemeContext";
@@ -529,8 +529,9 @@ export default function MobileControls({
               </div>
 
               {/* Brightness Slider */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isControlOpen} />
+                <VolumeSlider value={player.volume} onChange={player.setVolume} />
               </div>
             </motion.div>
           </>

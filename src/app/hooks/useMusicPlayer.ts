@@ -7,6 +7,18 @@ export function useMusicPlayer() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+    const [volume, setVolumeState] = useState(100);
+
+    // 0–100. The <audio> element keeps its volume across track changes.
+    // iOS Safari ignores .volume (hardware buttons only), so 0 also mutes.
+    const setVolume = useCallback((percent: number) => {
+        setVolumeState(percent);
+        const audio = audioRef.current;
+        if (audio) {
+            audio.volume = percent / 100;
+            audio.muted = percent === 0;
+        }
+    }, []);
 
     const tracks = [
         { title: "Sunflower", artist: "Post Malone, Swae Lee", src: "/audio/sunflower.mp3", thumbnail: "/images/music/sunflower.png" },
@@ -77,7 +89,7 @@ export function useMusicPlayer() {
         onEnded: nextTrack,
     };
 
-    return { audioRef, audioEvents, isPlaying, progress, track, currentTime, duration, togglePlay, nextTrack, prevTrack, seek };
+    return { audioRef, audioEvents, volume, setVolume, isPlaying, progress, track, currentTime, duration, togglePlay, nextTrack, prevTrack, seek };
 }
 
 /** What the music UI needs — everything except the <audio> ref and events, which
