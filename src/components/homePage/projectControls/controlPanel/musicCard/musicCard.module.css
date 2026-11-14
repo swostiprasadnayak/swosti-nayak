@@ -1,9 +1,13 @@
 /* Now Playing card, laid out on iOS Control Center's. Every measurement is a
    fraction of the artwork size A (--size), taken from the iOS card:
      padding 0.11A on all sides · art→text gap 0.095A · text column 1.25A
-     title/artist 0.11A type, line centres at 0.10A / 0.24A
+     title/artist line centres at ~0.10A / ~0.25A
      controls centred at 0.56A, play centred, side buttons inset 0.125A
-     bar 0.055A thick, top at 0.775A · times end 0.05A above the art's bottom
+     bar 0.055A thick, top at 0.775A · times end just above the art's bottom
+   Type does NOT scale down with A: the iOS card is a ~340pt phone card with a
+   17pt title, so pure proportions shrink text below legibility here. Sizes
+   use max(legible floor, proportional); floors from macOS Control Center:
+   14px title/artist, 11px times.
    Light: white tile on the panel glass; dark: translucent white tile. */
 .card {
   --size: 108px;
@@ -11,7 +15,9 @@
   align-items: center;
   gap: calc(var(--size) * 0.095);
   padding: calc(var(--size) * 0.11);
-  border-radius: 20px;
+  /* Concentric corners: panel (40/44px) − its padding (16/20px) = 24px here,
+     and the artwork = 24px − this card's padding (0.11A ≈ 12px). */
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.06);
   color: rgba(0, 0, 0, 0.88);
@@ -29,7 +35,7 @@
   flex-shrink: 0;
   width: var(--size);
   height: var(--size);
-  border-radius: calc(var(--size) * 0.065);
+  border-radius: calc(24px - var(--size) * 0.11);
   overflow: hidden;
   background: #e9e9ec;
 }
@@ -44,7 +50,7 @@
 
 .meta {
   position: absolute;
-  top: calc(var(--size) * 0.022);
+  top: 0;
   left: 0;
   right: 0;
 }
@@ -52,8 +58,8 @@
 .title,
 .artist {
   margin: 0;
-  font-size: calc(var(--size) * 0.11);
-  line-height: calc(var(--size) * 0.148);
+  font-size: max(14px, calc(var(--size) * 0.11));
+  line-height: max(18px, calc(var(--size) * 0.148));
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -151,7 +157,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: calc(var(--size) * 0.03);
-  font-size: calc(var(--size) * 0.09);
+  font-size: max(11px, calc(var(--size) * 0.09));
   line-height: 1;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
