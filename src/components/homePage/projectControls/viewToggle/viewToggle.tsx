@@ -10,22 +10,30 @@ export type ViewMode = "tab" | "card";
 type ViewToggleProps = {
     viewMode: ViewMode;
     onViewModeChange: (mode: ViewMode) => void;
+    /** Called when the already-active view is clicked again. */
+    onReset?: () => void;
 };
 
-const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewModeChange }) => {
+const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewModeChange, onReset }) => {
+    // Clicking the active view again resets the layout to its default.
+    const select = (mode: ViewMode) => {
+        if (mode === viewMode) onReset?.();
+        else onViewModeChange(mode);
+    };
+
     return (
         <Squircle cornerRadius={12} className={classes.container}>
             <button
                 className={`${classes.toggleButton} ${viewMode === "tab" ? classes.active : ""}`}
-                onClick={() => onViewModeChange("tab")}
-                aria-label="Tab View"
+                onClick={() => select("tab")}
+                aria-label="Stack view"
             >
                 <SquareStack size={18} strokeWidth={2} />
             </button>
             <button
                 className={`${classes.toggleButton} ${viewMode === "card" ? classes.active : ""}`}
-                onClick={() => onViewModeChange("card")}
-                aria-label="Card View"
+                onClick={() => select("card")}
+                aria-label="Grid view"
             >
                 <LayoutGrid size={18} strokeWidth={2} />
             </button>

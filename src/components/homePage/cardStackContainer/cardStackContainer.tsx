@@ -229,7 +229,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
                 return (
                     <motion.div
-                        key={slug}
+                        // layoutVersion changes on "reset layout", remounting the
+                        // window so a dragged position snaps back to its default.
+                        key={`${slug}-${windowModeState.layoutVersion}`}
                         className={classes.windowCardOuter}
                         style={{ x: pos?.x, y: pos?.y, zIndex }}
                         drag
@@ -237,6 +239,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                         dragElastic={0}
                         onDragStart={(e, info) => handleWindowDragStart(e, info, slug)}
                         onDragEnd={handleWindowDragEnd}
+                        // Releasing a drag fires a click; swallow it here (capture
+                        // phase) so moving a window doesn't also open its case study.
+                        onClickCapture={(e) => { if (wasDragRef.current) e.stopPropagation(); }}
                         onClick={() => handleWindowCardClick(slug)}
                     >
                         <motion.div

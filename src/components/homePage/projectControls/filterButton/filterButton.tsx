@@ -73,9 +73,8 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     };
 
     const hasActiveFilters = activeFilters.length > 0;
-    // Trigger label is always "Workspace"; the active state lives on the
-    // highlighted radio inside the dropdown.
-    const activeLabel = "Workspace";
+    // Trigger shows the selected option, so it matches the dropdown.
+    const activeLabel = activeFilters[0] ?? "Default";
 
     return (
         <div className={classes.container} ref={containerRef} data-component="FilterButton">

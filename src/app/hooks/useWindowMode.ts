@@ -6,14 +6,25 @@ export type WindowModeAPI = {
     closeWindow: (slug: string) => void;
     getPosition: (slug: string) => { x: number; y: number } | undefined;
     getZIndex: (slug: string) => number;
+    /** Restore the default desktop layout: original windows, stacking order
+     *  and positions (bumps layoutVersion so dragged windows remount). */
+    resetLayout: () => void;
+    layoutVersion: number;
 };
+
+// The order visitors see on load (back → front): CardStackContainer's filter
+// sync brings Blinkit, then GC Dental, then Insure-Tech to the front on mount.
+// resetLayout restores exactly this.
+const DEFAULT_OPEN = ["blinkit", "gc-dental", "insure-tech"];
+const DEFAULT_Z: Record<string, number> = { blinkit: 1, "gc-dental": 2, "insure-tech": 3 };
 
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Start empty for SSR safety and to keep mobile clear on startup
     const [openWindows, setOpenWindows] = useState<string[]>([]);
-    // insure-tech has highest z (frontmost), blinkit middle, gc-dental back
-    const [zIndexes, setZIndexes] = useState<Record<string, number>>({ "gc-dental": 1, blinkit: 2, "insure-tech": 3 });
+    // insure-tech frontmost, gc-dental middle, blinkit back
+    const [zIndexes, setZIndexes] = useState<Record<string, number>>(DEFAULT_Z);
     const [, setTopZ] = useState(3);
+    const [layoutVersion, setLayoutVersion] = useState(0);
 
     // Initialize desktop open windows on mount — last item is frontmost.
     // Matches the "Default" filter (3 flagship projects in their original
@@ -24,7 +35,7 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
             // Viewport width is only knowable after hydration; seeding it in
             // useState would make server and client markup disagree.
             // eslint-disable-next-line react-hooks/set-state-in-effect
-            setOpenWindows(["gc-dental", "blinkit", "insure-tech"]);
+            setOpenWindows(DEFAULT_OPEN);
         }
     }, []);
 
@@ -71,5 +82,14 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
 
     const getZIndex = useCallback((slug: string) => zIndexes[slug] || 1, [zIndexes]);
 
-    return { openWindows, bringToFront, closeWindow, getPosition, getZIndex };
+    const resetLayout = useCallback(() => {
+        if (typeof window !== "undefined" && window.innerWidth > 768) {
+            setOpenWindows(DEFAULT_OPEN);
+        }
+        setZIndexes(DEFAULT_Z);
+        setTopZ(3);
+        setLayoutVersion((v) => v + 1);
+    }, []);
+
+    return { openWindows, bringToFront, closeWindow, getPosition, getZIndex, resetLayout, layoutVersion };
 }

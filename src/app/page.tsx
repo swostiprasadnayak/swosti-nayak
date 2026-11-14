@@ -165,7 +165,11 @@ function HomeContent() {
 
           {/* Top Center: View Toggle (Perfectly centered) */}
           <div style={{ pointerEvents: 'auto', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-            <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
+            <ViewToggle
+              viewMode={viewMode}
+              onViewModeChange={setViewMode}
+              onReset={() => { windowModeState.resetLayout(); setActiveFilters([]); }}
+            />
           </div>
 
           {/* Top Right: Actions */}
