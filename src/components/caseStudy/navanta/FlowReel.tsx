@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
-import { Pause, Play, RotateCcw } from "lucide-react";
+import { Play } from "lucide-react";
 import classes from "./navanta.module.css";
 
 /* A product flow as a short film, built from the product's real screens:
@@ -211,35 +211,25 @@ export default function FlowReel({
                     </div>
                 )}
 
-                {poster && (
-                    <button type="button" className={classes.reelBigPlay} onClick={() => seek(0.001)} aria-label={`Play: ${label}`}>
-                        <Play size={22} aria-hidden="true" />
-                    </button>
-                )}
+                {/* No visible controls: the whole film is the play/pause button. */}
+                <button
+                    type="button"
+                    className={classes.reelToggle}
+                    onClick={() => (poster ? seek(0.001) : setPaused(!isPaused))}
+                    aria-label={`${isPaused || poster ? "Play" : "Pause"}: ${label}`}
+                >
+                    {(isPaused || poster) && (
+                        <span className={classes.reelBigPlay}>
+                            <Play size={22} aria-hidden="true" />
+                        </span>
+                    )}
+                </button>
             </div>
 
             <div className={classes.reelFoot}>
-                <div className={classes.reelBar}>
-                    <p className={classes.reelCaption} aria-live="polite">
-                        {inHook ? hook : inEnd ? end : shot.caption}
-                    </p>
-                    <div className={classes.reelControls}>
-                        <button
-                            type="button"
-                            className={classes.relayIconButton}
-                            onClick={() => (poster ? seek(0.001) : setPaused(!isPaused))}
-                            aria-label={isPaused || poster ? "Play" : "Pause"}
-                        >
-                            {isPaused || poster ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
-                        </button>
-                        <button type="button" className={classes.relayIconButton} onClick={() => seek(0.001)} aria-label="Play from the start">
-                            <RotateCcw size={14} aria-hidden="true" />
-                        </button>
-                    </div>
-                </div>
-                <div className={classes.reelProgress} aria-hidden="true">
-                    <i style={{ transform: `scaleX(${poster ? 0 : t / total})` }} />
-                </div>
+                <p className={classes.reelCaption} aria-live="polite">
+                    {inHook ? hook : inEnd ? end : shot.caption}
+                </p>
             </div>
         </figure>
     );

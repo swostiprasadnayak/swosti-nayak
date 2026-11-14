@@ -485,6 +485,67 @@
     margin: 0;
 }
 
+/* Live prototype (LivePrototype.tsx): heading and a line, then a screenshot
+   in the reels' 16:10 frame that opens the live site in a new tab. */
+.live {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.liveNote {
+    margin-top: 12px;
+}
+
+.liveFrame {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    background: #f4f6f9;
+}
+
+.liveFrame:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 3px;
+}
+
+.liveLaunch {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 100px;
+    background: rgba(17, 24, 39, 0.88);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.liveLaunch svg {
+    transition: transform 0.2s ease;
+}
+
+.liveFrame:hover .liveLaunch {
+    background: #111827;
+    transform: translate(-50%, -50%) scale(1.03);
+}
+
+.liveFrame:hover .liveLaunch svg {
+    transform: translate(2px, -2px);
+}
+
 /* Decisions: the call on the left, why on the right */
 .decisions {
     margin-top: 24px;
@@ -1150,6 +1211,24 @@
     background: #6d4bd8;
 }
 
+/* The whole stage is one button: click or tap to pause/resume. The round
+   play glyph shows only while paused (or before the first play). */
+.reelToggle {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.reelToggle:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: -4px;
+    border-radius: 14px;
+}
+
 .reelBigPlay {
     position: absolute;
     left: 50%;
@@ -1168,52 +1247,17 @@
     cursor: pointer;
 }
 
-.reelBigPlay:focus-visible {
-    outline: 2px solid var(--accent-color, #0a7cff);
-    outline-offset: 4px;
-}
-
+/* Just the caption, narrating the flow. */
 .reelFoot {
-    display: flex;
-    flex-direction: column;
-    padding: 14px 18px 0;
-}
-
-/* Caption on the left narrating the flow, controls on the right. */
-.reelBar {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding-bottom: 14px;
+    padding: 14px 18px 16px;
 }
 
 .reelCaption {
-    flex: 1;
-    min-width: 0;
     margin: 0;
     min-height: 1.45em;
     font-size: 1rem;
     line-height: 1.45;
     color: var(--text-primary);
-}
-
-.reelControls {
-    display: flex;
-    flex-shrink: 0;
-    gap: 6px;
-}
-
-.reelProgress {
-    height: 3px;
-    margin: 0 -18px;
-    background: var(--border-subtle);
-}
-
-.reelProgress i {
-    display: block;
-    height: 100%;
-    background: #6d4bd8;
-    transform-origin: left;
 }
 
 /* Screen tabs: several screens of one experience, one at a time */
@@ -1564,11 +1608,7 @@
     }
 
     .reelFoot {
-        padding: 12px 12px 0;
-    }
-
-    .reelProgress {
-        margin: 0 -12px;
+        padding: 12px 12px 14px;
     }
 
     .reelCaption {
@@ -1619,6 +1659,8 @@
     .relayDot,
     .relayTick,
     .relayAxis span,
+    .liveLaunch,
+    .liveLaunch svg,
     .relayLine,
     .relayLineDone {
         transition: none;

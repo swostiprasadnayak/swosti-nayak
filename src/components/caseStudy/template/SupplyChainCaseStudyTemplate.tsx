@@ -21,6 +21,7 @@ import {
 } from "../navanta/blocks";
 import ScreenFrame from "../navanta/ScreenFrame";
 import FlowReel from "../navanta/FlowReel";
+import LivePrototype from "../navanta/LivePrototype";
 import ScreenTabs from "../navanta/ScreenTabs";
 import RelayLanes from "../navanta/RelayLanes";
 import SeatSwitcher from "../navanta/SeatSwitcher";
@@ -590,6 +591,14 @@ export default function SupplyChainCaseStudyTemplate() {
                             { value: "7", label: "Signal types, one owner each" },
                             { value: "1", label: "Record for a delay, on every seat" },
                         ]}
+                    />
+
+                    {/* Live prototype */}
+                    <LivePrototype
+                        note="The demo itself, running live. Click through it yourself."
+                        href="https://supply-chain-demo-experience.vercel.app"
+                        poster={`${IMG}/executive-dashboard.png`}
+                        title="Navanta Supply Chain"
                     />
 
                     {/* 12 · Next */}

@@ -20,6 +20,7 @@ import {
 } from "../navanta/blocks";
 import ScreenFrame from "../navanta/ScreenFrame";
 import FlowReel from "../navanta/FlowReel";
+import LivePrototype from "../navanta/LivePrototype";
 import LifecycleTracker from "../navanta/LifecycleTracker";
 import SeatSwitcher from "../navanta/SeatSwitcher";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
@@ -339,6 +340,14 @@ export default function ShopFloorCaseStudyTemplate() {
                             { value: "3", label: "Desks, one agent" },
                             { value: "$12.9M", label: "A year across five levers, in the client's case" },
                         ]}
+                    />
+
+                    {/* Live prototype */}
+                    <LivePrototype
+                        note="The 3D shop floor itself, running live. Click through it yourself."
+                        href="https://wb-ro-3d-prototype.vercel.app/shop-floor"
+                        poster={`${IMG}/shop-floor.png`}
+                        title="Shop Floor"
                     />
 
                     {/* 11 · Next */}
