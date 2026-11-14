@@ -1,0 +1,357 @@
+"use client";
+import React from "react";
+
+import CaseStudyHeader from "../blocks/CaseStudyHeader";
+import classes from "./caseStudy.module.css";
+import nav from "../navanta/navanta.module.css";
+import {
+    BridgeQuestion,
+    Decisions,
+    NextProject,
+    Outcomes,
+    Paragraphs,
+    Pillars,
+    Pivot,
+    QuestionSection,
+    RoleStrip,
+    ScenarioRows,
+    Split,
+    StateLegend,
+} from "../navanta/blocks";
+import ScreenFrame from "../navanta/ScreenFrame";
+import FlowReel from "../navanta/FlowReel";
+import LifecycleTracker from "../navanta/LifecycleTracker";
+import SeatSwitcher from "../navanta/SeatSwitcher";
+import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
+
+/* Shop Floor — a live shop-floor portal for a trailer and reefer repair
+   network, designed and built at Navanta. Screens are captures of the working
+   prototype at 1440 × 900, illustrative data, with the client's name, logo and
+   branch masked and technician names swapped for fictional ones. Journey
+   steps, SRT figures and Iris's actions come from the prototype's data. Same
+   shape as the Supply Chain study: one record through the product first, then
+   each desk. */
+
+const IMG = "/images/navanta/shop-floor";
+const SHOT = "1440 / 900";
+
+export default function ShopFloorCaseStudyTemplate() {
+    const { openModal } = useVoiceModal();
+
+    return (
+        <div className={classes.pageWrapper}>
+            <div className={classes.contentMaxWidth}>
+                <div className={nav.page}>
+                    {/* 00 · Header + hero */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+                        <CaseStudyHeader
+                            title="Shop Floor"
+                            subtitle="One truck through the shop, and every desk can see where it is."
+                            tags={["AI agent", "Field service", "3D", "Design + build"]}
+                            onVoiceModeClick={openModal}
+                        />
+                        <RoleStrip
+                            items={[
+                                { label: "Role", value: "Designer and builder" },
+                                { label: "When", value: "Oct 2026" },
+                                { label: "Company", value: "Navanta" },
+                                { label: "Client", value: "A US trailer and reefer repair network" },
+                            ]}
+                        />
+                        <FlowReel
+                            label="Film: one truck through the shop, from the gate to the invoice"
+                            hook="10:40. A reefer trailer pulls up with a compressor fault."
+                            steps={["Intake", "Assigned", "Repair", "Pickup", "Invoicing"]}
+                            end="One truck, gate to invoice, and every desk could see where it was."
+                            shots={[
+                                {
+                                    src: `${IMG}/step-intake.png`,
+                                    alt: "Truck A in the inspection bay on the 3D shop floor",
+                                    step: 0,
+                                    caption: "Truck A comes through the gate. The RO opens, and the customer gets a live status link.",
+                                    dur: 5,
+                                    to: { s: 1.6, x: 33, y: 48 },
+                                },
+                                {
+                                    src: `${IMG}/step-assigned.png`,
+                                    alt: "The repair kit leaving the parts cage",
+                                    step: 1,
+                                    caption: "A reefer-certified tech is matched, and the kit leaves the parts cage.",
+                                    dur: 5,
+                                    to: { s: 1.6, x: 33, y: 48 },
+                                },
+                                {
+                                    src: `${IMG}/step-repair.png`,
+                                    alt: "Bay 3 with the standard-time clock running",
+                                    step: 2,
+                                    caption: "Bay 3, the standard-time clock running. The customer sees the photo.",
+                                    dur: 4.5,
+                                    to: { s: 1.6, x: 33, y: 48 },
+                                },
+                                {
+                                    src: `${IMG}/repair-orders-modal.png`,
+                                    alt: "A repair order with Iris's recommendation",
+                                    step: 2,
+                                    caption: "Iris spots the added work and drafts it. The service writer approves.",
+                                    dur: 5,
+                                    to: { s: 1.5, x: 50, y: 38 },
+                                    click: { x: 78.4, y: 42.6, at: 3.5 },
+                                },
+                                {
+                                    src: `${IMG}/step-pickup.png`,
+                                    alt: "Truck A picked up on the 3D shop floor",
+                                    step: 3,
+                                    caption: "Picked up at 2:45, ahead of the 3:30 promise.",
+                                    dur: 4.5,
+                                    to: { s: 1.6, x: 38, y: 52 },
+                                },
+                                {
+                                    src: `${IMG}/step-invoicing.png`,
+                                    alt: "Truck A leaving the site, invoiced",
+                                    step: 4,
+                                    caption: "The RO is checked and invoiced, with every fee on it.",
+                                    dur: 4.5,
+                                    to: { s: 1.5, x: 33, y: 48 },
+                                },
+                            ]}
+                        />
+                    </div>
+
+                    {/* 01 · The problem */}
+                    <ScenarioRows
+                        heading="The truck nobody can see"
+                        lead="10:40. A reefer trailer pulls up to the gate with a compressor fault."
+                        rows={[
+                            { statement: "The service writer opens a repair order.", consequence: "The diagnostic fee doesn't make it on." },
+                            { statement: "A reefer-certified tech is free, somewhere.", consequence: "The shop lead walks the floor to find out." },
+                            { statement: "The repair runs past its standard time.", consequence: "The customer hears when they call." },
+                            { statement: "The repair order closes.", consequence: "Invoicing gets it days later, a fee short." },
+                        ]}
+                        closing="One truck. Four desks. Nobody watching the whole job."
+                    />
+
+                    {/* 02 · Approach */}
+                    <Pillars
+                        heading="Three rules"
+                        intro="One branch, three desks, and Navanta's agent Iris working alongside each."
+                        items={[
+                            { title: "The shop is the screen", body: "Every truck, bay and tech in one live 3D view of the branch." },
+                            { title: "One RO links it all", body: "Customer, truck, repair order, bay and tech. Open any one, reach the rest." },
+                            { title: "Iris drafts, people send", body: "Every row asks for one decision, with Iris's reason and confidence." },
+                        ]}
+                    />
+
+                    {/* 03 · My role */}
+                    <Split heading="My role">
+                        <Paragraphs
+                            items={[
+                                "Designed the portal and built it as a working prototype, from the 3D shop floor to the three work queues, on Navanta's design system.",
+                                "Modelled the branch in 3D, scripted one truck's repair order through it, and tied every Iris action to a value lever from the client's business case.",
+                            ]}
+                        />
+                    </Split>
+
+                    <ScreenFrame
+                        title="The shop floor at one branch"
+                        src={`${IMG}/shop-floor.png`}
+                        aspect={SHOT}
+                        caption="The branch as it is right now: eight bays, eleven trucks, and Truck A at the gate."
+                    />
+
+                    {/* 04 · Bridge */}
+                    <BridgeQuestion
+                        question="Where is the truck, and what does it need from me?"
+                        note="One truck through the shop first, then each desk."
+                    />
+
+                    {/* 05 · The journey */}
+                    <LifecycleTracker
+                        eyebrow="The journey"
+                        heading="Truck A, gate to invoice"
+                        intro={["One repair order, five steps. The scene, the numbers and the list all move with it. Click through."]}
+                        steps={[
+                            {
+                                name: "Intake",
+                                note: "Backs into the inspection bay. Iris opens the RO with a diagnostic task and the fee on it. The customer gets a live status link.",
+                                screen: { title: "Intake: Truck A in the inspection bay", src: `${IMG}/step-intake.png`, aspect: SHOT },
+                            },
+                            {
+                                name: "Assigned",
+                                note: "A reefer-certified tech is matched to Bay 3 and the compressor kit leaves the parts cage. The customer gets a promise time: 3:30 PM.",
+                                screen: { title: "Assigned: kit leaves the parts cage", src: `${IMG}/step-assigned.png`, aspect: SHOT },
+                            },
+                            {
+                                name: "Repair",
+                                note: "The clock runs against the standard repair time: 1.4 of 2.0 hours. The tech finds a worn seal and the customer approves it from a photo.",
+                                screen: { title: "Repair: Bay 3, SRT clock running", src: `${IMG}/step-repair.png`, aspect: SHOT },
+                            },
+                            {
+                                name: "Pickup",
+                                note: "Done at 2.0 hours, out to the pickup pad, collected at 2:45 PM. On-time moves from 91% to 92%.",
+                                screen: { title: "Pickup: collected ahead of the promise", src: `${IMG}/step-pickup.png`, aspect: SHOT },
+                            },
+                            {
+                                name: "Invoicing",
+                                note: "Iris checks labor, parts and fees against the RO before the invoice goes. All five steps done.",
+                                screen: { title: "Invoicing: RO checked and invoiced", src: `${IMG}/step-invoicing.png`, aspect: SHOT },
+                            },
+                        ]}
+                    />
+
+                    {/* 06 · Linked record */}
+                    <QuestionSection
+                        eyebrow="Linked"
+                        question="Who's on this truck?"
+                        why={["Click a truck, in the scene or the list, and the whole job opens: its bay, its customer, its tech, linked by the RO."]}
+                        screen={{
+                            title: "Truck A's card, linked by RO-24117",
+                            src: `${IMG}/truck-panel.png`,
+                            aspect: SHOT,
+                            caption: "One toggle switches between the truck, the bay, the customer and the tech. Iris's next action sits on top.",
+                        }}
+                    />
+
+                    {/* 07 · The desks */}
+                    <SeatSwitcher
+                        eyebrow="The desks"
+                        heading="What each desk works on"
+                        intro={["Pick a desk, then a screen. Same agent, same shape: a queue of decisions, each one a click."]}
+                        seats={[
+                            {
+                                id: "writer",
+                                name: "Service writer",
+                                role: "Repair orders",
+                                icon: "Headset",
+                                agent: "Iris",
+                                agentRole: "Navanta agent",
+                                agentDoes: "Puts the fees on the RO and drafts the customer update.",
+                                question: "Which repair orders need me before the customer calls?",
+                                screens: [
+                                    {
+                                        label: "Queue",
+                                        note: "Every open RO against its standard time and promise, with Iris's next action.",
+                                        screen: { title: "Repair orders action center", src: `${IMG}/repair-orders.png`, aspect: SHOT },
+                                    },
+                                    {
+                                        label: "An RO",
+                                        note: "Iris's summary, the change it recommends, and what it does to the estimate.",
+                                        screen: { title: "RO-24117 with Iris's recommendation", src: `${IMG}/repair-orders-modal.png`, aspect: SHOT },
+                                    },
+                                ],
+                            },
+                            {
+                                id: "lead",
+                                name: "Shop lead",
+                                role: "Bays & techs",
+                                icon: "Gauge",
+                                agent: "Iris",
+                                agentRole: "Navanta agent",
+                                agentDoes: "Matches techs to bays and flags a job running over.",
+                                question: "Which bay is running over, and who's free?",
+                                screens: [
+                                    {
+                                        label: "Bays",
+                                        note: "Eight bays, each against its standard time, and what's up next.",
+                                        screen: { title: "Bays and techs action center", src: `${IMG}/bays.png`, aspect: SHOT },
+                                    },
+                                    {
+                                        label: "A bay",
+                                        note: "Bay 1 is free and Truck I is at the gate: Iris says pull it in now.",
+                                        screen: { title: "Bay 1 with Iris's recommendation", src: `${IMG}/bays-modal.png`, aspect: SHOT },
+                                    },
+                                ],
+                            },
+                            {
+                                id: "clerk",
+                                name: "Invoicing clerk",
+                                role: "Central invoicing",
+                                icon: "Handshake",
+                                agent: "Iris",
+                                agentRole: "Navanta agent",
+                                agentDoes: "Checks every closed RO against SRT, parts and the PO.",
+                                question: "Is this invoice right before it goes?",
+                                screens: [
+                                    {
+                                        label: "Queue",
+                                        note: "Closed ROs, checked by Iris, with what it found missing.",
+                                        screen: { title: "Central invoicing action center", src: `${IMG}/invoicing.png`, aspect: SHOT },
+                                    },
+                                    {
+                                        label: "An invoice",
+                                        note: "A missing diagnostic fee and unexplained labor, fixed and sent in one click.",
+                                        screen: { title: "INV-80412 with Iris's check", src: `${IMG}/invoicing-modal.png`, aspect: SHOT },
+                                    },
+                                ],
+                            },
+                        ]}
+                    />
+
+                    {/* 08 · The value */}
+                    <Pivot
+                        lead="That's the shop."
+                        statement="Every Iris action is tied to a lever in the client's business case."
+                        body={[]}
+                    />
+
+                    <QuestionSection
+                        eyebrow="Value"
+                        question="What is each click worth?"
+                        why={["Five levers, one per step of the journey. The scene tags each step with its lever as the truck reaches it."]}
+                        legend={
+                            <StateLegend
+                                items={[
+                                    { label: "Intake", note: "Diagnostic fee and call-out · $3.4M" },
+                                    { label: "Assigned", note: "Labor planning · $3.0M · Parts · $1.5M" },
+                                    { label: "Repair", note: "Customer updates and bays · $2.5M" },
+                                    { label: "Invoicing", note: "Central invoicing · $2.5M" },
+                                ]}
+                            />
+                        }
+                    />
+
+                    {/* 09 · Decisions */}
+                    <Decisions
+                        heading="Design calls"
+                        intro={[]}
+                        items={[
+                            {
+                                decision: "The 3D view is the dashboard, not decoration.",
+                                why: "Hover a row and its bay lights up; click a truck and its job opens.",
+                            },
+                            {
+                                decision: "Labor is measured against standard repair time.",
+                                why: "SRT is what gets billed, so going over it is the signal.",
+                            },
+                            {
+                                decision: "The customer hears first.",
+                                why: "Iris drafts the new promise before the old one passes.",
+                            },
+                            {
+                                decision: "Fees are checked twice: at intake and at invoicing.",
+                                why: "A missed call-out fee is money the branch never sees.",
+                            },
+                            {
+                                decision: "Every change shows its before and after.",
+                                why: "$1,960 → $2,340, on confirm. Nothing changes quietly.",
+                            },
+                        ]}
+                    />
+
+                    {/* 10 · Outcome */}
+                    <Outcomes
+                        heading="What happened"
+                        intro={[]}
+                        items={[
+                            { value: "5", label: "Steps of one repair order, on one screen" },
+                            { value: "3", label: "Desks, one agent" },
+                            { value: "$12.9M", label: "A year across five levers, in the client's case" },
+                        ]}
+                    />
+
+                    {/* 11 · Next */}
+                    <NextProject label="Next case study" title="Insure-Tech: insurance plans from a document upload" />
+                </div>
+            </div>
+        </div>
+    );
+}

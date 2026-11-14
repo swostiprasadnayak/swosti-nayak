@@ -31,6 +31,13 @@ const ALL_PROJECTS: ProjectContent[] = [
         demoPoster: "/images/navanta/lps/dallas-request.jpg",
     },
     {
+        name: "Shop Floor",
+        slug: "shop-floor",
+        description: "A live 3D shop floor for a trailer repair branch — one truck from gate to invoice, with an AI agent at every desk.",
+        tags: ["AI", "Enterprise", "3D"],
+        demoPoster: "/images/navanta/shop-floor/shop-floor.png",
+    },
+    {
         name: "Insure-Tech",
         slug: "insure-tech",
         description: "AI-powered insurance product configuration — from document upload to stakeholder-ready plans in minutes.",

@@ -11,6 +11,7 @@ import classes from "./expandedProject.module.css";
 const CASE_STUDY_LOADERS = {
     "navanta supply chain": () => import("@/components/caseStudy/template/SupplyChainCaseStudyTemplate"),
     "lps planning": () => import("@/components/caseStudy/template/LpsCaseStudyTemplate"),
+    "shop floor": () => import("@/components/caseStudy/template/ShopFloorCaseStudyTemplate"),
     "blinkit": () => import("@/components/caseStudy/template/BlinkitCaseStudyTemplate"),
     "gc dental": () => import("@/components/caseStudy/template/GCDentalCaseStudyTemplate"),
     "insure-tech": () => import("@/components/caseStudy/template/InsureTechCaseStudyTemplate"),
