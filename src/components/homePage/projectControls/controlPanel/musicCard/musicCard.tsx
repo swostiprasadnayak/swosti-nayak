@@ -1,9 +1,24 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Play, Pause, FastForward, Rewind } from "lucide-react";
 import type { MusicPlayerState } from "@/app/hooks/useMusicPlayer";
 import classes from "./musicCard.module.css";
+
+// iOS-style transport glyphs (SF Symbols play/backward/forward .fill look):
+// slim triangles with softly rounded corners via a same-colour round-join stroke.
+const glyph = { fill: "currentColor", stroke: "currentColor", strokeWidth: 1.6, strokeLinejoin: "round" as const };
+const PlayIcon = () => (
+    <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path {...glyph} d="M7 4.8v14.4L19 12z" /></svg>
+);
+const PauseIcon = () => (
+    <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4.5" width="4" height="15" rx="1.2" fill="currentColor" /><rect x="14" y="4.5" width="4" height="15" rx="1.2" fill="currentColor" /></svg>
+);
+const ForwardIcon = () => (
+    <svg width="24" height="18" viewBox="0 0 26 20" aria-hidden="true"><path {...glyph} d="M2 4v12l10-6z M13 4v12l10-6z" /></svg>
+);
+const BackwardIcon = () => (
+    <svg width="24" height="18" viewBox="0 0 26 20" aria-hidden="true"><path {...glyph} d="M24 4v12l-10-6z M13 4v12L3 10z" /></svg>
+);
 
 const formatTime = (time: number) => {
     if (!Number.isFinite(time) || time < 0) return "0:00";
@@ -22,7 +37,7 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
         <div className={classes.card}>
             <div className={classes.art}>
                 {track?.thumbnail && (
-                    <Image src={track.thumbnail} alt={track.title} fill sizes="88px" style={{ objectFit: "cover" }} />
+                    <Image src={track.thumbnail} alt={track.title} fill sizes="108px" style={{ objectFit: "cover" }} />
                 )}
             </div>
 
@@ -34,15 +49,13 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
 
                 <div className={classes.controls}>
                     <button type="button" onClick={prevTrack} aria-label="Previous track" className={classes.ctrl}>
-                        <Rewind size={20} fill="currentColor" stroke="none" />
+                        <BackwardIcon />
                     </button>
                     <button type="button" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className={classes.ctrl}>
-                        {isPlaying
-                            ? <Pause size={24} fill="currentColor" stroke="none" />
-                            : <Play size={24} fill="currentColor" stroke="none" />}
+                        {isPlaying ? <PauseIcon /> : <PlayIcon />}
                     </button>
                     <button type="button" onClick={nextTrack} aria-label="Next track" className={classes.ctrl}>
-                        <FastForward size={20} fill="currentColor" stroke="none" />
+                        <ForwardIcon />
                     </button>
                 </div>
 
@@ -62,7 +75,7 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
                     </div>
                     <div className={classes.times}>
                         <span>{formatTime(currentTime)}</span>
-                        <span>-{hasDuration ? formatTime(duration - currentTime) : "0:00"}</span>
+                        <span>−{hasDuration ? formatTime(duration - currentTime) : "0:00"}</span>
                     </div>
                 </div>
             </div>

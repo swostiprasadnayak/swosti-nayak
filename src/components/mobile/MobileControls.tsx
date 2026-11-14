@@ -2,9 +2,10 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import classes from "./mobileControls.module.css";
-import { Settings, Menu, Mail } from "lucide-react";
+import { Menu, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useMusicPlayer } from "@/app/hooks/useMusicPlayer";
+import AssistiveTouch from "./AssistiveTouch";
 import ControlCenterGrid from "@/components/homePage/projectControls/controlPanel/controlCenterGrid/ControlCenterGrid";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
 import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
@@ -149,33 +150,9 @@ export default function MobileControls({
         <Menu size={20} strokeWidth={2} />
       </button>
 
-      {/* 2. BOTTOM RIGHT (above dock): Settings Trigger Button */}
-      <button
-        onClick={() => setIsControlOpen(!isControlOpen)}
-        title="Controls"
-        style={{
-          position: "fixed",
-          bottom: "120px",
-          right: "24px",
-          width: "48px",
-          height: "48px",
-          borderRadius: "50%",
-          background: ui.fabBg,
-          backdropFilter: DOCK_BLUR,
-          WebkitBackdropFilter: DOCK_BLUR,
-          border: ui.fabBorder,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: ui.text,
-          boxShadow: ui.fabShadow,
-          pointerEvents: "auto",
-          zIndex: 101,
-          cursor: "pointer"
-        }}
-      >
-        <Settings size={22} strokeWidth={2} />
-      </button>
+      {/* 2. AssistiveTouch-style button: draggable, snaps to an edge, opens
+          Control Center. Hidden while the sheet is open, like on iOS. */}
+      {!isControlOpen && <AssistiveTouch onTap={() => setIsControlOpen(true)} />}
 
       {/* Hamburger Navigation Overlay & Dropdown Menu */}
       <AnimatePresence>

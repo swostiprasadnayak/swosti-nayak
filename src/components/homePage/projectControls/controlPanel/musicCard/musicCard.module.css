@@ -1,10 +1,14 @@
-/* Wide Now Playing card. Light: white tile on the panel glass; dark: a
-   translucent white tile, like the rest of the Control Center. */
+/* Now Playing card, proportioned on iOS Control Center's (A = artwork size):
+   padding ≈ 0.13A, art→text gap ≈ 0.11A, bar ≈ 0.055A thick with its top at
+   ~77% of A, times ending on the artwork's bottom edge.
+   Light: white tile on the panel glass; dark: translucent white tile. */
 .card {
+  --size: 108px;
   display: flex;
+  align-items: center;
   gap: 12px;
-  padding: 10px;
-  border-radius: 22px;
+  padding: 14px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.06);
   color: rgba(0, 0, 0, 0.88);
@@ -14,25 +18,32 @@
 .art {
   position: relative;
   flex-shrink: 0;
-  width: min(88px, 32%);
-  aspect-ratio: 1;
-  align-self: center;
-  border-radius: 16px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 8px;
   overflow: hidden;
   background: #e9e9ec;
 }
 
+/* Title/artist on top, bar + times on the bottom, controls centred between. */
 .info {
   flex: 1;
   min-width: 0;
+  height: var(--size);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2px 2px 0;
+}
+
+@media (max-width: 360px) {
+  .card {
+    --size: 96px;
+  }
 }
 
 .meta {
   min-width: 0;
+  padding-top: 2px;
 }
 
 .title,
@@ -43,16 +54,20 @@
   text-overflow: ellipsis;
 }
 
+/* Same size, iOS style: bold title, regular grey artist */
+.title,
+.artist {
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+
 .title {
-  font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .artist {
-  margin-top: 1px;
-  font-size: 0.76rem;
-  font-weight: 500;
+  font-weight: 400;
   color: rgba(0, 0, 0, 0.45);
 }
 
@@ -60,7 +75,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 6px;
+  padding: 0 12px;
+  height: 26px;
 }
 
 .ctrl {
@@ -82,15 +98,15 @@
 
 .track {
   position: relative;
-  height: 4px;
-  border-radius: 2px;
+  height: 6px;
+  border-radius: 3px;
   background: rgba(0, 0, 0, 0.1);
 }
 
 .fill {
   height: 100%;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.55);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.45);
 }
 
 /* Invisible range input over the bar for seeking (taller hit area). */
@@ -122,9 +138,10 @@
 .times {
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
-  font-size: 0.7rem;
-  font-weight: 600;
+  margin-top: 6px;
+  font-size: 0.68rem;
+  line-height: 1;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: rgba(0, 0, 0, 0.45);
 }
