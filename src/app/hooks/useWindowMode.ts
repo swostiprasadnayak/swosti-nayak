@@ -13,21 +13,22 @@ export type WindowModeAPI = {
 };
 
 // The order visitors see on load (back → front): CardStackContainer's filter
-// sync brings Blinkit, then GC Dental, then Insure-Tech to the front on mount.
+// sync brings GC Dental, then Insure-Tech to the front on mount.
 // resetLayout restores exactly this.
-const DEFAULT_OPEN = ["blinkit", "gc-dental", "insure-tech"];
-const DEFAULT_Z: Record<string, number> = { blinkit: 1, "gc-dental": 2, "insure-tech": 3 };
+const DEFAULT_OPEN = ["gc-dental", "insure-tech"];
+const DEFAULT_Z: Record<string, number> = { "gc-dental": 1, "insure-tech": 2 };
+const DEFAULT_TOP_Z = DEFAULT_OPEN.length;
 
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Start empty for SSR safety and to keep mobile clear on startup
     const [openWindows, setOpenWindows] = useState<string[]>([]);
-    // insure-tech frontmost, gc-dental middle, blinkit back
+    // insure-tech frontmost, gc-dental behind
     const [zIndexes, setZIndexes] = useState<Record<string, number>>(DEFAULT_Z);
-    const [, setTopZ] = useState(3);
+    const [, setTopZ] = useState(DEFAULT_TOP_Z);
     const [layoutVersion, setLayoutVersion] = useState(0);
 
     // Initialize desktop open windows on mount — last item is frontmost.
-    // Matches the "Default" filter (3 flagship projects in their original
+    // Matches the "Default" filter (the flagship projects in their
     // staggered layout). The filter-change effect in CardStackContainer
     // brings in additional projects when the user switches filters.
     useEffect(() => {
@@ -62,20 +63,19 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
         }
 
         if (viewMode === 'card') {
-            // Grid layout positions
+            // Grid layout: one row, centred on the desktop area.
             const gridPositions: Record<string, { x: number, y: number }> = {
-                "insure-tech":{ x:   50, y: -20 },
-                blinkit:      { x: -380, y: 350 },
-                "gc-dental":  { x: -380, y: -20 },
+                "gc-dental":  { x: -170, y: -20 },
+                "insure-tech":{ x:  260, y: -20 },
             };
             return gridPositions[slug] || { x: 0, y: 0 };
         }
 
-        // Initial staggered positions — spread so every card stays visible.
+        // Initial staggered positions — spread so every card stays visible,
+        // and the pair centred on the desktop area.
         const positions: Record<string, { x: number, y: number }> = {
-            "gc-dental":  { x: -260, y: -60 },
-            "insure-tech":{ x:  -70, y:  -15 },
-            blinkit:      { x:  150, y:   55 },
+            "gc-dental":  { x: -110, y: -60 },
+            "insure-tech":{ x:   75, y: -15 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, [viewMode]);
@@ -87,7 +87,7 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
             setOpenWindows(DEFAULT_OPEN);
         }
         setZIndexes(DEFAULT_Z);
-        setTopZ(3);
+        setTopZ(DEFAULT_TOP_Z);
         setLayoutVersion((v) => v + 1);
     }, []);
 

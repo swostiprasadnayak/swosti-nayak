@@ -77,5 +77,7 @@ scripts/
   `useState(false)` + `useEffect(() => setMounted(true))`.
 - Projects with `disabled: true` in `projects.types.ts` are unfinished: the dock greys
   them out and `?project=` links ignore them. Keep both paths in sync.
+- Projects with `hidden: true` are off the site entirely: `PROJECTS` is exported
+  already filtered, so every consumer skips them. Their templates stay in the repo.
 - `public/` is the heavy part of the repo (~31 MB of video/audio/screenshots). Avoid
   listing it wholesale; target the subdirectory you need.

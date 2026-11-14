@@ -47,10 +47,10 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     viewMode,
 }) => {
     const filteredProjects = useMemo(() => {
-        // Default (empty filter or "Default"): three flagship projects in
-        // their original staggered layout — Insure-Tech, Blinkit, GC Dental.
+        // Default (empty filter or "Default"): the flagship projects in
+        // their staggered layout — Insure-Tech and GC Dental.
         if (activeFilters.length === 0 || activeFilters.includes("Default")) {
-            return PROJECTS.filter((p) => ["insure-tech", "blinkit", "gc-dental"].includes(p.slug));
+            return PROJECTS.filter((p) => ["insure-tech", "gc-dental"].includes(p.slug));
         }
         // All Works: every published project.
         if (activeFilters.includes("All Works")) {

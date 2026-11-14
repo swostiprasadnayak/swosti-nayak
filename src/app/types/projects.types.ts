@@ -7,9 +7,15 @@ export type ProjectContent = {
     demo?: string;
     demoPoster?: string;
     disabled?: boolean;
+    /** Taken off the site entirely (dock, card stack, grid, filters and
+     *  ?project= links). The case study stays in the repo; drop the flag to
+     *  bring it back (and add its slug to the default layout in useWindowMode
+     *  if it should open on load). Unlike `disabled`, which shows a greyed-out
+     *  dock icon. */
+    hidden?: boolean;
 };
 
-export const PROJECTS: ProjectContent[] = [
+const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Navanta Supply Chain",
         slug: "navanta-supply-chain",
@@ -37,7 +43,8 @@ export const PROJECTS: ProjectContent[] = [
         description: "AI-powered grocery delivery experience redesign.",
         tags: ["Interaction", "Systems"],
         video: "/videos/blinkit.mp4",
-        demoPoster: "/images/blinkit-portal.png"
+        demoPoster: "/images/blinkit-portal.png",
+        hidden: true,
     },
     {
         name: "GC Dental",
@@ -48,3 +55,7 @@ export const PROJECTS: ProjectContent[] = [
         demoPoster: "/images/gc-banner.webp"
     }
 ];
+
+/** Every project the site shows: `hidden` ones are left out here, so no
+ *  consumer has to remember to filter them. */
+export const PROJECTS = ALL_PROJECTS.filter((p) => !p.hidden);
