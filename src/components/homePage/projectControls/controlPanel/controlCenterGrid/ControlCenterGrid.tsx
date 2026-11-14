@@ -37,7 +37,7 @@ export default function ControlCenterGrid({
             </div>
 
             <RoundButton label={isDark ? "Light mode" : "Dark mode"} onClick={toggleTheme}>
-                {isDark ? <Sun size={24} strokeWidth={1.9} /> : <Moon size={24} strokeWidth={1.9} />}
+                {isDark ? <Sun size={24} strokeWidth={1.75} /> : <Moon size={24} strokeWidth={1.75} />}
             </RoundButton>
             <RoundButton label="Accessibility" onClick={() => setView("accessibility")}>
                 <AccessibilityIcon />
@@ -59,7 +59,7 @@ export default function ControlCenterGrid({
             />
 
             <RoundButton label={`Wallpaper ${imageIndex}`} onClick={onImageToggle}>
-                <ImageIcon size={24} strokeWidth={1.9} />
+                <ImageIcon size={24} strokeWidth={1.75} />
             </RoundButton>
             <RoundButton label="Screenshot" onClick={onScreenshot}>
                 <ScreenshotIcon />
