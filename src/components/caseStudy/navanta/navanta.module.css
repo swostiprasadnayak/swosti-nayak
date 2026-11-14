@@ -978,6 +978,16 @@
     color: var(--text-primary);
 }
 
+/* Film player: a rendered film in the reel's frame (FilmPlayer.tsx) */
+.filmVideo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 /* Flow reel: the product flow as a short film, played by the page.
    The stage keeps a fixed pale "sky" in both themes, like the demo films. */
 .reel {

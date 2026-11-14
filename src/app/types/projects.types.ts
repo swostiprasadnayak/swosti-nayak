@@ -26,9 +26,9 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "LPS Planning",
         slug: "lps-planning",
-        description: "Demand planning for a pro building-supply business — a cold snap and a single-store surge, each taken from trend to purchase order with an AI agent at every desk.",
+        description: "A demand surge at one store, caught before the contractor calls — from the trend to the PO, then covered from the branch network on a map.",
         tags: ["AI", "Enterprise", "B2B"],
-        demoPoster: "/images/navanta/lps/houston-demand.jpg",
+        demoPoster: "/images/navanta/lps/dallas-request.jpg",
     },
     {
         name: "Insure-Tech",
