@@ -27,6 +27,53 @@ function playShutterSound() {
     shutterSound.play().catch(() => { });
 }
 
+// Colours for the mobile menu + Control Center. Dark values are the originals
+// (previously used in both themes); light mirrors the desktop glass: white
+// glass buttons, cool-grey glass panels, white tiles, dark text.
+const DARK_UI = {
+  fabBg: "rgba(30, 30, 35, 0.72)",
+  fabBorder: "1px solid rgba(255, 255, 255, 0.18)",
+  fabShadow: "0 6px 16px rgba(0, 0, 0, 0.22)",
+  text: "#ffffff",
+  textStrong: "rgba(255, 255, 255, 0.95)",
+  menuBg: "rgba(25, 25, 30, 0.75)",
+  menuBorder: "1px solid rgba(255, 255, 255, 0.15)",
+  menuShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+  itemHover: "rgba(255, 255, 255, 0.08)",
+  divider: "rgba(255, 255, 255, 0.1)",
+  iconColor: "rgba(255, 255, 255, 0.85)",
+  sheetBackdrop: "rgba(0, 0, 0, 0.4)",
+  sheetBg: "rgba(255, 255, 255, 0.12)",
+  sheetBorder: "1px solid rgba(255, 255, 255, 0.2)",
+  sheetShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+  closeBg: "rgba(255, 255, 255, 0.25)",
+  closeHover: "rgba(255, 255, 255, 0.35)",
+  gridBg: "rgba(0, 0, 0, 0.25)",
+  tileBg: "rgba(255, 255, 255, 0.15)",
+};
+
+const LIGHT_UI: typeof DARK_UI = {
+  fabBg: "rgba(255, 255, 255, 0.6)",
+  fabBorder: "1px solid rgba(255, 255, 255, 0.8)",
+  fabShadow: "0 6px 16px rgba(0, 0, 0, 0.08)",
+  text: "#111827",
+  textStrong: "rgba(0, 0, 0, 0.85)",
+  menuBg: "rgba(232, 234, 240, 0.78)",
+  menuBorder: "1px solid rgba(255, 255, 255, 0.6)",
+  menuShadow: "0 10px 30px rgba(0, 0, 0, 0.12)",
+  itemHover: "rgba(0, 0, 0, 0.05)",
+  divider: "rgba(0, 0, 0, 0.08)",
+  iconColor: "rgba(0, 0, 0, 0.7)",
+  sheetBackdrop: "rgba(0, 0, 0, 0.15)",
+  sheetBg: "rgba(232, 234, 240, 0.72)",
+  sheetBorder: "1px solid rgba(255, 255, 255, 0.6)",
+  sheetShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+  closeBg: "rgba(0, 0, 0, 0.06)",
+  closeHover: "rgba(0, 0, 0, 0.1)",
+  gridBg: "rgba(255, 255, 255, 0.45)",
+  tileBg: "rgba(255, 255, 255, 0.95)",
+};
+
 export default function MobileControls({
   onVoiceMode,
   imageIndex = 1,
@@ -37,6 +84,7 @@ export default function MobileControls({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isControlOpen, setIsControlOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+  const ui = isDark ? DARK_UI : LIGHT_UI;
   const { audioRef, audioEvents, ...player } = useMusicPlayer();
 
   const { openModal: openAboutModal } = useAboutModal();
@@ -86,15 +134,15 @@ export default function MobileControls({
           width: "44px",
           height: "44px",
           borderRadius: "50%",
-          background: "rgba(30, 30, 35, 0.7)",
+          background: ui.fabBg,
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(255, 255, 255, 0.18)",
+          border: ui.fabBorder,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#fff",
-          boxShadow: "0 6px 16px rgba(0, 0, 0, 0.2)",
+          color: ui.text,
+          boxShadow: ui.fabShadow,
           pointerEvents: "auto",
           zIndex: 101,
           cursor: "pointer"
@@ -114,15 +162,15 @@ export default function MobileControls({
           width: "48px",
           height: "48px",
           borderRadius: "50%",
-          background: "rgba(30, 30, 35, 0.75)",
+          background: ui.fabBg,
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(255, 255, 255, 0.18)",
+          border: ui.fabBorder,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#fff",
-          boxShadow: "0 6px 16px rgba(0, 0, 0, 0.25)",
+          color: ui.text,
+          boxShadow: ui.fabShadow,
           pointerEvents: "auto",
           zIndex: 101,
           cursor: "pointer"
@@ -142,12 +190,12 @@ export default function MobileControls({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
+              // Tap-outside-to-close layer only: the menu is a popover, so the
+              // page behind stays sharp (only Control Center blurs the page).
               style={{
                 position: "fixed",
                 inset: 0,
-                background: "rgba(0, 0, 0, 0.35)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
+                background: "transparent",
                 zIndex: 9998,
                 pointerEvents: "auto"
               }}
@@ -164,16 +212,16 @@ export default function MobileControls({
                 top: "80px",
                 right: "24px",
                 width: "200px",
-                background: "rgba(25, 25, 30, 0.75)",
+                background: ui.menuBg,
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
+                border: ui.menuBorder,
                 borderRadius: "20px",
                 padding: "12px",
                 display: "flex",
                 flexDirection: "column",
                 gap: "2px",
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+                boxShadow: ui.menuShadow,
                 zIndex: 9999,
                 pointerEvents: "auto",
                 boxSizing: "border-box"
@@ -184,7 +232,7 @@ export default function MobileControls({
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#fff",
+                  color: ui.text,
                   padding: "10px 12px",
                   textAlign: "left",
                   fontSize: "15px",
@@ -194,7 +242,7 @@ export default function MobileControls({
                   width: "100%",
                   transition: "background 0.15s ease"
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)"}
+                onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                 onMouseLeave={(e) => e.currentTarget.style.background = "none"}
               >
                 About
@@ -205,7 +253,7 @@ export default function MobileControls({
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#fff",
+                  color: ui.text,
                   padding: "10px 12px",
                   textAlign: "left",
                   fontSize: "15px",
@@ -215,7 +263,7 @@ export default function MobileControls({
                   width: "100%",
                   transition: "background 0.15s ease"
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)"}
+                onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                 onMouseLeave={(e) => e.currentTarget.style.background = "none"}
               >
                 Post
@@ -226,7 +274,7 @@ export default function MobileControls({
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  color: "#fff",
+                  color: ui.text,
                   padding: "10px 12px",
                   textDecoration: "none",
                   fontSize: "15px",
@@ -238,7 +286,7 @@ export default function MobileControls({
                   boxSizing: "border-box"
                 }}
                 onClick={() => setIsMenuOpen(false)}
-                onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)"}
+                onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                 onMouseLeave={(e) => e.currentTarget.style.background = "none"}
               >
                 Resume
@@ -249,7 +297,7 @@ export default function MobileControls({
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#fff",
+                  color: ui.text,
                   padding: "10px 12px",
                   textAlign: "left",
                   fontSize: "15px",
@@ -259,14 +307,14 @@ export default function MobileControls({
                   width: "100%",
                   transition: "background 0.15s ease"
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)"}
+                onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                 onMouseLeave={(e) => e.currentTarget.style.background = "none"}
               >
                 Feedback
               </button>
 
               {/* Divider */}
-              <div style={{ height: "1px", background: "rgba(255, 255, 255, 0.1)", margin: "8px 0" }} />
+              <div style={{ height: "1px", background: ui.divider, margin: "8px 0" }} />
 
               {/* Socials & Contact — real brand glyphs */}
               <div style={{ display: "flex", justifyContent: "space-between", padding: "0 6px" }}>
@@ -274,8 +322,8 @@ export default function MobileControls({
                   href="https://www.linkedin.com/in/swosti-nayak-49b2ba131"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "rgba(255, 255, 255, 0.85)", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", transition: "background 0.15s ease" }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)"}
+                  style={{ color: ui.iconColor, display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", transition: "background 0.15s ease" }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                   onMouseLeave={(e) => e.currentTarget.style.background = "none"}
                   title="LinkedIn"
                   aria-label="LinkedIn"
@@ -289,8 +337,8 @@ export default function MobileControls({
                   href="https://www.instagram.com/swosti_2001/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: "rgba(255, 255, 255, 0.85)", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", transition: "background 0.15s ease" }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)"}
+                  style={{ color: ui.iconColor, display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", transition: "background 0.15s ease" }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                   onMouseLeave={(e) => e.currentTarget.style.background = "none"}
                   title="Instagram"
                   aria-label="Instagram"
@@ -302,8 +350,8 @@ export default function MobileControls({
                 </a>
                 <a
                   href="tel:7978659329"
-                  style={{ color: "rgba(255, 255, 255, 0.85)", display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", transition: "background 0.15s ease" }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)"}
+                  style={{ color: ui.iconColor, display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", transition: "background 0.15s ease" }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
                   onMouseLeave={(e) => e.currentTarget.style.background = "none"}
                   title="Call"
                   aria-label="Call"
@@ -331,7 +379,7 @@ export default function MobileControls({
               style={{
                 position: "fixed",
                 inset: 0,
-                background: "rgba(0, 0, 0, 0.4)",
+                background: ui.sheetBackdrop,
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
                 zIndex: 9999,
@@ -352,10 +400,10 @@ export default function MobileControls({
                 left: "50%",
                 width: "90%",
                 maxWidth: "360px",
-                background: "rgba(255, 255, 255, 0.12)",
+                background: ui.sheetBg,
                 backdropFilter: "blur(40px)",
                 WebkitBackdropFilter: "blur(40px)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
+                border: ui.sheetBorder,
                 borderRadius: "32px",
                 padding: "20px",
                 boxSizing: "border-box",
@@ -363,18 +411,18 @@ export default function MobileControls({
                 flexDirection: "column",
                 gap: "20px",
                 zIndex: 10000,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
-                color: "#ffffff",
+                boxShadow: ui.sheetShadow,
+                color: ui.text,
                 pointerEvents: "auto"
               }}
             >
               {/* Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: "16px", fontWeight: 600, color: "rgba(255, 255, 255, 0.95)", letterSpacing: "-0.01em" }}>Control Center</span>
+                <span style={{ fontSize: "16px", fontWeight: 600, color: ui.textStrong, letterSpacing: "-0.01em" }}>Control Center</span>
                 <button
                   onClick={() => setIsControlOpen(false)}
                   style={{
-                    background: "rgba(255, 255, 255, 0.25)",
+                    background: ui.closeBg,
                     border: "none",
                     borderRadius: "50%",
                     width: "36px",
@@ -382,12 +430,12 @@ export default function MobileControls({
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#fff",
+                    color: ui.text,
                     cursor: "pointer",
                     transition: "background 0.2s"
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.35)"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)"}
+                  onMouseEnter={(e) => e.currentTarget.style.background = ui.closeHover}
+                  onMouseLeave={(e) => e.currentTarget.style.background = ui.closeBg}
                 >
                   <X size={20} strokeWidth={2.5} />
                 </button>
@@ -398,7 +446,7 @@ export default function MobileControls({
                 {/* 2x2 grid container with completely equal frames */}
                 <div style={{
                   width: "140px",
-                  background: "rgba(0, 0, 0, 0.25)",
+                  background: ui.gridBg,
                   borderRadius: "24px",
                   padding: "12px",
                   display: "grid",
@@ -411,13 +459,13 @@ export default function MobileControls({
                   <button
                     onClick={toggleTheme}
                     style={{
-                      background: "rgba(255, 255, 255, 0.15)",
+                      background: ui.tileBg,
                       border: "none",
                       borderRadius: "16px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#fff",
+                      color: ui.text,
                       cursor: "pointer",
                       width: "100%",
                       height: "100%",
@@ -433,13 +481,13 @@ export default function MobileControls({
                   <button
                     onClick={() => { setIsControlOpen(false); onVoiceMode?.(); }}
                     style={{
-                      background: "rgba(255, 255, 255, 0.15)",
+                      background: ui.tileBg,
                       border: "none",
                       borderRadius: "16px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#fff",
+                      color: ui.text,
                       cursor: "pointer",
                       width: "100%",
                       height: "100%",
@@ -455,13 +503,13 @@ export default function MobileControls({
                   <button
                     onClick={onImageToggle}
                     style={{
-                      background: imageIndex === 2 ? "rgba(255, 140, 130, 0.3)" : "rgba(255, 255, 255, 0.15)",
+                      background: imageIndex === 2 ? "rgba(255, 140, 130, 0.3)" : ui.tileBg,
                       border: imageIndex === 2 ? "1px solid rgba(255, 140, 130, 0.5)" : "none",
                       borderRadius: "16px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: imageIndex === 2 ? "#ff8c82" : "#fff",
+                      color: imageIndex === 2 ? "#ff8c82" : ui.text,
                       cursor: "pointer",
                       width: "100%",
                       height: "100%",
@@ -481,13 +529,13 @@ export default function MobileControls({
                       onScreenshot?.();
                     }}
                     style={{
-                      background: "rgba(255, 255, 255, 0.15)",
+                      background: ui.tileBg,
                       border: "none",
                       borderRadius: "16px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#fff",
+                      color: ui.text,
                       cursor: "pointer",
                       width: "100%",
                       height: "100%",
@@ -508,7 +556,7 @@ export default function MobileControls({
 
               {/* Brightness Slider */}
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isControlOpen} surface="dark" />
+                <BrightnessSlider onBrightnessChange={handleBrightnessChange} isOpen={isControlOpen} />
               </div>
             </motion.div>
           </>
