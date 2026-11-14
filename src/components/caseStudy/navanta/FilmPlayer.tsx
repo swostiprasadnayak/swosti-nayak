@@ -5,12 +5,13 @@ import { Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import classes from "./navanta.module.css";
 
 /* A rendered product film (an MP4 exported from the Motion film made for the
-   demo), in the same frame and controls as FlowReel: chapter steps that seek,
-   a caption per chapter, play/pause, sound and restart. It plays muted while
+   demo), full-bleed in the same frame and controls as FlowReel: a caption per
+   chapter, play/pause, sound and restart. It plays muted while
    on screen and pauses off screen; motion-sensitive viewers start on the
    poster and press play themselves. */
 
 export type FilmChapter = {
+    /** Names the chapter in the template (not shown). */
     name: string;
     /** Second the chapter starts at. */
     at: number;
@@ -68,7 +69,6 @@ export default function FilmPlayer({
     };
 
     const current = chapters.reduce((acc, c, i) => (t >= c.at ? i : acc), 0);
-    const chapterEnd = (i: number) => (i + 1 < chapters.length ? chapters[i + 1].at : duration || chapters[i].at + 1);
     const started = t > 0.05 || !isPaused;
 
     return (
@@ -95,30 +95,10 @@ export default function FilmPlayer({
             </div>
 
             <div className={classes.reelFoot}>
-                <p className={classes.reelCaption} aria-live="polite">
-                    {chapters[current]?.caption}
-                </p>
                 <div className={classes.reelBar}>
-                    <ol className={classes.reelSteps} aria-label="Chapters">
-                        {chapters.map((c, i) => {
-                            const fill = started ? Math.min(1, Math.max(0, (t - c.at) / Math.max(0.001, chapterEnd(i) - c.at))) : 0;
-                            const on = started && i === current;
-                            return (
-                                <li key={c.name}>
-                                    <button
-                                        type="button"
-                                        className={`${classes.reelStep} ${on ? classes.reelStepOn : ""} ${fill >= 1 ? classes.reelStepDone : ""}`}
-                                        onClick={() => seek(c.at + 0.01)}
-                                        aria-current={on ? "step" : undefined}
-                                    >
-                                        <span className={classes.reelStepNum}>{i + 1}</span>
-                                        {c.name}
-                                        <i className={classes.reelStepFill} style={{ transform: `scaleX(${fill})` }} />
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ol>
+                    <p className={classes.reelCaption} aria-live="polite">
+                        {chapters[current]?.caption}
+                    </p>
                     <div className={classes.reelControls}>
                         <button
                             type="button"

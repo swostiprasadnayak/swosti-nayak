@@ -262,13 +262,11 @@ export default function LpsCaseStudyTemplate() {
                         <FlowReel
                             label="Film: covering a contractor's order from the branch network on the map"
                             hook="Rivera needs 120 anchors. Dallas 440 has 38."
-                            steps={["Short", "Search", "Choose", "Covered"]}
                             end="The nearest spare stock, on a map, a day early."
                             shots={[
                                 {
                                     src: `${IMG}/dallas-search.jpg`,
                                     alt: "Daniela's inventory map with Dallas 440 short and Rivera's order on the branch",
-                                    step: 0,
                                     caption: "Daniela's map: Dallas 440 is short on four SKUs, and Rivera's order is waiting on one.",
                                     dur: 5.5,
                                     to: { s: 1.8, x: 73, y: 32 },
@@ -278,7 +276,6 @@ export default function LpsCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/dallas-request.jpg`,
                                     alt: "Christy's route on the map from Fort Worth 583 to Dallas 440",
-                                    step: 1,
                                     caption: "Christy searches a 30-mile ring. Fort Worth 583 has 270 spare; the route lands 150 by Wed 4 Nov.",
                                     dur: 5.5,
                                     to: { s: 1.75, x: 48, y: 52 },
@@ -287,7 +284,6 @@ export default function LpsCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/dallas-request.jpg`,
                                     alt: "Christy's three ways to cover the order",
-                                    step: 2,
                                     caption: "Three ways to cover it: a transfer, a DC shuttle or a pickup. Daniela keeps Christy's pick.",
                                     dur: 5.5,
                                     from: { s: 1.75, x: 48, y: 52 },
@@ -298,7 +294,6 @@ export default function LpsCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/dallas-instock.jpg`,
                                     alt: "The transfer approved, with the route and branch balances on the map",
-                                    step: 3,
                                     caption: "Approved in both ERPs. Rivera's order is promised for 4 Nov.",
                                     dur: 5,
                                     from: { s: 1.35, x: 42, y: 52 },

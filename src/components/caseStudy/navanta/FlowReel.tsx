@@ -6,10 +6,11 @@ import { Pause, Play, RotateCcw } from "lucide-react";
 import classes from "./navanta.module.css";
 
 /* A product flow as a short film, built from the product's real screens:
-   a typed hook line, the app window floating in, the camera pushing into
-   what matters on each screen, a cursor where something is clicked, and an
-   end line. Same grammar as the Motion films made for the demos, played by
-   the page itself so it stays sharp at any size and weighs a few images. */
+   a typed hook line, the screens filling the frame edge to edge (like the
+   rendered films), the camera pushing into what matters on each screen, a
+   cursor where something is clicked, and an end line. The caption under the
+   frame narrates each moment. Played by the page itself so it stays sharp at
+   any size and weighs a few images. */
 
 /** A camera position: zoom `s`, and the point of the screen (in %) it centres on. */
 export type ReelCam = { s: number; x: number; y: number };
@@ -17,8 +18,6 @@ export type ReelCam = { s: number; x: number; y: number };
 export type ReelShot = {
     src: string;
     alt: string;
-    /** Index into `steps` — which step the tracker shows as current. */
-    step: number;
     caption: string;
     /** Seconds on screen. */
     dur: number;
@@ -64,14 +63,12 @@ const onWindow = (cam: ReelCam, x: number, y: number) => ({
 export default function FlowReel({
     label,
     hook,
-    steps,
     shots,
     end,
 }: {
     /** What the film shows, for screen readers. */
     label: string;
     hook: string;
-    steps: string[];
     shots: ReelShot[];
     end: string;
 }) {
@@ -125,11 +122,10 @@ export default function FlowReel({
     const prevIndex = index > 0 && local < FADE && !inHook ? index - 1 : -1;
     const prevCam = prevIndex >= 0 ? camAt(shots[prevIndex], 1) : null;
 
-    // The window floats in after the hook, and settles back out for the end line.
+    // The screens fade in over the hook line, and back out for the end line.
     const enter = inHook ? 0 : clamp((t - HOOK) / 0.7, 0, 1);
     const leave = inEnd ? clamp((t - showEnd) / 0.5, 0, 1) : 0;
     const windowOpacity = poster ? 1 : ease(enter) * (1 - leave);
-    const windowLift = poster ? 0 : (1 - ease(enter)) * 18 + leave * -10;
 
     const typedHook = reduceMotion ? hook : hook.slice(0, Math.round(clamp(t / (HOOK * 0.62), 0, 1) * hook.length));
     const endOpacity = inEnd ? clamp((t - showEnd - 0.35) / 0.5, 0, 1) : 0;
@@ -145,12 +141,6 @@ export default function FlowReel({
     })();
 
     const typed = shot.type && !poster ? shot.type.text.slice(0, reduceMotion ? shot.type.text.length : Math.round(clamp((local - (shot.type.at ?? 0.4)) * 26, 0, shot.type.text.length))) : shot.type?.text;
-
-    const stepOf = (i: number) => {
-        const idx = shots.map((s, k) => (s.step === i ? k : -1)).filter((k) => k >= 0);
-        if (!idx.length) return { start: 0, end: 0, first: 0 };
-        return { start: starts[idx[0]], end: starts[idx[idx.length - 1]] + shots[idx[idx.length - 1]].dur, first: idx[0] };
-    };
 
     const seek = (time: number) => {
         setT(time);
@@ -188,12 +178,9 @@ export default function FlowReel({
 
     return (
         <figure ref={root} className={classes.reel} aria-label={label}>
-            <div className={classes.reelStage}>
+            <div className={`${classes.reelStage} ${classes.reelStageScreens}`}>
                 {/* Every screen is mounted once so the next one is loaded before its cut. */}
-                <div
-                    className={classes.reelWindow}
-                    style={{ opacity: windowOpacity, transform: `translateY(${windowLift}px)` }}
-                >
+                <div className={classes.reelWindow} style={{ opacity: windowOpacity }}>
                     {shots.map((s, i) => {
                         if (i === index) return layer(s, cam, prevIndex >= 0 ? clamp(local / FADE, 0, 1) : 1, `s${i}`, true);
                         if (i === prevIndex && prevCam) return layer(s, prevCam, 1, `s${i}`, false);
@@ -232,31 +219,10 @@ export default function FlowReel({
             </div>
 
             <div className={classes.reelFoot}>
-                <p className={classes.reelCaption} aria-live="polite">
-                    {inHook ? hook : inEnd ? end : shot.caption}
-                </p>
                 <div className={classes.reelBar}>
-                    <ol className={classes.reelSteps} aria-label="Steps">
-                        {steps.map((name, i) => {
-                            const st = stepOf(i);
-                            const fill = poster ? 0 : clamp((t - st.start) / Math.max(0.001, st.end - st.start), 0, 1);
-                            const current = !poster && !inHook && !inEnd && shot.step === i;
-                            return (
-                                <li key={name}>
-                                    <button
-                                        type="button"
-                                        className={`${classes.reelStep} ${current ? classes.reelStepOn : ""} ${fill >= 1 && !inHook ? classes.reelStepDone : ""}`}
-                                        onClick={() => seek(st.start + 0.01)}
-                                        aria-current={current ? "step" : undefined}
-                                    >
-                                        <span className={classes.reelStepNum}>{i + 1}</span>
-                                        {name}
-                                        <i className={classes.reelStepFill} style={{ transform: `scaleX(${fill})` }} />
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ol>
+                    <p className={classes.reelCaption} aria-live="polite">
+                        {inHook ? hook : inEnd ? end : shot.caption}
+                    </p>
                     <div className={classes.reelControls}>
                         <button
                             type="button"

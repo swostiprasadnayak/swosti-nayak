@@ -64,13 +64,11 @@ export default function SupplyChainCaseStudyTemplate() {
                         <FlowReel
                             label="Film: one vendor delay handled across five desks in the supply chain demo"
                             hook="02:14. A vendor emails: ten days late."
-                            steps={["Buyer", "Planner", "Rep", "Truck", "VP"]}
                             end="One delay. Five desks. Nobody found out late."
                             shots={[
                                 {
                                     src: `${IMG}/buying-mercer.png`,
                                     alt: "Buying action center with Mercer committing the new lead time",
-                                    step: 0,
                                     caption: "Mercer commits the vendor's new date, and flags that the store hasn't been told.",
                                     dur: 5,
                                     to: { s: 1.75, x: 84, y: 44 },
@@ -79,7 +77,6 @@ export default function SupplyChainCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/planning-stocking.png`,
                                     alt: "Planner's queue with Iris proposing more safety stock",
-                                    step: 1,
                                     caption: "Iris sizes the bigger buffer the new lead time needs. Priya approves it.",
                                     dur: 5,
                                     to: { s: 1.6, x: 60, y: 60 },
@@ -89,7 +86,6 @@ export default function SupplyChainCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/service-christy.png`,
                                     alt: "Service action center with Christy re-promising the store order",
-                                    step: 2,
                                     caption: "Christy moves the store's promise to 29 Aug and drafts the note for Daniela to send.",
                                     dur: 5,
                                     to: { s: 1.75, x: 84, y: 55 },
@@ -97,7 +93,6 @@ export default function SupplyChainCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/logistics-tova.png`,
                                     alt: "Logistics action center with Tova settling one arrival time",
-                                    step: 3,
                                     caption: "Tova settles one arrival time from three systems and tells the customer the window.",
                                     dur: 5,
                                     to: { s: 1.75, x: 85, y: 45 },
@@ -105,7 +100,6 @@ export default function SupplyChainCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/frame-map.png`,
                                     alt: "The frame record as a hand-off map between agents and people",
-                                    step: 4,
                                     caption: "Atlas keeps the record: every hand-off, and where a person decided.",
                                     dur: 5.5,
                                     from: { s: 1.35, x: 36, y: 55 },
@@ -114,7 +108,6 @@ export default function SupplyChainCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/ops-overview.png`,
                                     alt: "Operations overview with each agent's acceptance rate",
-                                    step: 4,
                                     caption: "Dana sees how much of each agent's work the business takes.",
                                     dur: 4.5,
                                     to: { s: 1.45, x: 50, y: 28 },

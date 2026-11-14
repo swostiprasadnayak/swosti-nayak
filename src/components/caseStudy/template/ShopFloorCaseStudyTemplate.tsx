@@ -61,13 +61,11 @@ export default function ShopFloorCaseStudyTemplate() {
                         <FlowReel
                             label="Film: one truck through the shop, from the gate to the invoice"
                             hook="10:40. A reefer trailer pulls up with a compressor fault."
-                            steps={["Intake", "Assigned", "Repair", "Pickup", "Invoicing"]}
                             end="One truck, gate to invoice, and every desk could see where it was."
                             shots={[
                                 {
                                     src: `${IMG}/step-intake.png`,
                                     alt: "Truck A in the inspection bay on the 3D shop floor",
-                                    step: 0,
                                     caption: "Truck A comes through the gate. The RO opens, and the customer gets a live status link.",
                                     dur: 5,
                                     to: { s: 1.6, x: 33, y: 48 },
@@ -75,7 +73,6 @@ export default function ShopFloorCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/step-assigned.png`,
                                     alt: "The repair kit leaving the parts cage",
-                                    step: 1,
                                     caption: "A reefer-certified tech is matched, and the kit leaves the parts cage.",
                                     dur: 5,
                                     to: { s: 1.6, x: 33, y: 48 },
@@ -83,7 +80,6 @@ export default function ShopFloorCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/step-repair.png`,
                                     alt: "Bay 3 with the standard-time clock running",
-                                    step: 2,
                                     caption: "Bay 3, the standard-time clock running. The customer sees the photo.",
                                     dur: 4.5,
                                     to: { s: 1.6, x: 33, y: 48 },
@@ -91,7 +87,6 @@ export default function ShopFloorCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/repair-orders-modal.png`,
                                     alt: "A repair order with Iris's recommendation",
-                                    step: 2,
                                     caption: "Iris spots the added work and drafts it. The service writer approves.",
                                     dur: 5,
                                     to: { s: 1.5, x: 50, y: 38 },
@@ -100,7 +95,6 @@ export default function ShopFloorCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/step-pickup.png`,
                                     alt: "Truck A picked up on the 3D shop floor",
-                                    step: 3,
                                     caption: "Picked up at 2:45, ahead of the 3:30 promise.",
                                     dur: 4.5,
                                     to: { s: 1.6, x: 38, y: 52 },
@@ -108,7 +102,6 @@ export default function ShopFloorCaseStudyTemplate() {
                                 {
                                     src: `${IMG}/step-invoicing.png`,
                                     alt: "Truck A leaving the site, invoiced",
-                                    step: 4,
                                     caption: "The RO is checked and invoiced, with every fee on it.",
                                     dur: 4.5,
                                     to: { s: 1.5, x: 33, y: 48 },
