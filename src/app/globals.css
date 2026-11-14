@@ -57,7 +57,7 @@
   /* LIGHT MODE: Nav Boxes (Forces them to match the bright center toggle) */
   --control-btn-bg: rgba(255, 255, 255, 0.7) !important;
   --control-btn-border: rgba(255, 255, 255, 0.9) !important;
-  --control-btn-icon: #48484a !important;
+  --control-btn-icon: #111827 !important;
   
   /* LIGHT MODE: Brightness Slider  white pill, darker fill for differentiation */
   --slider-track: rgba(255, 255, 255, 0.95) !important;
@@ -109,7 +109,7 @@
   /* Top Right Control Buttons - Dark Mode */
   --control-btn-bg: rgba(0, 0, 0, 0.4) !important;
   --control-btn-border: rgba(255, 255, 255, 0.1) !important;
-  --control-btn-icon: rgba(255, 255, 255, 0.85) !important;
+  --control-btn-icon: #f3f4f6 !important;
   --control-btn-hover: rgba(0, 0, 0, 0.5) !important;
 
   /* Slider Track & Fill - Dark Mode */
