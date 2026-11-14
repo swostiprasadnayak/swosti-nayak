@@ -65,10 +65,13 @@ export default function CustomCursor() {
   if (!isMounted || standardCursor) return null;
 
   const isActive = isHovering || isClicked;
+  // Soft blue tint (not grey) so over a slider it can't be mistaken for the
+  // handle, but quiet enough not to glare.
+  const beam = "rgba(0, 122, 255, 0.45)";
   const shape = precise === "h"
-    ? { width: 3, height: 22, borderRadius: 1.5, backgroundColor: "rgba(120, 120, 120, 0.85)" }
+    ? { width: 2, height: 22, borderRadius: 1, backgroundColor: beam }
     : precise === "v"
-    ? { width: 22, height: 3, borderRadius: 1.5, backgroundColor: "rgba(120, 120, 120, 0.85)" }
+    ? { width: 22, height: 2, borderRadius: 1, backgroundColor: beam }
     : isActive
       ? { width: 43, height: 43, borderRadius: 21.5, backgroundColor: "rgba(120, 120, 120, 0.4)" }
       : { width: 19, height: 19, borderRadius: 9.5, backgroundColor: "rgba(100, 100, 100, 0.2)" };

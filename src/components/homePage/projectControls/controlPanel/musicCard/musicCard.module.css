@@ -97,7 +97,7 @@
   padding: 0;
   background: none;
   border: none;
-  color: #1d1d1f;
+  color: var(--cc-glyph, #1d1d1f); /* shared Control Center glyph colour */
   cursor: pointer;
   transition: transform 0.12s ease, opacity 0.12s ease;
 }

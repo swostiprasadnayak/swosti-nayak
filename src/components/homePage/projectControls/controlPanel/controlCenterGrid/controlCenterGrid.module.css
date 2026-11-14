@@ -1,6 +1,9 @@
 /* 4 equal columns. Row 1: music card (all 4). Rows 2–3: round buttons in
    columns 1–2, each vertical slider spans both rows in columns 3 and 4. */
+/* One neutral glyph colour for every Control Center icon (round buttons,
+   slider icons; the music card's transport reads it too). */
 .grid {
+    --cc-glyph: #1d1d1f;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
@@ -23,7 +26,7 @@
     justify-content: center;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.95);
-    color: #111827;
+    color: var(--cc-glyph);
     box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.06);
     transition: transform 0.15s ease, background-color 0.15s ease;
 }
@@ -131,14 +134,14 @@
 .vIcon {
     display: flex;
     justify-content: center;
-    color: rgba(0, 0, 0, 0.45);
+    color: var(--cc-glyph);
     pointer-events: none;
 }
 
 /* ── Dark ── */
 :global([data-theme="dark"]) .round {
     background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
+    color: var(--cc-glyph);
     box-shadow: none;
 }
 
@@ -175,8 +178,8 @@
     background: rgba(255, 255, 255, 0.45);
 }
 
-:global([data-theme="dark"]) .vIcon {
-    color: rgba(255, 255, 255, 0.45);
+:global([data-theme="dark"]) .grid {
+    --cc-glyph: #ffffff;
 }
 
 /* ── Accessibility view ── */
