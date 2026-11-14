@@ -130,15 +130,16 @@ function AccessibilityView({ onBack }: { onBack: () => void }) {
     );
 }
 
-/** The iOS Accessibility glyph: a figure with outstretched arms in a ring. */
+/** The iOS Accessibility glyph: thin ring; head clear of a straight arm bar;
+ *  a solid torso; two legs that start apart at the hips. */
 function AccessibilityIcon() {
     return (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" />
-            <circle cx="12" cy="7" r="1.5" fill="currentColor" stroke="none" />
-            <path d="M6.6 9.7c3.6.9 7.2.9 10.8 0" />
-            <path d="M12 10.3v3.6" />
-            <path d="M12 13.9l-1.7 4.3M12 13.9l1.7 4.3" />
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10.2" fill="none" stroke="currentColor" strokeWidth="1.6" />
+            <circle cx="12" cy="6.5" r="1.6" fill="currentColor" />
+            <path d="M5.8 9.4h12.4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            <rect x="10.55" y="9" width="2.9" height="5.2" rx="0.9" fill="currentColor" />
+            <path d="M11.25 13.4l-.95 4.8M12.75 13.4l.95 4.8" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
         </svg>
     );
 }
