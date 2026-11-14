@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import classes from "./mobileControls.module.css";
-import { Settings, Menu, AudioLines, Image as ImageIcon, Camera, X, Mail, Sun, Moon } from "lucide-react";
+import { Settings, Menu, AudioLines, Image as ImageIcon, Camera, Mail, Sun, Moon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useMusicPlayer } from "@/app/hooks/useMusicPlayer";
 import MusicCard from "@/components/homePage/projectControls/controlPanel/musicCard/musicCard";
@@ -49,8 +49,6 @@ const DARK_UI = {
   sheetBg: "rgba(255, 255, 255, 0.12)",
   sheetBorder: "1px solid rgba(255, 255, 255, 0.2)",
   sheetShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
-  closeBg: "rgba(255, 255, 255, 0.25)",
-  closeHover: "rgba(255, 255, 255, 0.35)",
   gridBg: "rgba(0, 0, 0, 0.25)",
   tileBg: "rgba(255, 255, 255, 0.15)",
 };
@@ -71,8 +69,6 @@ const LIGHT_UI: typeof DARK_UI = {
   sheetBg: "rgba(232, 234, 240, 0.72)",
   sheetBorder: "1px solid rgba(255, 255, 255, 0.6)",
   sheetShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-  closeBg: "rgba(0, 0, 0, 0.06)",
-  closeHover: "rgba(0, 0, 0, 0.1)",
   gridBg: "rgba(255, 255, 255, 0.45)",
   tileBg: "rgba(255, 255, 255, 0.95)",
 };
@@ -419,31 +415,6 @@ export default function MobileControls({
                 pointerEvents: "auto"
               }}
             >
-              {/* Header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: "16px", fontWeight: 600, color: ui.textStrong, letterSpacing: "-0.01em" }}>Control Center</span>
-                <button
-                  onClick={() => setIsControlOpen(false)}
-                  style={{
-                    background: ui.closeBg,
-                    border: "none",
-                    borderRadius: "50%",
-                    width: "36px",
-                    height: "36px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: ui.text,
-                    cursor: "pointer",
-                    transition: "background 0.2s"
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = ui.closeHover}
-                  onMouseLeave={(e) => e.currentTarget.style.background = ui.closeBg}
-                >
-                  <X size={20} strokeWidth={2.5} />
-                </button>
-              </div>
-
               {/* Grid row: 2x2 buttons and Music Card */}
               <div style={{ display: "flex", gap: "16px", height: "160px" }}>
                 {/* 2x2 grid container with completely equal frames */}
