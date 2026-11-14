@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, useRef, useCallback, type SyntheticEvent } from "react";
+import { useState, useRef, useCallback, useEffect, type SyntheticEvent } from "react";
+
+/** Slider % → element volume. Loudness is perceived roughly logarithmically,
+ *  so a linear map makes the top half of the slider sound unchanged (70% is
+ *  only ~3 dB quieter). Squaring gives an even-feeling control. */
+const volumeCurve = (percent: number) => Math.pow(Math.min(100, Math.max(0, percent)) / 100, 2);
 
 export function useMusicPlayer() {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -9,16 +14,25 @@ export function useMusicPlayer() {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [volume, setVolumeState] = useState(100);
 
-    // 0–100. The <audio> element keeps its volume across track changes.
+    // 0–100 as shown on the slider. Applied to the element on every change and
+    // again whenever an <audio> element loads (a fresh element would otherwise
+    // start at full volume while the slider shows less).
     // iOS Safari ignores .volume (hardware buttons only), so 0 also mutes.
-    const setVolume = useCallback((percent: number) => {
-        setVolumeState(percent);
-        const audio = audioRef.current;
-        if (audio) {
-            audio.volume = percent / 100;
-            audio.muted = percent === 0;
-        }
+    const volumeRef = useRef(100);
+    const applyVolume = useCallback((audio: HTMLAudioElement | null) => {
+        if (!audio) return;
+        audio.volume = volumeCurve(volumeRef.current);
+        audio.muted = volumeRef.current === 0;
     }, []);
+
+    const setVolume = useCallback((percent: number) => {
+        volumeRef.current = percent;
+        setVolumeState(percent);
+        applyVolume(audioRef.current);
+    }, [applyVolume]);
+
+    // Covers the element mounting after the first render (client-only panel).
+    useEffect(() => { applyVolume(audioRef.current); }, [applyVolume]);
 
     const tracks = [
         { title: "Sunflower", artist: "Post Malone, Swae Lee", src: "/audio/sunflower.mp3", thumbnail: "/images/music/sunflower.png" },
@@ -79,7 +93,10 @@ export function useMusicPlayer() {
     // (client-only) control panel rendered its <audio>, found null, and never
     // re-ran until the track changed, so the time stayed at -0:00.
     const audioEvents = {
-        onLoadedMetadata: (e: SyntheticEvent<HTMLAudioElement>) => setDuration(e.currentTarget.duration),
+        onLoadedMetadata: (e: SyntheticEvent<HTMLAudioElement>) => {
+            setDuration(e.currentTarget.duration);
+            applyVolume(e.currentTarget);
+        },
         onDurationChange: (e: SyntheticEvent<HTMLAudioElement>) => setDuration(e.currentTarget.duration),
         onTimeUpdate: (e: SyntheticEvent<HTMLAudioElement>) => {
             const audio = e.currentTarget;
