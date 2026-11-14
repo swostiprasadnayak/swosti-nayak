@@ -1,0 +1,1367 @@
+/* Shared building blocks for the Navanta case studies (Reed, Sterling, Sawyer).
+   Layout: a hairline-ruled, question-led page. Colours come from globals.css
+   tokens so light and dark themes both work. */
+
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.eyebrow {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin: 0 0 16px;
+}
+
+.h2 {
+    font-size: 2.4rem;
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.body {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.body + .body {
+    margin-top: 14px;
+}
+
+/* Two-column split: heading left, content right, ruled on top */
+.split {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* Role / dates / team strip */
+.roleStrip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.roleItem {
+    padding: 18px 16px 18px 0;
+}
+
+.roleItem .eyebrow {
+    margin-bottom: 6px;
+}
+
+.roleValue {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Scenario rows: statement → consequence */
+.scenarioRows {
+    display: flex;
+    flex-direction: column;
+}
+
+.scenarioRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.statement {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.consequence {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.closing {
+    font-size: 1.3rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin: 28px 0 0;
+}
+
+/* Pillars */
+.pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 28px;
+}
+
+.pillarNumber {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+}
+
+.pillarTitle {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 0 6px;
+}
+
+/* Bridge question */
+.bridge {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bridgeQuestion {
+    font-size: 2.6rem;
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin: 0 0 20px;
+}
+
+/* Question section */
+.question {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.questionHead {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 48px;
+    align-items: end;
+}
+
+/* State legend */
+.legendColumns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+}
+
+.legendList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legendItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.legendListItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.legendLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legendNote {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* Screen frame */
+.screen {
+    margin: 0;
+}
+
+.screenSurface {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+}
+
+.screenPlaceholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-secondary);
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent 0 14px,
+        rgba(var(--text-primary-rgb), 0.035) 14px 15px
+    );
+}
+
+.screenPlaceholderTitle {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.redacted img,
+.redacted video {
+    filter: blur(6px) saturate(0.8);
+}
+
+.caption {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-top: 12px;
+}
+
+/* Lifecycle tracker */
+.lifecycle {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.stepButton {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font: inherit;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.stepButton:hover {
+    background: var(--bg-secondary);
+}
+
+.stepButton:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 2px;
+}
+
+.stepActive {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.stepIndex {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.7rem;
+}
+
+.stepActive .stepIndex {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.stepName {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.stepNote {
+    grid-column: 2;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 2px 0 0;
+}
+
+/* Agent trace */
+.trace {
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 20px;
+    background: var(--bg-card);
+}
+
+.traceHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.traceTitle {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.traceButton {
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.traceButton:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 2px;
+}
+
+.traceSteps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.traceStep {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.traceDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    margin: 7px 0 0 5px;
+}
+
+.traceLabel {
+    color: var(--text-primary);
+}
+
+.traceDetail {
+    color: var(--text-secondary);
+}
+
+.traceSummary {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.traceResult {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+/* Pivot to the other side of the product */
+.pivot {
+    max-width: 720px;
+}
+
+.pivotLead {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: var(--text-secondary);
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+}
+
+.pivotStatement {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
+}
+
+/* Outcomes */
+.outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 28px;
+}
+
+.outcomeValue {
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0 0 6px;
+}
+
+/* Next project */
+.next {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.nextTitle {
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Decisions: the call on the left, why on the right */
+.decisions {
+    margin-top: 24px;
+}
+
+/* Relay: one signal crossing every seat, as swimlanes in the product's colours */
+.relay {
+    --row: 60px;
+    --label: 188px;
+    --relay-hold: #d9922e;
+    --relay-hold-text: #8f5609;
+    --relay-yes-text: #1d5fd0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    background: var(--bg-card);
+}
+
+:global([data-theme="dark"]) .relay {
+    --relay-hold-text: #f0b45a;
+    --relay-yes-text: #8ab8ff;
+}
+
+.relayDays {
+    position: relative;
+    height: 20px;
+    margin-left: var(--label);
+}
+
+.relayDay {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.relayGrid {
+    display: grid;
+    grid-template-columns: var(--label) minmax(0, 1fr);
+}
+
+.relayLabels {
+    display: flex;
+    flex-direction: column;
+}
+
+.relayLabel {
+    height: var(--row);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px 0 8px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.relayLabelObserver {
+    border-top-style: dashed;
+}
+
+.relayLabelText {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.relaySeat {
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+.relayNames {
+    font-size: 0.78rem;
+    line-height: 1.3;
+    color: var(--text-secondary);
+}
+
+.relayMark {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.relayTrack {
+    position: relative;
+    height: calc(var(--row) * var(--rows));
+}
+
+.relayBand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--row) * var(--lane));
+    height: var(--row);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.relayBandAlt {
+    background: rgba(var(--text-primary-rgb), 0.025);
+}
+
+.relayObserver {
+    border-top-style: dashed;
+}
+
+.relayDivider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1px dashed var(--border-subtle);
+}
+
+.relayLines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.relayLine,
+.relayLineDone {
+    transition: stroke 0.3s ease;
+}
+
+.relayLine {
+    stroke: var(--border-strong);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 4;
+}
+
+.relayLineDone {
+    stroke: var(--text-secondary);
+    stroke-width: 2;
+}
+
+.relayTick {
+    position: absolute;
+    top: calc(var(--row) * var(--lane) + var(--row) / 2);
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 50%;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.relayTickOn {
+    border-color: var(--tick);
+    background: var(--tick);
+}
+
+.relayDot {
+    --dot: 18px;
+    position: absolute;
+    top: calc(var(--row) * var(--lane) + var(--row) / 2);
+    width: var(--dot);
+    height: var(--dot);
+    margin: calc(var(--dot) / -2) 0 0 calc(var(--dot) / -2);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-card);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.relayDotPerson {
+    --dot: 26px;
+}
+
+.relayDotHold::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    border: 2px solid var(--relay-hold);
+}
+
+.relayDotAhead {
+    opacity: 0.3;
+    filter: grayscale(0.7);
+    box-shadow: none;
+}
+
+.relayDot:hover {
+    transform: scale(1.12);
+}
+
+.relayDotActive,
+.relayDotActive:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--halo) 24%, transparent);
+}
+
+.relayDot:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 9px;
+}
+
+.relayAxis {
+    position: relative;
+    height: 16px;
+    margin-left: var(--label);
+}
+
+.relayAxis span {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.relayAxis .relayAxisActive {
+    color: var(--text-primary);
+    opacity: 1;
+}
+
+.relayFoot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.relayLegend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.relayLegend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.relayKeyAgent,
+.relayKeyPerson,
+.relayKeyHold,
+.relayKeyTick {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.relayKeyAgent {
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle at 35% 30%, #e4e4e7 0%, #a1a1aa 45%, #52525b 100%);
+}
+
+.relayKeyPerson {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-secondary);
+}
+
+.relayKeyHold {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--relay-hold);
+}
+
+.relayKeyTick {
+    width: 8px;
+    height: 8px;
+}
+
+.relayControls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.relayIconButton {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.relayIconButton:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.relayPlay {
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 100px;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.relayIconButton:focus-visible,
+.relayPlay:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 2px;
+}
+
+.relayCount {
+    min-width: 40px;
+    text-align: right;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.traceButton:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.relayDetail {
+    min-height: 152px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* The step, drawn the way the frame record draws it */
+.relayCard {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+}
+
+.relayCardHold {
+    border-color: rgba(217, 146, 46, 0.45);
+    background: rgba(217, 146, 46, 0.07);
+}
+
+.relayCardBody {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.relayCardMeta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.relayCardTime {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.74rem;
+}
+
+.relayActor {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.relayVersion {
+    font-size: 0.74rem;
+}
+
+.relayBadge {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.relayBadgeHold {
+    background: rgba(217, 146, 46, 0.16);
+    color: var(--relay-hold-text);
+}
+
+.relayBadgeYes {
+    background: rgba(10, 124, 255, 0.1);
+    color: var(--relay-yes-text);
+}
+
+.relayCardTitle {
+    margin: 2px 0 0;
+    font-size: 1.02rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+}
+
+.relayCardDetail {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.relayChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.relayChips span {
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+}
+
+.relaySummary {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.relayStats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+}
+
+.relayStats div {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+}
+
+.relayStats dt {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+.relayStats dd {
+    margin: 2px 0 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.relaySummaryText {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+/* Screen tabs: several screens of one experience, one at a time */
+.screenTabs {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.tabRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tab {
+    padding: 6px 14px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 100px;
+    background: transparent;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab:hover {
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+}
+
+.tabActive,
+.tabActive:hover {
+    border-color: var(--text-primary);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.tab:focus-visible {
+    outline: 2px solid var(--accent-color, #0a7cff);
+    outline-offset: 2px;
+}
+
+.tabNote {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0 0 14px;
+}
+
+/* Signal map: owners as columns of chips, then the shared stages */
+.signalMap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.signalOwners {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.signalOwner {
+    padding-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.signalSeat {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 0 10px;
+}
+
+.signalSeat span {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.signalChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.signalChips li {
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--bg-secondary);
+    font-size: 0.82rem;
+    color: var(--text-primary);
+}
+
+.signalStages {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.signalStages li + li::before {
+    content: "→";
+    margin-right: 8px;
+    color: var(--text-secondary);
+}
+
+/* Seat switcher: the demo's profile menu, rebuilt */
+.seats {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+}
+
+/* A replica of the demo's profile menu, so it keeps the product's own light
+   palette in both themes, like the screenshots around it. */
+.seatMenu {
+    padding: 8px;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #18181b;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.seatMenuHead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+}
+
+.seatDivider {
+    height: 1px;
+    margin: 6px 0;
+    background: #e4e4e7;
+}
+
+.seatCaption {
+    display: block;
+    font-size: 0.82rem;
+    color: #52525b;
+    margin: 6px 8px;
+}
+
+.seatList {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.seatButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    text-align: left;
+    font: inherit;
+    color: #18181b;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.seatButton:hover {
+    background: #f4f4f5;
+}
+
+.seatButtonActive,
+.seatButtonActive:hover {
+    background: #f4f4f5;
+}
+
+.seatButton:focus-visible {
+    outline: 2px solid #59349c;
+    outline-offset: 2px;
+}
+
+.seatAvatar {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.seatText {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.seatName {
+    font-size: 0.95rem;
+    line-height: 1.35;
+}
+
+.seatRole {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #52525b;
+}
+
+.seatCheck {
+    flex-shrink: 0;
+    color: #59349c;
+}
+
+.agentOrb {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border-radius: 50%;
+    vertical-align: -3px;
+}
+
+.seatDetail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.seatDetail .eyebrow {
+    margin-bottom: 0;
+}
+
+.seatQuestion {
+    font-size: 1.9rem;
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.seatQuote {
+    margin: 0;
+    padding-left: 16px;
+    border-left: 2px solid var(--border-strong);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--text-secondary);
+}
+
+.seatAgent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+}
+
+.seatAgentName {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.seatAgentRole {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .page {
+        gap: 80px;
+    }
+
+    .relay {
+        --row: 60px;
+        --label: 48px;
+        padding: 14px;
+    }
+
+    .relayLabel {
+        padding: 0 8px 0 4px;
+    }
+
+    .relayLabelText,
+    .relayAxis {
+        display: none;
+    }
+
+    .relayDot {
+        --dot: 14px;
+    }
+
+    .relayDotPerson {
+        --dot: 20px;
+    }
+
+    .relayDotPerson svg {
+        width: 10px;
+        height: 10px;
+    }
+
+    .relayDotHold::after {
+        inset: -5px;
+    }
+
+    .relayDay {
+        font-size: 0.6rem;
+        letter-spacing: 0.02em;
+    }
+
+    .relayStats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .relayCard {
+        padding: 12px;
+    }
+
+    .relayBadge {
+        margin-left: 0;
+    }
+
+    .seats {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .signalOwners {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .seatQuestion {
+        font-size: 1.5rem;
+    }
+
+    .h2 {
+        font-size: 1.9rem;
+    }
+
+    .bridgeQuestion {
+        font-size: 1.9rem;
+    }
+
+    .split,
+    .questionHead,
+    .lifecycle {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .scenarioRow {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
+    }
+
+    .pillars {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stepButton,
+    .seatButton,
+    .relayDot,
+    .relayTick,
+    .relayAxis span,
+    .relayLine,
+    .relayLineDone {
+        transition: none;
+    }
+}
