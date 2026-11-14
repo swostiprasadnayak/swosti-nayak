@@ -4,6 +4,7 @@ import { ViewportProvider } from "./contexts/ViewportContext";
 import { VoiceModalProvider } from "./contexts/VoiceModalContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import CustomCursor from "@/components/ui/customCursor/CustomCursor";
+import A11yMotionConfig from "@/components/ui/a11yMotionConfig/A11yMotionConfig";
 import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
 import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
 import WelcomeOverlay from "@/components/welcomeOverlay/WelcomeOverlay";
@@ -40,6 +41,7 @@ export default function RootLayout({
             this div to apply filter: blur() — much more reliable than
             backdrop-filter, which fights with framer-motion's will-change. */}
         <div id="page-content">
+          <A11yMotionConfig>
           <ThemeProvider>
             <ViewportProvider>
               <AboutModalProvider>
@@ -53,6 +55,7 @@ export default function RootLayout({
               </AboutModalProvider>
             </ViewportProvider>
           </ThemeProvider>
+          </A11yMotionConfig>
         </div>
         {/* Overlay sits OUTSIDE the blurred wrapper so it stays sharp */}
         <WelcomeOverlay />

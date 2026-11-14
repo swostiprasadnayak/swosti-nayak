@@ -1,7 +1,8 @@
 "use client";
-import React, { useCallback, useId, useRef } from "react";
-import { AudioLines, Image as ImageIcon, Moon, Sun, Volume1, Volume2, VolumeX } from "lucide-react";
+import React, { useCallback, useId, useRef, useState } from "react";
+import { ChevronLeft, Ear, Eye, Hand, Image as ImageIcon, Moon, Sun, Volume1, Volume2, VolumeX } from "lucide-react";
 import { useTheme } from "@/app/contexts/ThemeContext";
+import { setA11yPref, useA11yPrefs, type A11yPref } from "@/app/hooks/useA11yPrefs";
 import type { MusicPlayerState } from "@/app/hooks/useMusicPlayer";
 import MusicCard from "../musicCard/musicCard";
 import classes from "./controlCenterGrid.module.css";
@@ -12,7 +13,6 @@ type ControlCenterGridProps = {
     onBrightnessChange: (percent: number) => void;
     imageIndex: number;
     onImageToggle?: () => void;
-    onVoiceMode?: () => void;
     onScreenshot?: () => void;
 };
 
@@ -21,11 +21,14 @@ type ControlCenterGridProps = {
  *  two tall vertical sliders (brightness, volume). Four equal columns, so it
  *  scales with whatever width the container gives it. */
 export default function ControlCenterGrid({
-    player, brightness, onBrightnessChange, imageIndex, onImageToggle, onVoiceMode, onScreenshot,
+    player, brightness, onBrightnessChange, imageIndex, onImageToggle, onScreenshot,
 }: ControlCenterGridProps) {
     const { isDark, toggleTheme } = useTheme();
+    const [view, setView] = useState<"main" | "accessibility">("main");
     const volume = player.volume;
     const VolumeIcon = volume === 0 ? VolumeX : volume < 50 ? Volume1 : Volume2;
+
+    if (view === "accessibility") return <AccessibilityView onBack={() => setView("main")} />;
 
     return (
         <div className={classes.grid}>
@@ -36,8 +39,8 @@ export default function ControlCenterGrid({
             <RoundButton label={isDark ? "Light mode" : "Dark mode"} onClick={toggleTheme}>
                 {isDark ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
             </RoundButton>
-            <RoundButton label="Voice mode" onClick={onVoiceMode}>
-                <AudioLines size={20} strokeWidth={2} />
+            <RoundButton label="Accessibility" onClick={() => setView("accessibility")}>
+                <AccessibilityIcon />
             </RoundButton>
 
             <VerticalSlider
@@ -62,6 +65,81 @@ export default function ControlCenterGrid({
                 <ScreenshotIcon />
             </RoundButton>
         </div>
+    );
+}
+
+const A11Y_SECTIONS: { title: string; icon: React.ReactNode; items: { key: A11yPref; label: string; hint: string }[] }[] = [
+    {
+        title: "Vision",
+        icon: <Eye size={16} strokeWidth={2} />,
+        items: [
+            { key: "largerText", label: "Larger text", hint: "Scales text up across the site" },
+            { key: "moreContrast", label: "Increase contrast", hint: "Stronger text, borders and panels" },
+        ],
+    },
+    {
+        title: "Motor",
+        icon: <Hand size={16} strokeWidth={2} />,
+        items: [
+            { key: "reduceMotion", label: "Reduce motion", hint: "Turns off animations and transitions" },
+            { key: "standardCursor", label: "Standard cursor", hint: "Uses the system pointer only" },
+        ],
+    },
+    {
+        title: "Hearing",
+        icon: <Ear size={16} strokeWidth={2} />,
+        items: [
+            { key: "largerCaptions", label: "Larger captions", hint: "Bigger subtitles in voice mode" },
+            { key: "muteSounds", label: "Mute interface sounds", hint: "Silences the screenshot click" },
+        ],
+    },
+];
+
+/** Accessibility view, shown in place of the grid: Vision, Motor and Hearing
+ *  settings as iOS-style switches. Saved per visitor (useA11yPrefs). */
+function AccessibilityView({ onBack }: { onBack: () => void }) {
+    const prefs = useA11yPrefs();
+    return (
+        <div className={classes.a11y}>
+            <button type="button" className={classes.a11yBack} onClick={onBack}>
+                <ChevronLeft size={18} strokeWidth={2.25} />
+                <span>Accessibility</span>
+            </button>
+            {A11Y_SECTIONS.map((section) => (
+                <section key={section.title} className={classes.a11ySection} aria-label={section.title}>
+                    <h3 className={classes.a11yHeading}>{section.icon}{section.title}</h3>
+                    {section.items.map((item) => (
+                        <button
+                            key={item.key}
+                            type="button"
+                            role="switch"
+                            aria-checked={prefs[item.key]}
+                            className={classes.a11yRow}
+                            onClick={() => setA11yPref(item.key, !prefs[item.key])}
+                        >
+                            <span className={classes.a11yText}>
+                                <span className={classes.a11yLabel}>{item.label}</span>
+                                <span className={classes.a11yHint}>{item.hint}</span>
+                            </span>
+                            <span className={classes.switch} aria-hidden="true"><span /></span>
+                        </button>
+                    ))}
+                </section>
+            ))}
+        </div>
+    );
+}
+
+/** The iOS Accessibility glyph: a figure with outstretched arms in a ring. */
+function AccessibilityIcon() {
+    return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="7" r="1.5" fill="currentColor" stroke="none" />
+            <path d="M6.6 9.7c3.6.9 7.2.9 10.8 0" />
+            <path d="M12 10.3v3.6" />
+            <path d="M12 13.9l-1.7 4.3M12 13.9l1.7 4.3" />
+        </svg>
     );
 }
 

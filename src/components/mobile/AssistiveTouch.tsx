@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { animate, motion, useMotionValue } from "motion/react";
+import { useIsClient } from "@/app/hooks/useIsClient";
 
 const SIZE = 56;
 const EDGE = 10;          // gap from the screen edge once docked
@@ -23,6 +25,7 @@ type AssistiveTouchProps = {
  * the visitor left it (per browser; works without storage too).
  */
 export default function AssistiveTouch({ onTap }: AssistiveTouchProps) {
+    const isClient = useIsClient();
     const x = useMotionValue(-200);
     const y = useMotionValue(-200);
     const opacity = useMotionValue(1);
@@ -80,7 +83,10 @@ export default function AssistiveTouch({ onTap }: AssistiveTouchProps) {
         };
     }, [x, y, snap, wake]);
 
-    return (
+    // Portalled to <body>: inside the page's stacking contexts (main area z-10)
+    // even a high z-index stays under top-level layers like the banner.
+    if (!isClient) return null;
+    return createPortal(
         <motion.button
             type="button"
             aria-label="Open Control Center"
@@ -112,7 +118,7 @@ export default function AssistiveTouch({ onTap }: AssistiveTouchProps) {
                 justifyContent: "center",
                 cursor: "pointer",
                 touchAction: "none",
-                zIndex: 101,
+                zIndex: 10000, // floats above page content and the "use desktop" banner, like iOS
                 pointerEvents: "auto",
             }}
         >
@@ -122,6 +128,7 @@ export default function AssistiveTouch({ onTap }: AssistiveTouchProps) {
                 <span style={{ position: "absolute", inset: 4, borderRadius: "50%", background: "rgba(255, 255, 255, 0.32)" }} />
                 <span style={{ position: "absolute", inset: 8, borderRadius: "50%", background: "rgba(255, 255, 255, 0.95)" }} />
             </span>
-        </motion.button>
+        </motion.button>,
+        document.body
     );
 }

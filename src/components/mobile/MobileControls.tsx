@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { getA11yPrefs } from "@/app/hooks/useA11yPrefs";
 import classes from "./mobileControls.module.css";
 import { Menu, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -22,6 +23,7 @@ interface MobileControlsProps {
 // Shutter sound for screenshot feedback
 let shutterSound: HTMLAudioElement | null = null;
 function playShutterSound() {
+    if (getA11yPrefs().muteSounds) return; // Accessibility → Hearing
     if (!shutterSound) shutterSound = new Audio("/shutter.mp3");
     shutterSound.currentTime = 0;
     shutterSound.play().catch(() => { });
@@ -224,6 +226,27 @@ export default function MobileControls({
               </button>
 
               <button
+                onClick={() => { setIsMenuOpen(false); onVoiceMode?.(); }}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: ui.text,
+                  padding: "10px 12px",
+                  textAlign: "left",
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  width: "100%",
+                  transition: "background 0.15s ease"
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = ui.itemHover}
+                onMouseLeave={(e) => e.currentTarget.style.background = "none"}
+              >
+                Voice mode
+              </button>
+
+              <button
                 onClick={() => { setIsMenuOpen(false); onShowPosts?.(); }}
                 style={{
                   background: "none",
@@ -397,7 +420,6 @@ export default function MobileControls({
                 onBrightnessChange={handleBrightnessChange}
                 imageIndex={imageIndex}
                 onImageToggle={onImageToggle}
-                onVoiceMode={() => { setIsControlOpen(false); onVoiceMode?.(); }}
                 onScreenshot={() => {
                   playShutterSound();
                   setIsControlOpen(false);

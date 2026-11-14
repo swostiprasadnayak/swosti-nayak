@@ -27,7 +27,8 @@ src/app/
   posts/page.tsx      /posts route
   api/feedback/       POST route — sends feedback email via Resend
   contexts/           5 React contexts: Theme, Viewport, AboutModal, FeedbackModal, VoiceModal
-  hooks/              useIsClient, useIsMobile, useMusicPlayer, useVideoPlayback, useWindowMode
+  hooks/              useIsClient, useIsMobile, useMusicPlayer, useVideoPlayback, useWindowMode,
+                      useA11yPrefs (visitor accessibility settings → data-a11y-* on <html>)
   types/              cards.types.ts, projects.types.ts  ← project metadata lives here
 
 src/components/

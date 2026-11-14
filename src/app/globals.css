@@ -268,3 +268,38 @@ body {
     display: none !important;
   }
 }
+
+/* ════════════════════════════════════════
+   ACCESSIBILITY PREFERENCES (Control Center → Accessibility)
+   Attributes are set on <html> by src/app/hooks/useA11yPrefs.ts.
+════════════════════════════════════════ */
+
+/* Vision: larger text (scales all rem-based type) */
+html[data-a11y-larger-text] {
+  font-size: 112.5%;
+}
+
+/* Vision: increase contrast (stronger secondary text, borders, glass) */
+html[data-a11y-more-contrast] {
+  --text-secondary: rgba(0, 0, 0, 0.92);
+  --border-subtle: rgba(0, 0, 0, 0.35);
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --glass-sidebar: rgba(255, 255, 255, 0.6);
+}
+
+html[data-a11y-more-contrast][data-theme="dark"] {
+  --text-secondary: #ffffff;
+  --border-subtle: rgba(255, 255, 255, 0.45);
+  --bg-glass: rgba(28, 28, 30, 0.85);
+  --glass-sidebar: rgba(28, 28, 30, 0.85);
+}
+
+/* Motor: reduce motion (CSS side; motion/react side is A11yMotionConfig) */
+html[data-a11y-reduce-motion] *,
+html[data-a11y-reduce-motion] *::before,
+html[data-a11y-reduce-motion] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

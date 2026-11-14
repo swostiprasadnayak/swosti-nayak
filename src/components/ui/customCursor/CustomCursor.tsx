@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useIsClient } from "@/app/hooks/useIsClient";
+import { useA11yPrefs } from "@/app/hooks/useA11yPrefs";
 
 export default function CustomCursor() {
   const isMounted = useIsClient();
+  const { standardCursor } = useA11yPrefs(); // Accessibility → Motor
   const [isHovering, setIsHovering] = useState(false);
   // Over sliders the hover blob covered the track/handle, so scrubbing was
   // guesswork. There the cursor becomes a slim beam across the direction of
@@ -60,7 +62,7 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  if (!isMounted) return null;
+  if (!isMounted || standardCursor) return null;
 
   const isActive = isHovering || isClicked;
   const shape = precise === "h"
