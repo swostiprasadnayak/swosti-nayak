@@ -602,7 +602,7 @@ export default function SupplyChainCaseStudyTemplate() {
                     />
 
                     {/* 12 · Next */}
-                    <NextProject label="Next case study" title="LPS Planning: demand moves before the plan does" />
+                    <NextProject label="Next case study" title="Groundswell: a surge at one store, caught before the contractor calls" />
                 </div>
             </div>
         </div>

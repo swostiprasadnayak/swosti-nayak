@@ -24,8 +24,8 @@ import FlowReel from "../navanta/FlowReel";
 import FilmPlayer from "../navanta/FilmPlayer";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 
-/* LPS Planning — the Trend surge demo, built at Navanta on the Supply Chain
-   platform: one store (Dallas 440) sells ×1.48 of plan near a hospital
+/* Groundswell — the Trend surge demo, built at Navanta on the Supply Chain
+   platform: one store (a Dallas branch) sells ×1.48 of plan near a hospital
    award, the trend is applied and bought for, and a contractor's order that
    can't wait for the PO is covered from the branch network on a map.
    The hero is the product film made for the demo (exported from Motion, so
@@ -34,10 +34,10 @@ import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
    the client's logo masked (the product's mark stands in). Figures, people
    and stores are the demo's own demo data. */
 
-const IMG = "/images/navanta/lps";
+const IMG = "/images/navanta/groundswell";
 const SHOT = "1440 / 900";
 
-export default function LpsCaseStudyTemplate() {
+export default function GroundswellCaseStudyTemplate() {
     const { openModal } = useVoiceModal();
 
     return (
@@ -47,7 +47,7 @@ export default function LpsCaseStudyTemplate() {
                     {/* 00 · Header + hero film */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
                         <CaseStudyHeader
-                            title="LPS Planning"
+                            title="Groundswell"
                             subtitle="A surge at one store, caught before the contractor calls."
                             tags={["AI agents", "Demand planning", "Supply chain", "Design + build"]}
                             onVoiceModeClick={openModal}
@@ -61,16 +61,16 @@ export default function LpsCaseStudyTemplate() {
                             ]}
                         />
                         <FilmPlayer
-                            src="/videos/lps-trend-surge.mp4"
+                            src="/videos/groundswell.mp4"
                             poster={`${IMG}/film-poster.jpg`}
-                            label="Film: a trend surge at Dallas 440, from the dashboard signal to covering a contractor's order"
+                            label="Film: a trend surge at one Dallas branch, from the dashboard signal to covering a contractor's order"
                             chapters={[
                                 { name: "Signal", at: 0, caption: "A hospital expansion lands in Dallas. One store's wedge anchors sell ×1.48 of plan." },
                                 { name: "Atlas", at: 11.5, caption: "Atlas reads it overnight: four calls, each held for the seat that owns it." },
                                 { name: "Apply", at: 15.5, caption: "Priya applies Iris's trend. The next 16 weeks go from 1,228 to 1,380." },
                                 { name: "Buy", at: 22.5, caption: "Priya approves the units to order, and Mercer drafts the PO." },
                                 { name: "PO", at: 28.5, caption: "Marcus approves the PO from his buying queue." },
-                                { name: "Cover", at: 32.5, caption: "Rivera calls for 120; Dallas 440 has 38. Christy covers it from Fort Worth 583." },
+                                { name: "Cover", at: 32.5, caption: "Rivera calls for 120; the branch has 38. Christy covers it from a Fort Worth branch." },
                                 { name: "End", at: 39, caption: "The plan moved before the call came." },
                             ]}
                         />
@@ -79,7 +79,7 @@ export default function LpsCaseStudyTemplate() {
                     {/* 01 · The problem */}
                     <ScenarioRows
                         heading="The call that comes too late"
-                        lead="A hospital expansion breaks ground near Dallas 440."
+                        lead="A hospital expansion breaks ground near a Dallas branch."
                         rows={[
                             {
                                 statement: "Wedge anchors sell ×1.48 of plan, four weeks running.",
@@ -165,7 +165,7 @@ export default function LpsCaseStudyTemplate() {
                         eyebrow="Apply"
                         question="How much more will we sell?"
                         why={[
-                            "Demand build-up lists the stores under the Valley View award with their trend. Iris reads ×1.48 at Dallas 440, but the column stays ×1.00, marked “not applied”, until a person applies it.",
+                            "Demand build-up lists the stores under the hospital award with their trend. Iris reads ×1.48 at the Dallas branch, but the column stays ×1.00, marked “not applied”, until a person applies it.",
                             "Applying shows the next 16 weeks before and after, and logs the change to the audit trail as Priya's.",
                         ]}
                     >
@@ -174,18 +174,18 @@ export default function LpsCaseStudyTemplate() {
                             items={[
                                 {
                                     label: "Not applied",
-                                    note: "Dallas 440 sold 118 against a plan of 80. Iris's banner says so; the forecast hasn't moved yet.",
-                                    screen: { title: "Demand build-up for the Valley View award", src: `${IMG}/dallas-demand.jpg`, aspect: SHOT },
+                                    note: "The Dallas branch sold 118 against a plan of 80. Iris's banner says so; the forecast hasn't moved yet.",
+                                    screen: { title: "Demand build-up for the hospital award", src: `${IMG}/dallas-demand.jpg`, aspect: SHOT },
                                 },
                                 {
                                     label: "Iris's card",
                                     note: "One store, the units to add, and the forecast before and after: 1,228 → 1,380.",
-                                    screen: { title: "Iris proposing the trend for Dallas 440", src: `${IMG}/dallas-review.jpg`, aspect: SHOT },
+                                    screen: { title: "Iris proposing the trend for the Dallas branch", src: `${IMG}/dallas-review.jpg`, aspect: SHOT },
                                 },
                                 {
                                     label: "Applied",
                                     note: "Applied and logged. The net requirement re-runs in Inventory planning.",
-                                    screen: { title: "The trend applied at Dallas 440", src: `${IMG}/dallas-applied.jpg`, aspect: SHOT },
+                                    screen: { title: "The trend applied at the Dallas branch", src: `${IMG}/dallas-applied.jpg`, aspect: SHOT },
                                 },
                             ]}
                         />
@@ -234,7 +234,7 @@ export default function LpsCaseStudyTemplate() {
                     {/* 08 · Pivot to the map */}
                     <Pivot
                         lead="The PO is on its way."
-                        statement="Rivera Concrete needs 120 anchors by Thursday, and Dallas 440 has 38."
+                        statement="Rivera Concrete needs 120 anchors by Thursday, and the branch has 38."
                         body={[
                             "This is where the map comes in. The branch associate's desk isn't a stock list: it's the branch network on a map — who's short, who has spare, how far apart they are, and how stock would travel between them.",
                         ]}
@@ -261,13 +261,13 @@ export default function LpsCaseStudyTemplate() {
                     >
                         <FlowReel
                             label="Film: covering a contractor's order from the branch network on the map"
-                            hook="Rivera needs 120 anchors. Dallas 440 has 38."
+                            hook="Rivera needs 120 anchors. The branch has 38."
                             end="The nearest spare stock, on a map, a day early."
                             shots={[
                                 {
                                     src: `${IMG}/dallas-search.jpg`,
-                                    alt: "Daniela's inventory map with Dallas 440 short and Rivera's order on the branch",
-                                    caption: "Daniela's map: Dallas 440 is short on four SKUs, and Rivera's order is waiting on one.",
+                                    alt: "Daniela's inventory map with the Dallas branch short and Rivera's order on the branch",
+                                    caption: "Daniela's map: her branch is short on four SKUs, and Rivera's order is waiting on one.",
                                     dur: 5.5,
                                     to: { s: 1.8, x: 73, y: 32 },
                                     highlight: { x: 62.6, y: 18, w: 21, h: 28.5, at: 1.4 },
@@ -275,8 +275,8 @@ export default function LpsCaseStudyTemplate() {
                                 },
                                 {
                                     src: `${IMG}/dallas-request.jpg`,
-                                    alt: "Christy's route on the map from Fort Worth 583 to Dallas 440",
-                                    caption: "Christy searches a 30-mile ring. Fort Worth 583 has 270 spare; the route lands 150 by Wed 4 Nov.",
+                                    alt: "Christy's route on the map from a Fort Worth branch to Dallas",
+                                    caption: "Christy searches a 30-mile ring. A Fort Worth branch has 270 spare; the route lands 150 by Wed 4 Nov.",
                                     dur: 5.5,
                                     to: { s: 1.75, x: 48, y: 52 },
                                     highlight: { x: 34, y: 41.6, w: 29, h: 18.4, at: 1.8 },
@@ -339,7 +339,7 @@ export default function LpsCaseStudyTemplate() {
                         intro={[]}
                         items={[
                             { value: "×1.48", label: "Applied at one store, by a person" },
-                            { value: "150", label: "Units moved from Fort Worth 583" },
+                            { value: "150", label: "Units moved from a branch 30 miles away" },
                             { value: "4 Nov", label: "Rivera's order promised, a day early" },
                         ]}
                     />

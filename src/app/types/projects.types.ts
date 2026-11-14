@@ -24,11 +24,11 @@ const ALL_PROJECTS: ProjectContent[] = [
         demoPoster: "/images/navanta/supply-chain-demo/executive-dashboard.png",
     },
     {
-        name: "LPS Planning",
-        slug: "lps-planning",
+        name: "Groundswell",
+        slug: "groundswell",
         description: "A demand surge at one store, caught before the contractor calls — from the trend to the PO, then covered from the branch network on a map.",
         tags: ["AI", "Enterprise", "B2B"],
-        demoPoster: "/images/navanta/lps/dallas-request.jpg",
+        demoPoster: "/images/navanta/groundswell/dallas-request.jpg",
     },
     {
         name: "Shop Floor",
