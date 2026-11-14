@@ -128,7 +128,7 @@ function VerticalSlider({ label, value, onChange, icon, className }: VerticalSli
             <div ref={ref} className={classes.vRail}>
                 <div className={classes.vFill} style={{ height: `${value}%` }} />
                 <div className={classes.vTicks} />
-                <div className={classes.vHandle} style={{ bottom: `calc(6px + (100% - 17px) * ${value / 100})` }} />
+                <div className={classes.vHandle} style={{ bottom: `calc(6px + (100% - 16px) * ${value / 100})` }} />
             </div>
             <div className={classes.vIcon}>{icon}</div>
         </div>

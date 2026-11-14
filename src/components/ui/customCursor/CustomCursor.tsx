@@ -6,9 +6,10 @@ import { useIsClient } from "@/app/hooks/useIsClient";
 export default function CustomCursor() {
   const isMounted = useIsClient();
   const [isHovering, setIsHovering] = useState(false);
-  // Over sliders (seek, brightness) the hover blob covered the thin track, so
-  // scrubbing was guesswork. There the cursor becomes a slim vertical beam.
-  const [isPrecise, setIsPrecise] = useState(false);
+  // Over sliders the hover blob covered the track/handle, so scrubbing was
+  // guesswork. There the cursor becomes a slim beam across the direction of
+  // travel: vertical over horizontal sliders, horizontal over vertical ones.
+  const [precise, setPrecise] = useState<"h" | "v" | null>(null);
   const [isClicked, setIsClicked] = useState(false);
 
   // High-performance motion values
@@ -40,7 +41,8 @@ export default function CustomCursor() {
         target.closest('button') ||
         target.closest('a');
         
-      setIsPrecise(!!target.closest('input[type="range"], [data-cursor="precise"]'));
+      const slider = target.closest('input[type="range"], [role="slider"], [data-cursor="precise"]');
+      setPrecise(slider ? (slider.getAttribute("aria-orientation") === "vertical" ? "v" : "h") : null);
       setIsHovering(!!isClickable);
     };
 
@@ -61,8 +63,10 @@ export default function CustomCursor() {
   if (!isMounted) return null;
 
   const isActive = isHovering || isClicked;
-  const shape = isPrecise
+  const shape = precise === "h"
     ? { width: 3, height: 22, borderRadius: 1.5, backgroundColor: "rgba(120, 120, 120, 0.85)" }
+    : precise === "v"
+    ? { width: 22, height: 3, borderRadius: 1.5, backgroundColor: "rgba(120, 120, 120, 0.85)" }
     : isActive
       ? { width: 43, height: 43, borderRadius: 21.5, backgroundColor: "rgba(120, 120, 120, 0.4)" }
       : { width: 19, height: 19, borderRadius: 9.5, backgroundColor: "rgba(100, 100, 100, 0.2)" };
@@ -90,7 +94,7 @@ export default function CustomCursor() {
           top: "50%",
           x: "-50%",
           y: "-50%",
-          backdropFilter: isActive && !isPrecise ? "blur(1px)" : "none",
+          backdropFilter: isActive && !precise ? "blur(1px)" : "none",
         }}
         initial={false}
         animate={shape}

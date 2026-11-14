@@ -60,7 +60,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-    padding: 10px 10px 12px;
+    padding: 12px 12px 12px;
     box-sizing: border-box;
     min-width: 0;
     border-radius: 20px;
@@ -94,21 +94,24 @@
     transition: height 0.08s linear;
 }
 
-/* Tick marks: 10 segments, as horizontal lines */
+/* Quarter marks: 3 short, light lines (25/50/75%) — 10 was too dense for a
+   rail this short. */
 .vTicks {
     position: absolute;
-    top: 14px;
-    bottom: 14px;
+    top: 0;
+    bottom: 0;
     left: 50%;
-    width: 24px;
+    width: 12px;
     transform: translateX(-50%);
     background: repeating-linear-gradient(
         to top,
         transparent,
-        transparent calc(10% - 1px),
-        rgba(0, 0, 0, 0.2) calc(10% - 1px),
-        rgba(0, 0, 0, 0.2) 10%
+        transparent calc(25% - 1px),
+        rgba(0, 0, 0, 0.16) calc(25% - 1px),
+        rgba(0, 0, 0, 0.16) 25%
     );
+    /* hide the line the gradient draws at 100% (the very top edge) */
+    clip-path: inset(2px 0 0 0);
     pointer-events: none;
 }
 
@@ -116,8 +119,8 @@
 .vHandle {
     position: absolute;
     left: 50%;
-    width: 28px;
-    height: 5px;
+    width: 22px;
+    height: 4px;
     transform: translateX(-50%);
     border-radius: 3px;
     background: #6e6e73;
@@ -162,9 +165,9 @@
     background: repeating-linear-gradient(
         to top,
         transparent,
-        transparent calc(10% - 1px),
-        rgba(255, 255, 255, 0.32) calc(10% - 1px),
-        rgba(255, 255, 255, 0.32) 10%
+        transparent calc(25% - 1px),
+        rgba(255, 255, 255, 0.22) calc(25% - 1px),
+        rgba(255, 255, 255, 0.22) 25%
     );
 }
 

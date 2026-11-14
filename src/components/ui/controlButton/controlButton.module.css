@@ -37,9 +37,17 @@
     transform: scale(0.96);
 }
 
+/* Selected: its panel is open (aria-expanded) or it's toggled on. A solid
+   "pressed" tile, like the active option in the view toggle. */
+.btn[aria-expanded="true"],
 .btn.active {
-    outline: 2px solid rgba(50, 100, 200, 0.7);
-    outline-offset: 1px;
+    background: var(--bg-card) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="dark"]) .btn[aria-expanded="true"],
+:global([data-theme="dark"]) .btn.active {
+    background: rgba(255, 255, 255, 0.22) !important;
 }
 
 .label {
