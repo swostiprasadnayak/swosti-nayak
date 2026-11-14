@@ -89,6 +89,9 @@ export default function AssistiveTouch({ onTap }: AssistiveTouchProps) {
     return createPortal(
         <motion.button
             type="button"
+            // Portalled out of the mobile-only wrapper, so it needs the
+            // mobile-only class itself (hidden ≥769px in globals.css).
+            className="mobile-controls-only"
             aria-label="Open Control Center"
             title="Controls"
             drag
