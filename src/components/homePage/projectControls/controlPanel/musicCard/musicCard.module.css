@@ -2,9 +2,9 @@
    translucent white tile, like the rest of the Control Center. */
 .card {
   display: flex;
-  gap: 14px;
-  padding: 12px;
-  border-radius: 26px;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.06);
   color: rgba(0, 0, 0, 0.88);
@@ -14,10 +14,10 @@
 .art {
   position: relative;
   flex-shrink: 0;
-  width: min(104px, 34%);
+  width: min(88px, 32%);
   aspect-ratio: 1;
   align-self: center;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   background: #e9e9ec;
 }
@@ -44,14 +44,14 @@
 }
 
 .title {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .artist {
   margin-top: 1px;
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.45);
 }
@@ -60,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8px;
+  padding: 0 6px;
 }
 
 .ctrl {

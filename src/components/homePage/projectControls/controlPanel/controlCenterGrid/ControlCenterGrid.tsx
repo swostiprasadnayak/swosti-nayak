@@ -34,34 +34,32 @@ export default function ControlCenterGrid({
             </div>
 
             <RoundButton label={isDark ? "Light mode" : "Dark mode"} onClick={toggleTheme}>
-                {isDark ? <Sun size={22} strokeWidth={2} /> : <Moon size={22} strokeWidth={2} />}
+                {isDark ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
             </RoundButton>
             <RoundButton label="Voice mode" onClick={onVoiceMode}>
-                <AudioLines size={22} strokeWidth={2} />
+                <AudioLines size={20} strokeWidth={2} />
             </RoundButton>
 
             <VerticalSlider
                 label="Brightness"
                 value={brightness}
                 onChange={onBrightnessChange}
-                icon={<Sun size={22} strokeWidth={2.25} />}
-                accent="#f5a524"
+                icon={<Sun size={20} />}
                 className={classes.colBrightness}
             />
             <VerticalSlider
                 label="Volume"
                 value={volume}
                 onChange={player.setVolume}
-                icon={<VolumeIcon size={22} strokeWidth={2.25} />}
-                accent="#0a84ff"
+                icon={<VolumeIcon size={20} />}
                 className={classes.colVolume}
             />
 
             <RoundButton label={`Wallpaper ${imageIndex}`} onClick={onImageToggle}>
-                <ImageIcon size={22} strokeWidth={2} />
+                <ImageIcon size={20} strokeWidth={2} />
             </RoundButton>
             <RoundButton label="Screenshot" onClick={onScreenshot}>
-                <Camera size={22} strokeWidth={2} />
+                <Camera size={20} strokeWidth={2} />
             </RoundButton>
         </div>
     );
@@ -80,15 +78,14 @@ type VerticalSliderProps = {
     value: number;
     onChange: (percent: number) => void;
     icon: React.ReactNode;
-    /** Icon colour once the fill has risen over it. */
-    accent: string;
     className?: string;
 };
 
-/** Tall pill that fills from the bottom. Drag or tap anywhere on it; arrow
- *  keys / Home / End when focused. */
-function VerticalSlider({ label, value, onChange, icon, accent, className }: VerticalSliderProps) {
-    const ref = useRef<HTMLDivElement>(null);
+/** The original brightness-bar look (raised tile, grey rail, lighter fill,
+ *  ticks, thin handle, grey icon) stood upright: the fill rises from the
+ *  bottom. Drag or tap anywhere on the tile; arrow keys / Home / End. */
+function VerticalSlider({ label, value, onChange, icon, className }: VerticalSliderProps) {
+    const ref = useRef<HTMLDivElement>(null); // the rail: level is measured against it
 
     const setFromY = useCallback((clientY: number) => {
         const el = ref.current;
@@ -110,12 +107,8 @@ function VerticalSlider({ label, value, onChange, icon, accent, className }: Ver
         onChange(Math.min(100, Math.max(0, next)));
     };
 
-    // The fill covers the icon (which sits ~16px above the bottom) from ~24%.
-    const covered = value >= 24;
-
     return (
         <div
-            ref={ref}
             className={`${classes.vSlider} ${className ?? ""}`}
             role="slider"
             tabIndex={0}
@@ -132,8 +125,12 @@ function VerticalSlider({ label, value, onChange, icon, accent, className }: Ver
             onPointerMove={(e) => { if (e.currentTarget.hasPointerCapture(e.pointerId)) setFromY(e.clientY); }}
             onKeyDown={onKeyDown}
         >
-            <div className={classes.vFill} style={{ height: `${value}%` }} />
-            <div className={classes.vIcon} style={covered ? { color: accent } : undefined}>{icon}</div>
+            <div ref={ref} className={classes.vRail}>
+                <div className={classes.vFill} style={{ height: `${value}%` }} />
+                <div className={classes.vTicks} />
+                <div className={classes.vHandle} style={{ bottom: `calc(6px + (100% - 17px) * ${value / 100})` }} />
+            </div>
+            <div className={classes.vIcon}>{icon}</div>
         </div>
     );
 }

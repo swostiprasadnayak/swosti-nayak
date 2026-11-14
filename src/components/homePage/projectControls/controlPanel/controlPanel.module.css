@@ -6,8 +6,10 @@
     position: absolute;
     top: calc(100% + 14px);
     right: 0;
-    width: 360px;
-    padding: 18px;
+    /* 312px → ~62px grid columns (iOS-sized buttons and sliders) */
+    width: 312px;
+    padding: 16px;
+    box-sizing: border-box;
     /* Cool-grey glass (not white) so the near-white tiles inside read as
        raised buttons, like macOS Control Center. */
     background: rgba(232, 234, 240, 0.58);
@@ -16,7 +18,7 @@
     -webkit-backdrop-filter: blur(60px) saturate(180%);
     backdrop-filter: blur(60px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 42px;
+    border-radius: 34px;
     box-shadow: 
         0 25px 50px -12px rgba(0, 0, 0, 0.1),
         0 4px 12px rgba(0, 0, 0, 0.03),

@@ -22,7 +22,7 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
         <div className={classes.card}>
             <div className={classes.art}>
                 {track?.thumbnail && (
-                    <Image src={track.thumbnail} alt={track.title} fill sizes="104px" style={{ objectFit: "cover" }} />
+                    <Image src={track.thumbnail} alt={track.title} fill sizes="88px" style={{ objectFit: "cover" }} />
                 )}
             </div>
 
@@ -34,15 +34,15 @@ export default function MusicCard({ player }: { player: MusicPlayerState }) {
 
                 <div className={classes.controls}>
                     <button type="button" onClick={prevTrack} aria-label="Previous track" className={classes.ctrl}>
-                        <Rewind size={22} fill="currentColor" stroke="none" />
+                        <Rewind size={20} fill="currentColor" stroke="none" />
                     </button>
                     <button type="button" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className={classes.ctrl}>
                         {isPlaying
-                            ? <Pause size={28} fill="currentColor" stroke="none" />
-                            : <Play size={28} fill="currentColor" stroke="none" />}
+                            ? <Pause size={24} fill="currentColor" stroke="none" />
+                            : <Play size={24} fill="currentColor" stroke="none" />}
                     </button>
                     <button type="button" onClick={nextTrack} aria-label="Next track" className={classes.ctrl}>
-                        <FastForward size={22} fill="currentColor" stroke="none" />
+                        <FastForward size={20} fill="currentColor" stroke="none" />
                     </button>
                 </div>
 

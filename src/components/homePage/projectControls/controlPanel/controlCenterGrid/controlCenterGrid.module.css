@@ -3,7 +3,7 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px;
 }
 
 .music {
@@ -53,38 +53,83 @@
     grid-row: 2 / span 2;
 }
 
-/* ── Vertical sliders ── */
+/* ── Vertical sliders: the original horizontal brightness bar, upright ──
+   Light: near-white tile, darker grey rail, lighter grey fill, dark handle. */
 .vSlider {
-    position: relative;
-    overflow: hidden;
-    border-radius: 24px;
-    background: rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 10px 12px;
+    box-sizing: border-box;
+    min-width: 0;
+    border-radius: 20px;
+    background: #fafafb;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
 }
 
+/* Inner pill: rail = unfilled area */
+.vRail {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #cbcbd2;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Filled area, lighter than the rail, rising from the bottom */
 .vFill {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    background: #ffffff;
+    background: #e3e3e7;
     pointer-events: none;
     transition: height 0.08s linear;
 }
 
-.vIcon {
+/* Tick marks: 10 segments, as horizontal lines */
+.vTicks {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 16px;
+    top: 14px;
+    bottom: 14px;
+    left: 50%;
+    width: 24px;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(
+        to top,
+        transparent,
+        transparent calc(10% - 1px),
+        rgba(0, 0, 0, 0.2) calc(10% - 1px),
+        rgba(0, 0, 0, 0.2) 10%
+    );
+    pointer-events: none;
+}
+
+/* Thin handle at the top of the fill (was a 5×28 vertical bar) */
+.vHandle {
+    position: absolute;
+    left: 50%;
+    width: 28px;
+    height: 5px;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    background: #6e6e73;
+    pointer-events: none;
+    transition: bottom 0.08s linear;
+}
+
+.vIcon {
     display: flex;
     justify-content: center;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.45);
     pointer-events: none;
-    transition: color 0.15s ease;
 }
 
 /* ── Dark ── */
@@ -99,13 +144,34 @@
 }
 
 :global([data-theme="dark"]) .vSlider {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme="dark"]) .vRail {
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 :global([data-theme="dark"]) .vFill {
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.28);
+}
+
+:global([data-theme="dark"]) .vTicks {
+    background: repeating-linear-gradient(
+        to top,
+        transparent,
+        transparent calc(10% - 1px),
+        rgba(255, 255, 255, 0.32) calc(10% - 1px),
+        rgba(255, 255, 255, 0.32) 10%
+    );
+}
+
+:global([data-theme="dark"]) .vHandle {
+    background: rgba(255, 255, 255, 0.45);
 }
 
 :global([data-theme="dark"]) .vIcon {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.45);
 }

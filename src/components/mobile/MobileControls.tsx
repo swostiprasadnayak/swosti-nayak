@@ -397,7 +397,7 @@ export default function MobileControls({
                 top: "50%",
                 left: "50%",
                 width: "90%",
-                maxWidth: "360px",
+                maxWidth: "320px",
                 background: ui.sheetBg,
                 backdropFilter: "blur(40px)",
                 WebkitBackdropFilter: "blur(40px)",
