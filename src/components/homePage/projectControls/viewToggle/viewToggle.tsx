@@ -22,7 +22,7 @@ const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, onViewModeChange, onR
     };
 
     return (
-        <Squircle cornerRadius={12} className={classes.container}>
+        <Squircle cornerRadius={14} className={classes.container}>
             <button
                 className={`${classes.toggleButton} ${viewMode === "tab" ? classes.active : ""}`}
                 onClick={() => select("tab")}
