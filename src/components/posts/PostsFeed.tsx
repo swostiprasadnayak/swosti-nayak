@@ -3,6 +3,30 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { Squircle } from "corner-smoothing";
+import { Maximize2, Minimize2, Send } from "lucide-react";
+
+// Post icons as inline SVG (were low-res PNGs with baked-in backgrounds):
+// crisp at any size and themed via the --posts-* tokens.
+const HeartIcon = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+      fill="#ff3040" stroke="#ff3040" strokeWidth="1" strokeLinejoin="round"
+    />
+  </svg>
+);
+const ShareIcon = ({ size }: { size: number }) => (
+  <Send size={size} strokeWidth={2} color="var(--posts-share)" aria-hidden="true" />
+);
+const VerifiedBadge = ({ size, style }: { size: number; style?: React.CSSProperties }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Verified" style={{ flexShrink: 0, ...style }}>
+    <path
+      d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+      fill="#0095f6"
+    />
+    <path d="m9 12 2 2 4-4" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 const POSTS = [
   {
@@ -121,7 +145,7 @@ export default function PostsFeed() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
                       <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "var(--posts-text)", display: "flex", alignItems: "center", gap: "4px" }}>
                         {post.author} 
-                        <Image src="/icons/SVG.png" alt="verified" width={14} height={14} style={{ width: 14, height: 14, objectFit: "contain" }} /> 
+                        <VerifiedBadge size={14} /> 
                         <span style={{ color: "var(--posts-muted)", fontWeight: 400, fontSize: "0.8rem" }}>• {post.time}</span>
                       </div>
                       <div style={{ fontSize: "0.75rem", color: "var(--posts-muted)", fontWeight: 500 }}>{post.location}</div>
@@ -145,7 +169,7 @@ export default function PostsFeed() {
                       backdropFilter: "blur(5.3px)",
                       boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
                     }}>
-                      <Image src="/icons/Frame 1932992809.png" alt="expand" width={20} height={20} style={{ width: 20, height: 20 }} />
+                      <Maximize2 size={18} strokeWidth={2.25} color="#1c2b33" aria-label="Expand" />
                     </div>
                   </motion.div>
 
@@ -153,15 +177,15 @@ export default function PostsFeed() {
                   <motion.div layoutId={`post-footer-${post.id}`}>
                     <div style={{ display: "flex", gap: "20px", marginBottom: "12px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "var(--posts-text)" }}>
-                        <Image src="/icons/Vector.png" alt="like" width={22} height={22} style={{ width: 22, height: 22 }} /> 119 likes
+                        <HeartIcon size={22} /> 119 likes
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.9rem", fontWeight: 500, color: "var(--posts-share)" }}>
-                        <Image src="/icons/Container.png" alt="share" width={22} height={22} style={{ width: 22, height: 22 }} /> Share
+                        <ShareIcon size={20} /> Share
                       </div>
                     </div>
                     <p style={{ fontSize: "0.85rem", color: "var(--posts-text)", lineHeight: 1.6, margin: 0 }}>
                       <span style={{ fontWeight: 600 }}>{post.author}</span> 
-                      <Image src="/icons/SVG.png" alt="verified" width={12} height={12} style={{ width: 12, height: 12, margin: "0 6px", display: "inline-block" }} />
+                      <VerifiedBadge size={13} style={{ margin: "0 6px", display: "inline-block", verticalAlign: "-2px" }} />
                       {post.content}
                     </p>
                   </motion.div>
@@ -208,7 +232,7 @@ export default function PostsFeed() {
                       <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                         <div style={{ fontWeight: 700, fontSize: "1.05rem", color: "var(--posts-text)", display: "flex", alignItems: "center", gap: "6px" }}>
                           {post.author} 
-                          <Image src="/icons/SVG.png" alt="verified" width={16} height={16} style={{ width: 16, height: 16, objectFit: "contain" }} />
+                          <VerifiedBadge size={16} />
                           <span style={{ color: "var(--posts-muted)", fontWeight: 400, fontSize: "0.9rem" }}>• {post.time}</span>
                         </div>
                         <div style={{ fontSize: "0.9rem", color: "var(--posts-muted)", fontWeight: 500 }}>{post.location}</div>
@@ -222,6 +246,7 @@ export default function PostsFeed() {
                     >
                       <Image src={post.mediaUrl} alt="Post media" fill sizes="(max-width: 768px) 90vw, 700px" loading="lazy" style={{ objectFit: "cover" }} />
                       <button 
+                        aria-label="Minimise"
                         onClick={() => setExpandedId(null)}
                         style={{ 
                           position: "absolute", 
@@ -239,7 +264,7 @@ export default function PostsFeed() {
                           backdropFilter: "blur(5.3px)"
                         }}
                       >
-                        <Image src="/icons/Frame 1932992809.png" alt="minimize" width={24} height={24} style={{ width: 24, height: 24, transform: "scale(-1, -1)" }} />
+                        <Minimize2 size={20} strokeWidth={2.25} color="#1c2b33" aria-hidden="true" />
                       </button>
                     </motion.div>
 
@@ -247,15 +272,15 @@ export default function PostsFeed() {
                     <motion.div layoutId={`post-footer-${post.id}`}>
                       <div style={{ display: "flex", gap: "24px", marginBottom: "20px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 600, color: "var(--posts-text)" }}>
-                          <Image src="/icons/Vector.png" alt="like" width={24} height={24} style={{ width: 24, height: 24 }} /> 119 likes
+                          <HeartIcon size={24} /> 119 likes
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1rem", fontWeight: 500, color: "var(--posts-share)" }}>
-                          <Image src="/icons/Container.png" alt="share" width={24} height={24} style={{ width: 24, height: 24 }} /> Share
+                          <ShareIcon size={22} /> Share
                         </div>
                       </div>
                       <p style={{ fontSize: "1.1rem", color: "var(--posts-text)", lineHeight: 1.7, marginBottom: "40px" }}>
                         <span style={{ fontWeight: 700 }}>{post.author}</span> 
-                        <Image src="/icons/SVG.png" alt="verified" width={14} height={14} style={{ width: 14, height: 14, margin: "0 8px", display: "inline-block" }} />
+                        <VerifiedBadge size={15} style={{ margin: "0 8px", display: "inline-block", verticalAlign: "-2px" }} />
                         {post.content}
                       </p>
                     </motion.div>
