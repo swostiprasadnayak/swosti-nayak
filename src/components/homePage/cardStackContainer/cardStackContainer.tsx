@@ -494,10 +494,6 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             lineHeight: 1.4,
                                             color: "#555",
                                             margin: 0,
-                                            display: "-webkit-box",
-                                            WebkitLineClamp: 2,
-                                            WebkitBoxOrient: "vertical",
-                                            overflow: "hidden",
                                         }}>
                                             {project.description}
                                         </p>

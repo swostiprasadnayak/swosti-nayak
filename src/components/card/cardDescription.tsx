@@ -10,10 +10,21 @@ interface CardDescriptionProps {
     tags?: string[];
 }
 
+/** The name is already in the window's title bar, so the description carries
+ *  its own hierarchy: "Lead: detail" becomes the lead line (what it is) with
+ *  the detail quieter beneath it. Splits at the first colon, or at the first
+ *  full stop when there's no colon. */
+function splitDescription(text: string): { lead: string; detail: string | null } {
+    const m = text.match(/^(.+?)(?::|\.)\s+(.+)$/);
+    if (!m) return { lead: text, detail: null };
+    return { lead: m[1], detail: m[2].charAt(0).toUpperCase() + m[2].slice(1) };
+}
+
 const CardDescription: React.FC<CardDescriptionProps> = ({
     description,
     tags,
 }) => {
+    const { lead, detail } = splitDescription(description);
     return (
         <div className={classes.wrapper} data-component="CardDescription">
             <Squircle
@@ -24,7 +35,16 @@ const CardDescription: React.FC<CardDescriptionProps> = ({
                 bottomLeftCornerRadius={16}
                 bottomRightCornerRadius={16}
             >
-                <p className={classes.descText}>{description}</p>
+                <p className={classes.descText}>
+                    <span className={classes.lead}>{lead}</span>
+                    {detail && (
+                        <>
+                            {/* Keeps the sentence whole for screen readers. */}
+                            <span className={classes.srOnly}>. </span>
+                            <span className={classes.detail}>{detail}</span>
+                        </>
+                    )}
+                </p>
                 {tags && tags.length > 0 && (
                     <div className={classes.tagsContainer}>
                         {tags.map((tag) => (
