@@ -33,7 +33,7 @@
 
 .lead {
     display: block;
-    text-wrap: balance;
+    text-wrap: pretty; /* fill each line; only keep a lone last word off */
     font-size: var(--card-h2-size, 0.875rem);
     font-weight: var(--card-h2-weight, 500);
     line-height: 1.35;

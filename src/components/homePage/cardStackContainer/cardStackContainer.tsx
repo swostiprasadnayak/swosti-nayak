@@ -377,9 +377,12 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         display: "flex",
                                         flexDirection: "column",
                                         overflow: "hidden",
-                                        padding: 10,
+                                        // One inset all round on every phone width: the card
+                                        // pads 12px (10px on the narrowest phones), and the
+                                        // lights and text sit a further 6px in from the media.
+                                        padding: "clamp(10px, 3.2vw, 12px)",
                                         boxSizing: "border-box",
-                                        gap: 8,
+                                        gap: 10,
                                         // Multi-layer drop shadow matching the desktop Card
                                         boxShadow: "0 2px 4px rgba(0,0,0,0.05), 0 12px 24px rgba(0,0,0,0.1), 0 32px 64px rgba(0,0,0,0.15), 0 64px 120px rgba(0,0,0,0.12)",
                                     }}
@@ -390,7 +393,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             display: "flex",
                                             gap: 6,
                                             alignItems: "center",
-                                            padding: "2px 4px 0",
+                                            padding: "2px 6px 0",
                                         }}>
                                             <button
                                                 onClick={(e) => {
@@ -423,12 +426,15 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         </div>
                                     )}
 
-                                    {/* Inset media panel: image/video fits the frame (contain) */}
+                                    {/* Inset media panel: takes whatever height the text
+                                        doesn't need, so the card has no empty band at the
+                                        bottom; image/video fits the frame (contain). */}
                                     <Squircle
                                         cornerRadius={14}
                                         style={{
                                             position: "relative",
-                                            flex: "0 0 60%",
+                                            flex: "1 1 auto",
+                                            minHeight: 0,
                                             width: "100%",
                                             background: cardBg,
                                             overflow: "hidden",
@@ -473,14 +479,14 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         ) : null}
                                     </Squircle>
 
-                                    {/* Description panel: inset below the media */}
+                                    {/* Description panel: as tall as its text, inset 6px
+                                        like the lights, with the same space below. */}
                                     <div style={{
-                                        flex: 1,
-                                        padding: "4px 6px 4px",
+                                        flex: "0 0 auto",
+                                        padding: "0 6px 6px",
                                         display: "flex",
                                         flexDirection: "column",
-                                        gap: 4,
-                                        overflow: "hidden",
+                                        gap: 6,
                                     }}>
                                         {/* Phone card, like the grid view: Heading
                                             (name) 15 · 600, Heading 2 (lead)
@@ -495,7 +501,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         }}>
                                             {project.name}
                                         </h3>
-                                        <p style={{ margin: 0, fontSize: 13, fontWeight: 500, lineHeight: 1.35, color: "#111827", textWrap: "balance" }}>
+                                        <p style={{ margin: 0, fontSize: 13, fontWeight: 500, lineHeight: 1.35, color: "#111827", textWrap: "pretty" }}>
                                             {splitDescription(project.description).lead}
                                         </p>
                                         {project.tags && project.tags.length > 0 && (
