@@ -100,6 +100,16 @@
     cursor: pointer;
 }
 
+/* Disabled (coming soon): a flat grey pill, no colour or glow, so it reads
+   as unavailable next to the tags. */
+.voiceModeBtn[aria-disabled="true"],
+.techStackBtn[aria-disabled="true"] {
+    background: var(--bg-secondary);
+    color: rgba(var(--text-primary-rgb), 0.4);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
 /* Grid Layouts & Sections */
 .heroMedia {
     width: 100%;
