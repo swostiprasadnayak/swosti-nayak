@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import classes from "./voiceModal.module.css";
 
-// Delay before audio starts — gives a breath before voice kicks in
+// Delay before audio starts: gives a breath before voice kicks in
 const AUDIO_PRE_ROLL = 400; // ms
 
 const SCRIPT = [
@@ -57,7 +57,7 @@ export default function VoiceModal() {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const rafRef = useRef<number>(0);
 
-    // Create the audio element only once the modal is first opened — creating it on
+    // Create the audio element only once the modal is first opened: creating it on
     // mount made every visitor download ~300 KB for a feature most never open.
     // Opening still gives it a head start: playback waits for AUDIO_PRE_ROLL.
     useEffect(() => {
@@ -121,7 +121,7 @@ export default function VoiceModal() {
         }, AUDIO_PRE_ROLL);
         timersRef.current.push(audioStartTimer);
 
-        // Text segment timers — offset by the same pre-roll so text stays in sync with audio
+        // Text segment timers: offset by the same pre-roll so text stays in sync with audio
         SCRIPT.forEach((line, index) => {
             const timer = setTimeout(() => {
                 setCurrentTextIndex(index);
@@ -131,7 +131,7 @@ export default function VoiceModal() {
         });
     };
 
-    // Render words: spoken = dark, pending = faded — class swap happens at 60fps
+    // Render words: spoken = dark, pending = faded: class swap happens at 60fps
     const renderWords = (segIdx: number) => {
         const words = WORD_TIMING[segIdx];
         if (!words || words.length === 0) return null;

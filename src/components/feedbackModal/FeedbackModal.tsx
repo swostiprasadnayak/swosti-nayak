@@ -119,7 +119,7 @@ const FeedbackModal: React.FC = () => {
                                     <div className={classes.contentWrapper}>
                                         <div className={classes.maskGroup}>
 
-                                             {/* LEFT PANEL — gradient */}
+                                             {/* LEFT PANEL: gradient */}
                                             <Squircle className={classes.leftPanel} cornerRadius={12}>
                                                 <div className={classes.leftOverlay} />
 
@@ -147,7 +147,7 @@ const FeedbackModal: React.FC = () => {
                                                     >
                                                         <p className={classes.successTitle}>Received</p>
                                                         <p className={classes.successBody}>
-                                                            Thank you — every word is read.<br />
+                                                            Thank you. Every word is read.<br />
                                                             Your note quietly nudges the next version into shape.
                                                         </p>
                                                     </motion.div>

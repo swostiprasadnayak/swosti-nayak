@@ -11,7 +11,7 @@
     z-index: 50;
     /* Ensures it sits above blur layers */
     width: fit-content;
-    /* Never wider than the viewport — was clipping first/last icons on
+    /* Never wider than the viewport: was clipping first/last icons on
        small phones where 6 icons × 48px + gaps overflowed by ~20px. */
     max-width: calc(100vw - 16px);
 }

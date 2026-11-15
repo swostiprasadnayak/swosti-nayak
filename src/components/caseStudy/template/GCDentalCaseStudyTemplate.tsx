@@ -69,14 +69,14 @@ export default function GCDentalCaseStudyTemplate() {
           <div className={classes.htmlSectionCard}>
              <span style={{ fontSize: '0.65rem', fontWeight: 600, color: '#0d9488', letterSpacing: '0.1em' }}>NORTH STAR INSIGHT</span>
              <p style={{ fontSize: '1.4rem', color: '#0f172a', fontStyle: 'italic', fontWeight: 400, lineHeight: 1.5, marginTop: '16px', fontFamily: 'Instrument Serif, serif' }}>
-               "I just need the information — fast."
+               "I just need the information, fast."
              </p>
-             <span style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '16px', display: 'block' }}>— General Dentist, on-site between patient appointments (Usability Session 3)</span>
+             <span style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '16px', display: 'block' }}>General Dentist, on-site between patient appointments (Usability Session 3)</span>
              
              <div style={{ marginTop: '32px', paddingTop: '32px', borderTop: '1px solid #ccfbf1', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '24px' }}>
                <div>
                   <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#00B494', marginBottom: '8px' }}>4/5</div>
-                  <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}><strong>started with Google or peer recommendations</strong> — the GC site was their verification stop, not their discovery start.</div>
+                  <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}><strong>started with Google or peer recommendations</strong>: the GC site was their verification stop, not their discovery start.</div>
                </div>
                <div>
                   <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#00B494', marginBottom: '8px' }}>5/5</div>
@@ -84,7 +84,7 @@ export default function GCDentalCaseStudyTemplate() {
                </div>
                <div>
                   <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#00B494', marginBottom: '8px' }}>3/5</div>
-                  <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>would <strong>abandon if IFU wasn't one-click</strong> from the product page — the most critical failure we found.</div>
+                  <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>would <strong>abandon if IFU wasn't one-click</strong> from the product page: the most critical failure we found.</div>
                </div>
              </div>
           </div>
@@ -92,11 +92,11 @@ export default function GCDentalCaseStudyTemplate() {
           {/* User Journey Map */}
           <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', marginBottom: '80px', background: '#fff' }}>
             {[
-              { icon: '🔍', title: 'Google / Peers', desc: 'Where discovery happens — 4/5 users start here' },
+              { icon: '🔍', title: 'Google / Peers', desc: 'Where discovery happens: 4/5 users start here' },
               { icon: '📄', title: 'Clinical Literature', desc: 'Specialists check evidence databases & journals' },
-              { icon: '🦷', title: 'GC Website', desc: 'Verification layer — "Does this product do what I heard?"', active: true },
+              { icon: '🦷', title: 'GC Website', desc: 'Verification layer: "Does this product do what I heard?"', active: true },
               { icon: '✅', title: 'Verify & Convert', desc: 'Find IFU → Find dealer → Request demo' },
-              { icon: '❌', title: 'Silent Abandon', desc: 'No feedback. They just leave — 4/5 when IFU was hidden' }
+              { icon: '❌', title: 'Silent Abandon', desc: 'No feedback. They just leave: 4/5 when IFU was hidden' }
             ].map((step, i) => (
               <div key={i} style={{ flex: 1, padding: '24px 16px', textAlign: 'center', borderRight: i < 4 ? '1px solid #e2e8f0' : 'none', background: step.active ? '#f0fdfa' : 'transparent' }}>
                 <div style={{ fontSize: '1.5rem', marginBottom: '12px' }}>{step.icon}</div>
@@ -149,7 +149,7 @@ export default function GCDentalCaseStudyTemplate() {
                    { color: '#e11d48', bold: 'Critical: PDP hero was unclear.', text: 'All 5 users scanned the hero first. 3 of 5 paused and asked "What product is this?"' },
                    { color: '#0ea5e9', bold: 'Important: Visual clarity drives credibility.', text: '4 users said the design looked "dated", reducing trust in clinical claims.' },
                    { color: '#0ea5e9', bold: 'Important: 3 user archetypes emerged.', text: 'One PDP can\'t serve all equally without prioritization decisions.' },
-                   { color: '#10b981', bold: 'Success: 4/5 completed tasks without help.', text: '"Remaining issues don\'t prevent use — they reduce confidence." Confidence was the real metric.' }
+                   { color: '#10b981', bold: 'Success: 4/5 completed tasks without help.', text: '"Remaining issues don\'t prevent use: they reduce confidence." Confidence was the real metric.' }
                  ].map((find, idx) => (
                    <div key={idx} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', paddingBottom: '16px', borderBottom: idx < 4 ? '1px solid #e2e8f0' : 'none' }}>
                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: find.color, marginTop: '6px', flexShrink: 0 }} />
@@ -189,7 +189,7 @@ export default function GCDentalCaseStudyTemplate() {
                    icon: <Settings size={20} color="#00B494" />,
                    label: "\"JUST GIVE ME THE DOCS\"",
                    title: "Procurement Officer", 
-                   quote: "I need bulk orders, volume pricing, invoice history — the current system is slow and lacks repeat-order tools.",
+                   quote: "I need bulk orders, volume pricing, invoice history: the current system is slow and lacks repeat-order tools.",
                    decision: "SKU grid (3-column, paginated) with tabbed filters. Volume pricing visible."
                  },
                  { 
@@ -203,7 +203,7 @@ export default function GCDentalCaseStudyTemplate() {
                    icon: <ClipboardList size={20} color="#00B494" />,
                    label: "\"TELL ME FAST\"",
                    title: "Practice Manager", 
-                   quote: "Managing multiple clinics — I need team permissions, spending breakdowns, and workflow accountability tools.",
+                   quote: "Managing multiple clinics: I need team permissions, spending breakdowns, and workflow accountability tools.",
                    decision: "Jump-to navigation (11 sections). IFU one-click above fold. No cognitive overhead."
                  }
                ].map((card, i) => (
@@ -245,7 +245,7 @@ export default function GCDentalCaseStudyTemplate() {
                    </thead>
                    <tbody>
                      {[
-                       { cat: "Clinical evidence visibility", gc: "🔴 Poor — buried in resources", ds: "🟢 Case studies on PDP", iv: "🟡 Clinical tabs on select PDPs", m3: "🟢 Publication links on hero" },
+                       { cat: "Clinical evidence visibility", gc: "🔴 Poor: buried in resources", ds: "🟢 Case studies on PDP", iv: "🟡 Clinical tabs on select PDPs", m3: "🟢 Publication links on hero" },
                        { cat: "Search & filter taxonomy", gc: "🔴 Keyword only, broad results", ds: "🟡 Category filter, no specialty", iv: "🟢 Specialty + material type", m3: "🟢 Taxonomy + guided search" },
                        { cat: "Document accessibility", gc: "🔴 'Resources & IFU' (vague)", ds: "🟡 PDF download, limited states", iv: "🟢 Tabbed, filterable", m3: "🟢 Product-integrated doc viewer" },
                        { cat: "Mobile navigation patterns", gc: "🟡 Inconsistent across devices", ds: "🟡 Mobile nav, not optimized", iv: "🟢 Mobile-first patterns", m3: "🟡 Responsive, not mobile-first" },
@@ -287,7 +287,7 @@ export default function GCDentalCaseStudyTemplate() {
              {/* Before */}
              <div className={classes.htmlCard} style={{ background: '#fff', border: '1.5px solid #fecdd3', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#e11d48', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#fff1f2', borderRadius: '4px', alignSelf: 'flex-start' }}>BEFORE</span>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Resources & IFU — Buried, mislabeled</h3>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Resources & IFU: Buried, mislabeled</h3>
                 
                 <div style={{ height: '200px', background: '#f8fafc', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px dashed #cbd5e1', marginBottom: '16px' }}>
                    <Database size={32} color="#94a3b8" style={{ marginBottom: '12px' }} />
@@ -297,8 +297,8 @@ export default function GCDentalCaseStudyTemplate() {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                    {[
                      "Label 'Resources & IFU' is ambiguous",
-                     "Located below fold — 4+ scrolls from hero",
-                     "No tab filtering — IFU and brochures mixed",
+                     "Located below fold: 4+ scrolls from hero",
+                     "No tab filtering: IFU and brochures mixed",
                      "No checkbox for bulk download"
                    ].map((pt, j) => (
                      <li key={j} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
@@ -312,7 +312,7 @@ export default function GCDentalCaseStudyTemplate() {
              {/* After */}
              <div className={classes.htmlCard} style={{ background: '#fff', border: '1.5px solid #bbf7d0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#16a34a', letterSpacing: '0.1em', display: 'inline-block', padding: '4px 10px', background: '#f0fdf4', borderRadius: '4px', alignSelf: 'flex-start' }}>AFTER</span>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Documents & Manuals — One click, filterable</h3>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Documents & Manuals: One click, filterable</h3>
                 
                 <div style={{ height: '200px', background: '#f0fdf4', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #bbf7d0', marginBottom: '16px' }}>
                    <CheckCircle size={32} color="#16a34a" style={{ marginBottom: '12px' }} />
@@ -321,10 +321,10 @@ export default function GCDentalCaseStudyTemplate() {
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                    {[
-                     "Renamed 'Documents & Manuals' — explicit",
+                     "Renamed 'Documents & Manuals': explicit",
                      "Visible in sticky jump-to nav from anywhere",
                      "5 tab filters let users narrow document type",
-                     "Bulk checkbox + download — 9 cards per grid"
+                     "Bulk checkbox + download: 9 cards per grid"
                    ].map((pt, j) => (
                      <li key={j} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                        <CheckCircle2 size={18} color="#16a34a" style={{ marginTop: '2px', flexShrink: 0 }} />
@@ -399,7 +399,7 @@ export default function GCDentalCaseStudyTemplate() {
             which product <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>it was showing.</span>
           </h2>
           <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-            All 5 users scanned the PDP hero first. 3 of 5 paused mid-task and asked "What product is this?" — before reading a single line. A corporate hero image was the first impression instead of a product name.
+            All 5 users scanned the PDP hero first. 3 of 5 paused mid-task and asked "What product is this?" before reading a single line. A corporate hero image was the first impression instead of a product name.
           </p>
 
           {/* Two Templates */}
@@ -439,7 +439,7 @@ export default function GCDentalCaseStudyTemplate() {
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                {[
                  { state: "Expanded", name: "On Scroll Up", desc: "297px height. Full product card: name, image, description, SKU, award badges, CTAs. User looking for context." },
-                 { state: "Collapsed", name: "On Scroll Down", desc: "98px height. Minimal: product name + small image + primary CTA. User reading content — stay out of the way." },
+                 { state: "Collapsed", name: "On Scroll Down", desc: "98px height. Minimal: product name + small image + primary CTA. User reading content: stay out of the way." },
                  { state: "Mobile", name: "390px Viewport", desc: "Stacked layout. 392px height expanded. Full touch targets (48px+). Same 3 CTAs." }
                ].map((st, i) => (
                  <div key={i} style={{ padding: '24px', borderRight: i < 2 ? '1px solid #e2e8f0' : 'none' }}>
@@ -567,7 +567,7 @@ export default function GCDentalCaseStudyTemplate() {
             <span style={{ fontStyle: 'italic', color: 'var(--primary-color)' }}>taught me.</span>
           </h2>
           <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, maxWidth: '80%', marginBottom: '60px' }}>
-            B2C design teaches you to hide complexity. B2B healthcare taught me that expert users want control, not simplicity — and that the difference between the two is everything.
+            B2C design teaches you to hide complexity. B2B healthcare taught me that expert users want control, not simplicity, and that the difference between the two is everything.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '24px', marginBottom: '64px' }}>
@@ -583,7 +583,7 @@ export default function GCDentalCaseStudyTemplate() {
                 <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1, marginBottom: '16px' }}>02</div>
                 <h4 className={classes.htmlH3} style={{ margin: '0 0 12px 0' }}>Systems thinking is a multiplier, not a constraint.</h4>
                 <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
-                   My first instinct was to redesign every page with full control. My team pushed back: "Build a system first." I resisted — I wanted to pixel-polish. But building the system meant iterating faster, scaling to 30+ regions without multiplying work, and responding to stakeholder feedback by changing one component, not 30 pages.
+                   My first instinct was to redesign every page with full control. My team pushed back: "Build a system first." I resisted. I wanted to pixel-polish. But building the system meant iterating faster, scaling to 30+ regions without multiplying work, and responding to stakeholder feedback by changing one component, not 30 pages.
                 </p>
              </div>
           </div>

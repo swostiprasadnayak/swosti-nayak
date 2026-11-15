@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blinkit — Voice Quick Order</title>
+<title>Blinkit: Voice Quick Order</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -352,7 +352,7 @@ body{
 <body>
 
 <!-- ════════════════════════════════════
-     PHONE — QUICK ORDER / VOICE
+     PHONE: QUICK ORDER / VOICE
 ════════════════════════════════════ -->
 <div class="phone" id="phone">
 
@@ -375,7 +375,7 @@ body{
     <div class="row" style="animation-delay:0s">
       <div class="avatar av-ai">B</div>
       <div class="bbl ai" style="animation-delay:.1s">
-        Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> — I'll build your cart.
+        Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> I'll build your cart.
       </div>
     </div>
     <div class="row">
@@ -480,7 +480,7 @@ body{
   <div class="chat" id="chat-s3">
     <div class="row">
       <div class="avatar av-ai">B</div>
-      <div class="bbl ai">Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> — I'll build your cart.</div>
+      <div class="bbl ai">Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> I'll build your cart.</div>
     </div>
     <!-- user voice bubble -->
     <div class="row user" style="animation-delay:.1s">
@@ -528,7 +528,7 @@ body{
   <div class="chat" id="chat-s4">
     <div class="row">
       <div class="avatar av-ai">B</div>
-      <div class="bbl ai">Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> — I'll build your cart.</div>
+      <div class="bbl ai">Hey! 👋 <b>What do you want to order?</b><br><br>Just <em>type or speak</em> I'll build your cart.</div>
     </div>
     <div class="row user">
       <div class="avatar av-user">U</div>
@@ -582,7 +582,7 @@ body{
     </div>
   </div>
   <div class="order-bar">
-    <button class="order-btn" onclick="goTo(6)">⚡ Place Order — ₹197</button>
+    <button class="order-btn" onclick="goTo(6)">⚡ Place Order: ₹197</button>
   </div>
   <div class="toast" id="toast-s4"></div>
 </div>
@@ -656,7 +656,7 @@ body{
     </div>
   </div>
   <div class="order-bar">
-    <button class="order-btn dim" id="s5-order-btn">⚡ Place Order — ₹197</button>
+    <button class="order-btn dim" id="s5-order-btn">⚡ Place Order: ₹197</button>
   </div>
   <div class="toast" id="toast-s5"></div>
 </div>
@@ -729,7 +729,7 @@ function goTo(n){
 }
 function goHome(){goTo(1);}
 
-/* ─── SCREEN 1 — VOICE MODAL ─── */
+/* ─── SCREEN 1: VOICE MODAL ─── */
 let voicePhase='idle',voiceTimer=null;
 const phrases=['Milk aur eggs de do','Order me 1L Amul milk','Paneer butter masala ingredients'];
 let phraseIdx=0,charIdx=0;
@@ -785,7 +785,7 @@ function setWave(state){
   document.querySelectorAll('#waveform .wf').forEach(el=>{el.className='wf '+state;});
 }
 
-/* ─── SCREEN 2 — DEMO LISTENING ─── */
+/* ─── SCREEN 2: DEMO LISTENING ─── */
 let ltIdx=0,ltTimer=null;
 const ltPhrase='Milk aur eggs de do';
 function startListeningDemo(){
@@ -801,12 +801,12 @@ function startListeningDemo(){
   },75);
 }
 
-/* ─── SCREEN 3 — TYPING THEN AUTO-ADVANCE ─── */
+/* ─── SCREEN 3: TYPING THEN AUTO-ADVANCE ─── */
 function startTypingDemo(){
   setTimeout(()=>{goTo(4);},2000);
 }
 
-/* ─── SCREEN 5 — BRAND PICK ─── */
+/* ─── SCREEN 5: BRAND PICK ─── */
 function pickBrand(name,el){
   document.querySelectorAll('#chat-s5 .action-row:last-of-type .act').forEach(a=>{
     a.className='act';
@@ -831,12 +831,12 @@ function pickBrand(name,el){
     chat.appendChild(btnRow);
     chat.scrollTop=chat.scrollHeight;
     document.getElementById('s5-order-btn').classList.remove('dim');
-    document.getElementById('s5-order-btn').textContent='⚡ Place Order — ₹197';
+    document.getElementById('s5-order-btn').textContent='⚡ Place Order: ₹197';
   },600);
   chat.scrollTop=chat.scrollHeight;
 }
 
-/* ─── SCREEN 6 — UNDO COUNTDOWN ─── */
+/* ─── SCREEN 6: UNDO COUNTDOWN ─── */
 let undoT=null,undoN=8;
 function startUndoCountdown(){
   undoN=8;
@@ -859,7 +859,7 @@ function undoOrder(){
   setTimeout(()=>goTo(1),600);
 }
 
-/* ─── SCREEN 1 — TEXT INPUT ─── */
+/* ─── SCREEN 1: TEXT INPUT ─── */
 function sendText(){
   const v=document.getElementById('input-s1').value.trim();
   if(!v)return;

@@ -37,7 +37,7 @@ function SectionLabel({ n, label }: { n: string; label: string }) {
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
       <div style={{ width: 24, height: 2, background: T.brand, flexShrink: 0 }} />
       <span style={{ fontSize: 11, fontWeight: 700, color: T.text3, letterSpacing: "0.1em", textTransform: "uppercase" as const }}>
-        {n} — {label}
+        {n}: {label}
       </span>
     </div>
   );
@@ -51,7 +51,7 @@ function SectionSub({ children }: { children: React.ReactNode }) {
 }
 
 // ─── Code snippet block ──────────────────────────────────────────────────────
-// Tiny inline highlighter — strings (green), comments (muted), JSX tags (rose).
+// Tiny inline highlighter: strings (green), comments (muted), JSX tags (rose).
 // Intentionally simple so it stays readable; not a full parser.
 function highlightTSX(code: string): string {
   // 1. Escape HTML so user code never injects markup
@@ -62,7 +62,7 @@ function highlightTSX(code: string): string {
 
   // 2. Comments first (single-line)
   s = s.replace(/(\/\/[^\n]*)/g, '<span style="color:#64748B;font-style:italic">$1</span>');
-  // 3. Strings — double, single, backtick. Skip if already inside a span.
+  // 3. Strings: double, single, backtick. Skip if already inside a span.
   s = s.replace(/(&quot;[^&]*?&quot;|"[^"\n]*?"|'[^'\n]*?'|`[^`]*?`)/g,
     '<span style="color:#86EFAC">$1</span>');
   // 4. JSX/HTML tag openers (matches both Capital + lowercase)
@@ -198,7 +198,7 @@ const COLOR_GROUPS: { label: string; swatches: Swatch[] }[] = [
     { name: "info",          hex: "#2563eb", badge: "Info" },
     { name: "info-light",    hex: "#dbeafe", badge: "bg" },
   ]},
-  { label: "Semantic — Light Mode", swatches: [
+  { label: "Semantic: Light Mode", swatches: [
     { name: "bg/page",       hex: "#f9fafb" }, { name: "bg/surface",    hex: "#ffffff" },
     { name: "accent/primary",hex: "#047857" }, { name: "text/primary",  hex: "#111827" },
     { name: "text/secondary",hex: "#4b5563" }, { name: "text/muted",    hex: "#9ca3af" },
@@ -219,7 +219,7 @@ function ColourSection() {
     <div>
       <SectionLabel n="01" label="Colour Palette" />
       <SectionH>Colour Palette</SectionH>
-      <SectionSub>Every token binds to a Figma variable — swap Light/Dark in the right panel. Code syntax: <code style={{ background: T.surf3, padding: "1px 6px", borderRadius: 4, fontSize: 12 }}>var(--color-*)</code></SectionSub>
+      <SectionSub>Every token binds to a Figma variable: swap Light/Dark in the right panel. Code syntax: <code style={{ background: T.surf3, padding: "1px 6px", borderRadius: 4, fontSize: 12 }}>var(--color-*)</code></SectionSub>
       {COLOR_GROUPS.map(grp => (
         <div key={grp.label} style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 10, fontWeight: 700, color: T.text3, letterSpacing: "0.08em", textTransform: "uppercase" as const, margin: "0 0 12px" }}>{grp.label}</p>
@@ -311,7 +311,7 @@ const RADII = [
   { name: "lg", px: 12 }, { name: "xl", px: 16 }, { name: "full", px: 9999 },
 ];
 const ELEVATIONS = [
-  { name: "0 · Flat",    shadow: "none",                                              desc: "No shadow — inline content" },
+  { name: "0 · Flat",    shadow: "none",                                              desc: "No shadow: inline content" },
   { name: "1 · Subtle",  shadow: "0 1px 2px rgba(0,0,0,0.05)",                       desc: "Tags, chips, badges" },
   { name: "2 · Card",    shadow: "0 4px 6px -1px rgba(0,0,0,0.10)",                  desc: "Cards, panels, dropdowns" },
   { name: "3 · Raised",  shadow: "0 10px 15px -3px rgba(0,0,0,0.10)",               desc: "Raised cards, popovers" },
@@ -416,7 +416,7 @@ function AtomsSection() {
     <div>
       <SectionLabel n="04" label="Atoms" />
       <SectionH>Form Controls</SectionH>
-      <SectionSub>Checkbox · Radio · Toggle — each state shown. Focus ring uses brand/green-100 spread.</SectionSub>
+      <SectionSub>Checkbox · Radio · Toggle: each state shown. Focus ring uses brand/green-100 spread.</SectionSub>
 
       <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, overflow: "hidden", overflowX: "auto", marginBottom: 40 }}>
         {/* Header */}
@@ -625,7 +625,7 @@ function MoleculesSection() {
 const FEED_ITEMS = [
   { kind: "BLOCKER", tier: "Mini", ago: "12m ago", msg: "Room rent cap missing in BRD for Mini tier.", color: T.error },
   { kind: "WARNING", tier: "Medi", ago: "2h ago",  msg: "OPD limit differs between BRD (₹8,000) and Brochure (₹7,500).", color: T.warning },
-  { kind: "WARNING", tier: "Max",  ago: "3h ago",  msg: "Initial wait conflict — Brochure 15d vs Policy 30d.", color: T.warning },
+  { kind: "WARNING", tier: "Max",  ago: "3h ago",  msg: "Initial wait conflict: Brochure 15d vs Policy 30d.", color: T.warning },
 ];
 
 const PARAM_CARDS = [
@@ -726,7 +726,7 @@ function OrganismsSection() {
 
       {/* Parameter Cards */}
       <SectionH>Parameter Card</SectionH>
-      <SectionSub>4 states — Verified · Low Confidence · Missing · Blocker. Status badge + confidence + source.</SectionSub>
+      <SectionSub>4 states: Verified · Low Confidence · Missing · Blocker. Status badge + confidence + source.</SectionSub>
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const, marginBottom: 24 }}>
         {PARAM_CARDS.map(pc => (
           <div key={pc.title} style={{
@@ -793,7 +793,7 @@ function DarkModeSection() {
     <div>
       <SectionLabel n="07" label="Dark Mode" />
       <SectionH>Light vs Dark</SectionH>
-      <SectionSub>Mode swap via Figma Variable Modes (right panel). No manual color overrides — alias semantics to primitives only.</SectionSub>
+      <SectionSub>Mode swap via Figma Variable Modes (right panel). No manual color overrides: alias semantics to primitives only.</SectionSub>
       <div style={{ display: "flex", gap: 24, flexWrap: "wrap" as const }}>
         {[
           { label: "Light Mode", bg: T.surf2, surface: T.surf, ink: T.ink,    muted: T.text2, border: T.border,  accent: T.brand },
@@ -917,7 +917,7 @@ function DrawerSection() {
           {[
             { icon: "↔", label: "Bidirectional linking", desc: "Clicking the source passage jumps to the parameter. Clicking the bead jumps to the passage. One mental model, two directions." },
             { icon: "✓", label: "Accept = Verify", desc: "One click transitions confidence bead from amber → green and removes the issue from the Auditor simultaneously." },
-            { icon: "⚡", label: "AI assist inline", desc: "No context switch — ask AI, @-mention, or comment without leaving the drawer or the canvas." },
+            { icon: "⚡", label: "AI assist inline", desc: "No context switch: ask AI, @-mention, or comment without leaving the drawer or the canvas." },
             { icon: "⎋", label: "Keyboard navigation", desc: "← / → walks through sibling parameters. Esc closes. ⌘B toggles the sidebar." },
           ].map(ann => (
             <div key={ann.label} style={{ display: "flex", gap: 12, marginBottom: 16 }}>
@@ -1016,14 +1016,14 @@ function AccessibilitySection() {
               }
               <span style={{ fontSize: 12, fontWeight: 600, color: r.pass ? T.success : T.error }}>{r.pass ? "AA Pass" : "Fail"}</span>
             </div>
-            <span style={{ fontSize: 11, color: r.pass ? T.text3 : T.warning }}>{r.note || "—"}</span>
+            <span style={{ fontSize: 11, color: r.pass ? T.text3 : T.warning }}>{r.note || "n/a"}</span>
           </div>
         ))}
       </div>
 
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
         {[
-          { icon: "⌨", label: "Keyboard Navigation", items: ["Tab / Shift+Tab — focus order", "Enter / Space — activate", "Esc — close drawer/modal", "← / → — walk parameters in Tree", "⌘B — toggle sidebar"] },
+          { icon: "⌨", label: "Keyboard Navigation", items: ["Tab / Shift+Tab: focus order", "Enter / Space: activate", "Esc: close drawer/modal", "← / →: walk parameters in Tree", "⌘B: toggle sidebar"] },
           { icon: "👁", label: "Focus Visibility", items: ["2px solid brand/green-700", "3px offset using box-shadow spread", "Applies only on :focus-visible", "Never on :focus (avoids click ring)", "Focus ring shows on all interactive atoms"] },
           { icon: "📏", label: "Touch Targets", items: ["Minimum 44×44px on mobile", "All buttons MD(40px)+ on desktop", "Icon-only buttons include padding area", "Form controls: 18×18px + 13px padding each side", "prefers-reduced-motion respected"] },
         ].map(card => (
@@ -1048,8 +1048,8 @@ function AccessibilitySection() {
 function VariablesSection() {
   const collections = [
     { name: "Primitives", modes: ["Value"], count: 70, desc: "Raw color scale, spacing steps, radius, opacity, duration, font-sizes" },
-    { name: "Color",      modes: ["Light", "Dark"], count: 26, desc: "Semantic aliases — bg/*, text/*, accent/*, border/*, state/*" },
-    { name: "Spacing",    modes: ["Value"], count: 12, desc: "xs(4) → 7xl(120) — all bound to GAP and WIDTH_HEIGHT scopes" },
+    { name: "Color",      modes: ["Light", "Dark"], count: 26, desc: "Semantic aliases: bg/*, text/*, accent/*, border/*, state/*" },
+    { name: "Spacing",    modes: ["Value"], count: 12, desc: "xs(4) → 7xl(120): all bound to GAP and WIDTH_HEIGHT scopes" },
     { name: "Typography", modes: ["Value"], count: 26, desc: "Font sizes, weights, line-heights, letter-spacings" },
     { name: "Breakpoints",modes: ["Mobile","Tablet","Desktop","Wide"], count: 4, desc: "columns · gutter · margin · max-width per breakpoint" },
   ];
@@ -1057,7 +1057,7 @@ function VariablesSection() {
     <div>
       <SectionLabel n="00" label="Variable Collections" />
       <SectionH>5 Variable Collections · 138 Tokens</SectionH>
-      <SectionSub>All collections live in the Figma file on the "Design System — InsureTec" page. Every component binds to semantic tokens, never to raw primitives.</SectionSub>
+      <SectionSub>All collections live in the Figma file on the "Design System: InsureTec" page. Every component binds to semantic tokens, never to raw primitives.</SectionSub>
       <div style={{ display: "flex", flexDirection: "column" as const, gap: 12 }}>
         {collections.map(c => (
           <div key={c.name} style={{ display: "flex", alignItems: "flex-start", gap: 20, padding: "18px 20px", background: T.surf, border: `1px solid ${T.border}`, borderRadius: 12 }}>

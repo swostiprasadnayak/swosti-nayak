@@ -176,7 +176,7 @@ export function QuestionSection({
     );
 }
 
-/** "That's one side. Behind it there's…" — the turn to the other seat. */
+/** "That's one side. Behind it there's…": the turn to the other seat. */
 export function Pivot({
     lead,
     statement,
@@ -202,7 +202,7 @@ export function Pivot({
 
 export type SignalOwner = { seat: string; agent: string; signals: string[] };
 
-/** Which seat owns which signal, as chips — and the stages every signal runs. */
+/** Which seat owns which signal, as chips, and the stages every signal runs. */
 export function SignalMap({ owners, stages }: { owners: SignalOwner[]; stages: string[] }) {
     return (
         <div className={classes.signalMap}>

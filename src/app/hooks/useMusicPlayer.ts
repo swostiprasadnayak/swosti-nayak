@@ -89,7 +89,7 @@ export function useMusicPlayer() {
     const [duration, setDuration] = useState(0);
 
     // Spread onto the <audio> element. React attaches these whenever the
-    // element mounts — an effect reading audioRef.current ran before the
+    // element mounts: an effect reading audioRef.current ran before the
     // (client-only) control panel rendered its <audio>, found null, and never
     // re-ran until the track changed, so the time stayed at -0:00.
     const audioEvents = {
@@ -109,6 +109,6 @@ export function useMusicPlayer() {
     return { audioRef, audioEvents, volume, setVolume, isPlaying, progress, track, currentTime, duration, togglePlay, nextTrack, prevTrack, seek };
 }
 
-/** What the music UI needs — everything except the <audio> ref and events, which
+/** What the music UI needs: everything except the <audio> ref and events, which
  *  only the component rendering the <audio> element should hold. */
 export type MusicPlayerState = Omit<ReturnType<typeof useMusicPlayer>, "audioRef" | "audioEvents">;

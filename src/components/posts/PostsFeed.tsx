@@ -68,7 +68,7 @@ const POSTS = [
     mediaUrl: "/images/posts/post-2.jpg",
     detailedContent: `
       <h2>Tactile Analogies in Digital Space</h2>
-      <p>There is a specific joy in physical objects—the weight, the resistance, and the definitive state of a mechanical switch. As we move deeper into glass-slab interfaces, we risk losing this grounding connection.</p>
+      <p>There is a specific joy in physical objects: the weight, the resistance, and the definitive state of a mechanical switch. As we move deeper into glass-slab interfaces, we risk losing this grounding connection.</p>
       <img src="/images/posts/post-2.jpg" alt="Analog Calendar" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
       <p>Our research focuses on haptic feedback loops that simulate these physical constraints. When you scroll through a list in Antigravity, the friction is modeled after real-world physics, making the digital feel tangible.</p>
     `
@@ -83,7 +83,7 @@ const POSTS = [
     mediaUrl: "/images/posts/post-3.jpg",
     detailedContent: `
       <h2>Ambient Intelligence: Beyond the Screen</h2>
-      <p>The screen shouldn't be the only way we interact with AI. This prototype explores a dedicated physical form for our design agent—a device that lives on your desk and communicates through light, sound, and subtle motion.</p>
+      <p>The screen shouldn't be the only way we interact with AI. This prototype explores a dedicated physical form for our design agent: a device that lives on your desk and communicates through light, sound, and subtle motion.</p>
       <img src="/images/posts/post-3.jpg" alt="Spatial Gadget" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
       <p>This 'spatial node' acts as a bridge between your physical environment and your digital workspace. It can sense your presence, adjust your lighting, and even 'whisper' design suggestions as you work.</p>
     `
@@ -100,7 +100,7 @@ const POSTS = [
       <h2>Deconstructing the Design System</h2>
       <p>Traditional design systems are static libraries of assets. Our new approach treats components as living organisms. They don't just have styles; they have behaviors, states, and contextual awareness.</p>
       <img src="/images/posts/post-4.jpg" alt="System Breakdown" style="width: 100%; border-radius: 16px; margin: 32px 0;" />
-      <p>By breaking down the DNA of a component—its material properties, transparency, and interaction logic—we can generate infinite variations that remain consistent with the core brand identity.</p>
+      <p>By breaking down the DNA of a component, its material properties, transparency, and interaction logic, we can generate infinite variations that remain consistent with the core brand identity.</p>
     `
   }
 ];

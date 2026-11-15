@@ -30,6 +30,14 @@ import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 import { PROJECTS } from "@/app/types/projects.types";
 import { AudioLines } from "lucide-react";
 
+// Old ?project= slugs from before the Navanta projects were renamed, so
+// links already shared still open the right case study.
+const RENAMED_SLUGS: Record<string, string> = {
+  "navanta-supply-chain": "supply-chain-intelligence",
+  groundswell: "demand-sensing",
+  "shop-floor": "repair-operations",
+};
+
 // Desktop wallpapers, cycled by the control panel's Image toggle. These are a
 // CSS background (not next/image), so large files are pre-sized (2560px long edge).
 const WALLPAPERS = [
@@ -76,7 +84,9 @@ function HomeContent() {
   useEffect(() => {
     const projectSlug = searchParams.get("project");
     if (projectSlug) {
-      const project = PROJECTS.find(p => p.slug.toLowerCase() === projectSlug.toLowerCase());
+      const wanted = projectSlug.toLowerCase();
+      const slug = RENAMED_SLUGS[wanted] ?? wanted;
+      const project = PROJECTS.find(p => p.slug.toLowerCase() === slug);
       // Disabled projects are unfinished: the dock greys them out, so a direct
       // ?project= link must not open them either (the homepage shows instead).
       if (project && !project.disabled) {
@@ -277,16 +287,11 @@ function HomeContent() {
           isVisible={true}
           openWindows={windowModeState.openWindows}
           onIconClick={(slug) => {
-            // Projects visible as floating cards get the normal bring-to-front treatment.
-            // Projects NOT in the visible card stack open their case study overlay directly.
-            const CARD_STACK_SLUGS = ["insure-tech", "gc-dental"];
-            if (CARD_STACK_SLUGS.includes(slug)) {
+            // Like a macOS dock: the project's window opens (if it isn't
+            // already) and comes to the top. Clicking the card opens the case study.
+            const project = PROJECTS.find(p => p.slug === slug);
+            if (project && !project.disabled) {
               windowModeState.bringToFront(slug);
-            } else {
-              const project = PROJECTS.find(p => p.slug === slug);
-              if (project && !project.disabled) {
-                setExpandedProject(project.name);
-              }
             }
           }}
         />

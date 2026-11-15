@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { PROJECTS } from "@/app/types/projects.types";
+import { PROJECTS } from "@/app/types/projects.types";
 
 type Project = (typeof PROJECTS)[number];
 
@@ -29,7 +29,7 @@ export function useMobileCardStack({ isMobile, activeFilters, filteredProjects, 
         if (isMobile) setMobileCards([]);
     }, [activeFilters, isMobile]);
 
-    // Initialize mobile card order (insure-tech first)
+    // Initialize mobile card order (filter order; Insure-Tech first when present)
     useEffect(() => {
         if (isMobile && filteredProjects.length > 0 && mobileCards.length === 0) {
             const sorted = [...filteredProjects];
@@ -46,7 +46,7 @@ export function useMobileCardStack({ isMobile, activeFilters, filteredProjects, 
     // Sync mobileCards front with windowModeState's activeSlug.
     // - Dock tap on a card already in the stack → reorder to front.
     // - Dock tap on a previously-closed card → re-add to the front.
-    // NOTE: do NOT depend on mobileCards here — that causes an infinite
+    // NOTE: do NOT depend on mobileCards here: that causes an infinite
     // re-add loop (every setMobileCards triggers the effect, which adds again).
     // Use the functional updater to access the latest state.
     useEffect(() => {
@@ -62,7 +62,9 @@ export function useMobileCardStack({ isMobile, activeFilters, filteredProjects, 
                 return next;
             }
             if (idx === -1) {
-                const project = filteredProjects.find(p => p.slug === activeSlug);
+                // From every project, not only the filter's: the dock can
+                // bring any project to the top of the stack.
+                const project = PROJECTS.find(p => p.slug === activeSlug && !p.disabled);
                 // Defensive: don't re-add if already present.
                 if (project && !prev.some(p => p.slug === project.slug)) {
                     return [project, ...prev];

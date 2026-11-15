@@ -7,6 +7,7 @@ import { Squircle } from "corner-smoothing";
 import type { WindowModeAPI } from "@/app/hooks/useWindowMode";
 import classes from "./cardStackContainer.module.css";
 import Card from "../../card/card";
+import DeviceMockup from "../../card/deviceMockup";
 import { PROJECTS } from "@/app/types/projects.types";
 import { useIsClient } from "@/app/hooks/useIsClient";
 import { useMobileCardStack } from "./useMobileCardStack";
@@ -20,7 +21,7 @@ const MOBILE_CARD_BG: Record<string, string> = {
 };
 
 // All media uses `contain` on mobile so full image/video shows without crop.
-// Object-fit defaults to "contain" — override here only if a specific project
+// Object-fit defaults to "contain": override here only if a specific project
 // needs different behavior.
 const MOBILE_POSTER_FIT: Record<string, "cover" | "contain"> = {};
 const MOBILE_VIDEO_FIT: Record<string, "cover" | "contain"> = {};
@@ -36,6 +37,13 @@ type CardStackContainerProps = {
     viewMode?: "tab" | "card";
 };
 
+// Default opens these as a staggered stack, listed front card first (that is
+// also the mobile stack's order). The desktop sync brings them forward in
+// reverse, so the first one ends up on top. Positions and the load-time
+// layout (DEFAULT_OPEN): useWindowMode.
+const DEFAULT_ORDER = ["repair-operations", "supply-chain-intelligence", "demand-sensing"];
+const FRONT_SLUG = DEFAULT_ORDER[0];
+
 const CardStackContainer: React.FC<CardStackContainerProps> = ({
     isExiting,
     onExpandProject,
@@ -47,18 +55,20 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
     viewMode,
 }) => {
     const filteredProjects = useMemo(() => {
-        // Default (empty filter or "Default"): the flagship projects in
-        // their staggered layout — Insure-Tech and GC Dental.
+        // Default (empty filter or "Default"): the three Navanta case
+        // studies in their staggered layout, front card first.
         if (activeFilters.length === 0 || activeFilters.includes("Default")) {
-            return PROJECTS.filter((p) => ["insure-tech", "gc-dental"].includes(p.slug));
+            return DEFAULT_ORDER.map((slug) => PROJECTS.find((p) => p.slug === slug)).filter(
+                (p): p is (typeof PROJECTS)[number] => !!p && !p.disabled
+            );
         }
         // All Works: every published project.
         if (activeFilters.includes("All Works")) {
             return PROJECTS.filter((p) => !p.disabled);
         }
-        // Featured: just the flagship case study.
+        // Featured: Insure-Tech and GC Dental.
         if (activeFilters.includes("Featured")) {
-            return PROJECTS.filter((p) => p.slug === "insure-tech");
+            return PROJECTS.filter((p) => ["insure-tech", "gc-dental"].includes(p.slug));
         }
         // Fallback: tag-based match for any other future categories.
         return PROJECTS.filter((project) =>
@@ -82,7 +92,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
     const openWindows = windowModeState?.openWindows;
     const activeSlug = useMemo(() => {
-        if (!openWindows || openWindows.length === 0) return "insure-tech";
+        if (!openWindows || openWindows.length === 0) return FRONT_SLUG;
         // The last window in openWindows is the active/front-most one
         return openWindows[openWindows.length - 1];
     }, [openWindows]);
@@ -99,15 +109,15 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         }
     }, [isMobile, windowModeState?.openWindows, filteredProjects, windowModeState]);
 
-    // Initialize with insure-tech if empty on mobile startup
+    // Initialize with the default front card if empty on mobile startup
     useEffect(() => {
         if (isMobile && windowModeState && windowModeState.openWindows.length === 0) {
-            windowModeState.bringToFront("insure-tech");
+            windowModeState.bringToFront(FRONT_SLUG);
         }
     }, [isMobile, windowModeState]);
 
     // Desktop: sync open windows to whatever the current filter says, but ONLY
-    // when the filter actually changes. This is critical for the close button —
+    // when the filter actually changes. This is critical for the close button:
     // if the user clicks the red traffic light, we want that window to stay
     // closed even though it's still in `filteredProjects`. Running the sync on
     // every render would immediately reopen it.
@@ -129,13 +139,17 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
         // the slug to the END of openWindows (frontmost). We want Insure-Tech
         // on top whenever it's in the filter, so iterate other projects first
         // and Insure-Tech last.
-        const slugsOrdered = filteredProjects
-            .map(p => p.slug)
-            .sort((a, b) => {
-                if (a === "insure-tech") return 1;   // a goes last
-                if (b === "insure-tech") return -1;  // b goes last
-                return 0;
-            });
+        // Default is listed front-first, so it is brought forward back-first.
+        const isDefault = activeFilters.length === 0 || activeFilters.includes("Default");
+        const slugsOrdered = isDefault
+            ? filteredProjects.map(p => p.slug).reverse()
+            : filteredProjects
+                .map(p => p.slug)
+                .sort((a, b) => {
+                    if (a === "insure-tech") return 1;   // a goes last
+                    if (b === "insure-tech") return -1;  // b goes last
+                    return 0;
+                });
         slugsOrdered.forEach(slug => {
             windowModeState.bringToFront(slug);
         });
@@ -221,7 +235,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
 
         return windowModeState.openWindows
             .map((slug) => {
-                const project = filteredProjects.find((p) => p.slug === slug);
+                // Any open window shows, not only the filter's: the dock can
+                // open a project that isn't in the current filter.
+                const project = PROJECTS.find((p) => p.slug === slug && !p.disabled);
                 if (!project) return null;
 
                 const pos = windowModeState.getPosition(slug);
@@ -276,7 +292,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
             })
             .filter(Boolean);
     }, [
-        windowModeState, filteredProjects, isExiting, expandedProject, activeSlug, viewMode, windowSpring,
+        windowModeState, isExiting, expandedProject, activeSlug, viewMode, windowSpring,
         handleExpandProject, handleWindowCardClick, handleWindowDragStart, handleWindowDragEnd,
         getProjectLayoutId, getVideoModalLayoutId,
     ]);
@@ -366,7 +382,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         boxShadow: "0 2px 4px rgba(0,0,0,0.05), 0 12px 24px rgba(0,0,0,0.1), 0 32px 64px rgba(0,0,0,0.15), 0 64px 120px rgba(0,0,0,0.12)",
                                     }}
                                 >
-                                    {/* Traffic lights — close / minimise / expand */}
+                                    {/* Traffic lights: close / minimise / expand */}
                                     {isTop && (
                                         <div style={{
                                             display: "flex",
@@ -405,7 +421,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         </div>
                                     )}
 
-                                    {/* Inset media panel — image/video fits the frame (contain) */}
+                                    {/* Inset media panel: image/video fits the frame (contain) */}
                                     <Squircle
                                         cornerRadius={14}
                                         style={{
@@ -416,7 +432,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                             overflow: "hidden",
                                         }}
                                     >
-                                        {project.video ? (
+                                        {project.cardMockup ? (
+                                            <DeviceMockup {...project.cardMockup} playing={isTop} />
+                                        ) : project.video ? (
                                             <video
                                                 key={project.slug}
                                                 src={project.video}
@@ -453,7 +471,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         ) : null}
                                     </Squircle>
 
-                                    {/* Description panel — inset below the media */}
+                                    {/* Description panel: inset below the media */}
                                     <div style={{
                                         flex: 1,
                                         padding: "4px 6px 4px",

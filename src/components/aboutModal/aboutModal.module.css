@@ -1,4 +1,4 @@
-/* aboutModal.module.css — Figma exact spec */
+/* aboutModal.module.css: Figma exact spec */
 
 /* ── Backdrop ── */
 .overlay {
@@ -44,7 +44,7 @@
 }
 
 /* ════════════════════════════════════════
-   TITLE BAR — macOS window chrome
+   TITLE BAR: macOS window chrome
 ════════════════════════════════════════ */
 .titleBar {
     display: flex;
@@ -110,7 +110,7 @@
 }
 
 /* ════════════════════════════════════════
-   BODY — main container
+   BODY: main container
 ════════════════════════════════════════ */
 .body {
     display: flex;
@@ -135,7 +135,7 @@
     box-sizing: border-box;
 }
 
-/* Mask group — white container */
+/* Mask group: white container */
 .maskGroup {
     display: flex;
     flex-direction: row;
@@ -149,7 +149,7 @@
 }
 
 /* ────────────────────────────────────────
-   LEFT PANEL — gradient card
+   LEFT PANEL: gradient card
 ────────────────────────────────────────── */
 .leftPanel {
     position: relative;
@@ -227,7 +227,7 @@
 }
 
 /* ────────────────────────────────────────
-   RIGHT PANEL — bio content
+   RIGHT PANEL: bio content
 ────────────────────────────────────────── */
 .rightPanel {
     display: flex;
@@ -298,7 +298,7 @@
 }
 
 /* ════════════════════════════════════════
-   MOBILE — stacked layout
+   MOBILE: stacked layout
 ════════════════════════════════════════ */
 @media (max-width: 768px) {
     .modalContainer {

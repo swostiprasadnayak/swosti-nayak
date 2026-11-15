@@ -38,7 +38,7 @@ export default function RootLayout({
         <CustomCursor />
         {/* page-content wraps everything that should be blurred when the
             welcome overlay is visible. WelcomeOverlay toggles a class on
-            this div to apply filter: blur() — much more reliable than
+            this div to apply filter: blur(): much more reliable than
             backdrop-filter, which fights with framer-motion's will-change. */}
         <div id="page-content">
           <A11yMotionConfig>

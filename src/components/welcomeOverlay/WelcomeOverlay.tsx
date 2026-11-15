@@ -59,7 +59,7 @@ export default function WelcomeOverlay() {
   // One shared AudioContext for the typing ticks. Browsers refuse to start audio
   // before a user gesture, so it is only created on the first pointer/key press;
   // until then ticks are silently skipped. (Previously a new context was created
-  // per character and never closed — 100+ leaked contexts per visit.)
+  // per character and never closed: 100+ leaked contexts per visit.)
   const audioCtxRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
@@ -120,7 +120,7 @@ export default function WelcomeOverlay() {
   const blocks = displayedText.split('\n\n');
 
   return (
-    // Plain divs — NO framer-motion, NO will-change → backdrop-filter works!
+    // Plain divs: NO framer-motion, NO will-change → backdrop-filter works!
     <div className={`${classes.wrapper} ${visible ? classes.wrapperVisible : ''}`}>
       {/* Full-screen overlay: black 43% + blur 14 */}
       <div className={classes.bgOverlay} onClick={hide} />

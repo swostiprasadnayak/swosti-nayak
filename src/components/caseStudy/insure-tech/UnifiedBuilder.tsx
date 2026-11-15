@@ -116,8 +116,8 @@ const FEED: FeedItem[] = [
   { kind: "blocker", tier: "Mini", time: "12m ago", title: "Room rent cap missing in BRD for Mini tier." },
   { kind: "blocker", tier: "Mini", time: "1h ago",  title: "Policy wording vs Brochure conflict on LASIK coverage." },
   { kind: "warning", tier: "Medi", time: "2h ago",  title: "OPD limit differs between BRD (₹8,000) and Brochure (₹7,500)." },
-  { kind: "warning", tier: "Max",  time: "3h ago",  title: "Initial wait conflict — Brochure 15d vs Policy 30d." },
-  { kind: "warning", tier: "Max",  time: "5h ago",  title: "Experimental treatment — Brochure conflicts with Policy wording." },
+  { kind: "warning", tier: "Max",  time: "3h ago",  title: "Initial wait conflict: Brochure 15d vs Policy 30d." },
+  { kind: "warning", tier: "Max",  time: "5h ago",  title: "Experimental treatment: Brochure conflicts with Policy wording." },
   { kind: "warning", tier: "Max",  time: "6h ago",  title: "Zone loading numbers handwritten in rates draft." },
 ];
 
@@ -477,7 +477,7 @@ function FieldMapCard() {
         </div>
       </div>
 
-      {/* Heatmap grid — wider gaps */}
+      {/* Heatmap grid: wider gaps */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(31, 1fr)", gap: 4 }}>
         {FIELD_CELLS.map((c, i) => (
           <div key={i} style={{
@@ -516,7 +516,7 @@ function FieldMapCard() {
             </button>
           </div>
 
-          {/* Category grid — 3 columns top row, 2 columns bottom */}
+          {/* Category grid: 3 columns top row, 2 columns bottom */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "18px 24px" }}>
             {RISK_CATEGORIES.map(cat => (
               <div key={cat.name}>
@@ -726,7 +726,7 @@ function TreeTabContent({ activeTier, setActiveTier, onOpenTree }: { activeTier:
 
   return (
     <div style={{ padding: "14px 14px", display: "flex", flexDirection: "column", gap: 16 }}>
-      {/* PLAN VARIANTS — tier picker */}
+      {/* PLAN VARIANTS: tier picker */}
       <div>
         <p style={{ fontSize: 10.5, fontWeight: 700, color: C.text2, letterSpacing: "0.06em", margin: "0 0 8px", textTransform: "uppercase" }}>
           PLAN VARIANTS
@@ -750,7 +750,7 @@ function TreeTabContent({ activeTier, setActiveTier, onOpenTree }: { activeTier:
         </div>
       </div>
 
-      {/* MINI STRUCTURE — container with dotted background pattern */}
+      {/* MINI STRUCTURE: container with dotted background pattern */}
       <div style={{
         background: C.surf,
         border: `1px solid ${C.border}`,

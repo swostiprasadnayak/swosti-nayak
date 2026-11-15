@@ -24,7 +24,7 @@ import FlowReel from "../navanta/FlowReel";
 import FilmPlayer from "../navanta/FilmPlayer";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 
-/* Groundswell — the Trend surge demo, built at Navanta on the Supply Chain
+/* Demand Sensing: the Trend surge demo, built at Navanta on the Supply Chain
    platform: one store (a Dallas branch) sells ×1.48 of plan near a hospital
    award, the trend is applied and bought for, and a contractor's order that
    can't wait for the PO is covered from the branch network on a map.
@@ -47,7 +47,7 @@ export default function GroundswellCaseStudyTemplate() {
                     {/* 00 · Header + hero film */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
                         <CaseStudyHeader
-                            title="Groundswell"
+                            title="Demand Sensing"
                             subtitle="A surge at one store, caught before the contractor calls."
                             tags={["AI agents", "Demand planning", "Supply chain", "Design + build"]}
                             onVoiceModeClick={openModal}
@@ -236,7 +236,7 @@ export default function GroundswellCaseStudyTemplate() {
                         lead="The PO is on its way."
                         statement="Rivera Concrete needs 120 anchors by Thursday, and the branch has 38."
                         body={[
-                            "This is where the map comes in. The branch associate's desk isn't a stock list: it's the branch network on a map — who's short, who has spare, how far apart they are, and how stock would travel between them.",
+                            "This is where the map comes in. The branch associate's desk isn't a stock list: it's the branch network on a map, showing who's short, who has spare, how far apart they are, and how stock would travel between them.",
                         ]}
                     />
 
@@ -313,7 +313,7 @@ export default function GroundswellCaseStudyTemplate() {
                             },
                             {
                                 decision: "The route is the recommendation",
-                                why: "Christy's pick is drawn as a route with its landing date — 150 by 4 Nov — not as a row in a table.",
+                                why: "Christy's pick is drawn as a route with its landing date, 150 by 4 Nov, not as a row in a table.",
                             },
                             {
                                 decision: "Three ways, one pick",

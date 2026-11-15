@@ -24,7 +24,7 @@ export default function TrafficLights({ onClose, onExpand, visible }: TrafficLig
 
     return (
         <div style={{ display: "flex", gap: "8px", alignItems: "center", opacity: visible ? 1 : 0.5, transition: "opacity 0.2s" }}>
-            {/* Close — red with ✕ */}
+            {/* Close: red with ✕ */}
             <button
                 onClick={(e) => { e.stopPropagation(); onClose?.(); }}
                 style={{ ...btnBase, background: "#FE5F57" }}
@@ -35,13 +35,13 @@ export default function TrafficLights({ onClose, onExpand, visible }: TrafficLig
                 </svg>
             </button>
 
-            {/* Minimise — grey (non-functional) */}
+            {/* Minimise: grey (non-functional) */}
             <button
                 style={{ ...btnBase, background: "#D1D1D1", cursor: "default" }}
                 title="Minimise"
             />
 
-            {/* Expand — green with diagonal triangles */}
+            {/* Expand: green with diagonal triangles */}
             <button
                 onClick={(e) => { e.stopPropagation(); onExpand?.(); }}
                 style={{ ...btnBase, background: "#28C840" }}

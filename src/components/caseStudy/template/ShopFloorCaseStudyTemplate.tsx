@@ -19,19 +19,21 @@ import {
     StateLegend,
 } from "../navanta/blocks";
 import ScreenFrame from "../navanta/ScreenFrame";
-import FlowReel from "../navanta/FlowReel";
+import FilmPlayer from "../navanta/FilmPlayer";
 import LivePrototype from "../navanta/LivePrototype";
 import LifecycleTracker from "../navanta/LifecycleTracker";
 import SeatSwitcher from "../navanta/SeatSwitcher";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 
-/* Shop Floor — a live shop-floor portal for a trailer and reefer repair
+/* Repair Operations: a live shop-floor portal for a trailer and reefer repair
    network, designed and built at Navanta. Screens are captures of the working
    prototype at 1440 × 900, illustrative data, with the client's name, logo and
    branch masked and technician names swapped for fictional ones. Journey
    steps, SRT figures and Iris's actions come from the prototype's data. Same
    shape as the Supply Chain study: one record through the product first, then
-   each desk. */
+   each desk. The hero film is a screen recording of the prototype, cut to its
+   still-camera stretches, with the client's logo blanked, the branch name
+   set to "Branch 04" and the branch sign blurred or painted out. */
 
 const IMG = "/images/navanta/shop-floor";
 const SHOT = "1440 / 900";
@@ -46,7 +48,7 @@ export default function ShopFloorCaseStudyTemplate() {
                     {/* 00 · Header + hero */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
                         <CaseStudyHeader
-                            title="Shop Floor"
+                            title="Repair Operations"
                             subtitle="One truck through the shop, and every desk can see where it is."
                             tags={["AI agent", "Field service", "3D", "Design + build"]}
                             onVoiceModeClick={openModal}
@@ -59,54 +61,16 @@ export default function ShopFloorCaseStudyTemplate() {
                                 { label: "Client", value: "A US trailer and reefer repair network" },
                             ]}
                         />
-                        <FlowReel
+                        <FilmPlayer
+                            src="/videos/shop-floor.mp4"
+                            poster={`${IMG}/film-poster.jpg`}
                             label="Film: one truck through the shop, from the gate to the invoice"
-                            hook="10:40. A reefer trailer pulls up with a compressor fault."
-                            end="One truck, gate to invoice, and every desk could see where it was."
-                            shots={[
-                                {
-                                    src: `${IMG}/step-intake.png`,
-                                    alt: "Truck A in the inspection bay on the 3D shop floor",
-                                    caption: "Truck A comes through the gate. The RO opens, and the customer gets a live status link.",
-                                    dur: 5,
-                                    to: { s: 1.6, x: 33, y: 48 },
-                                },
-                                {
-                                    src: `${IMG}/step-assigned.png`,
-                                    alt: "The repair kit leaving the parts cage",
-                                    caption: "A reefer-certified tech is matched, and the kit leaves the parts cage.",
-                                    dur: 5,
-                                    to: { s: 1.6, x: 33, y: 48 },
-                                },
-                                {
-                                    src: `${IMG}/step-repair.png`,
-                                    alt: "Bay 3 with the standard-time clock running",
-                                    caption: "Bay 3, the standard-time clock running. The customer sees the photo.",
-                                    dur: 4.5,
-                                    to: { s: 1.6, x: 33, y: 48 },
-                                },
-                                {
-                                    src: `${IMG}/repair-orders-modal.png`,
-                                    alt: "A repair order with Iris's recommendation",
-                                    caption: "Iris spots the added work and drafts it. The service writer approves.",
-                                    dur: 5,
-                                    to: { s: 1.5, x: 50, y: 38 },
-                                    click: { x: 78.4, y: 42.6, at: 3.5 },
-                                },
-                                {
-                                    src: `${IMG}/step-pickup.png`,
-                                    alt: "Truck A picked up on the 3D shop floor",
-                                    caption: "Picked up at 2:45, ahead of the 3:30 promise.",
-                                    dur: 4.5,
-                                    to: { s: 1.6, x: 38, y: 52 },
-                                },
-                                {
-                                    src: `${IMG}/step-invoicing.png`,
-                                    alt: "Truck A leaving the site, invoiced",
-                                    caption: "The RO is checked and invoiced, with every fee on it.",
-                                    dur: 4.5,
-                                    to: { s: 1.5, x: 33, y: 48 },
-                                },
+                            chapters={[
+                                { name: "Intake", at: 0, caption: "Truck A comes through the gate. The RO opens, and the customer gets a live status link." },
+                                { name: "Into the shop", at: 6.9, caption: "The branch in 3D: Truck A backs into the inspection bay, and a tech is matched." },
+                                { name: "Repair", at: 10.6, caption: "Bay 3, the standard-time clock running. The customer sees the photo and approves the added work." },
+                                { name: "Pickup", at: 13, caption: "Done at 2.0 hours and out to the pickup pad, picked up on time." },
+                                { name: "Invoicing", at: 14.9, caption: "It leaves by the exit road. Navanta AI checks the RO, and the invoice goes out." },
                             ]}
                         />
                     </div>
@@ -347,7 +311,7 @@ export default function ShopFloorCaseStudyTemplate() {
                         note="The 3D shop floor itself, running live. Click through it yourself."
                         href="https://wb-ro-3d-prototype.vercel.app/shop-floor"
                         poster={`${IMG}/shop-floor.png`}
-                        title="Shop Floor"
+                        title="Repair Operations"
                     />
 
                     {/* 11 · Next */}

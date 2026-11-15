@@ -23,12 +23,12 @@ export type RelayStep = {
     at: string;
     what: string;
     detail: string;
-    /** The signal type and the record it touched — the record's two chips. */
+    /** The signal type and the record it touched: the record's two chips. */
     cause: string;
     ref: string;
 };
 
-/** A lane that watches every step without taking one — the VP and its agent. */
+/** A lane that watches every step without taking one: the VP and its agent. */
 export type RelayObserver = { seat: string; person: string; agent: string; icon: SeatIconName };
 
 const STEP_MS = 1800;
@@ -65,7 +65,7 @@ export default function RelayLanes({
     observer?: RelayObserver;
     steps: RelayStep[];
     summary: string;
-    /** Shown under the relay — the same story as the product records it. */
+    /** Shown under the relay: the same story as the product records it. */
     children?: React.ReactNode;
 }) {
     const [active, setActive] = useState<number | null>(null);

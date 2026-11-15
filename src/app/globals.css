@@ -4,7 +4,7 @@
 
 /* ════════════════════════════════════════
    WELCOME OVERLAY BLUR
-   filter: blur() applied directly to page content is bulletproof —
+   filter: blur() applied directly to page content is bulletproof:
    no compositing-layer issues like backdrop-filter has.
    The overlay sits outside #page-content so it stays sharp.
 ════════════════════════════════════════ */
@@ -117,7 +117,7 @@
   --slider-fill-color: rgba(255, 255, 255, 0.85) !important;
   --slider-tick: rgba(255, 255, 255, 0.25) !important;
 
-  /* Posts window — charcoal family: window #1c1c1e, island darker, cards raised */
+  /* Posts window: charcoal family: window #1c1c1e, island darker, cards raised */
   --posts-window: #1c1c1e;
   --posts-titlebar-border: rgba(255, 255, 255, 0.08);
   --posts-title: rgba(255, 255, 255, 0.85);

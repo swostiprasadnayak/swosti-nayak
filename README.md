@@ -1,6 +1,6 @@
 # swosti-nayak
 
-Personal portfolio — a macOS-style desktop where project cards expand into full case studies.
+Personal portfolio: a macOS-style desktop where project cards expand into full case studies.
 
 **Live:** https://swosti-nayak.vercel.app
 
@@ -39,7 +39,7 @@ vercel env pull --environment=production
 | `npm run dev` | Generates the code database, then starts the dev server |
 | `npm run build` | Generates the code database, then builds for production |
 | `npm start` | Serves the production build |
-| `npm run lint` | ESLint (currently reports pre-existing issues — see `AGENTS.md`) |
+| `npm run lint` | ESLint (currently reports pre-existing issues: see `AGENTS.md`) |
 
 `scripts/buildCodeDB.mjs` runs before `dev` and `build`. It serialises `src/` into
 `src/data/codeDB.json` so the site can show its own source in the in-page code panel.

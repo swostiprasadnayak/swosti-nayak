@@ -1,4 +1,4 @@
-/* feedbackModal.module.css — mirrors About modal structure */
+/* feedbackModal.module.css: mirrors About modal structure */
 
 /* ── Backdrop ── */
 .overlay {
@@ -44,7 +44,7 @@
 }
 
 /* ════════════════════════════════════════
-   TITLE BAR — macOS window chrome
+   TITLE BAR: macOS window chrome
 ════════════════════════════════════════ */
 .titleBar {
     display: flex;
@@ -109,7 +109,7 @@
 }
 
 /* ════════════════════════════════════════
-   BODY — main container
+   BODY: main container
 ════════════════════════════════════════ */
 .body {
     display: flex;
@@ -133,7 +133,7 @@
     box-sizing: border-box;
 }
 
-/* Mask group — white container */
+/* Mask group: white container */
 .maskGroup {
     display: flex;
     flex-direction: row;
@@ -147,7 +147,7 @@
 }
 
 /* ────────────────────────────────────────
-   LEFT PANEL — red/pink gradient card
+   LEFT PANEL: red/pink gradient card
 ────────────────────────────────────────── */
 .leftPanel {
     position: relative;
@@ -219,7 +219,7 @@
 }
 
 /* ────────────────────────────────────────
-   RIGHT PANEL — form content
+   RIGHT PANEL: form content
 ────────────────────────────────────────── */
 .rightPanel {
     display: flex;
@@ -373,7 +373,7 @@
 }
 
 /* ════════════════════════════════════════
-   DARK MODE — same charcoal family as the dock, sidebar, cards and About:
+   DARK MODE: same charcoal family as the dock, sidebar, cards and About:
    base #1c1c1e, raised #232325, controls #2c2c2e.
 ════════════════════════════════════════ */
 :global([data-theme="dark"]) .modal {
@@ -465,7 +465,7 @@
 }
 
 /* ════════════════════════════════════════
-   MOBILE — stacked layout
+   MOBILE: stacked layout
 ════════════════════════════════════════ */
 @media (max-width: 768px) {
     .modalContainer {

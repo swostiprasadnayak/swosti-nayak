@@ -27,7 +27,7 @@ import RelayLanes from "../navanta/RelayLanes";
 import SeatSwitcher from "../navanta/SeatSwitcher";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 
-/* Navanta Supply Chain — the multi-seat AI demo, co-designed at Navanta.
+/* Supply Chain Intelligence: the multi-seat AI demo, co-designed at Navanta.
    Screens are captures of the demo in a retail pack, plus two from a
    packaging pack to show the same demo dressed for another company. Client
    names and logos are masked (the product's own mark stands in), and
@@ -49,7 +49,7 @@ export default function SupplyChainCaseStudyTemplate() {
                     {/* 00 · Header + hero */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
                         <CaseStudyHeader
-                            title="Navanta Supply Chain"
+                            title="Supply Chain Intelligence"
                             subtitle="One vendor delay, five desks, and nobody finds out late."
                             tags={["AI agents", "Supply chain", "Multi-persona", "Design + build"]}
                             onVoiceModeClick={openModal}
@@ -359,7 +359,7 @@ export default function SupplyChainCaseStudyTemplate() {
                                 agentRole: "Buying agent",
                                 agentDoes: "Catches the date change and tells everyone it touches.",
                                 question: "Did a vendor just move my date?",
-                                quote: "I find out a container slipped when the promise date passes — three weeks after the factory knew.",
+                                quote: "I find out a container slipped when the promise date passes: three weeks after the factory knew.",
                                 screens: [
                                     {
                                         label: "Action center",
@@ -598,11 +598,11 @@ export default function SupplyChainCaseStudyTemplate() {
                         note="The demo itself, running live. Click through it yourself."
                         href="https://supply-chain-demo-experience.vercel.app"
                         poster={`${IMG}/executive-dashboard.png`}
-                        title="Navanta Supply Chain"
+                        title="Supply Chain Intelligence"
                     />
 
                     {/* 12 · Next */}
-                    <NextProject label="Next case study" title="Groundswell: a surge at one store, caught before the contractor calls" />
+                    <NextProject label="Next case study" title="Demand Sensing: a surge at one store, caught before the contractor calls" />
                 </div>
             </div>
         </div>

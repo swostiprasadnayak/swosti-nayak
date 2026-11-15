@@ -314,7 +314,7 @@ export default function MobileControls({
               {/* Divider */}
               <div style={{ height: "1px", background: ui.divider, margin: "8px 0" }} />
 
-              {/* Socials & Contact — real brand glyphs */}
+              {/* Socials & Contact: real brand glyphs */}
               <div style={{ display: "flex", justifyContent: "space-between", padding: "0 6px" }}>
                 <a
                   href="https://www.linkedin.com/in/swosti-nayak-49b2ba131"

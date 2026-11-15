@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roz — System Architecture &amp; Use Case Workflows</title>
+<title>Roz: System Architecture &amp; Use Case Workflows</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -537,12 +537,12 @@
     <div class="tech-card">
       <div class="tc-icon">🧠</div>
       <div class="tc-name">AWS SageMaker + Ganit</div>
-      <div class="tc-role">ML engine — demand forecast, anomaly detection, peak prediction, markdown optimization.</div>
+      <div class="tc-role">ML engine: demand forecast, anomaly detection, peak prediction, markdown optimization.</div>
     </div>
     <div class="tech-card">
       <div class="tc-icon">🏢</div>
       <div class="tc-name">Oracle ERP</div>
-      <div class="tc-role">Existing backbone — indent, PO, invoicing, inventory master, vendor master, GRN.</div>
+      <div class="tc-role">Existing backbone: indent, PO, invoicing, inventory master, vendor master, GRN.</div>
     </div>
     <div class="tech-card">
       <div class="tc-icon">🛒</div>
@@ -569,7 +569,7 @@
 
     <!-- Zone 1: External Feeds -->
     <div class="zone" style="border-color: #C4B5FD;">
-      <div class="zone-label" style="color: var(--purple); background: var(--purple-pale);">External Feeds — demand signals not tracked today</div>
+      <div class="zone-label" style="color: var(--purple); background: var(--purple-pale);">External Feeds: demand signals not tracked today</div>
       <div class="zone-row">
         <div class="arch-node external" data-tip="Tomorrow's forecast + live conditions">
           <div class="icon">🌦️</div>
@@ -607,7 +607,7 @@
 
     <!-- Zone 2: Existing Systems -->
     <div class="zone" style="border-color: #93C5FD;">
-      <div class="zone-label" style="color: var(--blue); background: var(--blue-pale);">Existing More Retail Systems — data already here, siloed</div>
+      <div class="zone-label" style="color: var(--blue); background: var(--blue-pale);">Existing More Retail Systems: data already here, siloed</div>
       <div class="zone-row">
         <div class="arch-node system" data-tip="Indent / PO / GRN / vendor master">
           <div class="icon">🏛️</div>
@@ -645,7 +645,7 @@
 
     <!-- Zone 3: Roz AI Layer -->
     <div class="zone" style="border-color: #FDBA74; background: #FFFDF9;">
-      <div class="zone-label" style="color: var(--orange); background: var(--orange-pale);">Roz AI Layer — the new intelligence that sits between data and decisions</div>
+      <div class="zone-label" style="color: var(--orange); background: var(--orange-pale);">Roz AI Layer: the new intelligence that sits between data and decisions</div>
       <div class="zone-row">
         <div class="arch-node roz" data-tip="Demand forecast + anomaly detection">
           <div class="icon">🧠</div>
@@ -694,9 +694,9 @@
 
     <!-- Zone 4: Manager Interface -->
     <div class="zone" style="border-color: #86EFAC;">
-      <div class="zone-label" style="color: var(--green); background: var(--green-pale);">Manager Interface — what Radhika actually sees and touches</div>
+      <div class="zone-label" style="color: var(--green); background: var(--green-pale);">Manager Interface: what Radhika actually sees and touches</div>
       <div class="zone-row">
-        <div class="arch-node manager" data-tip="The core mobile app — Android PWA">
+        <div class="arch-node manager" data-tip="The core mobile app: Android PWA">
           <div class="icon">📱</div>
           <div class="name">Roz Mobile App</div>
           <div class="desc">Android PWA · offline-first · Hindi + voice · mid-range device, 2G</div>
@@ -727,7 +727,7 @@
 
     <!-- Zone 5: Output / Action -->
     <div class="zone" style="border-color: #FCA5A5;">
-      <div class="zone-label" style="color: var(--red); background: var(--red-pale);">Output / Action — what gets written back into the world</div>
+      <div class="zone-label" style="color: var(--red); background: var(--red-pale);">Output / Action: what gets written back into the world</div>
       <div class="zone-row">
         <div class="arch-node output" data-tip="Approved order → PO created automatically">
           <div class="icon">📋</div>
@@ -764,7 +764,7 @@
 <div class="view" id="view-usecases">
   <div class="page-head">
     <h1>Use Case Workflows</h1>
-    <p>Click any use case to see the step-by-step flow — trigger, data sources, Roz processing, manager action, and system output.</p>
+    <p>Click any use case to see the step-by-step flow: trigger, data sources, Roz processing, manager action, and system output.</p>
   </div>
 
   <div class="legend-strip">
@@ -865,7 +865,7 @@
       <div class="flow-arrow"></div>
       <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📷</div><div class="fs-label">Scan QR Challan</div><div class="fs-detail">Phone camera reads vendor QR</div></div></div>
       <div class="flow-arrow"></div>
-      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🏛️</div><div class="fs-label">Pull ERP Indent</div><div class="fs-detail">Oracle REST API — what was ordered</div></div></div>
+      <div class="flow-step"><div class="flow-step-box data"><div class="fs-icon">🏛️</div><div class="fs-label">Pull ERP Indent</div><div class="fs-detail">Oracle REST API: what was ordered</div></div></div>
       <div class="flow-arrow"></div>
       <div class="flow-step"><div class="flow-step-box ai"><div class="fs-icon">🧮</div><div class="fs-label">Auto-Tally</div><div class="fs-detail">Crates × per-crate avg from vendor master</div></div></div>
       <div class="flow-arrow"></div>
@@ -914,7 +914,7 @@
     <div class="edge-case-row">
       <div class="edge-card">
         <div class="ec-title">⚠ Unknown-Shelf-Life Produce</div>
-        <div class="ec-body">Mango, watermelon — no printed expiry. Roz tags vendor-received-date + category default (mango=4d, watermelon=6d). Tunable per vendor over time.</div>
+        <div class="ec-body">Mango, watermelon: no printed expiry. Roz tags vendor-received-date + category default (mango=4d, watermelon=6d). Tunable per vendor over time.</div>
       </div>
     </div>
   </div>
@@ -924,7 +924,7 @@
       <div>
         <div class="uc-time-big">8:00 AM · UC-03</div>
         <h2>Predicted-Footfall Staff Roster</h2>
-        <div class="uc-trigger">Trigger: Automated — runs at 10 PM previous night</div>
+        <div class="uc-trigger">Trigger: Automated: runs at 10 PM previous night</div>
       </div>
       <button class="uc-close" onclick="closeUC()">✕</button>
     </div>
@@ -980,7 +980,7 @@
       </div>
       <div class="edge-card">
         <div class="ec-title">⚠ Sudden Weather Change (rain)</div>
-        <div class="ec-body">Roz pulls live weather feed and revises guidance in real time — rain shifts customer patterns from evening to morning.</div>
+        <div class="ec-body">Roz pulls live weather feed and revises guidance in real time: rain shifts customer patterns from evening to morning.</div>
       </div>
     </div>
   </div>
@@ -1021,7 +1021,7 @@
   <div class="uc-detail" id="uc-order">
     <div class="uc-detail-head">
       <div>
-        <div class="uc-time-big">12:00 PM · UC-06 · 🟢 CORE — BIGGEST WIN</div>
+        <div class="uc-time-big">12:00 PM · UC-06 · 🟢 CORE: BIGGEST WIN</div>
         <h2>Smart Order Engine</h2>
         <div class="uc-trigger">Trigger: Daily order window (noon). 60 min → 2 min.</div>
       </div>
@@ -1085,7 +1085,7 @@
       <div>
         <div class="uc-time-big">2:00 PM · UC-07</div>
         <h2>Expiry Scanner + Near-Expiry List</h2>
-        <div class="uc-trigger">Trigger: Automated — generated before afternoon floor walk</div>
+        <div class="uc-trigger">Trigger: Automated: generated before afternoon floor walk</div>
       </div>
       <button class="uc-close" onclick="closeUC()">✕</button>
     </div>
@@ -1100,7 +1100,7 @@
       <div class="flow-arrow"></div>
       <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">📱</div><div class="fs-label">Near-Expiry List</div><div class="fs-detail">Checklist on Radhika's phone</div></div></div>
       <div class="flow-arrow"></div>
-      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">🚶</div><div class="fs-label">Verification Walk</div><div class="fs-detail">Not discovery — targeted check</div></div></div>
+      <div class="flow-step"><div class="flow-step-box human"><div class="fs-icon">🚶</div><div class="fs-label">Verification Walk</div><div class="fs-detail">Not discovery: targeted check</div></div></div>
     </div>
     <div class="pipeline-strip">
       <span class="sys">Inventory DB</span> (batch expiry) + <span class="sys">GRN</span> (received dates) + <span class="ai">Product Taxonomy</span> (category defaults) <span class="pipe">→</span> <span class="ai">Roz expiry algorithm</span> (24h flag) <span class="pipe">→</span> Near-expiry list <span class="pipe">→</span> <span class="out">Roz mobile card</span> <span class="pipe">→</span> Manager overrides <span class="pipe">→</span> Feed back to model
@@ -1111,7 +1111,7 @@
     <div class="edge-case-row">
       <div class="edge-card">
         <div class="ec-title">⚠ Same-Batch Ripeness Variance</div>
-        <div class="ec-body">Mangoes in the same crate ripening at different rates. Radhika can override to "early markdown" — that override teaches the per-vendor model.</div>
+        <div class="ec-body">Mangoes in the same crate ripening at different rates. Radhika can override to "early markdown": that override teaches the per-vendor model.</div>
       </div>
     </div>
   </div>
@@ -1210,7 +1210,7 @@
     <div class="edge-case-row">
       <div class="edge-card">
         <div class="ec-title">⚠ Genuine Shortfall</div>
-        <div class="ec-body">Roz creates a discrepancy ticket with till number, time window, photo+note option. Flows to Area Manager — audit trail intact.</div>
+        <div class="ec-body">Roz creates a discrepancy ticket with till number, time window, photo+note option. Flows to Area Manager: audit trail intact.</div>
       </div>
     </div>
   </div>
@@ -1218,9 +1218,9 @@
   <div class="uc-detail" id="uc-report">
     <div class="uc-detail-head">
       <div>
-        <div class="uc-time-big">8:00 PM · UC-11 · 🟢 CORE — 2ND BIGGEST WIN</div>
+        <div class="uc-time-big">8:00 PM · UC-11 · 🟢 CORE: 2ND BIGGEST WIN</div>
         <h2>Auto Daily Briefing / HQ Report</h2>
-        <div class="uc-trigger">Trigger: Automated — data pull at 7:30 PM. 60 min → 2 min.</div>
+        <div class="uc-trigger">Trigger: Automated: data pull at 7:30 PM. 60 min → 2 min.</div>
       </div>
       <button class="uc-close" onclick="closeUC()">✕</button>
     </div>
@@ -1248,7 +1248,7 @@
     <div class="edge-case-row">
       <div class="edge-card">
         <div class="ec-title">⚠ Incomplete POS Sync</div>
-        <div class="ec-body">Roz drafts what it has and explicitly flags missing data: "Cold chain data unavailable today — add note manually."</div>
+        <div class="ec-body">Roz drafts what it has and explicitly flags missing data: "Cold chain data unavailable today: add note manually."</div>
       </div>
     </div>
   </div>
@@ -1290,7 +1290,7 @@
 <div class="view" id="view-dataflow">
   <div class="page-head">
     <h1>Data Flow Map</h1>
-    <p>What data flows where — every system read, every system write, every ML computation, mapped by use case.</p>
+    <p>What data flows where: every system read, every system write, every ML computation, mapped by use case.</p>
   </div>
 
   <div class="flow-canvas">
@@ -1401,12 +1401,12 @@
     <p>How Roz works on 2G connections in Tier-2 India, and how every manager action makes the AI smarter.</p>
   </div>
 
-  <div class="section-label">Offline Architecture — designed for 2G on mid-range Android</div>
+  <div class="section-label">Offline Architecture: designed for 2G on mid-range Android</div>
   <div class="offline-grid">
     <div class="offline-card">
       <div class="oc-icon">☁️</div>
       <div class="oc-name">Pre-Computed Server-Side</div>
-      <div class="oc-body">All ML recommendations computed on AWS, then cached on-device. Phone never runs inference — just displays results.</div>
+      <div class="oc-body">All ML recommendations computed on AWS, then cached on-device. Phone never runs inference, just displays results.</div>
     </div>
     <div class="offline-card">
       <div class="oc-icon">📤</div>
@@ -1416,7 +1416,7 @@
     <div class="offline-card">
       <div class="oc-icon">💾</div>
       <div class="oc-name">Critical Data Cached</div>
-      <div class="oc-body">Today's order draft, near-expiry list, roster, last-known inventory levels — always available even offline.</div>
+      <div class="oc-body">Today's order draft, near-expiry list, roster, last-known inventory levels: always available even offline.</div>
     </div>
     <div class="offline-card">
       <div class="oc-icon">⚠️</div>
@@ -1425,13 +1425,13 @@
     </div>
   </div>
 
-  <div class="section-label" style="margin-top:32px">Feedback Loops — every action teaches Roz</div>
+  <div class="section-label" style="margin-top:32px">Feedback Loops: every action teaches Roz</div>
   <div class="feedback-grid">
     <div class="fb-card">
       <div class="fb-action-icon">📊</div>
       <div>
         <div class="fb-action">Adjusts order qty before approving</div>
-        <div class="fb-teaches">Demand model learns her local intuition — festival weeks, vendor quirks, neighborhood patterns no data captures.</div>
+        <div class="fb-teaches">Demand model learns her local intuition: festival weeks, vendor quirks, neighborhood patterns no data captures.</div>
       </div>
     </div>
     <div class="fb-card">
@@ -1459,7 +1459,7 @@
       <div class="fb-action-icon">🔕</div>
       <div>
         <div class="fb-action">Dismisses a peak alert</div>
-        <div class="fb-teaches">Threshold calibrates — was it a false positive? Roz learns to reduce noise for this store's specific patterns.</div>
+        <div class="fb-teaches">Threshold calibrates: was it a false positive? Roz learns to reduce noise for this store's specific patterns.</div>
       </div>
     </div>
     <div class="fb-card">

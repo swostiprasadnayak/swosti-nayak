@@ -155,7 +155,7 @@
     background: var(--border-subtle);
 }
 
-/* ── Karaoke word highlight — ChatGPT-style blur-resolve materialize ──
+/* ── Karaoke word highlight: ChatGPT-style blur-resolve materialize ──
    Pending words sit soft and blurred. Spoken words snap sharp to full opacity.
    Combining opacity + filter blur with Apple's cubic-bezier creates the
    buttery materialize that opacity-alone can't achieve. */

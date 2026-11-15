@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChevronDown, AlertTriangle, Info, ChevronRight } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Heuristic Analysis — Product Builder screen
+//  Heuristic Analysis: Product Builder screen
 //  Recreates the live Eicore Product Builder UI as a pure-TSX mockup (no PNG)
 //  with numbered pins, then maps each pin to the Nielsen heuristic it violates.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -65,11 +65,11 @@ const BUILDER_PINS: Pin[] = [
   { n: 7,  top: "42%", left: "78%", severity: "med",
     heuristic: "H7 · Flexibility & efficiency",
     title: "4-tab panel fights for attention",
-    body: "Tree · Extraction · Issues · Docs — four competing surfaces. Each tab switch loses the user’s context in the others." },
+    body: "Tree · Extraction · Issues · Docs: four competing surfaces. Each tab switch loses the user’s context in the others." },
   { n: 8,  top: "37%", left: "44%", severity: "med",
     heuristic: "H5 · Error prevention",
     title: "Bulk action, no confirmation",
-    body: "“Mark Reviewed (0/151)” — one click could mark all 151 fields verified with no preview and no undo path shown." },
+    body: "“Mark Reviewed (0/151)”: one click could mark all 151 fields verified with no preview and no undo path shown." },
   { n: 9,  top: "75%", left: "11%", severity: "med",
     heuristic: "H6 · Recognition over recall",
     title: "37-coverage flat list",
@@ -77,7 +77,7 @@ const BUILDER_PINS: Pin[] = [
   { n: 10, top: "82%", left: "92%", severity: "low",
     heuristic: "H10 · Help & documentation",
     title: "Red items lack actionable context",
-    body: "“Age (Missing)” · “Family Construct” · “Pre-existing” — coloured red but no inline explanation of what to do, where the fix is, or why it matters." },
+    body: "“Age (Missing)” · “Family Construct” · “Pre-existing”: coloured red but no inline explanation of what to do, where the fix is, or why it matters." },
 ];
 
 const SEVERITY_LABEL: Record<Severity, string> = { high: "High", med: "Medium", low: "Low" };
@@ -371,7 +371,7 @@ function BuilderMockup(props: { hoveredPin: number | null; setHoveredPin: (n: nu
   );
 }
 
-// ─── Single legend row — visual-first, click to reveal body ─────────────────
+// ─── Single legend row: visual-first, click to reveal body ─────────────────
 function FindingRow({ p, hovered }: { p: Pin; hovered: boolean }) {
   const c = SEVERITY_COLOR[p.severity];
   const [open, setOpen] = useState(false);
@@ -399,7 +399,7 @@ function FindingRow({ p, hovered }: { p: Pin; hovered: boolean }) {
         alignItems: "center",
       }}
     >
-      {/* Number badge — large, severity-coloured */}
+      {/* Number badge: large, severity-coloured */}
       <span style={{
         width: 30, height: 30, borderRadius: "50%",
         background: c.fg, color: "#fff",
@@ -407,7 +407,7 @@ function FindingRow({ p, hovered }: { p: Pin; hovered: boolean }) {
         fontSize: 13, fontWeight: 800, flexShrink: 0,
       }}>{p.n}</span>
 
-      {/* Title + heuristic tag — single row, scannable */}
+      {/* Title + heuristic tag: single row, scannable */}
       <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
         <p style={{
           fontSize: 14, fontWeight: 700, color: INK, margin: 0,
@@ -422,7 +422,7 @@ function FindingRow({ p, hovered }: { p: Pin; hovered: boolean }) {
         }}>{p.heuristic}</span>
       </div>
 
-      {/* Severity dot — minimal visual cue (label appears on expand) */}
+      {/* Severity dot: minimal visual cue (label appears on expand) */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
         <span style={{
           fontSize: 10.5, fontWeight: 700, color: c.fg,
@@ -448,7 +448,7 @@ function FindingRow({ p, hovered }: { p: Pin; hovered: boolean }) {
 }
 
 // ─── Additional screens (collapsed behind "Read more") ───────────────────────
-// Compact, list-only — no embedded mockups; the Product Builder screen is the
+// Compact, list-only: no embedded mockups; the Product Builder screen is the
 // star, the others are referenced so readers know the audit was full-journey.
 const OTHER_SCREENS: { screen: string; findings: { title: string; heuristic: string; body: string; severity: Severity }[] }[] = [
   {
@@ -461,14 +461,14 @@ const OTHER_SCREENS: { screen: string; findings: { title: string; heuristic: str
   {
     screen: "Mini expanded in Tree",
     findings: [
-      { severity: "high", heuristic: "H9 · Error recognition", title: "Red items without inline context", body: "“Age” · “Family Construct” · “Pre-existing” — coloured red but offer no inline explanation of what to do, where to fix it, or why it matters." },
-      { severity: "med",  heuristic: "H6 · Recognition", title: "Indentation depth is the only cue", body: "Tree depth is the only signal of hierarchy. After 4 levels, indent becomes ambiguous — user can’t tell whether a row belongs to Mini or Member Details." },
+      { severity: "high", heuristic: "H9 · Error recognition", title: "Red items without inline context", body: "“Age” · “Family Construct” · “Pre-existing”: coloured red but offer no inline explanation of what to do, where to fix it, or why it matters." },
+      { severity: "med",  heuristic: "H6 · Recognition", title: "Indentation depth is the only cue", body: "Tree depth is the only signal of hierarchy. After 4 levels, indent becomes ambiguous: user can’t tell whether a row belongs to Mini or Member Details." },
     ],
   },
   {
     screen: "Pre-publish Review",
     findings: [
-      { severity: "high", heuristic: "H1 · Visibility of system status", title: "Mixed severity in one list", body: "Publishing Checklist mixes blockers (red) and warnings (amber) in one flat list. Distinguished only by tint — no sequencing or grouping by severity." },
+      { severity: "high", heuristic: "H1 · Visibility of system status", title: "Mixed severity in one list", body: "Publishing Checklist mixes blockers (red) and warnings (amber) in one flat list. Distinguished only by tint: no sequencing or grouping by severity." },
       { severity: "med",  heuristic: "H4 · Consistency", title: "Subsystem categories appear out of nowhere", body: "Rules / Field Confidence / Members  & Raters appear only on this screen. The same data lived under different labels (Coverages, Plan Limits) in earlier steps." },
     ],
   },
@@ -550,7 +550,7 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
         <div style={{ width: 24, height: 2, background: BRAND }} />
         <span style={{ fontSize: 12, fontWeight: 600, color: SUBTLE, letterSpacing: "0.1em" }}>
-          03 — HEURISTIC ANALYSIS
+          03: HEURISTIC ANALYSIS
         </span>
       </div>
       <h2 style={{
@@ -586,7 +586,7 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
         })}
       </div>
 
-      {/* Annotated screen + findings (legend) — stacks on tablet & mobile */}
+      {/* Annotated screen + findings (legend): stacks on tablet & mobile */}
       <div style={{
         display: "grid",
         // Stack below the desktop breakpoint so the mockup gets full width and
@@ -600,7 +600,7 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
             fontSize: 11.5, color: LIGHT, marginTop: 10, marginBottom: 0,
             textAlign: "center", fontStyle: "italic",
           }}>
-            Live Product Builder screen, annotated with 10 findings — tap a row to read more
+            Live Product Builder screen, annotated with 10 findings: tap a row to read more
           </p>
         </div>
         <div style={{
@@ -615,7 +615,7 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
         </div>
       </div>
 
-      {/* Read more — other screens */}
+      {/* Read more: other screens */}
       <div style={{ marginTop: 36, borderTop: `1px solid ${BORDER}`, paddingTop: 28 }}>
         <button
           onClick={() => setExpanded(v => !v)}
@@ -634,7 +634,7 @@ export default function HeuristicAnalysis({ isMobile }: { isMobile: boolean }) {
             transform: expanded ? "rotate(180deg)" : "rotate(0)",
             transition: "transform 200ms ease",
           }} />
-          {expanded ? "Hide rest of journey" : `Read more — ${OTHER_SCREENS.length} other screens audited`}
+          {expanded ? "Hide rest of journey" : `Read more: ${OTHER_SCREENS.length} other screens audited`}
         </button>
 
         {expanded && (

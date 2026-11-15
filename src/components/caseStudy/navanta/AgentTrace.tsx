@@ -107,7 +107,7 @@ export default function AgentTrace({
                                 <span className={classes.traceDot} aria-hidden="true" />
                                 <span>
                                     <span className={classes.traceLabel}>{step.label}</span>
-                                    {step.detail && <span className={classes.traceDetail}> — {step.detail}</span>}
+                                    {step.detail && <span className={classes.traceDetail}> · {step.detail}</span>}
                                 </span>
                             </motion.li>
                         ))}

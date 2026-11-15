@@ -263,7 +263,7 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
             </button>
           </div>
 
-          {/* Floating comment button — hover to expand */}
+          {/* Floating comment button: hover to expand */}
           <FloatingCommentButton />
 
           {/* Legend */}
@@ -338,7 +338,7 @@ export default function TreeExpansion({ onClose }: { onClose: () => void }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Top toolbar — matches Figma Row 2
+// Top toolbar: matches Figma Row 2
 // ─────────────────────────────────────────────────────────────────────────
 function zoomBtnStyle(): React.CSSProperties {
   return {
@@ -427,7 +427,7 @@ function TopToolbar({ onClose, totalIssues, zoom, zoomIn, zoomOut, resetView, si
         {sidebarCollapsed ? <PanelLeftOpen size={14} /> : <PanelLeftClose size={14} />}
       </button>
 
-      {/* Zoom display (read-only in toolbar — functional zoom in canvas) */}
+      {/* Zoom display (read-only in toolbar: functional zoom in canvas) */}
       <div style={{
         display: "inline-flex", alignItems: "center", gap: 0,
         border: `1px solid ${C.border}`, borderRadius: 6, overflow: "hidden",
@@ -460,7 +460,7 @@ function TopToolbar({ onClose, totalIssues, zoom, zoomIn, zoomOut, resetView, si
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Left Sidebar — matches Figma left panel exactly
+// Left Sidebar: matches Figma left panel exactly
 // ─────────────────────────────────────────────────────────────────────────
 function LeftSidebar({ collapsed, onToggleCollapse, tier, setTier, search, setSearch, filterText, setFilterText, expandedCats, toggleCat, selectedId, onSelectField, onClose }: {
   collapsed: boolean; onToggleCollapse: () => void;
@@ -484,7 +484,7 @@ function LeftSidebar({ collapsed, onToggleCollapse, tier, setTier, search, setSe
     }}>
       <div style={{ width: 260, display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" }}>
       <div style={{ flex: 1, overflowY: "auto" }}>
-        {/* Search — with collapse toggle next to it */}
+        {/* Search: with collapse toggle next to it */}
         <div style={{ padding: "12px 12px 0" }}>
           <div style={{
             display: "flex", alignItems: "center", gap: 6,
@@ -861,7 +861,7 @@ function CategoryColumn({ cat, fields, totalFields, tier, selectedId, onSelect }
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Field Card — matches Figma card design exactly
+// Field Card: matches Figma card design exactly
 // ─────────────────────────────────────────────────────────────────────────
 function FieldCard({ field, tier, selected, onClick }: {
   field: Parameter; tier: PlanTier; selected: boolean; onClick: () => void;
@@ -958,7 +958,7 @@ function FieldCard({ field, tier, selected, onClick }: {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Parameter Drawer — matches Figma "Tree card.png" exactly
+// Parameter Drawer: matches Figma "Tree card.png" exactly
 // ─────────────────────────────────────────────────────────────────────────
 function ParameterDrawer({ field, tier, setTier, onClose }: {
   field: Parameter; tier: PlanTier; setTier: (t: PlanTier) => void;
@@ -1158,14 +1158,14 @@ function ParameterDrawer({ field, tier, setTier, onClose }: {
         </DrawerSection>
       </div>
 
-      {/* ── Footer — comment icon, hover to expand ──────────── */}
+      {/* ── Footer: comment icon, hover to expand ──────────── */}
       <DrawerCommentFooter />
     </>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// FloatingCommentButton — icon only, hover reveals chat popup above
+// FloatingCommentButton: icon only, hover reveals chat popup above
 // ─────────────────────────────────────────────────────────────────────────
 function FloatingCommentButton() {
   const [open, setOpen] = useState(false);
@@ -1181,7 +1181,7 @@ function FloatingCommentButton() {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* Hover-reveal chat popup — appears above the icon */}
+      {/* Hover-reveal chat popup: appears above the icon */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -1281,7 +1281,7 @@ function FloatingCommentButton() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// DrawerCommentFooter — icon only in the drawer, hover expands above AI chat
+// DrawerCommentFooter: icon only in the drawer, hover expands above AI chat
 // ─────────────────────────────────────────────────────────────────────────
 function DrawerCommentFooter() {
   const [open, setOpen] = useState(false);
@@ -1293,7 +1293,7 @@ function DrawerCommentFooter() {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* Expanded panel — slides up above the icon row */}
+      {/* Expanded panel: slides up above the icon row */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -1338,7 +1338,7 @@ function DrawerCommentFooter() {
         background: C.card,
         display: "flex", alignItems: "center", gap: 8,
       }}>
-        {/* Comment icon — the "only icon" shown normally */}
+        {/* Comment icon: the "only icon" shown normally */}
         <button style={{
           width: 30, height: 30, borderRadius: 6,
           background: open ? C.brandTint : C.bgTertiary,
@@ -1354,7 +1354,7 @@ function DrawerCommentFooter() {
 
         <div style={{ flex: 1 }} />
 
-        {/* AI assist + Ask — these are the "AI chat" controls, comment icon sits above */}
+        {/* AI assist + Ask: these are the "AI chat" controls, comment icon sits above */}
         <button style={{
           display: "inline-flex", alignItems: "center", gap: 4,
           padding: "4px 10px", borderRadius: 6,

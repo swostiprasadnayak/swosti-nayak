@@ -187,7 +187,7 @@ function StepSidebar({ currentStep, setCurrentStep, collapsed }: { currentStep: 
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SCREEN 1 — Method Selection
+// SCREEN 1: Method Selection
 // ─────────────────────────────────────────────────────────────────────────────
 const FILES = [
   { name: "BRD_DIY_Health_Ver0.11.docx", size: "5.4 MB", kind: "docx" },
@@ -277,7 +277,7 @@ export function MethodSelection({ onNext }: { onNext: () => void }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SCREEN 2 — Extraction Preview
+// SCREEN 2: Extraction Preview
 // ─────────────────────────────────────────────────────────────────────────────
 function StepperPill({ items }: { items: { label: string; state: "done" | "active" | "todo"; n?: number }[] }) {
   return (
@@ -302,7 +302,7 @@ type ExSection = { id: string; name: string; pct: number; cols: [string, string,
 const EXTRACT_SECTIONS: ExSection[] = [
   { id: "product", name: "1. Product Information", pct: 92, cols: ["Parameter", "Extracted Value", "Confidence"], rows: [
     { cells: ["Product Name", "D.I.Y Health Insurance", "BRD Pg 1"], conf: 95 },
-    { cells: ["Product Type", "Health — Indemnity", "BRD Pg 1"], conf: 94 },
+    { cells: ["Product Type", "Health: Indemnity", "BRD Pg 1"], conf: 94 },
     { cells: ["Insurer", "Studio Arsa Insurance Ltd.", "BRD Pg 1"], conf: 90 },
   ] },
   { id: "plans", name: "2. Plans Tiers Configuration", pct: 82, cols: ["Plan Tier", "Extracted Specs", "Confidence"], rows: [
@@ -366,7 +366,7 @@ function DocTabBar({ tabs, active, onSelect, maxVisible = 3 }: { tabs: string[];
 
   return (
     <div style={{ display: "flex", borderBottom: `1px solid ${C.border}`, background: C.bgTertiary, alignItems: "stretch", position: "relative" as const, minWidth: 0 }}>
-      {/* Visible tabs — scroll if needed, fade right edge */}
+      {/* Visible tabs: scroll if needed, fade right edge */}
       <div style={{ flex: 1, display: "flex", overflowX: "hidden", minWidth: 0, maskImage: overflow.length > 0 ? "linear-gradient(to right, black 85%, transparent 100%)" : "none", WebkitMaskImage: overflow.length > 0 ? "linear-gradient(to right, black 85%, transparent 100%)" : "none" }}>
         {visible.map((t, i) => (
           <button key={i} className="nav-tab" onClick={() => onSelect(i)} style={tabStyle(active === i)}>{t}</button>
@@ -407,7 +407,7 @@ function DocTabBar({ tabs, active, onSelect, maxVisible = 3 }: { tabs: string[];
 
 // Clickable source highlight inside the extraction document. Defined at module
 // level (not inside ExtractionPreview) so React keeps the same element across
-// re-renders — otherwise every click remounts all marks and the active-ring
+// re-renders: otherwise every click remounts all marks and the active-ring
 // transition never plays.
 function DocMark({ id, tone, activeLink, onJump, registerRef, children }: {
   id: string; tone: "brand" | "warn"; children: React.ReactNode;
@@ -491,7 +491,7 @@ export function ExtractionPreview({ onNext, onBack }: { onNext: () => void; onBa
         <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 12px", background: C.brandTint, border: `1px solid rgba(4,120,87,0.2)`, borderRadius: C.rMd, marginBottom: 10 }}>
           <Link2 size={14} color={C.brand} />
           <span style={T(12, 700, C.brand)}>Linked: {activeLabel}</span>
-          <span style={T(12, 400, C.text2)}>— highlighted in both source &amp; extracted data</span>
+          <span style={T(12, 400, C.text2)}>· highlighted in both source &amp; extracted data</span>
           <button className="nav-tab" onClick={() => setActiveLink(null)} style={{ marginLeft: "auto", ...T(12, 600, C.text2), background: C.card, border: `1px solid ${C.border}`, borderRadius: 6, padding: "3px 10px", cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}><X size={12} /> Clear</button>
         </div>
       )}
@@ -578,7 +578,7 @@ export function ExtractionPreview({ onNext, onBack }: { onNext: () => void; onBa
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SCREEN 3 — Unified Builder
+// SCREEN 3: Unified Builder
 // ─────────────────────────────────────────────────────────────────────────────
 export function PrePublishReview({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   const checklist = [
@@ -593,7 +593,7 @@ export function PrePublishReview({ onNext, onBack }: { onNext: () => void; onBac
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <button className="btn btn-secondary btn-sm" onClick={onBack}><ArrowLeft size={14} /> Back</button>
-          <h2 style={{ ...T(20, 700), marginLeft: 8 }}>Product Review — D.I.Y Health Insurance · Mini Plan</h2>
+          <h2 style={{ ...T(20, 700), marginLeft: 8 }}>Product Review: D.I.Y Health Insurance · Mini Plan</h2>
         </div>
         <div style={{ display: "flex", gap: 12 }}>
           <button className="btn btn-secondary btn-lg">Configure Rules</button>
@@ -655,7 +655,7 @@ export function PrePublishReview({ onNext, onBack }: { onNext: () => void; onBac
         {/* Right */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16, overflowY: "auto", paddingRight: 8 }}>
           <SummaryCard title="Rules Configuration" rows={[
-            { l: "Room rent sub-limit rule — not configured", kind: "error" }, { l: "Entry age rule active", kind: "ok" }, { l: "PED waiting period rule active", kind: "ok" }, { l: "Maternity waiting period rule active", kind: "ok" }, { l: "Cosmetic & dental exclusion", kind: "ok" },
+            { l: "Room rent sub-limit rule: not configured", kind: "error" }, { l: "Entry age rule active", kind: "ok" }, { l: "PED waiting period rule active", kind: "ok" }, { l: "Maternity waiting period rule active", kind: "ok" }, { l: "Cosmetic & dental exclusion", kind: "ok" },
           ]} />
           <div style={card(20)}>
             <h3 style={{ ...T(12, 700, C.text2), textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 16 }}>Field Confidence</h3>
@@ -692,7 +692,7 @@ function SummaryCard({ title, rows }: { title: string; rows: { l: string; kind: 
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SCREEN 5 — Stakeholder Dashboard
+// SCREEN 5: Stakeholder Dashboard
 // ─────────────────────────────────────────────────────────────────────────────
 const PLAN_DATA: Record<string, { limits: [string, string][]; min: string; max: string; opts: string }> = {
   mini: { min: "₹4,00,000", max: "₹5,00,000", opts: "₹4L, ₹5L", limits: [] },
@@ -718,7 +718,7 @@ export function StakeholderDashboard({ onBack }: { onBack: () => void }) {
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
             <button onClick={onBack} style={{ ...T(14, 500, C.text2), background: "none", border: "none", cursor: "pointer" }}>← Back</button>
             <span style={{ color: C.text3 }}>|</span>
-            <h2 style={T(20, 700)}>Product Overview — D.I.Y Health Insurance</h2>
+            <h2 style={T(20, 700)}>Product Overview: D.I.Y Health Insurance</h2>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
             <StatusTag label="Health Insurance" kind="neutral" />

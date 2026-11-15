@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import classes from "./card.module.css";
 import { Squircle } from "corner-smoothing";
 import CardDescription from "./cardDescription";
 import TrafficLights from "./trafficLights/trafficLights";
+import DeviceMockup from "./deviceMockup";
 import type { CardProps } from "@/app/types/cards.types";
 import { PROJECTS } from "@/app/types/projects.types";
 import { useVideoPlayback } from "@/app/hooks/useVideoPlayback";
@@ -27,6 +28,19 @@ const CARD_BG_COLORS: Record<string, string> = {
     "insure-tech": "#F9F9F9",
     "gc-dental": "#f5f5f5",
 };
+
+/** The rendered height of an element, kept current as it resizes. */
+function useElementHeight(ref: React.RefObject<HTMLElement | null>) {
+    const [height, setHeight] = useState(0);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const ro = new ResizeObserver(([entry]) => setHeight(entry.contentRect.height));
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, [ref]);
+    return height;
+}
 
 const EXIT_ANIMATION = {
     y: -800,
@@ -61,6 +75,10 @@ const Card: React.FC<CardProps> = ({
     const cardBg = CARD_BG_COLORS[slug];
 
     const videoRef = useRef<HTMLVideoElement>(null);
+    // The description sits over the bottom of the media; the device mockup
+    // keeps its devices above it.
+    const descriptionRef = useRef<HTMLDivElement>(null);
+    const descriptionHeight = useElementHeight(descriptionRef);
     const shouldPlay = !isProjectExpanded;
     useVideoPlayback(videoRef, shouldPlay);
 
@@ -133,8 +151,15 @@ const Card: React.FC<CardProps> = ({
                                         cornerRadius={8}
                                         style={cardBg ? { background: cardBg, position: "relative" } : { position: "relative" }}
                                     >
-                                        {/* Video card: fade in once ready, no poster shown */}
-                                        {video ? (
+                                        {/* Device mockup: the project's film on a display, a still on a laptop */}
+                                        {project?.cardMockup ? (
+                                            <DeviceMockup
+                                                {...project.cardMockup}
+                                                playing={shouldPlay}
+                                                bottomInset={descriptionHeight}
+                                            />
+                                        ) : /* Video card: fade in once ready, no poster shown */
+                                        video ? (
                                             <video
                                                 ref={videoRef}
                                                 src={video}
@@ -172,7 +197,7 @@ const Card: React.FC<CardProps> = ({
                                             <div style={{ width: '100%', height: '100%', background: '#eaeaea' }} />
                                         )}
                                     </Squircle>
-                                    <div className={classes.descriptionWrapper}>
+                                    <div className={classes.descriptionWrapper} ref={descriptionRef}>
                                         <CardDescription
                                             title={projectName}
                                             description={projectDescription}

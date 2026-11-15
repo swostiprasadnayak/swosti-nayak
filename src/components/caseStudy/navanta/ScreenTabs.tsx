@@ -6,7 +6,7 @@ import classes from "./navanta.module.css";
 
 export type ScreenTab = {
     label: string;
-    /** One line under the tabs — what to look at in this screen. */
+    /** One line under the tabs: what to look at in this screen. */
     note?: string;
     screen: ScreenFrameProps;
 };

@@ -33,34 +33,34 @@ const SURFACE = "#f8fafc";
 
 // ─── Content data ─────────────────────────────────────────────────────────────
 const PAIN_POINTS = [
-  { num: 1, flaw: "Attention Fragmentation", impact: "Errors and confidence scores live in 4 places — panic and skipped steps.", fix: "A dedicated Issues tab with one-click Resolve; the stepper carries a live 'Needs Attention' count." },
-  { num: 2, flaw: "Passive Source Attribution", impact: "'From: BRD' is a text tag — users hunt through 5 PDFs manually.", fix: "Every value cites origin (BRD Pg 2, Sec 4.1); the Document Inspector opens that passage highlighted." },
+  { num: 1, flaw: "Attention Fragmentation", impact: "Errors and confidence scores live in 4 places: panic and skipped steps.", fix: "A dedicated Issues tab with one-click Resolve; the stepper carries a live 'Needs Attention' count." },
+  { num: 2, flaw: "Passive Source Attribution", impact: "'From: BRD' is a text tag: users hunt through 5 PDFs manually.", fix: "Every value cites origin (BRD Pg 2, Sec 4.1); the Document Inspector opens that passage highlighted." },
   { num: 3, flaw: "Blind Navigation", impact: "Plan nodes give no signal of how close each one is to done.", fix: "The active stage expands its own sub-steps with a live progress bar." },
-  { num: 4, flaw: "Flat Coverage Scroll", impact: "37 coverages in one flat list means endless vertical scrolling.", fix: "Coverages live under collapsible plan accordions — Mini, Medi, Max." },
-  { num: 5, flaw: "Competing Side Drawers", impact: "Tree, Extraction, Issues and Docs tabs fight for the same panel.", fix: "Context-sensitive split — only the relevant panel surfaces while you're editing." },
+  { num: 4, flaw: "Flat Coverage Scroll", impact: "37 coverages in one flat list means endless vertical scrolling.", fix: "Coverages live under collapsible plan accordions: Mini, Medi, Max." },
+  { num: 5, flaw: "Competing Side Drawers", impact: "Tree, Extraction, Issues and Docs tabs fight for the same panel.", fix: "Context-sensitive split: only the relevant panel surfaces while you're editing." },
   { num: 6, flaw: "Disconnected 'Mark Reviewed'", impact: "Save, value, and 'Mark Reviewed' are three separate clicks.", fix: "Save and the 'Mark Reviewed (n/151)' counter co-locate; resolving updates audit in place." },
   { num: 7, flaw: "Post-Hoc Shock", impact: "Critical errors surface only at the final pre-publish step.", fix: "Field-level amber/red borders surface weak values inline while editing." },
-  { num: 8, flaw: "High-Risk Friction", impact: "Destructive actions (delete coverage, revert) lack visible feedback.", fix: "Standardized states — 'Draft Auto-saved', 'Revert' affordance, undo path." },
+  { num: 8, flaw: "High-Risk Friction", impact: "Destructive actions (delete coverage, revert) lack visible feedback.", fix: "Standardized states: 'Draft Auto-saved', 'Revert' affordance, undo path." },
 ];
 
 const PERSONAS = [
-  { tag: "Persona 1", role: "Product Manager / Head of Product", motive: "Speed-to-market & compliance", need: "High-level coverage verification, exclusions, compliance checklists.", pain: "Blockers surface only at final pre-publish — hours of rework.", color: "#047857", bg: "#d1fae5" },
-  { tag: "Persona 2", role: "Senior Actuarial Analyst", motive: "Precision & underwriting safety", need: "Verify complex tables — rate cards, co-pays, age bands — with 100% precision.", pain: "Source attribution is passive — no live link from a field back to its page.", color: "#0369a1", bg: "#e0f2fe" },
+  { tag: "Persona 1", role: "Product Manager / Head of Product", motive: "Speed-to-market & compliance", need: "High-level coverage verification, exclusions, compliance checklists.", pain: "Blockers surface only at final pre-publish: hours of rework.", color: "#047857", bg: "#d1fae5" },
+  { tag: "Persona 2", role: "Senior Actuarial Analyst", motive: "Precision & underwriting safety", need: "Verify complex tables (rate cards, co-pays, age bands) with 100% precision.", pain: "Source attribution is passive: no live link from a field back to its page.", color: "#0369a1", bg: "#e0f2fe" },
 ];
 
 const PRINCIPLES = [
-  { icon: <Activity size={18} color={BRAND} />, title: "Confidence-Coded Fields", body: "Low-confidence values carry amber borders and a 75% badge — risk is visible inline during editing, not at final review." },
+  { icon: <Activity size={18} color={BRAND} />, title: "Confidence-Coded Fields", body: "Low-confidence values carry amber borders and a 75% badge: risk is visible inline during editing, not at final review." },
   { icon: <FileSearch size={18} color={BRAND} />, title: "Inspect → Live Source Split", body: "Confidence badges open a Document Inspector pinned to canvas, scrolled to the exact BRD passage with the figure highlighted." },
-  { icon: <Layers size={18} color={BRAND} />, title: "One Multi-Tab Workspace", body: "Tree, Extraction, Issues and Docs live in a single right-hand panel — product structure, audit, issues and source one click apart." },
+  { icon: <Layers size={18} color={BRAND} />, title: "One Multi-Tab Workspace", body: "Tree, Extraction, Issues and Docs live in a single right-hand panel: product structure, audit, issues and source one click apart." },
   { icon: <Search size={18} color={BRAND} />, title: "Staged Navigation with Sub-Steps", body: "Left rail maps the five stages; the active stage expands to show its own sub-step progress." },
 ];
 
 const SCREENS = [
-  { n: 1, name: "Configuration Method", desc: "Three paths — AI extraction (primary), template (coming soon), manual — with a live file-upload queue.", render: () => <MethodSelection onNext={() => {}} /> },
+  { n: 1, name: "Configuration Method", desc: "Three paths: AI extraction (primary), template (coming soon) and manual, with a live file-upload queue.", render: () => <MethodSelection onNext={() => {}} /> },
   { n: 2, name: "AI Extraction & Audit", desc: "Split-pane source viewer + 89% extraction-quality audit + parameter tables with per-row confidence.", render: () => <ExtractionPreview onNext={() => {}} onBack={() => {}} /> },
-  { n: 3, name: "Unified Product Workspace", desc: "The core 3-column screen — coverage navigation, overview/edit canvas, Tree/Extraction/Issues/Docs panel.", render: () => <UnifiedBuilder onNext={() => {}} onOpenTree={() => {}} /> },
-  { n: 4, name: "Product Review & Publish", desc: "Pre-publish validator — publishing checklist (blockers + warnings), plan/coverage status, subsystem health.", render: () => <PrePublishReview onNext={() => {}} onBack={() => {}} /> },
-  { n: 5, name: "Stakeholder Overview", desc: "Read-only shareable dashboard — metric cards plus per-plan Plan-Limits and Member-Details tables.", render: () => <StakeholderDashboard onBack={() => {}} /> },
+  { n: 3, name: "Unified Product Workspace", desc: "The core 3-column screen: coverage navigation, overview/edit canvas, Tree/Extraction/Issues/Docs panel.", render: () => <UnifiedBuilder onNext={() => {}} onOpenTree={() => {}} /> },
+  { n: 4, name: "Product Review & Publish", desc: "Pre-publish validator: publishing checklist (blockers + warnings), plan/coverage status, subsystem health.", render: () => <PrePublishReview onNext={() => {}} onBack={() => {}} /> },
+  { n: 5, name: "Stakeholder Overview", desc: "Read-only shareable dashboard: metric cards plus per-plan Plan-Limits and Member-Details tables.", render: () => <StakeholderDashboard onBack={() => {}} /> },
 ];
 
 const OUTCOMES = [
@@ -71,7 +71,7 @@ const OUTCOMES = [
 ];
 
 const REFLECTIONS = [
-  { label: "What's next", body: "Empirical confidence calibration — wire amber thresholds to real AI accuracy data from production." },
+  { label: "What's next", body: "Empirical confidence calibration: wire amber thresholds to real AI accuracy data from production." },
   { label: "Would change", body: "The 8-section accordion could collapse to a sticky 'jump-to' chip-row on long pages." },
   { label: "Open question", body: "How should the system handle a value the user accepts that AI later refines? Versioning vs override?" },
 ];
@@ -82,11 +82,11 @@ const DESIGNS = [
     src: "/final-designs/06-heor.webp",
     label: "Unified Workspace",
     title: "The product builder's home screen.",
-    summary: "Every signal needed to start verifying — extraction health, source documents, plan structure, and open issues — consolidated into one view without hunting across tabs.",
+    summary: "Every signal needed to start verifying (extraction health, source documents, plan structure and open issues) consolidated into one view without hunting across tabs.",
     features: [
       "89% extraction-health donut with confidence breakdown: 124 High · 40 Medium · 15 Low",
       "Field Map heatmap colours every one of 234 extracted fields by AI confidence",
-      "Source pills let you jump straight to the active document — Rate Card, BRD, Policy Wording",
+      "Source pills let you jump straight to the active document: Rate Card, BRD, Policy Wording",
       "Right rail unifies Tree · Issues · Data Extracted · Document in one panel",
       "Mini/Medi/Max Plan Variants with per-category field counts and quality score",
       "Live Activity Feed with Resolve and Open-parameter shortcuts for every issue",
@@ -96,13 +96,13 @@ const DESIGNS = [
     src: "/final-designs/05-tree-drawer.webp",
     label: "Tree + Parameter Drawer",
     title: "Inspect any card without losing the map.",
-    summary: "Clicking a card on the Tree opens the Parameter Drawer on the right edge — the full canvas stays visible so dependencies and sibling values remain legible.",
+    summary: "Clicking a card on the Tree opens the Parameter Drawer on the right edge: the full canvas stays visible so dependencies and sibling values remain legible.",
     features: [
-      "Drawer slides in from the right edge — tree canvas stays anchored as context",
+      "Drawer slides in from the right edge: tree canvas stays anchored as context",
       "Extracted value vs Your value side-by-side with confidence label",
       "Source Passage with highlighted BRD quote and bidirectional ↔ link",
       "Dependencies panel lists upstream rules (Premium Calculation · Member Eligibility Check)",
-      "AI assist input — ask 'why this value?' without leaving the tree view",
+      "AI assist input: ask 'why this value?' without leaving the tree view",
       "← / → walks through sibling parameters in the same category; Esc closes",
     ],
   },
@@ -110,25 +110,25 @@ const DESIGNS = [
     src: "/final-designs/03-parameter.webp",
     label: "Parameter Editor",
     title: "The Trust Loop, expanded.",
-    summary: "A single parameter — In-patient Hospitalisation — opens into a focused editor with the Parameter Drawer pinning the AI's source passage right next to the form.",
+    summary: "A single parameter, In-patient Hospitalisation, opens into a focused editor with the Parameter Drawer pinning the AI's source passage right next to the form.",
     features: [
       "Structured form: Name · Type · Description · Data Range · Limit Value · Applicability",
-      "Drawer shows Extracted value alongside Your value — one click to accept or override",
-      "Confidence badge inline — High confidence shown in green, Low in amber",
+      "Drawer shows Extracted value alongside Your value: one click to accept or override",
+      "Confidence badge inline: High confidence shown in green, Low in amber",
       "Source Passage highlights the exact BRD sentence at the cited page number",
-      "Bidirectional link — jump from passage to parameter or from parameter to passage",
-      "AI-assist input at the bottom — @-mention a colleague, ask AI, or leave a comment",
+      "Bidirectional link: jump from passage to parameter or from parameter to passage",
+      "AI-assist input at the bottom: @-mention a colleague, ask AI, or leave a comment",
     ],
   },
   {
     src: "/final-designs/01-workspace.webp",
     label: "Tree Mode",
     title: "The whole plan as a single canvas.",
-    summary: "A full-screen anatomy view — every parameter rendered as a card, grouped by category, connected by dependency edges. Switch tier with one click; issues count follows you.",
+    summary: "A full-screen anatomy view: every parameter rendered as a card, grouped by category, connected by dependency edges. Switch tier with one click; issues count follows you.",
     features: [
       "Mini Plan root branches into 4 category columns (Plan Limits · Members · Coverages · Premium)",
-      "Each parameter card carries a status — Verified · Missing · Low confidence · Blocker",
-      "Per-card metadata — AI confidence %, dependency count, source page",
+      "Each parameter card carries a status: Verified · Missing · Low confidence · Blocker",
+      "Per-card metadata: AI confidence %, dependency count, source page",
       "Side panel: ⌘K jump-to-any-field, tier picker with issue counts, filter parameters",
       "Floating Legend explains the four card states at the bottom-right",
       "Bottom roadmap progress shows the full lifecycle (Upload · Extract · Verify · Audit · Publish)",
@@ -140,7 +140,7 @@ const DESIGNS = [
     title: "From workspace to category in one click.",
     summary: "Selecting a category morphs the left rail into a Categories list with progress per group, while the workspace shows per-parameter 3-up values across Mini / Medi / Max.",
     features: [
-      "Left rail switches to a Categories list — 33 categories with status dots and progress bars",
+      "Left rail switches to a Categories list: 33 categories with status dots and progress bars",
       "Plan Variants stay pinned at top so tier context never drops",
       "Parameter cards show MINI / MEDI / MAX values inline with confidence dot per tier",
       "'Needs review' chip flags the parameters demanding attention first",
@@ -258,12 +258,12 @@ const AIAssistMockup = () => (
 );
 
 const PATTERNS = [
-  { title: "Multi-Tab Right Rail", desc: "Tree, Issues, Data Extracted and Document share one panel — product structure, AI audit, source data and originals are all one click apart.", mockup: <TabRailMockup /> },
-  { title: "Extraction Health + Field Map", desc: "An 89% donut and a confidence-coloured grid of every field — quality is visible before the user touches a single value.", mockup: <HealthMapMockup /> },
-  { title: "Stage Pipeline", desc: "Upload → Extract → Verify → Audit → Publish — the full lifecycle sits as an always-visible chip row in the header.", mockup: <PipelineMockup /> },
-  { title: "Tree Mode", desc: "A full-screen plan anatomy — categorised parameter cards (Plan Limits, Members, Coverages, Premium) with per-card status and dependency edges.", mockup: <TreeModeMockup /> },
+  { title: "Multi-Tab Right Rail", desc: "Tree, Issues, Data Extracted and Document share one panel: product structure, AI audit, source data and originals are all one click apart.", mockup: <TabRailMockup /> },
+  { title: "Extraction Health + Field Map", desc: "An 89% donut and a confidence-coloured grid of every field: quality is visible before the user touches a single value.", mockup: <HealthMapMockup /> },
+  { title: "Stage Pipeline", desc: "Upload → Extract → Verify → Audit → Publish: the full lifecycle sits as an always-visible chip row in the header.", mockup: <PipelineMockup /> },
+  { title: "Tree Mode", desc: "A full-screen plan anatomy: categorised parameter cards (Plan Limits, Members, Coverages, Premium) with per-card status and dependency edges.", mockup: <TreeModeMockup /> },
   { title: "Parameter Drawer", desc: "Extracted value with confidence, your value, the source passage highlighted at the exact BRD page, and a bidirectional jump back to the document.", mockup: <DrawerMockup /> },
-  { title: "AI Assist Inline", desc: "Every parameter has a comment input that doubles as an @-mention chat and an Ask AI surface — no context switch to a separate copilot.", mockup: <AIAssistMockup /> },
+  { title: "AI Assist Inline", desc: "Every parameter has a comment input that doubles as an @-mention chat and an Ask AI surface: no context switch to a separate copilot.", mockup: <AIAssistMockup /> },
 ];
 
 // ─── Small primitives ─────────────────────────────────────────────────────────
@@ -271,7 +271,7 @@ function SectionLabel({ n, label }: { n: string; label: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
       <div style={{ width: 24, height: 2, background: BRAND }} />
-      <span style={{ fontSize: 12, fontWeight: 600, color: SUBTLE, letterSpacing: "0.1em" }}>{n} — {label}</span>
+      <span style={{ fontSize: 12, fontWeight: 600, color: SUBTLE, letterSpacing: "0.1em" }}>{n}: {label}</span>
     </div>
   );
 }
@@ -373,7 +373,7 @@ const SpotIllustration = () => (
         <span style={{ fontSize: 11, fontWeight: 700, color: "#92400e" }}>75%</span>
       </div>
     </div>
-    <p style={{ fontSize: 11, color: "#92400e", margin: "8px 0 0", fontWeight: 500 }}>Low confidence — user notices</p>
+    <p style={{ fontSize: 11, color: "#92400e", margin: "8px 0 0", fontWeight: 500 }}>Low confidence: user notices</p>
   </div>
 );
 
@@ -427,7 +427,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
             Product Plan Builder Redesign
           </p>
           <p style={{ fontSize: isMobile ? 15 : 18, lineHeight: 1.6, color: MUTED, maxWidth: 720, margin: "0 0 28px" }}>
-            Redesigning an AI-powered insurance Product Plan Builder — compressing 3–5 days of manual configuration into hours of intelligent, trustworthy review.
+            Redesigning an AI-powered insurance Product Plan Builder: compressing 3–5 days of manual configuration into hours of intelligent, trustworthy review.
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32 }}>
             {["B2B InsurTech", "AI Workflow", "Enterprise UX", "Product Design"].map(t => (
@@ -439,7 +439,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           </button>
         </div>
 
-        {/* HERO BANNER IMAGE — bleeds to full content width */}
+        {/* HERO BANNER IMAGE: bleeds to full content width */}
         <div style={{ marginLeft: isMobile ? 0 : -40, marginRight: isMobile ? 0 : -40 }}>
           <Image
             src="/images/insure-tech-devices.webp"
@@ -455,9 +455,9 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
         {/* 01 CHALLENGE */}
         <div>
           <SectionLabel n="01" label="THE CHALLENGE" />
-          <H2 isMobile={isMobile}>A tool that knew too much — and told you nothing clearly.</H2>
+          <H2 isMobile={isMobile}>A tool that knew too much and told you nothing clearly.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 28px" }}>
-            InsureTec uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings — compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
+            InsureTec uses AI to extract insurance product configurations from BRDs, rate cards and policy wordings: compressing 3–5 days of manual config into hours of review. But the interface surfaced errors in 4 separate places, hid the connection between extracted values and their source documents, and confronted users with blocking validation only at the very end.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 16 }}>
             {[
@@ -478,7 +478,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <SectionLabel n="02" label="USER ANALYSIS" />
           <H2 isMobile={isMobile}>Domain experts who can't afford UI friction.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
-            The system serves deep insurance domain experts — not developers. They configure several products a quarter, each across multiple sessions, where a single misread co-payment bracket can cost millions.
+            The system serves deep insurance domain experts, not developers. They configure several products a quarter, each across multiple sessions, where a single misread co-payment bracket can cost millions.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
             {PERSONAS.map((p, i) => (
@@ -508,7 +508,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
               color: INK, margin: "0 0 14px", letterSpacing: "-0.025em",
             }}>The high-fidelity designs.</h2>
             <p style={{ fontSize: isMobile ? 14 : 16.5, lineHeight: 1.6, color: MUTED, maxWidth: 680, margin: 0 }}>
-              Five core surfaces across the unified workspace. Each component traces back to a specific friction point retired by the audit — extraction trust, source attribution, drill-down navigation, and dependency visibility.
+              Five core surfaces across the unified workspace. Each component traces back to a specific friction point retired by the audit: extraction trust, source attribution, drill-down navigation, and dependency visibility.
             </p>
           </div>
 
@@ -527,7 +527,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
                 <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.3fr", gap: 28, alignItems: "start" }}>
                   <div>
                     <p style={{ fontSize: 11, color: BRAND, fontWeight: 700, letterSpacing: "0.08em", margin: "0 0 8px" }}>
-                      0{i + 1} — {d.label.toUpperCase()}
+                      0{i + 1}: {d.label.toUpperCase()}
                     </p>
                     <h3 style={{ fontSize: 22, fontWeight: 700, color: INK, margin: "0 0 10px", letterSpacing: "-0.015em", lineHeight: 1.25 }}>
                       {d.title}
@@ -551,7 +551,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           </div>
         </div>
 
-        {/* 03 HEURISTIC ANALYSIS — Product Builder screen (Nielsen's 10) */}
+        {/* 03 HEURISTIC ANALYSIS: Product Builder screen (Nielsen's 10) */}
         <div>
           <HeuristicAnalysis isMobile={isMobile} />
         </div>
@@ -561,7 +561,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <SectionLabel n="04" label="8 UX FLAWS → REDESIGN RESPONSES" />
           <H2 isMobile={isMobile}>An audit of the existing interface.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 24px" }}>
-            Eight behaviors were undermining trust in the AI-extracted output. The redesign answers each with a specific, scoped affordance — no blanket rewrites.
+            Eight behaviors were undermining trust in the AI-extracted output. The redesign answers each with a specific, scoped affordance: no blanket rewrites.
           </p>
           <div style={{ border: `1px solid ${BORDER}`, borderRadius: 14, overflow: "hidden" }}>
             {PAIN_POINTS.map((p, i) => (
@@ -604,7 +604,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           </div>
         </div>
 
-        {/* 05 FIVE SCREENS — real DOM thumbnails */}
+        {/* 05 FIVE SCREENS: real DOM thumbnails */}
         <div>
           <SectionLabel n="06" label="THE 5 REDESIGNED SCREENS" />
           <H2 isMobile={isMobile}>Walk the product, screen by screen.</H2>
@@ -630,7 +630,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <SectionLabel n="07" label="ANATOMY OF THE WORKSPACE" />
           <H2 isMobile={isMobile}>Six patterns make the unified workspace work.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
-            The principles materialised as six distinct UI patterns inside Screen 3. Each one retires a specific class of friction from the audit — and together they're the reason a 3–5 day workflow now takes hours.
+            The principles materialised as six distinct UI patterns inside Screen 3. Each one retires a specific class of friction from the audit, and together they're the reason a 3–5 day workflow now takes hours.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16 }}>
             {PATTERNS.map((p, i) => (
@@ -652,11 +652,11 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <SectionLabel n="08" label="THE TRUST LOOP" />
           <H2 isMobile={isMobile}>Three clicks from suspicion to verified.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.7, color: MUTED, margin: "0 0 32px" }}>
-            The interaction that ties the whole system together — <strong style={{ color: INK }}>Spot · Inspect · Resolve</strong>. The user never has to leave the canvas to trust an AI extraction.
+            The interaction that ties the whole system together: <strong style={{ color: INK }}>Spot · Inspect · Resolve</strong>. The user never has to leave the canvas to trust an AI extraction.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14 }}>
-            <LoopStep n={1} title="Spot" body="An amber 75% bead beside a field signals low confidence. The user scans — doesn't search." illustration={<SpotIllustration />} />
-            <LoopStep n={2} title="Inspect" body="One click opens the source passage on the left, highlighted at Page 12 of the BRD. The user reads — doesn't hunt." illustration={<InspectIllustration />} />
+            <LoopStep n={1} title="Spot" body="An amber 75% bead beside a field signals low confidence. The user scans, doesn't search." illustration={<SpotIllustration />} />
+            <LoopStep n={2} title="Inspect" body="One click opens the source passage on the left, highlighted at Page 12 of the BRD. The user reads, doesn't hunt." illustration={<InspectIllustration />} />
             <LoopStep n={3} title="Resolve" body="Accept & Verify turns the bead green. The Auditor warning clears. Progress ticks 12/37 → 13/37." illustration={<ResolveIllustration />} />
           </div>
         </div>
@@ -691,7 +691,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <SectionLabel n="10" label="REFLECTION" />
           <H2 isMobile={isMobile}>What I'd carry forward.</H2>
           <p style={{ fontSize: isMobile ? 14 : 16, lineHeight: 1.75, color: MUTED, margin: "0 0 24px" }}>
-            The hardest decision wasn't visual — it was deciding how AI confidence should behave when it's wrong. The principle I'd carry forward: <strong style={{ color: INK }}>never make the user discover a problem at the end of a flow that the system could have surfaced at the start.</strong>
+            The hardest decision wasn't visual. It was deciding how AI confidence should behave when it's wrong. The principle I'd carry forward: <strong style={{ color: INK }}>never make the user discover a problem at the end of a flow that the system could have surfaced at the start.</strong>
           </p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 14 }}>
             {REFLECTIONS.map((r, i) => (
@@ -708,7 +708,7 @@ export default function CaseStudy({ onOpenPrototype }: { onOpenPrototype: (step?
           <Target size={28} color="#fff" style={{ margin: "0 auto 14px", opacity: 0.9 }} />
           <h2 style={{ fontSize: 26, fontWeight: 700, color: "#fff", margin: "0 0 10px" }}>See it working end-to-end</h2>
           <p style={{ fontSize: 15.5, color: "#a7f3d0", margin: "0 0 24px", maxWidth: 520, marginInline: "auto", lineHeight: 1.6 }}>
-            All 5 screens are fully interactive — upload &amp; extract, click confidence beads to inspect source, resolve auditor warnings in real time, walk the product from draft to stakeholder view.
+            All 5 screens are fully interactive: upload &amp; extract, click confidence beads to inspect source, resolve auditor warnings in real time, walk the product from draft to stakeholder view.
           </p>
           <button onClick={() => onOpenPrototype()} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 10, background: "#fff", color: BRAND, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer" }}>
             Launch Prototype <ArrowRight size={17} />

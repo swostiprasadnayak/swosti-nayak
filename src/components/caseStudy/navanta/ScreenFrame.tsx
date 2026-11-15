@@ -5,7 +5,7 @@ import classes from "./navanta.module.css";
 export type ScreenFrameProps = {
     /** What the screen shows; doubles as the placeholder title until media exists. */
     title: string;
-    /** Original .png/.jpg in public/ — next/image makes the modern formats. */
+    /** Original .png/.jpg in public/: next/image makes the modern formats. */
     src?: string;
     /** Short loop in public/videos/. Takes precedence over src. */
     video?: string;

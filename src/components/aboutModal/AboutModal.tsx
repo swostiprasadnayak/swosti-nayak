@@ -87,18 +87,18 @@ const AboutModal: React.FC = () => {
                                     {/* Content wrapper for scrolling */}
                                     <div className={classes.contentWrapper}>
 
-                                        {/* Mask group — horizontal container for left & right panels */}
+                                        {/* Mask group: horizontal container for left & right panels */}
                                         <div className={classes.maskGroup}>
 
-                                            {/* LEFT PANEL — gradient image + article teaser */}
+                                            {/* LEFT PANEL: gradient image + article teaser */}
                                             <Squircle className={classes.leftPanel} cornerRadius={12}>
                                                 {/* Bottom scrim for text legibility */}
                                                 <div className={classes.leftOverlay} />
 
-                                                {/* "About" label — top left */}
+                                                {/* "About" label: top left */}
                                                 <span className={classes.aboutLabel}>About</span>
 
-                                                {/* Article teaser — bottom */}
+                                                {/* Article teaser: bottom */}
                                                 <div className={classes.teaserBlock}>
                                                     <span className={classes.teaserEyebrow}>What if...</span>
                                                     <p className={classes.teaserTitle}>
@@ -107,7 +107,7 @@ const AboutModal: React.FC = () => {
                                                 </div>
                                             </Squircle>
 
-                                            {/* RIGHT PANEL — bio */}
+                                            {/* RIGHT PANEL: bio */}
                                             <div className={classes.rightPanel}>
                                                 {/* Name + verified badge */}
                                                 <div className={classes.nameRow}>
@@ -130,7 +130,7 @@ const AboutModal: React.FC = () => {
                                                     </svg>
                                                 </div>
 
-                                                {/* Bio container — paragraphs + CTA */}
+                                                {/* Bio container: paragraphs + CTA */}
                                                 <div className={classes.bioContainer}>
                                                     <p className={classes.bioParagraph}>
                                                         I&apos;m a Product Designer with 2+ years crafting clear, scalable digital experiences.

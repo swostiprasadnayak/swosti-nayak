@@ -98,7 +98,7 @@
     transition: height 0.08s linear;
 }
 
-/* Quarter marks: 3 short, light lines (25/50/75%) — 10 was too dense for a
+/* Quarter marks: 3 short, light lines (25/50/75%): 10 was too dense for a
    rail this short. */
 .vTicks {
     position: absolute;

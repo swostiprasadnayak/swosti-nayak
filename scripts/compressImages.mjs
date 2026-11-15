@@ -67,7 +67,7 @@ async function compressImage(filePath, ext) {
     const webpStat = statSync(webpPath);
     return { original: filePath, webp: webpPath, oldSize: 0, newSize: newStat.size, webpSize: webpStat.size };
   } catch (err) {
-    console.error(`  ❌ Failed: ${filePath} — ${err.message}`);
+    console.error(`  ❌ Failed: ${filePath}: ${err.message}`);
     return null;
   }
 }

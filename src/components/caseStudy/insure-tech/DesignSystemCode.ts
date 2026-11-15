@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Code snippets shown in the Design System tab — ready-to-paste TSX for each
+// Code snippets shown in the Design System tab: ready-to-paste TSX for each
 // component. Strings only; no JSX so it can be imported anywhere.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -78,7 +78,7 @@ function Spinner() {
 </Button>`,
 
   // ── Tag / Chip ────────────────────────────────────────────────────────────
-  tag: `// Tag.tsx — status chips, filter pills, content tags
+  tag: `// Tag.tsx: status chips, filter pills, content tags
 import { ReactNode } from "react";
 
 type Variant = "default" | "tint" | "success" | "warning" | "danger" | "dashed";
@@ -143,7 +143,7 @@ export function Tag({
 <Tag pill removable onRemove={remove}>Coverage Details</Tag>`,
 
   // ── Input field ────────────────────────────────────────────────────────────
-  input: `// Input.tsx — form field with label + helper + error
+  input: `// Input.tsx: form field with label + helper + error
 import { InputHTMLAttributes, forwardRef } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -193,7 +193,7 @@ Input.displayName = "Input";
 <Input label="Up to SI" readOnly value="Up to SI" />`,
 
   // ── Parameter Card ────────────────────────────────────────────────────────
-  parameterCard: `// ParameterCard.tsx — the building block of the workspace
+  parameterCard: `// ParameterCard.tsx: the building block of the workspace
 import { ArrowRight } from "lucide-react";
 
 type State = "verified" | "low-confidence" | "missing" | "blocker";
@@ -269,7 +269,7 @@ export function ParameterCard({
 />`,
 
   // ── Activity Feed Item ───────────────────────────────────────────────────
-  activityFeed: `// ActivityFeedItem.tsx — Auditor surface
+  activityFeed: `// ActivityFeedItem.tsx: Auditor surface
 type Severity = "blocker" | "warning";
 
 interface ActivityFeedItemProps {
@@ -328,7 +328,7 @@ export function ActivityFeedItem({
 </ul>`,
 
   // ── Extraction Health Card ────────────────────────────────────────────────
-  healthCard: `// ExtractionHealthCard.tsx — primary status panel
+  healthCard: `// ExtractionHealthCard.tsx: primary status panel
 interface ExtractionHealthCardProps {
   productName: string;
   score: number;             // 0-100
@@ -407,7 +407,7 @@ function Metric({ color, n, label }: { color: string; n: number; label: string }
 />`,
 
   // ── Stage Pipeline ────────────────────────────────────────────────────────
-  stagePipeline: `// StagePipeline.tsx — 5-step lifecycle indicator
+  stagePipeline: `// StagePipeline.tsx: 5-step lifecycle indicator
 interface StagePipelineProps {
   steps: string[];           // ["Upload","Extract","Verify","Audit","Publish"]
   activeIndex: number;       // -1 = not started, 0..n-1 = in progress, n = complete
@@ -453,7 +453,7 @@ function Dot({ done, curr }: { done: boolean; curr: boolean }) {
 />`,
 
   // ── Parameter Drawer ──────────────────────────────────────────────────────
-  drawer: `// ParameterDrawer.tsx — the core Trust Loop surface
+  drawer: `// ParameterDrawer.tsx: the core Trust Loop surface
 import { X } from "lucide-react";
 
 interface ParameterDrawerProps {
