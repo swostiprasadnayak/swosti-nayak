@@ -482,10 +482,10 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         gap: 4,
                                         overflow: "hidden",
                                     }}>
-                                        {/* Same three levels as the desktop card:
-                                            Heading (name) 15 · 600, Heading 2
-                                            (lead) 13 · 500, Subtext (detail)
-                                            12 · 400 at 62%. */}
+                                        {/* Phone card, like the grid view: Heading
+                                            (name) 15 · 600, Heading 2 (lead)
+                                            13 · 500, and the first two pills.
+                                            No subtext. */}
                                         <h3 style={{
                                             fontSize: 15,
                                             fontWeight: 600,
@@ -495,24 +495,9 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         }}>
                                             {project.name}
                                         </h3>
-                                        {(() => {
-                                            const { lead, detail } = splitDescription(project.description);
-                                            return (
-                                                <p style={{ margin: 0 }}>
-                                                    <span style={{ display: "block", fontSize: 13, fontWeight: 500, lineHeight: 1.35, color: "#111827", textWrap: "balance" }}>
-                                                        {lead}
-                                                    </span>
-                                                    {detail && (
-                                                        <>
-                                                            <span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clipPath: "inset(50%)", whiteSpace: "nowrap" }}>. </span>
-                                                            <span style={{ display: "block", marginTop: 2, fontSize: 12, fontWeight: 400, lineHeight: 1.4, color: "rgba(17, 24, 39, 0.62)" }}>
-                                                                {detail}
-                                                            </span>
-                                                        </>
-                                                    )}
-                                                </p>
-                                            );
-                                        })()}
+                                        <p style={{ margin: 0, fontSize: 13, fontWeight: 500, lineHeight: 1.35, color: "#111827", textWrap: "balance" }}>
+                                            {splitDescription(project.description).lead}
+                                        </p>
                                         {project.tags && project.tags.length > 0 && (
                                             <div style={{
                                                 display: "flex",
@@ -520,7 +505,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                                 flexWrap: "wrap",
                                                 marginTop: 2,
                                             }}>
-                                                {project.tags.slice(0, 3).map(tag => (
+                                                {project.tags.slice(0, 2).map(tag => (
                                                     <span key={tag} style={{
                                                         fontSize: 9.5,
                                                         padding: "2px 7px",
