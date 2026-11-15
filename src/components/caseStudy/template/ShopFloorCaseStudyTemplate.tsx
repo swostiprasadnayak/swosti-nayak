@@ -315,7 +315,7 @@ export default function ShopFloorCaseStudyTemplate() {
                     />
 
                     {/* 11 · Next */}
-                    <NextProject label="Next case study" title="Insure-Tech: insurance plans from a document upload" />
+                    <NextProject from="repair-operations" />
                 </div>
             </div>
         </div>

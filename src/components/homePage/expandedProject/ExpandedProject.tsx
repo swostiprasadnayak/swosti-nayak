@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "motion/react";
 import TrafficLights from "@/components/card/trafficLights/trafficLights";
 import classes from "./expandedProject.module.css";
+import { CaseStudyNavContext } from "./caseStudyNav";
 
 // Case studies are large (the Insure-Tech one embeds a full prototype), so each
 // is split into its own chunk instead of shipping with the homepage. Keys are
@@ -32,9 +33,16 @@ function prefetchCaseStudies() {
 interface ExpandedProjectProps {
     projectName: string | null;
     onClose: () => void;
+    /** Switch the window to another project (a case study's "Next project"). */
+    onOpenProject?: (name: string) => void;
     layoutId: string;
 }
-export default function ExpandedProject({ projectName, onClose, layoutId }: ExpandedProjectProps) {
+export default function ExpandedProject({ projectName, onClose, onOpenProject, layoutId }: ExpandedProjectProps) {
+    const nav = React.useMemo(
+        () => ({ openProject: onOpenProject ?? (() => {}), close: onClose }),
+        [onOpenProject, onClose],
+    );
+
     useEffect(() => {
         const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 2000));
         const cic = window.cancelIdleCallback ?? window.clearTimeout;
@@ -80,18 +88,26 @@ export default function ExpandedProject({ projectName, onClose, layoutId }: Expa
                             <span className={classes.windowTitle}>{projectName}</span>
                             <div className={classes.trafficLightsPlaceholder} />
                         </div>
-                        <div
+                        {/* Keyed by project: switching to the next one starts it
+                            at the top, with a short fade. */}
+                        <motion.div
+                            key={projectName}
                             className={classes.content}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.25 }}
                             style={key === 'insure-tech'
                                 ? { overflow: 'hidden', position: 'relative' }
                                 : undefined}
                         >
+                            <CaseStudyNavContext.Provider value={nav}>
                             {CaseStudy ? <CaseStudy /> : (
                                 <div style={{ padding: "60px", textAlign: "center", color: "rgba(0,0,0,0.5)" }}>
                                     Case study for {projectName} is currently under construction.
                                 </div>
                             )}
-                        </div>
+                            </CaseStudyNavContext.Provider>
+                        </motion.div>
                     </motion.div>
                 </div>
             )}

@@ -345,7 +345,7 @@ export default function GroundswellCaseStudyTemplate() {
                     />
 
                     {/* 11 · Next */}
-                    <NextProject label="Next case study" title="Insure-Tech: insurance plans from a document upload" />
+                    <NextProject from="demand-sensing" />
                 </div>
             </div>
         </div>

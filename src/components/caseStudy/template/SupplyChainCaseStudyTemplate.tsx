@@ -602,7 +602,7 @@ export default function SupplyChainCaseStudyTemplate() {
                     />
 
                     {/* 12 · Next */}
-                    <NextProject label="Next case study" title="Demand Sensing: a surge at one store, caught before the contractor calls" />
+                    <NextProject from="supply-chain-intelligence" />
                 </div>
             </div>
         </div>

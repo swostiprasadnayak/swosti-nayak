@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
 import ScreenFrame, { type ScreenFrameProps } from "./ScreenFrame";
 import classes from "./navanta.module.css";
 
@@ -266,14 +265,4 @@ export function Outcomes({ heading, intro, items }: { heading: string; intro: st
     );
 }
 
-export function NextProject({ label, title }: { label: string; title: string }) {
-    return (
-        <div className={classes.next}>
-            <div>
-                <Eyebrow>{label}</Eyebrow>
-                <p className={classes.nextTitle}>{title}</p>
-            </div>
-            <ArrowRight size={28} aria-hidden="true" color="var(--text-secondary)" />
-        </div>
-    );
-}
+export { default as NextProject } from "./NextProject";

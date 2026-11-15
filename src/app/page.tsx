@@ -228,6 +228,7 @@ function HomeContent() {
         <ExpandedProject
           projectName={expandedProject}
           onClose={() => setExpandedProject(null)}
+          onOpenProject={setExpandedProject}
           layoutId={expandedProject ? getProjectLayoutId(expandedProject.toLowerCase()) : ""}
         />
 
