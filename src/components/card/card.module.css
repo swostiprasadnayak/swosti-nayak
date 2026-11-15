@@ -44,14 +44,17 @@
     flex-shrink: 0;
 }
 
+/* Window chrome, like a macOS title: small, medium weight, grey. It names
+   the window; the heading in the description panel is the primary text. */
 .windowTitle {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: rgba(var(--text-primary-rgb), 0.75);
-    letter-spacing: 0.01em;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(var(--text-primary-rgb), 0.62);
+    letter-spacing: 0;
+    white-space: nowrap;
 }
 
 .trafficLightsPlaceholder {
