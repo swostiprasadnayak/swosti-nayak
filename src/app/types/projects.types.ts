@@ -34,6 +34,9 @@ export type ProjectContent = {
      *  if it should open on load). Unlike `disabled`, which shows a greyed-out
      *  dock icon. */
     hidden?: boolean;
+    /** Never suggested in a case study's "Up next" cards (still on the
+     *  desktop, the dock and the filters). */
+    notInUpNext?: boolean;
 };
 
 const ALL_PROJECTS: ProjectContent[] = [
@@ -82,7 +85,8 @@ const ALL_PROJECTS: ProjectContent[] = [
         slug: "insure-tech",
         description: "AI-powered insurance product configuration: from document upload to stakeholder-ready plans in minutes.",
         tags: ["AI", "Enterprise", "B2B"],
-        demoPoster: "/images/insure-tech-poster.webp"
+        demoPoster: "/images/insure-tech-poster.webp",
+        notInUpNext: true,
     },
     {
         name: "Blinkit",
@@ -99,7 +103,8 @@ const ALL_PROJECTS: ProjectContent[] = [
         description: "B2B Healthcare Web Redesign. Discovery → Design System → Dev Handoff.",
         tags: ["B2B", "Healthcare", "Web"],
         video: "/videos/gc-dental.mp4",
-        demoPoster: "/images/gc-banner.webp"
+        demoPoster: "/images/gc-banner.webp",
+        notInUpNext: true,
     }
 ];
 

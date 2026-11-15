@@ -81,9 +81,13 @@ function NextCard({ project, onOpen }: { project: ProjectContent; onOpen: () => 
 export default function NextProject({ from }: { /** The current project's slug. */ from: string }) {
     const { openProject, close } = useCaseStudyNav();
 
-    const list = PROJECTS.filter((p) => !p.disabled);
+    // Projects flagged notInUpNext are never suggested; the rest follow the
+    // project list, wrapping round, never repeating the current one.
+    const list = PROJECTS.filter((p) => !p.disabled && !p.notInUpNext);
     const at = list.findIndex((p) => p.slug === from);
-    const upcoming = Array.from({ length: Math.min(UPCOMING, list.length - 1) }, (_, i) => list[(at + 1 + i) % list.length]);
+    const upcoming = Array.from({ length: list.length }, (_, i) => list[(at + 1 + i) % list.length])
+        .filter((p) => p.slug !== from)
+        .slice(0, UPCOMING);
 
     return (
         <section className={classes.upNext} aria-label="Up next">
