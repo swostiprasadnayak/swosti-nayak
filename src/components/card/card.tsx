@@ -142,7 +142,7 @@ const Card: React.FC<CardProps> = ({
                                         onExpand={isDisabled ? undefined : expandProject}
                                         visible={isHovered && !isDisabled}
                                     />
-                                    <span className={classes.windowTitle}>{projectName}</span>
+                                    <span className={`${classes.windowTitle} ${isActive ? "" : classes.windowTitleInactive}`}>{projectName}</span>
                                     <div className={classes.trafficLightsPlaceholder} />
                                 </div>
 
