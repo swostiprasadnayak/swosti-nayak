@@ -1,6 +1,10 @@
 export type ProjectContent = {
     name: string;
     slug: string;
+    /** Two sentences, "Lead. Detail.": desktop cards show the lead (up to the
+     *  first full stop or colon) as the headline line and the detail beneath
+     *  it; phone cards show the whole string under the name. Keep any full
+     *  stop or colon out of the lead. */
     description: string;
     tags?: string[];
     video?: string;
@@ -33,7 +37,7 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Supply Chain Intelligence",
         slug: "supply-chain-intelligence",
-        description: "One supply chain, five seats, five AI agents: a vendor delay handled at every desk before the promise date passes.",
+        description: "A supplier delay, seen by every team it touches. Five roles, five AI agents, one shared record, and a person on every big call.",
         tags: ["AI", "Enterprise", "B2B"],
         demoPoster: "/images/navanta/supply-chain-demo/executive-dashboard.png",
         cardMockup: {
@@ -46,7 +50,7 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Demand Sensing",
         slug: "demand-sensing",
-        description: "A demand surge at one store, caught before the contractor calls: from the trend to the PO, then covered from the branch network on a map.",
+        description: "A sales spike at one store, caught and covered. AI spots the trend, people approve the buy, a map finds spare stock nearby.",
         tags: ["AI", "Enterprise", "B2B"],
         demoPoster: "/images/navanta/groundswell/dallas-request.jpg",
         cardMockup: {
@@ -60,7 +64,7 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Repair Operations",
         slug: "repair-operations",
-        description: "A live 3D shop floor for a trailer repair branch: one truck from gate to invoice, with an AI agent at every desk.",
+        description: "Every truck in a trailer repair shop, live in 3D. One AI agent drafts the next step for three desks, from gate to invoice.",
         tags: ["AI", "Enterprise", "3D"],
         demoPoster: "/images/navanta/shop-floor/shop-floor.png",
         cardMockup: {
