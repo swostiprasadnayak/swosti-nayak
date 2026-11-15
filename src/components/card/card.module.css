@@ -19,7 +19,20 @@
         0 64px 120px rgba(0, 0, 0, 0.12);
 }
 
+/* The card's type scale, defined once and read by the title bar and the
+   description panel (custom properties inherit). Three levels, and each
+   step down changes at least two of size, weight and colour:
+     Heading    the project name, in the title bar   16px · 600 · primary
+     Heading 2  what it achieves                     14px · 500 · primary
+     Subtext    what I did                           13px · 400 · 62% */
 .card {
+    --card-h1-size: 1rem;
+    --card-h1-weight: 600;
+    --card-h2-size: 0.875rem;
+    --card-h2-weight: 500;
+    --card-sub-size: 0.8125rem;
+    --card-sub-weight: 400;
+    --card-sub-color: rgba(var(--text-primary-rgb), 0.62);
     margin: 0;
     padding: 0;
     display: flex;
@@ -44,16 +57,16 @@
     flex-shrink: 0;
 }
 
-/* Window chrome, like a macOS title: small, medium weight, grey. It names
-   the window; the heading in the description panel is the primary text. */
+/* Heading: the project name. */
 .windowTitle {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: rgba(var(--text-primary-rgb), 0.62);
-    letter-spacing: 0;
+    font-size: var(--card-h1-size);
+    font-weight: var(--card-h1-weight);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
     white-space: nowrap;
 }
 

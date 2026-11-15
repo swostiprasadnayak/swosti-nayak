@@ -3,6 +3,7 @@
 import React from "react";
 import { Squircle } from "corner-smoothing";
 import classes from "./cardDescription.module.css";
+import { splitDescription } from "./splitDescription";
 
 interface CardDescriptionProps {
     title: string;
@@ -12,15 +13,8 @@ interface CardDescriptionProps {
     compact?: boolean;
 }
 
-/** The name is already in the window's title bar, so the description carries
- *  its own hierarchy: "Lead: detail" becomes the lead line (what it is) with
- *  the detail quieter beneath it. Splits at the first colon, or at the first
- *  full stop when there's no colon. */
-function splitDescription(text: string): { lead: string; detail: string | null } {
-    const m = text.match(/^(.+?)(?::|\.)\s+(.+)$/);
-    if (!m) return { lead: text, detail: null };
-    return { lead: m[1], detail: m[2].charAt(0).toUpperCase() + m[2].slice(1) };
-}
+/* The project name (Heading) is in the window's title bar; this panel holds
+   Heading 2 (the lead) and Subtext (the detail), then the pills. */
 
 const CardDescription: React.FC<CardDescriptionProps> = ({
     description,

@@ -22,9 +22,8 @@
     background: rgba(28, 28, 30, 0.94);
 }
 
-/* Two levels in one description: the lead says what it is, the detail
-   supports it. Size and weight carry the step, since --text-secondary is
-   close to --text-primary in both themes. Never cut. */
+/* Heading 2 (the lead) and Subtext (the detail), from the card's type
+   scale in card.module.css. Never cut. */
 .descText {
     margin: 0;
     white-space: normal;
@@ -35,10 +34,10 @@
 .lead {
     display: block;
     text-wrap: balance;
-    font-size: 0.92rem;
-    font-weight: 600;
+    font-size: var(--card-h2-size, 0.875rem);
+    font-weight: var(--card-h2-weight, 500);
     line-height: 1.35;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
     color: var(--text-primary);
 }
 
@@ -46,9 +45,14 @@
     display: block;
     text-wrap: pretty; /* no single word stranded on the last line */
     margin-top: 3px;
-    font-size: 0.82rem;
-    font-weight: 400;
+    font-size: var(--card-sub-size, 0.8125rem);
+    font-weight: var(--card-sub-weight, 400);
     line-height: 1.45;
+    color: var(--card-sub-color, var(--text-secondary));
+}
+
+/* Increase contrast: the subtext goes back to the stronger token. */
+:global(html[data-a11y-more-contrast]) .detail {
     color: var(--text-secondary);
 }
 

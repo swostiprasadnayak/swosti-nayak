@@ -8,6 +8,7 @@ import type { WindowModeAPI } from "@/app/hooks/useWindowMode";
 import classes from "./cardStackContainer.module.css";
 import Card from "../../card/card";
 import DeviceMockup from "../../card/deviceMockup";
+import { splitDescription } from "../../card/splitDescription";
 import { PROJECTS } from "@/app/types/projects.types";
 import { useIsClient } from "@/app/hooks/useIsClient";
 import { useMobileCardStack } from "./useMobileCardStack";
@@ -481,23 +482,37 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                         gap: 4,
                                         overflow: "hidden",
                                     }}>
+                                        {/* Same three levels as the desktop card:
+                                            Heading (name) 15 · 600, Heading 2
+                                            (lead) 13 · 500, Subtext (detail)
+                                            12 · 400 at 62%. */}
                                         <h3 style={{
                                             fontSize: 15,
-                                            fontWeight: 700,
-                                            color: "#111",
+                                            fontWeight: 600,
+                                            color: "#111827",
                                             margin: 0,
                                             letterSpacing: "-0.01em",
                                         }}>
                                             {project.name}
                                         </h3>
-                                        <p style={{
-                                            fontSize: 12,
-                                            lineHeight: 1.4,
-                                            color: "#555",
-                                            margin: 0,
-                                        }}>
-                                            {project.description}
-                                        </p>
+                                        {(() => {
+                                            const { lead, detail } = splitDescription(project.description);
+                                            return (
+                                                <p style={{ margin: 0 }}>
+                                                    <span style={{ display: "block", fontSize: 13, fontWeight: 500, lineHeight: 1.35, color: "#111827", textWrap: "balance" }}>
+                                                        {lead}
+                                                    </span>
+                                                    {detail && (
+                                                        <>
+                                                            <span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clipPath: "inset(50%)", whiteSpace: "nowrap" }}>. </span>
+                                                            <span style={{ display: "block", marginTop: 2, fontSize: 12, fontWeight: 400, lineHeight: 1.4, color: "rgba(17, 24, 39, 0.62)" }}>
+                                                                {detail}
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </p>
+                                            );
+                                        })()}
                                         {project.tags && project.tags.length > 0 && (
                                             <div style={{
                                                 display: "flex",
