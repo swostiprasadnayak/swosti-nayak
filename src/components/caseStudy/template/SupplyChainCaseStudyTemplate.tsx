@@ -27,7 +27,7 @@ import RelayLanes from "../navanta/RelayLanes";
 import SeatSwitcher from "../navanta/SeatSwitcher";
 import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 
-/* Supply Chain Intelligence: the multi-seat AI demo, co-designed at Navanta.
+/* Supply Chain Intelligence: the multi-seat AI demo, designed and built at Navanta.
    Screens are captures of the demo in a retail pack, plus two from a
    packaging pack to show the same demo dressed for another company. Client
    names and logos are masked (the product's own mark stands in), and
@@ -56,7 +56,7 @@ export default function SupplyChainCaseStudyTemplate() {
                         />
                         <RoleStrip
                             items={[
-                                { label: "Role", value: "Co-designer and builder" },
+                                { label: "Role", value: "Designer and builder" },
                                 { label: "When", value: "Sep – Nov 2026" },
                                 { label: "Company", value: "Navanta" },
                                 { label: "Scope", value: "5 seats · 5 agents · 12 industry packs" },
@@ -145,7 +145,7 @@ export default function SupplyChainCaseStudyTemplate() {
                     <Split heading="My role">
                         <Paragraphs
                             items={[
-                                "Co-designed the demo with Navanta's product team (the seats, the signals, the relay) and built it in code.",
+                                "Designed the demo (the seats, the signals, the relay) and built it in code.",
                                 "Built or extended five industry packs, wrote the AI skills that stand up a new one, and ran a heuristic review of every action center.",
                             ]}
                         />

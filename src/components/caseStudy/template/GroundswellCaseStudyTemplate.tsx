@@ -54,7 +54,7 @@ export default function GroundswellCaseStudyTemplate() {
                         />
                         <RoleStrip
                             items={[
-                                { label: "Role", value: "Co-designer and builder" },
+                                { label: "Role", value: "Designer and builder" },
                                 { label: "When", value: "Nov 2026" },
                                 { label: "Company", value: "Navanta" },
                                 { label: "Scope", value: "4 seats · 4 agents · 1 map" },
@@ -125,7 +125,7 @@ export default function GroundswellCaseStudyTemplate() {
                     <Split heading="My role">
                         <Paragraphs
                             items={[
-                                "Co-designed the planning, buying and branch seats with Navanta's product team, including the inventory map, and built them in code on the Navanta Supply Chain platform.",
+                                "Designed the planning, buying and branch seats, including the inventory map, and built them in code on the Navanta Supply Chain platform.",
                                 "Scripted the demo and made its product film.",
                             ]}
                         />
