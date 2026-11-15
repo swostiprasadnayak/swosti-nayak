@@ -467,7 +467,7 @@
 }
 
 /* Up next (NextProject.tsx): a heading row, then the next two projects as
-   small desktop cards on the visitor's wallpaper. The cards use the
+   small desktop cards on a painted sky. The cards use the
    homepage card's own styles (card.module.css), minus the title bar. */
 .upNext {
     display: flex;
@@ -510,17 +510,21 @@
     border-radius: 4px;
 }
 
-/* A small desktop: the wallpaper, rounded like the reels and frames. */
+/* The painted sky, rounded like the reels and frames. The painting is
+   scaled up a touch so its worn board edges stay out of the frame; the
+   fallback colour is its own grey-peach while it loads. */
 .upNextStage {
     position: relative;
     overflow: hidden;
     border-radius: 18px;
-    background: #9bb3d1;
+    background: #cfc7c0;
     padding: 48px 40px;
 }
 
-.upNextWallpaper {
+.upNextBackdrop {
     object-fit: cover;
+    object-position: center 40%;
+    transform: scale(1.06);
 }
 
 .upNextCards {

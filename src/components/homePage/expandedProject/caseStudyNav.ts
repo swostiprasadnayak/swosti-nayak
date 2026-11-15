@@ -8,9 +8,6 @@ export type CaseStudyNav = {
     openProject: (name: string) => void;
     /** Close the case study and go back to the desktop. */
     close: () => void;
-    /** The desktop's current wallpaper, so a case study can show the
-     *  visitor's own desktop behind its "Up next" cards. */
-    wallpaper?: string;
 };
 
 const noop = () => {};

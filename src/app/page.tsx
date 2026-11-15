@@ -229,7 +229,6 @@ function HomeContent() {
           projectName={expandedProject}
           onClose={() => setExpandedProject(null)}
           onOpenProject={setExpandedProject}
-          wallpaper={bgImage}
           layoutId={expandedProject ? getProjectLayoutId(expandedProject.toLowerCase()) : ""}
         />
 

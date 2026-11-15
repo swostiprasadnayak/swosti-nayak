@@ -10,13 +10,15 @@ import { useCaseStudyNav } from "@/components/homePage/expandedProject/caseStudy
 import classes from "./navanta.module.css";
 
 /* The end of a case study: the next two projects as small desktop cards on
-   the visitor's own wallpaper, a little desktop to step back into. Each card
+   a painted sunset sky (an oil sketch of clouds), soft enough that the cards
+   lead. Each card
    is the homepage card without its title bar or subtext: the devices, the
    project's name, and its two key pills. A card opens its case study in this
    window; "View all work" closes to the desktop. Order follows the project
    list, wrapping round, so it always matches the dock. */
 
 const UPCOMING = 2;
+const BACKDROP = "/images/backdrops/sunset-sky-study.jpg";
 
 function useHeight(ref: React.RefObject<HTMLElement | null>) {
     const [height, setHeight] = useState(0);
@@ -77,7 +79,7 @@ function NextCard({ project, onOpen }: { project: ProjectContent; onOpen: () => 
 }
 
 export default function NextProject({ from }: { /** The current project's slug. */ from: string }) {
-    const { openProject, close, wallpaper } = useCaseStudyNav();
+    const { openProject, close } = useCaseStudyNav();
 
     const list = PROJECTS.filter((p) => !p.disabled);
     const at = list.findIndex((p) => p.slug === from);
@@ -92,9 +94,7 @@ export default function NextProject({ from }: { /** The current project's slug. 
                 </button>
             </div>
             <div className={classes.upNextStage}>
-                {wallpaper && (
-                    <Image src={wallpaper} alt="" fill sizes="(max-width: 768px) 100vw, 900px" className={classes.upNextWallpaper} />
-                )}
+                <Image src={BACKDROP} alt="" fill sizes="(max-width: 768px) 100vw, 900px" className={classes.upNextBackdrop} />
                 <div className={classes.upNextCards}>
                     {upcoming.map((p) => (
                         <NextCard key={p.slug} project={p} onOpen={() => openProject(p.name)} />

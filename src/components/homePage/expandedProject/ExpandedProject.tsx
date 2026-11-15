@@ -35,14 +35,12 @@ interface ExpandedProjectProps {
     onClose: () => void;
     /** Switch the window to another project (a case study's "Next project"). */
     onOpenProject?: (name: string) => void;
-    /** The desktop's current wallpaper (for "Up next"). */
-    wallpaper?: string;
     layoutId: string;
 }
-export default function ExpandedProject({ projectName, onClose, onOpenProject, wallpaper, layoutId }: ExpandedProjectProps) {
+export default function ExpandedProject({ projectName, onClose, onOpenProject, layoutId }: ExpandedProjectProps) {
     const nav = React.useMemo(
-        () => ({ openProject: onOpenProject ?? (() => {}), close: onClose, wallpaper }),
-        [onOpenProject, onClose, wallpaper],
+        () => ({ openProject: onOpenProject ?? (() => {}), close: onClose }),
+        [onOpenProject, onClose],
     );
 
     useEffect(() => {
