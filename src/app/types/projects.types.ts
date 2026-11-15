@@ -37,7 +37,7 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Supply Chain Intelligence",
         slug: "supply-chain-intelligence",
-        description: "A supplier delay, seen by every team it touches. Five roles, five AI agents, one shared record, and a person on every big call.",
+        description: "Linking five supply chain teams with AI agents. Co-designed and built a five-role AI demo in 12 industry versions.",
         tags: ["AI", "Enterprise", "B2B"],
         demoPoster: "/images/navanta/supply-chain-demo/executive-dashboard.png",
         cardMockup: {
@@ -50,7 +50,7 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Demand Sensing",
         slug: "demand-sensing",
-        description: "A sales spike at one store, caught and covered. AI spots the trend, people approve the buy, a map finds spare stock nearby.",
+        description: "Moving stock to where demand suddenly spikes. Co-designed and built the planning, buying and inventory-map flows.",
         tags: ["AI", "Enterprise", "B2B"],
         demoPoster: "/images/navanta/groundswell/dallas-request.jpg",
         cardMockup: {
@@ -64,7 +64,7 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Repair Operations",
         slug: "repair-operations",
-        description: "Every truck in a trailer repair shop, live in 3D. One AI agent drafts the next step for three desks, from gate to invoice.",
+        description: "Putting a trailer repair shop on one live 3D screen. Designed and built the prototype, from the 3D model to the work queues.",
         tags: ["AI", "Enterprise", "3D"],
         demoPoster: "/images/navanta/shop-floor/shop-floor.png",
         cardMockup: {
