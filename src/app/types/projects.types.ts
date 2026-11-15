@@ -7,7 +7,8 @@ export type ProjectContent = {
      *  stop or colon out of the lead. */
     description: string;
     /** Up to three skill pills: what I did on it, in words a hiring manager
-     *  scans for (not the category, which the heading already gives). */
+     *  scans for (not the category, which the heading already gives). Most
+     *  important first: grid view shows only the first two. */
     tags?: string[];
     video?: string;
     demo?: string;
@@ -40,7 +41,7 @@ const ALL_PROJECTS: ProjectContent[] = [
         name: "Supply Chain Intelligence",
         slug: "supply-chain-intelligence",
         description: "Linking five supply chain teams with AI agents. Designed how a VP tracks, trusts and questions every AI agent.",
-        tags: ["Multi-agent UX", "Conversational AI", "Human-in-the-loop"],
+        tags: ["Multi-agent UX", "Human-in-the-loop", "Conversational AI"],
         demoPoster: "/images/navanta/supply-chain-demo/executive-dashboard.png",
         cardMockup: {
             layout: "desk",
@@ -67,7 +68,7 @@ const ALL_PROJECTS: ProjectContent[] = [
         name: "Repair Operations",
         slug: "repair-operations",
         description: "Putting a trailer repair shop on one live 3D screen. Modelled the shop in 3D, then designed and built the portal around it.",
-        tags: ["3D modelling", "Ops dashboard", "AI-assisted workflows"],
+        tags: ["3D modelling", "AI-assisted workflows", "Ops dashboard"],
         demoPoster: "/images/navanta/shop-floor/shop-floor.png",
         cardMockup: {
             layout: "wall",

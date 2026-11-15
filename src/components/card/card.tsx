@@ -64,6 +64,7 @@ const Card: React.FC<CardProps> = ({
     onCloseWindow,
     demoPoster,
     isActive = true,
+    compact = false,
 }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
@@ -202,6 +203,7 @@ const Card: React.FC<CardProps> = ({
                                             title={projectName}
                                             description={projectDescription}
                                             tags={projectTags}
+                                            compact={compact}
                                         />
                                     </div>
                                 </div>

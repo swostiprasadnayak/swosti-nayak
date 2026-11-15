@@ -8,6 +8,8 @@ interface CardDescriptionProps {
     title: string;
     description: string;
     tags?: string[];
+    /** Grid view: the lead line and the first two pills only. */
+    compact?: boolean;
 }
 
 /** The name is already in the window's title bar, so the description carries
@@ -23,8 +25,10 @@ function splitDescription(text: string): { lead: string; detail: string | null }
 const CardDescription: React.FC<CardDescriptionProps> = ({
     description,
     tags,
+    compact = false,
 }) => {
     const { lead, detail } = splitDescription(description);
+    const shownTags = compact ? tags?.slice(0, 2) : tags;
     return (
         <div className={classes.wrapper} data-component="CardDescription">
             <Squircle
@@ -37,7 +41,7 @@ const CardDescription: React.FC<CardDescriptionProps> = ({
             >
                 <p className={classes.descText}>
                     <span className={classes.lead}>{lead}</span>
-                    {detail && (
+                    {detail && !compact && (
                         <>
                             {/* Keeps the sentence whole for screen readers. */}
                             <span className={classes.srOnly}>. </span>
@@ -45,9 +49,9 @@ const CardDescription: React.FC<CardDescriptionProps> = ({
                         </>
                     )}
                 </p>
-                {tags && tags.length > 0 && (
+                {shownTags && shownTags.length > 0 && (
                     <div className={classes.tagsContainer}>
-                        {tags.map((tag) => (
+                        {shownTags.map((tag) => (
                             <span key={tag} className={classes.tag}>
                                 {tag}
                             </span>

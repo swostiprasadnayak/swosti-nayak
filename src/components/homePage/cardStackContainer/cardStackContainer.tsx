@@ -280,6 +280,7 @@ const CardStackContainer: React.FC<CardStackContainerProps> = ({
                                 isProjectExpanded={!!expandedProject}
                                 onCloseWindow={() => windowModeState.closeWindow(slug)}
                                 isActive={slug === activeSlug}
+                                compact={viewMode === "card"}
                                 layoutId={
                                     getProjectLayoutId
                                         ? getProjectLayoutId(project.name.toLowerCase())

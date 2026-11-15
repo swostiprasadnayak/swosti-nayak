@@ -13,6 +13,8 @@ export type CardProps = {
     onCloseWindow?: () => void;
     demoPoster?: string;
     isActive?: boolean;
+    /** Grid view: the lead line and the first two pills only. */
+    compact?: boolean;
 };
 
 export const CARD_STYLES = {
