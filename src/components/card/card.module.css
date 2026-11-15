@@ -22,16 +22,16 @@
 /* The card's type scale, defined once and read by the title bar and the
    description panel (custom properties inherit). Three levels, and each
    step down changes at least two of size, weight and colour:
-     Heading    the project name, in the title bar   15px · 560 · 85%
+     Heading    the project name, in the title bar   15px · 500 · 72%
      Heading 2  what it achieves                     14px · 500 · primary
      Subtext    what I did                           13px · 400 · 62%
-   The name sits in the chrome like a macOS window title: softened, and
-   dimmed further on windows behind the front one, so a stack of cards
-   shows one strong title instead of three. */
+   The name leads by size and by sitting at the top, not by weight: in the
+   chrome it stays calm, the same on every card, so it names the window
+   without pulling focus from the work. */
 .card {
     --card-h1-size: 0.9375rem;
-    --card-h1-weight: 560;
-    --card-h1-color: rgba(var(--text-primary-rgb), 0.85);
+    --card-h1-weight: 500;
+    --card-h1-color: rgba(var(--text-primary-rgb), 0.72);
     --card-h2-size: 0.875rem;
     --card-h2-weight: 500;
     --card-sub-size: 0.8125rem;
@@ -72,12 +72,6 @@
     letter-spacing: -0.01em;
     color: var(--card-h1-color);
     white-space: nowrap;
-    transition: color 0.2s ease;
-}
-
-/* Windows behind the front one, as macOS dims inactive window titles. */
-.windowTitleInactive {
-    color: rgba(var(--text-primary-rgb), 0.45);
 }
 
 .trafficLightsPlaceholder {
