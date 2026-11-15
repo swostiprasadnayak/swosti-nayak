@@ -466,14 +466,23 @@
     margin: 0 0 6px;
 }
 
-/* Up next (NextProject.tsx): a ruled split like the other sections, the
-   next project on the right as its homepage desktop window (card.module.css
-   supplies the window, title bar and description panel). */
-.nextIntro {
+/* Up next (NextProject.tsx): a heading row, then the next two projects as
+   small desktop cards on the visitor's wallpaper. The cards use the
+   homepage card's own styles (card.module.css), minus the title bar. */
+.upNext {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.upNextHead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 24px;
 }
 
 .nextAll {
@@ -501,50 +510,47 @@
     border-radius: 4px;
 }
 
-/* Same size and shadow as a desktop window, lifting a little on hover. */
+/* A small desktop: the wallpaper, rounded like the reels and frames. */
+.upNextStage {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #9bb3d1;
+    padding: 48px 40px;
+}
+
+.upNextWallpaper {
+    object-fit: cover;
+}
+
+.upNextCards {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* A card: the desktop card's frame and shadow, without the title bar. */
 .nextWindow {
     position: relative;
-    height: 29.32rem;
+    height: 21rem;
     border-radius: 16px;
     box-shadow:
         0 2px 4px rgba(0, 0, 0, 0.05),
-        0 12px 24px rgba(0, 0, 0, 0.08),
-        0 32px 64px rgba(0, 0, 0, 0.08);
+        0 12px 24px rgba(0, 0, 0, 0.1),
+        0 32px 64px rgba(0, 0, 0, 0.14);
     transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .nextWindow:hover,
 .nextWindow:focus-within {
-    transform: translateY(-4px) scale(1.01);
+    transform: scale(1.03);
 }
 
-/* The traffic lights, drawn (the real ones are buttons): dimmed at rest,
-   full colour on hover, as on the desktop. */
-.nextLights {
-    display: flex;
-    gap: 8px;
-    opacity: 0.5;
-    transition: opacity 0.2s ease;
-}
-
-.nextLights i {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #fe5f57;
-}
-
-.nextLights i:nth-child(2) {
-    background: #d1d1d1;
-}
-
-.nextLights i:nth-child(3) {
-    background: #28c840;
-}
-
-.nextWindow:hover .nextLights,
-.nextWindow:focus-within .nextLights {
-    opacity: 1;
+/* The name sits where the heading line goes, at the name's own level. */
+.nextWindow .nextShell {
+    --card-h2-size: var(--card-h1-size);
+    --card-h2-weight: 600;
 }
 
 .nextHit {
@@ -559,7 +565,7 @@
 }
 
 .nextHit:focus-visible {
-    outline: 2px solid var(--accent-color, #0a7cff);
+    outline: 2px solid #ffffff;
     outline-offset: 3px;
 }
 
@@ -1689,8 +1695,17 @@
         padding: 12px 12px 14px;
     }
 
+    .upNextStage {
+        padding: 20px 16px;
+    }
+
+    .upNextCards {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
     .nextWindow {
-        height: 26rem;
+        height: 19rem;
     }
 
     .reelCaption {
@@ -1745,8 +1760,7 @@
     .liveLaunch svg,
     .relayLine,
     .relayLineDone,
-    .nextWindow,
-    .nextLights {
+    .nextWindow {
         transition: none;
     }
 }
