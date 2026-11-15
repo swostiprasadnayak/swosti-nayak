@@ -6,6 +6,8 @@ export type ProjectContent = {
      *  it; phone cards show the whole string under the name. Keep any full
      *  stop or colon out of the lead. */
     description: string;
+    /** Up to three skill pills: what I did on it, in words a hiring manager
+     *  scans for (not the category, which the heading already gives). */
     tags?: string[];
     video?: string;
     demo?: string;
@@ -37,8 +39,8 @@ const ALL_PROJECTS: ProjectContent[] = [
     {
         name: "Supply Chain Intelligence",
         slug: "supply-chain-intelligence",
-        description: "Linking five supply chain teams with AI agents. Designed and built the exec's AI orchestration and chat experience.",
-        tags: ["AI", "Enterprise", "B2B"],
+        description: "Linking five supply chain teams with AI agents. Designed how a VP tracks, trusts and questions every AI agent.",
+        tags: ["Multi-agent UX", "Conversational AI", "Human-in-the-loop"],
         demoPoster: "/images/navanta/supply-chain-demo/executive-dashboard.png",
         cardMockup: {
             layout: "desk",
@@ -51,7 +53,7 @@ const ALL_PROJECTS: ProjectContent[] = [
         name: "Demand Sensing",
         slug: "demand-sensing",
         description: "Moving stock to where demand suddenly spikes. Designed and built the flow from a sales trend to a stock transfer.",
-        tags: ["AI", "Enterprise", "B2B"],
+        tags: ["AI forecasting", "Map data viz", "Product film"],
         demoPoster: "/images/navanta/groundswell/dallas-request.jpg",
         cardMockup: {
             layout: "laptop-phone",
@@ -65,7 +67,7 @@ const ALL_PROJECTS: ProjectContent[] = [
         name: "Repair Operations",
         slug: "repair-operations",
         description: "Putting a trailer repair shop on one live 3D screen. Modelled the shop in 3D, then designed and built the portal around it.",
-        tags: ["AI", "Enterprise", "3D"],
+        tags: ["3D modelling", "Ops dashboard", "AI-assisted workflows"],
         demoPoster: "/images/navanta/shop-floor/shop-floor.png",
         cardMockup: {
             layout: "wall",
