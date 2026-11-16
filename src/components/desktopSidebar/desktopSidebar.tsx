@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import classes from "./desktopSidebar.module.css";
 import { useAboutModal } from "@/app/contexts/AboutModalContext";
 import { useFeedbackModal } from "@/app/contexts/FeedbackModalContext";
@@ -15,6 +15,9 @@ type DesktopSidebarProps = {
 };
 
 const mainNavigationItems = ["Work", "About", "Post", "Resume"];
+/** Contact copies this to the clipboard (desktop has no dialler). */
+const PHONE_NUMBER = "7978659329";
+const COPIED_MS = 2000;
 const socialItems = ["LinkedIn", "Instagram", "Contact", "Feedback"];
 
 const getNavigationProps = (section: string) => {
@@ -22,7 +25,6 @@ const getNavigationProps = (section: string) => {
         case "LinkedIn": return { href: "https://www.linkedin.com/in/swosti-nayak-49b2ba131", target: "_blank" };
         case "Twitter": return { href: "https://twitter.com", target: "_blank" };
         case "Instagram": return { href: "https://www.instagram.com/swosti_2001/", target: "_blank" };
-        case "Contact": return { href: "tel:7978659329", target: "_self" };
         case "Work": return { href: "/", target: "_self" };
         case "Post": return { href: "#", target: "_self" };
         case "Resume": return { href: "https://drive.google.com/file/d/14YY_rBCgFy0uUpNo_cUCu-8gag671-Mv/view?usp=sharing", target: "_blank" };
@@ -151,6 +153,10 @@ const NavItem: React.FC<{
     const className = `${classes.navItem} ${isActive ? classes.navItemActive : ""} ${isFeedback ? classes.navItemFeedback : ""}`;
     const isExternal = navProps.target === "_blank";
 
+    if (section === "Contact") {
+        return <ContactItem className={className} />;
+    }
+
     const content = (
         <>
             <SectionIcon section={section} />
@@ -195,6 +201,57 @@ const NavItem: React.FC<{
         >
             {content}
         </Link>
+    );
+};
+
+/** Puts text on the clipboard and says whether it worked; falls back to a
+ *  hidden textarea where the Clipboard API is missing or blocked. */
+async function copyText(text: string): Promise<boolean> {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        const ok = document.execCommand("copy");
+        area.remove();
+        return ok;
+    }
+}
+
+/* Contact copies the phone number, then says so for a moment: the phone
+   glyph turns into a tick and the label into "Copied". If the browser
+   won't copy, the label shows the number instead, so it can still be read. */
+const ContactItem: React.FC<{ className: string }> = ({ className }) => {
+    const [result, setResult] = useState<"copied" | "failed" | null>(null);
+    const timer = useRef<number | undefined>(undefined);
+
+    const copy = async () => {
+        const ok = await copyText(PHONE_NUMBER);
+        setResult(ok ? "copied" : "failed");
+        window.clearTimeout(timer.current);
+        timer.current = window.setTimeout(() => setResult(null), ok ? COPIED_MS : COPIED_MS * 3);
+    };
+
+    return (
+        <button type="button" className={className} onClick={copy} title={`Copy ${PHONE_NUMBER}`}>
+            {result === "copied" ? (
+                <Check size={16} strokeWidth={2} aria-hidden="true" className={classes.navIcon} />
+            ) : (
+                <SectionIcon section="Contact" />
+            )}
+            <span style={{ flex: 1 }}>
+                {result === "copied" ? "Copied" : result === "failed" ? PHONE_NUMBER : "Contact"}
+            </span>
+            <span className={classes.srOnly} role="status">
+                {result === "copied" ? "Phone number copied" : result === "failed" ? `Phone number ${PHONE_NUMBER}` : ""}
+            </span>
+        </button>
     );
 };
 
