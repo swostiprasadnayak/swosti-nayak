@@ -19,6 +19,7 @@ import {
     StateLegend,
 } from "../navanta/blocks";
 import ScreenFrame from "../navanta/ScreenFrame";
+import CompareSlider from "../navanta/CompareSlider";
 import FilmPlayer from "../navanta/FilmPlayer";
 import LivePrototype from "../navanta/LivePrototype";
 import LifecycleTracker from "../navanta/LifecycleTracker";
@@ -111,6 +112,44 @@ export default function ShopFloorCaseStudyTemplate() {
                             ]}
                         />
                     </Split>
+
+                    {/* 03b · First look: the first drafts against the shop floor today */}
+                    <QuestionSection
+                        eyebrow="First look"
+                        question="Where did it start?"
+                        why={[
+                            "The first look was a storyboard for a short video: one truck through one branch, trackers in the corners, and a placeholder where the 3D scene would go.",
+                            "It became a working prototype, and the film at the top is a recording of it. Drag across to compare the first drafts with the shop floor today.",
+                        ]}
+                        legend={
+                            <StateLegend
+                                items={[
+                                    { label: "The scene", note: "A placeholder image, then a plain grey sketch. Now the whole branch in 3D, from the gate to the exit road." },
+                                    { label: "The customer's view", note: "A pop-up and a value tag floating over the scene. Now one status card that follows Truck A." },
+                                    { label: "The fleet", note: "Placeholder names, Customer A to Customer L. Now the named fleets on every truck." },
+                                ]}
+                            />
+                        }
+                    >
+                        <CompareSlider
+                            label="First drafts compared with the shop floor today"
+                            aspect="2000 / 1161"
+                            pairs={[
+                                {
+                                    label: "Intake",
+                                    note: "Truck A checks in. The first draft floated the customer's update and the value over a grey sketch.",
+                                    before: { src: `${IMG}/first-look-intake.jpg`, alt: "First draft at intake: a plain grey 3D sketch with a floating customer pop-up and value tag" },
+                                    after: { src: `${IMG}/now-intake.jpg`, alt: "Now at intake: the full 3D branch with Truck A's status card" },
+                                },
+                                {
+                                    label: "Repair",
+                                    note: "Truck A in Bay 3. The first draft held a placeholder image where the scene would go (blurred here: it was a stock picture).",
+                                    before: { src: `${IMG}/first-look-repair.jpg`, alt: "First draft at repair: a placeholder where the 3D scene would go" },
+                                    after: { src: `${IMG}/now-repair.jpg`, alt: "Now at repair: Truck A in Bay 3 with the standard-time clock running" },
+                                },
+                            ]}
+                        />
+                    </QuestionSection>
 
                     <ScreenFrame
                         title="The shop floor at one branch"
