@@ -13,21 +13,20 @@ export type WindowModeAPI = {
 };
 
 // The order visitors see on load (back → front): the three Navanta case
-// studies, Supply Chain Intelligence in front of Repair Operations. Matches
-// the "Default" filter in CardStackContainer. resetLayout restores exactly
-// this.
-const DEFAULT_OPEN = ["demand-sensing", "repair-operations", "supply-chain-intelligence"];
+// studies, Repair Operations in front. Matches the "Default" filter in
+// CardStackContainer. resetLayout restores exactly this.
+const DEFAULT_OPEN = ["demand-sensing", "supply-chain-intelligence", "repair-operations"];
 const DEFAULT_Z: Record<string, number> = {
     "demand-sensing": 1,
-    "repair-operations": 2,
-    "supply-chain-intelligence": 3,
+    "supply-chain-intelligence": 2,
+    "repair-operations": 3,
 };
 const DEFAULT_TOP_Z = DEFAULT_OPEN.length;
 
 export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
     // Start empty for SSR safety and to keep mobile clear on startup
     const [openWindows, setOpenWindows] = useState<string[]>([]);
-    // Supply Chain Intelligence frontmost
+    // Repair Operations frontmost
     const [zIndexes, setZIndexes] = useState<Record<string, number>>(DEFAULT_Z);
     const [, setTopZ] = useState(DEFAULT_TOP_Z);
     const [layoutVersion, setLayoutVersion] = useState(0);
