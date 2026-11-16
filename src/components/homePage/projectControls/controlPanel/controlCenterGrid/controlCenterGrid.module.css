@@ -40,6 +40,16 @@
     transform: scale(0.94);
 }
 
+/* A toggle that's on (Night Shift): lit in the system orange, as macOS
+   shows Night Shift, with a white glyph. Same in both themes. */
+.round.roundOn,
+.round.roundOn:hover,
+:global([data-theme="dark"]) .round.roundOn,
+:global([data-theme="dark"]) .round.roundOn:hover {
+    background: #ff9f0a;
+    color: #ffffff;
+}
+
 .round:focus-visible,
 .vSlider:focus-visible {
     outline: 2px solid rgba(0, 122, 255, 0.6);

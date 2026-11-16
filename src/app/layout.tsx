@@ -4,6 +4,7 @@ import { ViewportProvider } from "./contexts/ViewportContext";
 import { VoiceModalProvider } from "./contexts/VoiceModalContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import CustomCursor from "@/components/ui/customCursor/CustomCursor";
+import NightShift from "@/components/ui/nightShift/NightShift";
 import A11yMotionConfig from "@/components/ui/a11yMotionConfig/A11yMotionConfig";
 import FeedbackModal from "@/components/feedbackModal/FeedbackModal";
 import FeedbackPopup from "@/components/feedbackPopup/FeedbackPopup";
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={geist.className} style={{ margin: 0, padding: 0, overflow: 'hidden' }}>
         <CustomCursor />
+        <NightShift />
         {/* page-content wraps everything that should be blurred when the
             welcome overlay is visible. WelcomeOverlay toggles a class on
             this div to apply filter: blur(): much more reliable than

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { getA11yPrefs } from "@/app/hooks/useA11yPrefs";
 import classes from "./mobileControls.module.css";
 import { Menu, Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -16,17 +15,7 @@ interface MobileControlsProps {
   onVoiceMode?: () => void;
   imageIndex?: number;
   onImageToggle?: () => void;
-  onScreenshot?: () => void;
   onShowPosts?: () => void;
-}
-
-// Shutter sound for screenshot feedback
-let shutterSound: HTMLAudioElement | null = null;
-function playShutterSound() {
-    if (getA11yPrefs().muteSounds) return; // Accessibility → Hearing
-    if (!shutterSound) shutterSound = new Audio("/shutter.mp3");
-    shutterSound.currentTime = 0;
-    shutterSound.play().catch(() => { });
 }
 
 // Colours for the mobile menu + Control Center. The floating buttons and the
@@ -75,7 +64,6 @@ export default function MobileControls({
   onVoiceMode,
   imageIndex = 1,
   onImageToggle,
-  onScreenshot,
   onShowPosts,
 }: MobileControlsProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -420,11 +408,6 @@ export default function MobileControls({
                 onBrightnessChange={handleBrightnessChange}
                 imageIndex={imageIndex}
                 onImageToggle={onImageToggle}
-                onScreenshot={() => {
-                  playShutterSound();
-                  setIsControlOpen(false);
-                  onScreenshot?.();
-                }}
               />
             </motion.div>
           </>

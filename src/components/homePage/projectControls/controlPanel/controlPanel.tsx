@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { getA11yPrefs } from "@/app/hooks/useA11yPrefs";
 import { motion, AnimatePresence } from "motion/react";
 import { Settings2 } from "lucide-react";
 import { useViewport } from "@/app/contexts/ViewportContext";
@@ -11,26 +10,15 @@ import ControlButton from "@/components/ui/controlButton/controlButton";
 import ControlCenterGrid from "./controlCenterGrid/ControlCenterGrid";
 import classes from "./controlPanel.module.css";
 
-// Shutter sound for screenshot feedback
-let shutterSound: HTMLAudioElement | null = null;
-function playShutterSound() {
-    if (getA11yPrefs().muteSounds) return; // Accessibility → Hearing
-    if (!shutterSound) shutterSound = new Audio("/shutter.mp3");
-    shutterSound.currentTime = 0;
-    shutterSound.play().catch(() => { });
-}
-
 interface ControlPanelProps {
     imageIndex?: number;
     onImageToggle?: () => void;
-    onScreenshot?: () => void;
     onPanelHover?: () => void;
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
     imageIndex = 1,
     onImageToggle,
-    onScreenshot,
     onPanelHover,
 }) => {
     const { isMobile, mounted } = useViewport();
@@ -131,11 +119,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                             onBrightnessChange={handleBrightnessChange}
                             imageIndex={imageIndex}
                             onImageToggle={onImageToggle}
-                            onScreenshot={() => {
-                                playShutterSound();
-                                setIsOpen(false);
-                                onScreenshot?.();
-                            }}
                         />
                     </motion.div>
                 )}

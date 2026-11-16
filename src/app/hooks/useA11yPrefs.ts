@@ -11,7 +11,6 @@ export type A11yPrefs = {
     reduceMotion: boolean;    // motor
     standardCursor: boolean;  // motor
     largerCaptions: boolean;  // hearing
-    muteSounds: boolean;      // hearing
 };
 
 export type A11yPref = keyof A11yPrefs;
@@ -22,7 +21,6 @@ const DEFAULTS: A11yPrefs = {
     reduceMotion: false,
     standardCursor: false,
     largerCaptions: false,
-    muteSounds: false,
 };
 
 const KEY = "a11y-prefs";
@@ -32,7 +30,6 @@ const ATTR: Record<A11yPref, string> = {
     reduceMotion: "data-a11y-reduce-motion",
     standardCursor: "data-a11y-standard-cursor",
     largerCaptions: "data-a11y-larger-captions",
-    muteSounds: "data-a11y-mute-sounds",
 };
 
 let prefs: A11yPrefs = DEFAULTS;

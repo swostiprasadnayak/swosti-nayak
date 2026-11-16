@@ -1,8 +1,9 @@
 "use client";
-import React, { useCallback, useId, useRef, useState } from "react";
-import { ChevronLeft, Ear, Eye, Hand, Image as ImageIcon, Moon, Sun, Volume1, Volume2, VolumeX } from "lucide-react";
+import React, { useCallback, useRef, useState } from "react";
+import { ChevronLeft, Ear, Eye, Hand, Image as ImageIcon, Moon, Sun, SunMoon, Volume1, Volume2, VolumeX } from "lucide-react";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import { setA11yPref, useA11yPrefs, type A11yPref } from "@/app/hooks/useA11yPrefs";
+import { setNightShift, useNightShift } from "@/app/hooks/useNightShift";
 import type { MusicPlayerState } from "@/app/hooks/useMusicPlayer";
 import MusicCard from "../musicCard/musicCard";
 import classes from "./controlCenterGrid.module.css";
@@ -13,7 +14,6 @@ type ControlCenterGridProps = {
     onBrightnessChange: (percent: number) => void;
     imageIndex: number;
     onImageToggle?: () => void;
-    onScreenshot?: () => void;
 };
 
 /** iOS-style Control Center body shared by the desktop panel and the mobile
@@ -21,9 +21,10 @@ type ControlCenterGridProps = {
  *  two tall vertical sliders (brightness, volume). Four equal columns, so it
  *  scales with whatever width the container gives it. */
 export default function ControlCenterGrid({
-    player, brightness, onBrightnessChange, imageIndex, onImageToggle, onScreenshot,
+    player, brightness, onBrightnessChange, imageIndex, onImageToggle,
 }: ControlCenterGridProps) {
     const { isDark, toggleTheme } = useTheme();
+    const nightShift = useNightShift();
     const [view, setView] = useState<"main" | "accessibility">("main");
     const volume = player.volume;
     const VolumeIcon = volume === 0 ? VolumeX : volume < 50 ? Volume1 : Volume2;
@@ -61,8 +62,13 @@ export default function ControlCenterGrid({
             <RoundButton label={`Wallpaper ${imageIndex}`} onClick={onImageToggle}>
                 <ImageIcon size={24} strokeWidth={1.75} />
             </RoundButton>
-            <RoundButton label="Screenshot" onClick={onScreenshot}>
-                <ScreenshotIcon />
+            {/* Night Shift: a warm tint over the whole site, on or off. */}
+            <RoundButton
+                label={nightShift ? "Night Shift: on" : "Night Shift: off"}
+                pressed={nightShift}
+                onClick={() => setNightShift(!nightShift)}
+            >
+                <SunMoon size={24} strokeWidth={1.75} />
             </RoundButton>
         </div>
     );
@@ -90,7 +96,6 @@ const A11Y_SECTIONS: { title: string; icon: React.ReactNode; items: { key: A11yP
         icon: <Ear size={16} strokeWidth={2} />,
         items: [
             { key: "largerCaptions", label: "Larger captions", hint: "Bigger subtitles in voice mode" },
-            { key: "muteSounds", label: "Mute interface sounds", hint: "Silences the screenshot click" },
         ],
     },
 ];
@@ -146,35 +151,27 @@ function AccessibilityIcon() {
     );
 }
 
-/** Screenshot glyph modelled on macOS's Screenshot icon: four corner brackets
- *  out at the frame edges, a solid camera centred with clear space around it,
- *  and a knocked-out lens ring (masked, so it works on any button colour). */
-function ScreenshotIcon() {
-    const lens = `ss-lens-${useId().replace(/:/g, "")}`;
+function RoundButton({
+    label,
+    onClick,
+    pressed,
+    children,
+}: {
+    label: string;
+    onClick?: () => void;
+    /** A toggle: lit while on (Night Shift). */
+    pressed?: boolean;
+    children: React.ReactNode;
+}) {
     return (
-        <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
-            <g fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 8.5V5A2.5 2.5 0 0 1 5 2.5h3.5" />
-                <path d="M15.5 2.5H19A2.5 2.5 0 0 1 21.5 5v3.5" />
-                <path d="M21.5 15.5V19a2.5 2.5 0 0 1-2.5 2.5h-3.5" />
-                <path d="M8.5 21.5H5A2.5 2.5 0 0 1 2.5 19v-3.5" />
-            </g>
-            <mask id={lens}>
-                <rect width="24" height="24" fill="white" />
-                <circle cx="12" cy="12.6" r="2.45" fill="none" stroke="black" strokeWidth="1.1" />
-            </mask>
-            <path
-                mask={`url(#${lens})`}
-                fill="currentColor"
-                d="M8 8.7h1.7l.85-1.4h2.9l.85 1.4H16a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H8a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 8 8.7z"
-            />
-        </svg>
-    );
-}
-
-function RoundButton({ label, onClick, children }: { label: string; onClick?: () => void; children: React.ReactNode }) {
-    return (
-        <button type="button" className={classes.round} onClick={onClick} aria-label={label} title={label}>
+        <button
+            type="button"
+            className={`${classes.round} ${pressed ? classes.roundOn : ""}`}
+            onClick={onClick}
+            aria-label={label}
+            aria-pressed={pressed}
+            title={label}
+        >
             {children}
         </button>
     );

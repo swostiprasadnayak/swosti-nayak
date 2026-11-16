@@ -3,7 +3,6 @@
 
 import { useState, useCallback, Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import html2canvas from "html2canvas";
 import DesktopSidebar from "@/components/desktopSidebar/desktopSidebar";
 import CardStackContainer from "@/components/homePage/cardStackContainer/cardStackContainer";
 import ExpandedProject from "@/components/homePage/expandedProject/ExpandedProject";
@@ -21,7 +20,6 @@ import ControlButton from "@/components/ui/controlButton/controlButton";
 import ThemeToggle from "@/components/homePage/projectControls/themeToggle/themeToggle";
 import ViewToggle, { ViewMode } from "@/components/homePage/projectControls/viewToggle/viewToggle";
 import CodeRevealToggle from "@/components/homePage/projectControls/codeRevealToggle/codeRevealToggle";
-import ScreenshotThumbnail from "@/components/screenshot/screenshotThumbnail";
 import MobileNav from "@/components/mobile/MobileNav";
 import MobileControls from "@/components/mobile/MobileControls";
 import MobileBlocker from "@/components/mobile/MobileBlocker";
@@ -68,10 +66,6 @@ function HomeContent() {
     next.src = WALLPAPERS[(imageIndex + 1) % WALLPAPERS.length];
   }, [imageIndex]);
 
-  // Screenshot State
-  const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);
-  const [captureKey, setCaptureKey] = useState(0);
-
   // Project Expansion State
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
   const [isPostsOpen, setIsPostsOpen] = useState(false);
@@ -114,27 +108,6 @@ function HomeContent() {
     router.replace(newPathname, { scroll: false });
   }, [expandedProject, isPostsOpen, router]);
 
-  // The function that takes the picture
-  const handleScreenshot = useCallback(async () => {
-    try {
-      // Wait 350ms to ensure the dropdown menu has fully animated out of view
-      setTimeout(async () => {
-        const canvas = await html2canvas(document.body, {
-          ignoreElements: (element) => element.hasAttribute('data-screenshot-exclude'),
-          backgroundColor: null,
-          scale: 2, // Captures in high-res (Retina quality)
-          useCORS: true, // Crucial for capturing background images
-          allowTaint: true,
-        });
-        const url = canvas.toDataURL("image/png");
-        setScreenshotUrl(url);
-        setCaptureKey(prev => prev + 1);
-      }, 350);
-    } catch (error) {
-      console.error("Screenshot capture failed", error);
-    }
-  }, []);
-
   return (
     <main style={{ display: 'flex', height: '100dvh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
 
@@ -166,7 +139,7 @@ function HomeContent() {
         <GradientBlur direction="top" />
 
         {/* Top Controls Container: Left, Center, Right components */}
-        <div style={{ position: 'absolute', top: 24, left: 24, right: 24, zIndex: 50, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', pointerEvents: 'none' }} data-screenshot-exclude className="desktop-controls">
+        <div style={{ position: 'absolute', top: 24, left: 24, right: 24, zIndex: 50, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', pointerEvents: 'none' }} className="desktop-controls">
 
           {/* Top Left: Filter Dropdown */}
           <div style={{ pointerEvents: 'auto' }}>
@@ -192,7 +165,6 @@ function HomeContent() {
               <ControlPanel
                 imageIndex={imageIndex + 1}
                 onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
-                onScreenshot={handleScreenshot}
               />
               <CodeRevealToggle />
             </ControlsRow>
@@ -210,7 +182,6 @@ function HomeContent() {
             onVoiceMode={openVoiceModal}
             imageIndex={imageIndex + 1}
             onImageToggle={() => setImageIndex((prev) => (prev + 1) % WALLPAPERS.length)}
-            onScreenshot={handleScreenshot}
             onShowPosts={() => setIsPostsOpen(true)}
           />
         </div>
@@ -304,13 +275,6 @@ function HomeContent() {
       {/* 3. The Modals */}
       <AboutModal />
       <VoiceModal />
-
-      {/* The Floating Screenshot Preview */}
-      <ScreenshotThumbnail
-        url={screenshotUrl}
-        captureKey={captureKey}
-        onDismiss={() => setScreenshotUrl(null)}
-      />
     </main>
   );
 }
