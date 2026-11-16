@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
-import { Eyebrow, Paragraphs } from "./blocks";
+import { QuestionHead } from "./blocks";
 import SeatIcon, { type SeatIconName } from "./SeatIcon";
 import { orbBackground, tintFor, type AgentTint } from "./agentPalette";
 import classes from "./navanta.module.css";
@@ -114,15 +114,7 @@ export default function RelayLanes({
 
     return (
         <section className={classes.question}>
-            <div className={classes.questionHead}>
-                <div>
-                    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-                    <h2 className={classes.h2}>{heading}</h2>
-                </div>
-                <div>
-                    <Paragraphs items={intro} />
-                </div>
-            </div>
+            <QuestionHead eyebrow={eyebrow} heading={heading} body={intro} />
 
             <div className={classes.relay} style={{ "--rows": rows } as React.CSSProperties}>
                 <div className={classes.relayDays} aria-hidden="true">

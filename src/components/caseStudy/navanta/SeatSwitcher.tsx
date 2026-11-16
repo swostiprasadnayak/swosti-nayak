@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 import ScreenTabs, { type ScreenTab } from "./ScreenTabs";
 import SeatIcon, { type SeatIconName } from "./SeatIcon";
 import { orbBackground, tintFor } from "./agentPalette";
-import { Eyebrow, Paragraphs } from "./blocks";
+import { Eyebrow, QuestionHead } from "./blocks";
 import classes from "./navanta.module.css";
 
 export type Seat = {
@@ -57,15 +57,7 @@ export default function SeatSwitcher({
 
     return (
         <section className={classes.question}>
-            <div className={classes.questionHead}>
-                <div>
-                    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-                    <h2 className={classes.h2}>{heading}</h2>
-                </div>
-                <div>
-                    <Paragraphs items={intro} />
-                </div>
-            </div>
+            <QuestionHead eyebrow={eyebrow} heading={heading} body={intro} />
 
             <div className={classes.seats}>
                 <div className={classes.seatMenu}>

@@ -156,11 +156,29 @@
     gap: 40px;
 }
 
+/* Eyebrow on its own row, then the question and its body side by side,
+   both from the top: the body starts level with the question and runs
+   down, never up past it. */
 .questionHead {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-    gap: 48px;
-    align-items: end;
+    grid-template-areas:
+        "eyebrow ."
+        "heading body";
+    column-gap: 48px;
+    align-items: start;
+}
+
+.questionHead > .eyebrow {
+    grid-area: eyebrow;
+}
+
+.questionHead > .h2 {
+    grid-area: heading;
+}
+
+.questionBody {
+    grid-area: body;
 }
 
 /* State legend */
@@ -1741,10 +1759,21 @@
     }
 
     .split,
-    .questionHead,
     .lifecycle {
         grid-template-columns: minmax(0, 1fr);
         gap: 24px;
+    }
+
+    .questionHead {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "eyebrow"
+            "heading"
+            "body";
+    }
+
+    .questionBody {
+        margin-top: 20px;
     }
 
     .scenarioRow {

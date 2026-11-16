@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import ScreenFrame, { type ScreenFrameProps } from "./ScreenFrame";
-import { Eyebrow, Paragraphs } from "./blocks";
+import { QuestionHead } from "./blocks";
 import classes from "./navanta.module.css";
 
 export type LifecycleStep = {
@@ -31,15 +31,7 @@ export default function LifecycleTracker({
 
     return (
         <section className={classes.question}>
-            <div className={classes.questionHead}>
-                <div>
-                    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-                    <h2 className={classes.h2}>{heading}</h2>
-                </div>
-                <div>
-                    <Paragraphs items={intro} />
-                </div>
-            </div>
+            <QuestionHead eyebrow={eyebrow} heading={heading} body={intro} />
 
             <div className={classes.lifecycle}>
                 <ol className={classes.steps} aria-label={`${heading}: steps`}>

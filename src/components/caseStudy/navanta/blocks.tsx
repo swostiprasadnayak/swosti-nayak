@@ -141,6 +141,29 @@ export function StateLegend({ items, layout = "columns" }: { items: LegendItem[]
     );
 }
 
+/** A section's head: eyebrow and question on the left, the body on the
+ *  right. The eyebrow sits on its own row, so the body starts level with the
+ *  question and never rises above it. */
+export function QuestionHead({
+    eyebrow,
+    heading,
+    body,
+}: {
+    eyebrow?: string;
+    heading: string;
+    body: string[];
+}) {
+    return (
+        <div className={classes.questionHead}>
+            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            <h2 className={classes.h2}>{heading}</h2>
+            <div className={classes.questionBody}>
+                <Paragraphs items={body} />
+            </div>
+        </div>
+    );
+}
+
 /** A section titled as the question the user would ask. */
 export function QuestionSection({
     eyebrow,
@@ -159,15 +182,7 @@ export function QuestionSection({
 }) {
     return (
         <section className={classes.question}>
-            <div className={classes.questionHead}>
-                <div>
-                    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-                    <h2 className={classes.h2}>{question}</h2>
-                </div>
-                <div>
-                    <Paragraphs items={why} />
-                </div>
-            </div>
+            <QuestionHead eyebrow={eyebrow} heading={question} body={why} />
             {legend}
             {screen && <ScreenFrame {...screen} />}
             {children}

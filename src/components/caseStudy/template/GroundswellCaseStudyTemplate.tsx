@@ -149,8 +149,7 @@ export default function GroundswellCaseStudyTemplate() {
                         eyebrow="Signal"
                         question="Is this a trend, or noise?"
                         why={[
-                            "Atlas reads the signal on the VP's dashboard and opens a frame: what happened, what it means, and who has to decide.",
-                            "It doesn't act. It makes four calls and holds each one for the seat that owns it: two for Priya, one for Marcus, one for Daniela.",
+                            "Atlas frames the surge on the VP's dashboard, then stops. Each of its four calls waits for the person who owns it.",
                         ]}
                         screen={{
                             title: "Atlas on the Trend surge frame",
@@ -165,8 +164,7 @@ export default function GroundswellCaseStudyTemplate() {
                         eyebrow="Apply"
                         question="How much more will we sell?"
                         why={[
-                            "Demand build-up lists the stores under the hospital award with their trend. Iris reads ×1.48 at the Dallas branch, but the column stays ×1.00, marked “not applied”, until a person applies it.",
-                            "Applying shows the next 16 weeks before and after, and logs the change to the audit trail as Priya's.",
+                            "Iris reads ×1.48 at the Dallas branch. The forecast stays at ×1.00 until Priya applies it, and the change is logged as hers.",
                         ]}
                     >
                         <ScreenTabs
@@ -196,8 +194,7 @@ export default function GroundswellCaseStudyTemplate() {
                         eyebrow="Buy"
                         question="So what do we actually order?"
                         why={[
-                            "Inventory planning turns the new forecast into a buy with the arithmetic on screen: the next four weeks, plus the branch's max, minus what's on hand.",
-                            "Priya approves the units with Iris, Mercer drafts the PO, and it lands in Marcus's buying queue with what's left of the month's budget.",
+                            "The new forecast becomes a buy, with the maths on screen. Priya approves it, Mercer drafts the PO, and it lands in Marcus's queue.",
                         ]}
                         legend={
                             <StateLegend
@@ -245,8 +242,7 @@ export default function GroundswellCaseStudyTemplate() {
                         eyebrow="The map"
                         question="Where's the nearest spare stock, and can it get here in time?"
                         why={[
-                            "Daniela opens her branch on the map. Every branch is a pin coloured by its stock, and the order waiting on a short SKU sits right on her branch.",
-                            "Christy searches a 30-mile ring, closest first, checks every location and prices the routes. Her pick is drawn on the map with its landing date; the alternatives sit beside it.",
+                            "Every branch is a pin coloured by its stock. Christy searches 30 miles out, closest first, and maps her pick with its landing date.",
                         ]}
                         legend={
                             <StateLegend
