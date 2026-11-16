@@ -15,16 +15,19 @@ export type ScreenFrameProps = {
     aspect?: string;
     /** Blur the media for client work that can't be shown in full. */
     redact?: boolean;
+    /** Cut-out UI (a transparent PNG of a few cards): no frame surface or
+     *  border, and the whole image shows instead of being cropped. */
+    bare?: boolean;
 };
 
 /** A screenshot or video in a frame. Without media it renders a labelled
     placeholder so the page can be laid out before the assets exist. */
-export default function ScreenFrame({ title, src, video, alt, caption, aspect = "16 / 10", redact }: ScreenFrameProps) {
+export default function ScreenFrame({ title, src, video, alt, caption, aspect = "16 / 10", redact, bare }: ScreenFrameProps) {
     const hasMedia = Boolean(video || src);
     return (
         <figure className={classes.screen}>
             <div
-                className={`${classes.screenSurface} ${redact ? classes.redacted : ""}`}
+                className={`${classes.screenSurface} ${bare ? classes.screenBare : ""} ${redact ? classes.redacted : ""}`}
                 style={{ aspectRatio: aspect }}
             >
                 {video ? (
@@ -44,7 +47,7 @@ export default function ScreenFrame({ title, src, video, alt, caption, aspect = 
                         alt={alt ?? title}
                         fill
                         sizes="(max-width: 768px) 100vw, 900px"
-                        style={{ objectFit: "cover", objectPosition: "top" }}
+                        style={{ objectFit: bare ? "contain" : "cover", objectPosition: "top" }}
                     />
                 ) : null}
                 {!hasMedia && (

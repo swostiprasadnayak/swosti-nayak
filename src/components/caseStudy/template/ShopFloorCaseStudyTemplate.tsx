@@ -37,6 +37,9 @@ import { useVoiceModal } from "@/app/contexts/VoiceModalContext";
 
 const IMG = "/images/navanta/shop-floor";
 const SHOT = "1440 / 900";
+/** The journey shows only what moves: the live shop view and the RO tracker,
+ *  cut out of each step's screen (flow-*.png, transparent around the cards). */
+const FLOW = "1326 / 1067";
 
 export default function ShopFloorCaseStudyTemplate() {
     const { openModal } = useVoiceModal();
@@ -131,27 +134,27 @@ export default function ShopFloorCaseStudyTemplate() {
                             {
                                 name: "Intake",
                                 note: "Backs into the inspection bay. Iris opens the RO with a diagnostic task and the fee on it. The customer gets a live status link.",
-                                screen: { title: "Intake: Truck A in the inspection bay", src: `${IMG}/step-intake.png`, aspect: SHOT },
+                                screen: { title: "Intake: Truck A in the inspection bay", src: `${IMG}/flow-intake.png`, aspect: FLOW, bare: true },
                             },
                             {
                                 name: "Assigned",
                                 note: "A reefer-certified tech is matched to Bay 3 and the compressor kit leaves the parts cage. The customer gets a promise time: 3:30 PM.",
-                                screen: { title: "Assigned: kit leaves the parts cage", src: `${IMG}/step-assigned.png`, aspect: SHOT },
+                                screen: { title: "Assigned: kit leaves the parts cage", src: `${IMG}/flow-assigned.png`, aspect: FLOW, bare: true },
                             },
                             {
                                 name: "Repair",
                                 note: "The clock runs against the standard repair time: 1.4 of 2.0 hours. The tech finds a worn seal and the customer approves it from a photo.",
-                                screen: { title: "Repair: Bay 3, SRT clock running", src: `${IMG}/step-repair.png`, aspect: SHOT },
+                                screen: { title: "Repair: Bay 3, SRT clock running", src: `${IMG}/flow-repair.png`, aspect: FLOW, bare: true },
                             },
                             {
                                 name: "Pickup",
                                 note: "Done at 2.0 hours, out to the pickup pad, collected at 2:45 PM. On-time moves from 91% to 92%.",
-                                screen: { title: "Pickup: collected ahead of the promise", src: `${IMG}/step-pickup.png`, aspect: SHOT },
+                                screen: { title: "Pickup: collected ahead of the promise", src: `${IMG}/flow-pickup.png`, aspect: FLOW, bare: true },
                             },
                             {
                                 name: "Invoicing",
                                 note: "Iris checks labor, parts and fees against the RO before the invoice goes. All five steps done.",
-                                screen: { title: "Invoicing: RO checked and invoiced", src: `${IMG}/step-invoicing.png`, aspect: SHOT },
+                                screen: { title: "Invoicing: RO checked and invoiced", src: `${IMG}/flow-invoicing.png`, aspect: FLOW, bare: true },
                             },
                         ]}
                     />

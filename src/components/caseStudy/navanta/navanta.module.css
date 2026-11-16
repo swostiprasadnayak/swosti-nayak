@@ -224,6 +224,13 @@
     border: 1px solid var(--border-subtle);
 }
 
+/* Cut-out cards sit straight on the page: no surface, border or corners. */
+.screenBare {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
 .screenPlaceholder {
     position: absolute;
     inset: 0;
