@@ -42,7 +42,7 @@ type CardStackContainerProps = {
 // also the mobile stack's order). The desktop sync brings them forward in
 // reverse, so the first one ends up on top. Positions and the load-time
 // layout (DEFAULT_OPEN): useWindowMode.
-const DEFAULT_ORDER = ["repair-operations", "supply-chain-intelligence", "demand-sensing"];
+const DEFAULT_ORDER = ["supply-chain-intelligence", "repair-operations", "demand-sensing"];
 const FRONT_SLUG = DEFAULT_ORDER[0];
 
 const CardStackContainer: React.FC<CardStackContainerProps> = ({
