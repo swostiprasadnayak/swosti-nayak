@@ -59,10 +59,10 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                             Swosti
                         </Link>
                         <p className={classes.bio}>
-                            Product designer crafting thoughtful, user-centric interfaces.
+                            I turn complex problems into simple, useful products.
                         </p>
                         <p className={classes.bioSecondary}>
-                            Informed by cognitive science. Built for production.
+                            Designer by craft. Builder with AI and code.
                         </p>
                     </div>
 
