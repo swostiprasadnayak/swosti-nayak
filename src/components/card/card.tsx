@@ -112,6 +112,7 @@ const Card: React.FC<CardProps> = ({
                 <motion.div
                     className={classes.cardContainer}
                     data-component="Card"
+                    data-tilt-host
                     data-project={projectName}
                     style={{ zIndex, cursor: isDisabled ? "default" : "pointer" }}
                     onClick={handleClick}

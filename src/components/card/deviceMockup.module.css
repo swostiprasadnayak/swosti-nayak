@@ -17,10 +17,13 @@
     display: grid;
     place-items: center;
     container-type: size;
+    /* Depth for the hover tilt (see DeviceMockup). */
+    perspective: 1100px;
 }
 
 .stage {
     position: relative;
+    will-change: transform;
     width: min(96cqw, calc(94cqh * 1.7));
     aspect-ratio: 1.7;
     container-type: inline-size;

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, useSpring } from "motion/react";
 import classes from "./deviceMockup.module.css";
 import { useVideoPlayback } from "@/app/hooks/useVideoPlayback";
 
@@ -21,6 +21,13 @@ export type DeviceLayout =
     | "wall-tablet"
     /** A thin wall screen playing the film, on its own. */
     | "wall";
+
+/* On hover the devices lean towards the pointer, a few degrees in 3D, as if
+   the side under it came forward; they settle flat again when it leaves. The
+   card's tile stays still. It follows the pointer anywhere over the card that
+   holds them (the nearest [data-tilt-host]), not just over the devices. */
+const TILT_MAX = 8; // degrees, at the card's edge
+const TILT_SPRING = { stiffness: 150, damping: 20, mass: 0.6 };
 
 export type DeviceMockupProps = {
     layout?: DeviceLayout;
@@ -113,9 +120,39 @@ export default function DeviceMockup({
     bottomInset = 0,
 }: DeviceMockupProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
+    const sceneRef = useRef<HTMLDivElement>(null);
     const reduceMotion = useReducedMotion();
     // Motion-sensitive viewers get the poster frame, still.
     useVideoPlayback(videoRef, playing && !reduceMotion);
+
+    const rotateX = useSpring(0, TILT_SPRING);
+    const rotateY = useSpring(0, TILT_SPRING);
+    useEffect(() => {
+        const scene = sceneRef.current;
+        if (!scene || reduceMotion) return;
+        const host = scene.closest<HTMLElement>("[data-tilt-host]") ?? scene;
+        const clamp = (v: number) => Math.max(-0.5, Math.min(0.5, v));
+        const move = (e: PointerEvent) => {
+            if (e.pointerType !== "mouse") return;
+            const r = scene.getBoundingClientRect();
+            const x = clamp((e.clientX - r.left) / r.width - 0.5);
+            const y = clamp((e.clientY - r.top) / r.height - 0.5);
+            // The side under the pointer comes forward.
+            rotateY.set(-x * 2 * TILT_MAX);
+            rotateX.set(y * 2 * TILT_MAX);
+        };
+        const settle = () => {
+            rotateX.set(0);
+            rotateY.set(0);
+        };
+        host.addEventListener("pointermove", move);
+        host.addEventListener("pointerleave", settle);
+        return () => {
+            host.removeEventListener("pointermove", move);
+            host.removeEventListener("pointerleave", settle);
+            settle();
+        };
+    }, [reduceMotion, rotateX, rotateY]);
 
     const filmEl = (
         <video
@@ -132,9 +169,9 @@ export default function DeviceMockup({
     );
 
     return (
-        <div className={classes.scene} aria-hidden="true">
+        <div className={classes.scene} ref={sceneRef} aria-hidden="true">
             <div className={classes.area} style={{ bottom: bottomInset }}>
-                <div className={`${classes.stage} ${LAYOUT_CLASS[layout]}`}>
+                <motion.div className={`${classes.stage} ${LAYOUT_CLASS[layout]}`} style={{ rotateX, rotateY }}>
                     {layout === "desk" && (
                         <>
                             <Monitor aspect={filmAspect}>{filmEl}</Monitor>
@@ -154,7 +191,7 @@ export default function DeviceMockup({
                         </>
                     )}
                     {layout === "wall" && <Wall aspect={filmAspect}>{filmEl}</Wall>}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

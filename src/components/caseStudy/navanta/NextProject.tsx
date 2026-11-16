@@ -40,6 +40,7 @@ function NextCard({ project, onOpen }: { project: ProjectContent; onOpen: () => 
     return (
         <div
             className={classes.nextWindow}
+            data-tilt-host
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
