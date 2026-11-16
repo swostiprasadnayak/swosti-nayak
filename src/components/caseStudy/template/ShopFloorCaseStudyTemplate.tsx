@@ -106,20 +106,8 @@ export default function ShopFloorCaseStudyTemplate() {
                     {/* 02b · The brief: what we were given, against what we built */}
                     <QuestionSection
                         eyebrow="The brief"
-                        question="What we were given, and what we made"
-                        why={[
-                            "The brief was a storyboard for a 30-second video: one truck through one branch, with the trackers, pop-ups and value tags laid out frame by frame, and a placeholder where the 3D scene would go.",
-                            "It became a working prototype, and the film at the top is a recording of it. Drag across to compare.",
-                        ]}
-                        legend={
-                            <StateLegend
-                                items={[
-                                    { label: "Kept", note: "The KPI row, the customer pop-up, the value tags, the bays table and the five-step RO tracker, all from the brief." },
-                                    { label: "Built out", note: "The placeholder became the whole branch in 3D. The asset card became one panel linking truck, bay, customer and tech." },
-                                    { label: "Added", note: "Three work queues for the desks: repair orders, bays and techs, and invoicing." },
-                                ]}
-                            />
-                        }
+                        question="What we got, and what we made"
+                        why={["A storyboard for a 30-second video, built into a working prototype. Drag to compare."]}
                     >
                         <CompareSlider
                             label="The brief and the first draft compared with the shop floor today"
@@ -129,14 +117,13 @@ export default function ShopFloorCaseStudyTemplate() {
                                 {
                                     label: "Intake",
                                     beforeLabel: "The brief",
-                                    note: "Truck A checks in. The brief's intake frame, shown inside the product's shell, against the shop floor today.",
                                     before: { src: `${IMG}/brief-intake.jpg`, alt: "The brief at intake: a flat layout of the gate, bays, trackers, a customer pop-up and a value tag" },
                                     after: { src: `${IMG}/now-intake.jpg`, alt: "Today at intake: the full 3D branch with Truck A's status card" },
                                 },
                                 {
                                     label: "Repair",
                                     beforeLabel: "First draft",
-                                    note: "Truck A in Bay 3. The first draft held a placeholder image where the scene would go (blurred here: it was a stock picture).",
+                                    note: "The first draft's placeholder image is blurred: it was a stock picture.",
                                     before: { src: `${IMG}/first-look-repair.jpg`, alt: "First draft at repair: a placeholder where the 3D scene would go" },
                                     after: { src: `${IMG}/now-repair.jpg`, alt: "Today at repair: Truck A in Bay 3 with the standard-time clock running" },
                                 },
