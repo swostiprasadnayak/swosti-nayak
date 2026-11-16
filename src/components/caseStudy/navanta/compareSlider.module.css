@@ -48,32 +48,19 @@
     outline-offset: 3px;
 }
 
-.tag {
-    position: absolute;
-    top: 12px;
-    padding: 4px 10px;
-    border-radius: 100px;
-    font-size: 0.75rem;
+/* Which side is which, named above the screen so nothing covers it. */
+.sides {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
     font-weight: 500;
-    line-height: 1.4;
-    color: #ffffff;
-    background: rgba(17, 24, 39, 0.72);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+    color: var(--text-secondary);
 }
 
-.tagBefore {
-    left: 12px;
-}
-
-.tagAfter {
-    right: 12px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .tag {
-        transition: none;
-    }
+.sides span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }

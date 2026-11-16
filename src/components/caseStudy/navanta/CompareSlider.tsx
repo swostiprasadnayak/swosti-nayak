@@ -16,6 +16,9 @@ export type ComparePair = {
     note?: string;
     before: Shot;
     after: Shot;
+    /** Names for the two sides of this pair; fall back to the component's. */
+    beforeLabel?: string;
+    afterLabel?: string;
 };
 
 const clamp = (v: number) => Math.min(100, Math.max(0, v));
@@ -42,6 +45,8 @@ export default function CompareSlider({
     const tabs = useRef<(HTMLButtonElement | null)[]>([]);
     const id = useId();
     const pair = pairs[active];
+    const left = pair.beforeLabel ?? beforeLabel;
+    const right = pair.afterLabel ?? afterLabel;
 
     const fromPointer = (clientX: number) => {
         const box = surface.current?.getBoundingClientRect();
@@ -117,6 +122,21 @@ export default function CompareSlider({
                 aria-labelledby={pairs.length > 1 ? `${id}-tab-${active}` : undefined}
             >
                 {pair.note && <p className={nav.tabNote}>{pair.note}</p>}
+                {/* The two sides are named above the screen, never on it. */}
+                <div className={classes.sides} aria-hidden="true">
+                    <span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M7.5 2.5 4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        {left}
+                    </span>
+                    <span>
+                        {right}
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M4.5 2.5 8 6 4.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </span>
+                </div>
                 <figure className={nav.screen}>
                     <div
                         ref={surface}
@@ -146,24 +166,17 @@ export default function CompareSlider({
                             />
                         </div>
 
-                        <span className={`${classes.tag} ${classes.tagBefore}`} style={{ opacity: pos < 18 ? 0 : 1 }} aria-hidden="true">
-                            {beforeLabel}
-                        </span>
-                        <span className={`${classes.tag} ${classes.tagAfter}`} style={{ opacity: pos > 82 ? 0 : 1 }} aria-hidden="true">
-                            {afterLabel}
-                        </span>
-
                         <div className={classes.divider} style={{ left: `${pos}%` }} aria-hidden="true" />
                         <div
                             className={classes.handle}
                             style={{ left: `${pos}%` }}
                             role="slider"
                             tabIndex={0}
-                            aria-label={`${label}: ${beforeLabel.toLowerCase()} on the left, ${afterLabel.toLowerCase()} on the right`}
+                            aria-label={`${label}: ${left.toLowerCase()} on the left, ${right.toLowerCase()} on the right`}
                             aria-valuemin={0}
                             aria-valuemax={100}
                             aria-valuenow={Math.round(pos)}
-                            aria-valuetext={`${Math.round(pos)}% ${beforeLabel.toLowerCase()}`}
+                            aria-valuetext={`${Math.round(pos)}% ${left.toLowerCase()}`}
                             onKeyDown={onHandleKey}
                         >
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
