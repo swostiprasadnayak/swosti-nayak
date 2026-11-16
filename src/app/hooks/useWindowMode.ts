@@ -87,8 +87,8 @@ export function useWindowMode(viewMode: 'tab' | 'card' = 'tab'): WindowModeAPI {
             "insure-tech":{ x:   75, y: -15 },
             // Default: a staircase, back card top left, front card bottom right.
             "demand-sensing":            { x: -210, y: -60 },
-            "supply-chain-intelligence": { x:  -20, y: -15 },
-            "repair-operations":         { x:  200, y:  55 },
+            "repair-operations":         { x:  -20, y: -15 },
+            "supply-chain-intelligence": { x:  200, y:  55 },
         };
         return positions[slug] || { x: 0, y: 0 };
     }, [viewMode]);
